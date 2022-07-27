@@ -2,7 +2,7 @@
 ## Overview
 
 ```
-As an employee with access to sensitive data I want to randomly generate a password that meets certain criteria so that I can create a strong password that provides greater security
+As an active skier I want to plan my ski adventures using critical information about the travel process such as weather (current location, along the route & at the destination), map my route including travel alerts and more.
 ```
 
 
@@ -33,19 +33,25 @@ As an employee with access to sensitive data I want to randomly generate a passw
 ## Criteria
 
 ```
-GIVEN I need a new, secure password
-WHEN I click the button to generate a password
-THEN I am presented with a series of prompts for password criteria
-WHEN prompted for password criteria
-THEN I select which criteria to include in the password
-WHEN prompted for the length of the password
-THEN I choose a length of at least 8 characters and no more than 128 characters
+GIVEN I ski I want to plan my trip
+WHEN I enter my start and end location
+THEN I am presented with a map that provides (travel route, distance, )
+
+WHEN prompted...
+THEN I select which criteria....
+
+WHEN prompted... 
+THEN ....
+
 WHEN asked for character types to include in the password
 THEN I confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
+
 WHEN I answer each prompt
 THEN my input should be validated and at least one character type should be selected
+
 WHEN all prompts are answered
 THEN a password is generated that matches the selected criteria
+
 WHEN the password is generated
 THEN the password is either displayed in an alert or written to the page
 ```
@@ -65,10 +71,17 @@ THEN the password is either displayed in an alert or written to the page
 2. CSS
 3. GitHub (website hosting and source code management)
 
+## Collaborators
+
+1. Alex Cleveland: [Github LINK](https://github.com/AClevel5/)
+
+2. Dan Kelly: [Github LINK](https://github.com/dpk5e7)
+
+3. Steve Calla: [Github LINK](https://github.com/stevecalla)
+
+
 ## Resources
 
-1. GitHub Repo: <https://github.com/stevecalla/generate-password>
+1. GitHub Repo: <https://github.com/stevecalla/ski-planner>
 
-2. GitHub Hosted URL: <https://stevecalla.github.io/generate-password/>
-
-3. Project Manager: [Steve Calla](https://github.com/stevecalla)
+2. GitHub Hosted URL: <https://stevecalla.github.io/ski-planner/>
