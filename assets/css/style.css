@@ -1,15 +1,43 @@
+:root {
+  /* declare a variable with `--` syntax */
+  --dark-text: #13293d;
+  --dark-background: #13293d;
+  --light-text: #f5f5f5;
+  --light-background: #c0c0c0;
+  --border-radius: 5px;
+}
+
 * {
   /* border: 1px solid red;
   box-sizing: border-box; */
-}
-
-:root {
-  /* --main-bg-color: black; */
+  box-sizing: border-box;
 }
 
 html {
   /* width: 100%;
   font-family: "Times New Roman", Times, serif; */
+}
+
+body {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  background-color: var(--light-background);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bolder;
+}
+
+/* Set the size of the div element that contains the map */
+#map {
+  height: 920px;
+  /* The height is 400 pixels */
+  width: 100%;
+  /* The width is the width of the web page */
 }
 
 /* ---------- MOBILE RESPONSIVE ---------- */

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <title>Google Map</title>
+</head>
+
+<body>
+  <header>
+    <h1>Google Map</h1>
+  </header>
+
+
+  <aside>
+    <section>
+      <h3>Maps Test:</h3>
+      <form id="searchForm">
+        <input type="text" id="txtSearch" placeholder="Ski Area" />
+        <select id="ddPass">
+          <option value="">All</option>
+          <option value="Epic">Epic</option>
+          <option value="Ikon">Ikon</option>
+          <option value="Independent">Independent</option>
+        </select>
+
+        <button type="submit">Search</button>
+      </form>
+
+      <hr>
+    </section>
+  </aside>
+
+  <main>
+    <div id="map"></div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrPbBvNhBCNiSVv3-BJl-n95Hymqd0RPo&callback=initMap">
+    </script>
+
+  <script src="./assets/js/config.js"></script>
+  <script src="./assets/js/skiAreas.js"></script>
+
+  <script src="./assets/js/GoogleMapScript.js"></script>
+</body>
+
+</html>
