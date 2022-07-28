@@ -60,8 +60,49 @@ function displayMarkers(pass) {
       filteredSkiAreas[i].Latitude,
       filteredSkiAreas[i].Longitude,
     ]).addTo(markers);
-    marker.bindPopup(filteredSkiAreas[i].Name);
+
+    // Isn't working due to CORS policy
+    let dataSNOTEL = fetchClosestSNOTEL(
+      filteredSkiAreas[i].Latitude,
+      filteredSkiAreas[i].Longitude
+    );
+
+    let popupText = `<h4>${filteredSkiAreas[i].Name}</h4>`;
+    // let popupText = `<h4>${filteredSkiAreas[i].Name}</h4>
+    //   <p>Closest SNOTEL: ${dataSNOTEL.station_information.name}</p>
+    //   <p>Elevation: ${dataSNOTEL.station_information.elevation}</p>
+    //   <p>Distance: ${dataSNOTEL.distance}</p>
+    //   <p>Data: ${dataSNOTEL.data[0]}</p>
+    // `;
+
+    marker.bindPopup(popupText);
   }
+}
+
+function fetchClosestSNOTEL(lat, lon) {
+  let apiUrl = `http://api.powderlin.es/closest_stations?lat=${lat}&lng=${lon}&data=true&days=0&count=1`;
+
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+
+  // Not working due to CORS policy
+  fetch(apiUrl, requestOptions).then(function (response) {
+    if (response.ok) {
+      console.log(response);
+      response
+        .json()
+        .then(function (data) {
+          console.log(data);
+          return data;
+        })
+        .catch((error) => console.log("error", error));
+    }
+  });
+
+  //const response = await fetch(apiUrl, requestOptions);
+  //const data = await response.json();
 }
 
 ddPass.addEventListener("change", function () {
