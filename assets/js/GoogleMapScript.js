@@ -70,15 +70,44 @@ $(document).ready(function () {
       });
 
       // Add a click listener for each marker, and set up the info window.
-      marker.addListener("click", () => {
+      async function markerClick() {
+        let weatherData = await fetchWeatherData(
+          filteredSkiAreas[i].Latitude,
+          filteredSkiAreas[i].Longitude
+        );
+
+        let popupText = `<h4>${filteredSkiAreas[i].Name}</h4>
+        <img src="https://openweathermap.org/img/wn/${weatherData.current.weather[0].icon}.png" />
+        <p>Weather: ${weatherData.current.weather[0].main}<br />
+        Temperature: ${weatherData.current.temp} \xB0F<br />
+        Wind Speed: ${weatherData.current.wind_speed} MPH<br />
+        Humidity: ${weatherData.current.humidity}%</p>
+      `;
+
         infoWindow.close();
-        infoWindow.setContent(marker.getTitle());
+        infoWindow.setContent(popupText);
         infoWindow.open(marker.getMap(), marker);
-      });
+      }
+      marker.addListener("click", markerClick);
 
       //Add marker to the array.
       markers.push(marker);
     }
+  }
+
+  async function fetchWeatherData(lat, lon) {
+    //https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly,alerts&appid={apiKey}
+    let apiKey = config.OPEN_WEATHER_KEY;
+    let lang = "en";
+    let units = "imperial";
+    let exclude = "minutely,hourly,alerts";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}&lang=${lang}&exclude=${exclude}`;
+
+    // Force it to wait for data to return before going on
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    return data;
   }
 
   ddPass.addEventListener("change", function () {

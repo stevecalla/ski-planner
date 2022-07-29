@@ -5,24 +5,6 @@ let ddPass = document.querySelector("#ddPass");
 let map;
 var markers;
 
-async function fetchCoodinates(cityName) {
-  let apiKey = config.OPEN_WEATHER_KEY;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
-
-  // Force it to wait for data to return before going on
-  const response = await fetch(apiUrl);
-  const data = await response.json();
-
-  return [data.coord.lat, data.coord.lon];
-}
-
-// Function to remove all child nodes
-function removeAllChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
-
 //https://stackoverflow.com/questions/4878756/how-to-capitalize-first-letter-of-each-word-like-a-2-word-city
 function toTitleCase(str) {
   return str.replace(/\w\S*/g, function (txt) {
@@ -42,9 +24,24 @@ function initMap() {
   }).addTo(map);
 
   markers = L.layerGroup().addTo(map);
+
+  async function onMapClick(e) {
+    let weatherData = await fetchWeatherData(e.latlng.lat, e.latlng.lng);
+
+    let popupText = `<h4>${e.latlng}</h4>
+      <img src="https://openweathermap.org/img/wn/${weatherData.current.weather[0].icon}.png" />
+      <p>Weather: ${weatherData.current.weather[0].main}<br />
+      Temperature: ${weatherData.current.temp} \xB0F<br />
+      Wind Speed: ${weatherData.current.wind_speed} MPH<br />
+      Humidity: ${weatherData.current.humidity}%</p>
+    `;
+
+    L.popup().setLatLng(e.latlng).setContent(popupText).openOn(map);
+  }
+  map.addEventListener("click", onMapClick);
 }
 
-function displayMarkers(pass) {
+async function displayMarkers(pass) {
   let filteredSkiAreas = skiAreas;
   if (pass) {
     filteredSkiAreas = skiAreas.filter(function (skiArea) {
@@ -61,48 +58,52 @@ function displayMarkers(pass) {
       filteredSkiAreas[i].Longitude,
     ]).addTo(markers);
 
-    // Isn't working due to CORS policy
-    let dataSNOTEL = fetchClosestSNOTEL(
-      filteredSkiAreas[i].Latitude,
-      filteredSkiAreas[i].Longitude
-    );
+    async function markerClick() {
+      let weatherData = await fetchWeatherData(
+        filteredSkiAreas[i].Latitude,
+        filteredSkiAreas[i].Longitude
+      );
 
-    let popupText = `<h4>${filteredSkiAreas[i].Name}</h4>`;
-    // let popupText = `<h4>${filteredSkiAreas[i].Name}</h4>
-    //   <p>Closest SNOTEL: ${dataSNOTEL.station_information.name}</p>
-    //   <p>Elevation: ${dataSNOTEL.station_information.elevation}</p>
-    //   <p>Distance: ${dataSNOTEL.distance}</p>
-    //   <p>Data: ${dataSNOTEL.data[0]}</p>
-    // `;
+      let popupText = `<h4>${filteredSkiAreas[i].Name}</h4>
+        <img src="https://openweathermap.org/img/wn/${weatherData.current.weather[0].icon}.png" />
+        <p>Weather: ${weatherData.current.weather[0].main}<br />
+        Temperature: ${weatherData.current.temp} \xB0F<br />
+        Wind Speed: ${weatherData.current.wind_speed} MPH<br />
+        Humidity: ${weatherData.current.humidity}%</p>
+      `;
 
-    marker.bindPopup(popupText);
+      L.popup()
+        .setLatLng({
+          lat: filteredSkiAreas[i].Latitude,
+          lng: filteredSkiAreas[i].Longitude,
+        })
+        .setContent(popupText)
+        .openOn(map);
+    }
+    marker.addEventListener("click", markerClick);
   }
 }
 
-function fetchClosestSNOTEL(lat, lon) {
-  let apiUrl = `http://api.powderlin.es/closest_stations?lat=${lat}&lng=${lon}&data=true&days=0&count=1`;
+async function fetchWeatherData(lat, lon) {
+  //https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly,alerts&appid={apiKey}
+  let apiKey = config.OPEN_WEATHER_KEY;
+  let lang = "en";
+  let units = "imperial";
+  let exclude = "minutely,hourly,alerts";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}&lang=${lang}&exclude=${exclude}`;
 
-  var requestOptions = {
-    method: "GET",
-    redirect: "follow",
-  };
+  // Force it to wait for data to return before going on
+  const response = await fetch(apiUrl);
+  const data = await response.json();
 
-  // Not working due to CORS policy
-  fetch(apiUrl, requestOptions).then(function (response) {
-    if (response.ok) {
-      console.log(response);
-      response
-        .json()
-        .then(function (data) {
-          console.log(data);
-          return data;
-        })
-        .catch((error) => console.log("error", error));
-    }
-  });
+  return data;
+}
 
-  //const response = await fetch(apiUrl, requestOptions);
-  //const data = await response.json();
+// Function to remove all child nodes
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
 }
 
 ddPass.addEventListener("change", function () {
