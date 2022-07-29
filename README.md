@@ -2,7 +2,7 @@
 ## Overview
 
 ```
-As an active skier I want to plan my ski adventures using critical information about the travel process such as weather (current location, along the route & at the destination), map my route including travel alerts and more.
+As an active skier I want to plan my ski adventures using critical information about the travel process such as weather (current location, along the route & at the destination including snow conditions), map my route including travel alerts and more.
 ```
 
 
@@ -33,35 +33,32 @@ As an active skier I want to plan my ski adventures using critical information a
 ## Criteria
 
 ```
-GIVEN I ski ALOT I want an easy way to plan my trip
-WHEN I enter my start and end location
-THEN I am presented with a map that provides (travel route, distance, )
+GIVEN I'm a frequent skier I want an easy way to plan my trip
 
-WHEN prompted...
-THEN I select which criteria....
+WHEN I go to my planner
+THEN I am presenteed with map that displays the resorts in Colorado
 
-WHEN prompted... 
-THEN ....
+WHEN I click on a resort
+THEN I am presented with resort weather condition base depth, 24 hour totals, forecast
 
-WHEN promoted...
-THEN ....
+WHEN I click on resort 
+THEN I am presented with button to obtain get step by travel directions, travel alerts (from CDOT)
+THEN I am presented with step by step travel directions at checkpoints with weather
 
-WHEN asked for character types to include in the password
-THEN I confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
+WHEN I want to see snow total by resort
+THEN I can view a modal with a summary
 
-WHEN I answer each prompt
-THEN my input should be validated and at least one character type should be selected
+WHEN I want to set my profile
+THEN I click on the profile button (in the upper right corner)
 
-WHEN all prompts are answered
-THEN a password is generated that matches the selected criteria
+WHEN I go to my profile
+THEN I can set my preferred started location, my preferred mountains, preferred pass mountains
 
-WHEN the password is generated
-THEN the password is either displayed in an alert or written to the page
 ```
 
 ## Website Preview - Static Screenshot
 
-<img width="1437" alt="Screen Shot 2022-07-19 at 8 11 17 PM" src="https://user-images.githubusercontent.com/72281855/179880845-3c7d8d98-1a44-414a-920d-ad7d0ee6f122.png">
+<img width="1437" alt="Screen Shot 2022-07-19 at 8 11 17 PM" src="./assets/images/wireframe-page2.png">
 
 
 ## Website Preview - Video Preview
