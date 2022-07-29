@@ -1,39 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      rel="shortcut icon"
-      type="image/jpg"
-      href="./assets/images/flavicon-shark.jpeg"
-    />
-    <!-- add bootstrap if necessary -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
-    />
-    <!-- add google fonts if necessary -->
 
-    <link rel="stylesheet" href="./assets/css/normalize.css" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin="" />
+
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <title>Ski Planner</title>
+</head>
+
+<body>
+  <header>
+    <h1>Ski Planner</h1>
+  </header>
 
 
+  <aside>
+    <section>
+      <form id="searchForm">
+        <select id="ddPass">
+          <option value="">All</option>
+          <option value="Epic">Epic</option>
+          <option value="Ikon">Ikon</option>
+          <option value="Independent">Independent</option>
+        </select>
+      </form>
 
-    
-    <!-- Added link to the jQuery library -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <hr>
+    </section>
+  </aside>
 
-    <!-- add bootstrap if necessary -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <main>
+      <div id="map"></div>
+  </main>
 
-    <script src="./assets/js/data.js"></script>
-    <script src="./assets/js/script.js"></script>
-  </body>
+  <footer>
+    Team SAD
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""></script>
+
+  <script src="./assets/js/config.js"></script>
+  <script src="./assets/js/skiAreas.js"></script>
+
+  <script src="./assets/js/homepage.js"></script>
+</body>
+
 </html>
