@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+  </head>
+  <body>
+
+    <button id="button" class="button">Button</button>
+
+    <div class="columns is-desktop">
+      <div id="custom-weather" class="column is-half custom-weather"></div>
+      <div id="custom-weather" class="column is-half custom-weather"></div>
+    </div>
+
+    <!-- Moment -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="./assets/js/skiAreas.js"></script>
+    <script src="./assets/js/open-weather-data.js"></script>
+
+    <!-- FETCH & RENDER WEATHER DATA -->
+    <script>
+      //section:query selector variables go here 👇
+      let button = document.getElementById('button');
+
+      //section:global variables go here 👇
+
+      //section:event listeners go here 👇
+      button.addEventListener('click', handleWeatherbutton);
+
+      //section:functions and event handlers go here 👇
+
+      //CREATE WEATHER CONTAINER
+      let weatherContainer = document.querySelectorAll('.custom-weather');
+      weatherContainer.forEach(element => {
+        element.setAttribute("style", "background-color: white; border: 1px solid black; height: 500px; overflow: scroll")
+      })
+
+      function handleWeatherbutton() {
+        //GET LATITUDE & LONGITUDE FOR LOCATION EVENT... 
+        // let latitude = event.target.getAttribute('data-lat');
+        // let longitude = event.target.getAttribute('data-lon');
+        // let resortName = event.target.getAttribute('data-resort');
+
+        let latitude = skiAreas[0].Latitude;
+        let longitude = skiAreas[0].Longitude;
+        let resortName = skiAreas[0].Name; //if necessary
+
+        // let latitude = '39.641667';
+        // let longitude = '-105.871667';
+        // let resortName = "The Resort"; //if necessary
+        
+        fetchWeatherData(latitude, longitude, resortName);
+      }
+      // function fetchWeatherData(latitude, longitude, cityOrZip, cityRendered) {
+      function fetchWeatherData(latitude, longitude, resortName) {
+
+        let currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely,alerts&appid=f0bed1b0eff80d425a392e66c50eb063&units=imperial&units=imperial`;
+
+        // fetch(currentWeatherURL)
+        //   .then((response) => {
+        //     if (response.ok) {
+        //       response.json().then((data) => {
+        //         createDailyDataSet(weather, resortName);
+        //         createHourlyDataSet(weather, resortName);
+        //       });
+        //     } else {
+        //       validationModal(
+        //         "Error: City/Zip Not Found",
+        //         `Try Again: ${response.statusText}`
+        //       );
+        //     }
+        //   })
+        //   .catch((error) => {
+        //     validationModal(
+        //       "Error: City/Zip Not Found",
+        //       `Try Again: ${response.statusText}`
+        //     );
+        //   });
+
+        // to test in development use the 2 lines below; to test in production comment outlines below and comment in the fetch above
+        createDailyDataSet(weather, "Boulder");
+        createHourlyDataSet(weather, "Boulder");
+      }
+      
+      function createDailyDataSet(weather, resortName) {
+        let dailyWeather = [];
+        
+        for (let i = 0; i < weather.daily.length; i++) {
+          dailyWeather.push({
+            temp: weather.daily[i].temp.day,
+            windSpeed: weather.daily[i].wind_speed,
+            windGust: weather.daily[i].wind_gust,
+            icon: weather.daily[i].weather[0].icon,
+            description: weather.daily[i].weather[0].description,
+            date: moment.unix(weather.daily[i].dt).format("M/D/YYYY"),
+          });
+        } 
+
+        renderDailyWeather(dailyWeather, resortName);
+      }
+        
+      function createHourlyDataSet(weather, resortName) {
+        let hourlyWeather = [];
+        
+        for (let i = 0; i < weather.hourly.length; i++) {
+          hourlyWeather.push({
+            temp: weather.hourly[i].temp,
+            windSpeed: weather.hourly[i].wind_speed,
+            windGust: weather.hourly[i].wind_gust,
+            icon: weather.hourly[i].weather[0].icon,
+            description: weather.hourly[i].weather[0].description,
+            date: moment.unix(weather.hourly[i].dt).format("M/D/YYYY h:mm a"),
+          });
+        }
+
+        renderHourlyWeather(hourlyWeather, resortName);
+      }
+
+      //RENDER WEATHER DATA
+      function renderDailyWeather(dailyWeather, resortName) {
+        weatherContainer[0].textContent = "";
+
+        let renderName = document.createElement('p');
+        let weatherTitle = document.createElement('p');
+
+        renderName.textContent = resortName;
+        weatherTitle.textContent = "Daily Forecast";
+
+        weatherContainer[0].append(resortName);
+        weatherContainer[0].append(weatherTitle);
+        
+        dailyWeather.forEach((element,index) => {
+          //CREATE ELEMENTS
+          let weatherInfo = document.createElement('p');
+          let icon = document.createElement("img");
+
+          weatherInfo.setAttribute("style", "display: flex; align-items: center;");
+          
+          //CREATE CONTENT
+          let date = element.date;
+          let temp = Math.round(element.temp);
+          icon.setAttribute("src", `https://openweathermap.org/img/w/${element.icon}.png`);
+
+          weatherInfo.textContent = `${date} ${temp}℉`;
+
+          //APPEND CONTENT
+          weatherContainer[0].append(weatherInfo);
+          weatherInfo.append(icon);
+        })
+      }
+
+      //RENDER WEATHER DATA
+      function renderHourlyWeather(hourlyWeather, resortName) {
+        weatherContainer[1].textContent = "";
+
+        let renderName = document.createElement('p');
+        let weatherTitle = document.createElement('p');
+
+        renderName.textContent = resortName;
+        weatherTitle.textContent = "Hourly Forecast";
+
+        weatherContainer[1].append(resortName);
+        weatherContainer[1].append(weatherTitle);
+
+        weatherTitle.setAttribute("style", "background-color: white; position: sticky; top: 0;");
+        
+        hourlyWeather.forEach((element,index) => {
+          //CREATE ELEMENTS
+          let weatherInfo = document.createElement('p');
+          let icon = document.createElement("img");
+
+          weatherInfo.setAttribute("style", "display: flex; align-items: center;");
+          
+          //CREATE CONTENT
+          let date = element.date;
+          let temp = Math.round(element.temp);
+          icon.setAttribute("src", `https://openweathermap.org/img/w/${element.icon}.png`);
+
+          weatherInfo.textContent = `${date} ${temp}℉`;
+
+          //APPEND CONTENT
+          weatherContainer[1].append(weatherInfo);
+          weatherInfo.append(icon);
+        })
+      }
+
+    </script>
+
+  </body>
+</html>
