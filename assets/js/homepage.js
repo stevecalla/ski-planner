@@ -1,16 +1,8 @@
 let searchForm = document.querySelector("#searchForm");
-let searchTextElement = document.querySelector("#txtSearch");
 let ddPass = document.querySelector("#ddPass");
 
 let map;
 var markers;
-
-//https://stackoverflow.com/questions/4878756/how-to-capitalize-first-letter-of-each-word-like-a-2-word-city
-function toTitleCase(str) {
-  return str.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-}
 
 function initMap() {
   let lat = "39.00";
@@ -24,21 +16,20 @@ function initMap() {
   }).addTo(map);
 
   markers = L.layerGroup().addTo(map);
+}
 
-  async function onMapClick(e) {
-    let weatherData = await fetchWeatherData(e.latlng.lat, e.latlng.lng);
+// This function is called when the Details button is clicked in the resort popup
+// Use this function to pass the ski area name to other parts of the app
+function getResortInfo(event) {
+  event.preventDefault();
 
-    let popupText = `<h4>${e.latlng}</h4>
-      <img src="https://openweathermap.org/img/wn/${weatherData.current.weather[0].icon}.png" />
-      <p>Weather: ${weatherData.current.weather[0].main}<br />
-      Temperature: ${weatherData.current.temp} \xB0F<br />
-      Wind Speed: ${weatherData.current.wind_speed} MPH<br />
-      Humidity: ${weatherData.current.humidity}%</p>
-    `;
+  const skiArea = skiAreas.find(
+    (element) => element.Name === event.target.dataset.skiarea
+  );
 
-    L.popup().setLatLng(e.latlng).setContent(popupText).openOn(map);
-  }
-  map.addEventListener("click", onMapClick);
+  alert(
+    `${skiArea.Name}\n${skiArea.Pass}\n${skiArea.Latitude}\n${skiArea.Longitude}`
+  );
 }
 
 async function displayMarkers(pass) {
@@ -70,6 +61,7 @@ async function displayMarkers(pass) {
         Temperature: ${weatherData.current.temp} \xB0F<br />
         Wind Speed: ${weatherData.current.wind_speed} MPH<br />
         Humidity: ${weatherData.current.humidity}%</p>
+        <button id="btnDetails" type="button" class="resortInfo" data-skiarea="${filteredSkiAreas[i].Name}">Details</a>
       `;
 
       L.popup()
@@ -79,6 +71,9 @@ async function displayMarkers(pass) {
         })
         .setContent(popupText)
         .openOn(map);
+
+      const btnDetails = document.querySelector("#btnDetails");
+      btnDetails.addEventListener("click", getResortInfo);
     }
     marker.addEventListener("click", markerClick);
   }
@@ -97,13 +92,6 @@ async function fetchWeatherData(lat, lon) {
   const data = await response.json();
 
   return data;
-}
-
-// Function to remove all child nodes
-function removeAllChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
 }
 
 ddPass.addEventListener("change", function () {
