@@ -1,5 +1,8 @@
 let searchForm = document.querySelector("#searchForm");
 let ddPass = document.querySelector("#ddPass");
+let drivingDirections = document.querySelector("#drivingDirections");
+let weatherForecast = document.querySelector("#weatherForecast");
+let snowConditions = document.querySelector("#snowConditions");
 
 let map;
 var markers;
@@ -30,7 +33,17 @@ function getResortInfo(event) {
   alert(
     `${skiArea.Name}\n${skiArea.Pass}\n${skiArea.Latitude}\n${skiArea.Longitude}`
   );
+
+  displayDrivingDirections(skiArea);
+  displayWeatherForecast(skiArea);
+  displaySnowConditions(skiArea);
 }
+
+function displayDrivingDirections(skiArea) {}
+
+function displayWeatherForecast(skiArea) {}
+
+function displaySnowConditions(skiArea) {}
 
 async function displayMarkers(pass) {
   let filteredSkiAreas = skiAreas;
