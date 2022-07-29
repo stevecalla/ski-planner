@@ -60,39 +60,30 @@
 
         let currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely,alerts&appid=f0bed1b0eff80d425a392e66c50eb063&units=imperial&units=imperial`;
 
-        fetch(currentWeatherURL)
-          .then((response) => {
-            if (response.ok) {
-              response.json().then((data) => {
+        // fetch(currentWeatherURL)
+        //   .then((response) => {
+        //     if (response.ok) {
+        //       response.json().then((data) => {
+        //         createDailyDataSet(weather, resortName);
+        //         createHourlyDataSet(weather, resortName);
+        //       });
+        //     } else {
+        //       validationModal(
+        //         "Error: City/Zip Not Found",
+        //         `Try Again: ${response.statusText}`
+        //       );
+        //     }
+        //   })
+        //   .catch((error) => {
+        //     validationModal(
+        //       "Error: City/Zip Not Found",
+        //       `Try Again: ${response.statusText}`
+        //     );
+        //   });
 
-                // renderWeather(data, cityOrZip, cityRendered);
-                // createSearchHistory(cityOrZip, cityRendered);
-
-                createDailyDataSet(weather, resortName);
-                createHourlyDataSet(weather, resortName);
-            
-              });
-            } else {
-              validationModal(
-                "Error: City/Zip Not Found",
-                `Try Again: ${response.statusText}`
-              );
-            }
-          })
-          .catch((error) => {
-            validationModal(
-              "Error: City/Zip Not Found",
-              `Try Again: ${response.statusText}`
-            );
-          });
-
-        // to test app, delete fetch above, uncomment line below, add data-test.js script to index html
-        // do the same in the fetchLLatitudeLongitute() function line 127
-        // renderWeather(currentWeather[0], cityOrZip, cityRendered);
-        // renderWeather(currentWeather[0], cityOrZip, cityRendered);
-
-        // createDailyDataSet(weather, "Boulder");
-        // createHourlyDataSet(weather, "Boulder");
+        // to test in development use the 2 lines below; to test in production comment outlines below and comment in the fetch above
+        createDailyDataSet(weather, "Boulder");
+        createHourlyDataSet(weather, "Boulder");
       }
       
       function createDailyDataSet(weather, resortName) {
@@ -122,7 +113,7 @@
             windGust: weather.hourly[i].wind_gust,
             icon: weather.hourly[i].weather[0].icon,
             description: weather.hourly[i].weather[0].description,
-            date: moment.unix(weather.hourly[i].dt).format("M/D/YYYY H:mm:ss a"),
+            date: moment.unix(weather.hourly[i].dt).format("M/D/YYYY h:mm a"),
           });
         }
 
