@@ -39,7 +39,9 @@
   </aside>
 
   <main>
-    <div id="map"></div>
+    <section id="mapArea">
+      <div id="map"></div>
+    </section>
     <section id="drivingDirections" class="is-invisible">
       <h3>Driving Directions</h3>
       <input id="txtStartAddress" type="text" placeholder="Address or Coordinates"></input>
@@ -62,10 +64,10 @@
         <tfoot>
           <tr>
             <th></th>
-            <th></th>
+            <th><a id="gmDirections" target="blank">Google Map Directions</a></th>
             <th id="tdTotalDistance"></th>
             <th id="tdTotalTime"></th>
-            <th></th>
+            <th id="tdArrivalTime"></th>
           </tr>
         </tfoot>
       </table>
@@ -75,6 +77,10 @@
     </section>
     <section id="snowConditions" class="is-invisible">
       <h3>Snow Conditions</h3>
+      <label id="lblStationName"></label><br />
+      <label id="lblElevation"></label><br />
+      <label id="lblDistance"></label><br />
+      <label id="lblData"></label>
     </section>
   </main>
 
