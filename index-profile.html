@@ -59,6 +59,7 @@
         <div class="field has-addons">
           <div class="control has-icons-left is-expanded">
             <input class="input is-success is-fullwidth" id="email-input" type="text" placeholder="pow@skiallday.com" value="">
+            <!-- <input class="input is-success is-fullwidth" id="email-input" type="text" placeholder="pow@skiallday.com" value="" pattern=".+@beststartupever\.com" title="Please provide only a Best Startup Ever corporate e-mail address"> -->
             <span class="icon is-small is-left">
               <i class="fas fa-user"></i>
             </span>
@@ -200,7 +201,9 @@
       emailInput.setAttribute("placeholder", emailInput.value);
       emailInput.value = "";
 
-      // let allIconElements = document.querySelectorAll('i');
+      if (!emailInput.value) {console.log('email invalid')}
+      console.log('email input = ', emailInput.value)
+      if (emailInput.value === /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/) {console.log('email regex working')}
 
       allIconElements.forEach(element => {
         if (element.classList.contains('email-disk')) {element.classList.toggle('is-hidden')};
