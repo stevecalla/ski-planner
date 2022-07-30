@@ -5,21 +5,124 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link
-  rel="shortcut icon"
-  type="image/jpg"
-  href="./assets/images/favicon-16x16.png"
-/>
+    rel="shortcut icon"
+    type="image/jpg"
+    href="./assets/images/favicon-16x16.png"
+  />
   <title>Snow Planner</title>
+
+  <!-- add fontawesome icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+  />
+  <!-- add bluma -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
+
 <body>
 
-  <div id="modal-js-example" class="modal">
+  <div id="modal-js-example" class="modal is-active">
     <div class="modal-background"></div>
     <div class="modal-content">
       <div class="box">
-        <p>Modal JS example</p>
+        <!-- <p>Modal JS example</p> -->
+        <!-- Your content -->
+        
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" type="text" placeholder="Ski All Day" value="">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="fas fa-save"></i>
+            </span>
+            <!-- <span class="icon is-small is-right">
+              <i class="fas fa-edit"></i>
+            </span> -->
+          </div>
+          <!-- <p class="help is-success">This username is available</p> -->
+        </div>
+        
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-danger" type="email" placeholder="Email input" value="">
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="fas fa-save"></i>
+            </span>
+            <!-- <span class="icon is-small is-right">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span> -->
+          </div>
+          <!-- <p class="help is-danger">This email is invalid</p> -->
+        </div>
+
+        <label class="label">Member Since</label>
+        <label class="label">January 2012</label>
+
+        <label class="label">Your Season Pass</label>
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <div class="select is-fullwidth">
+              <select name="country">
+                <option value="Epic">EPIC</option>
+                <option value="Ikon">Ikon</option>
+                <option value="Independent">Independent</option>
+              </select>
+            </div>
+          </div>
+          <div class="control">
+            <button type="submit" class="button is-primary">Choose</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="notification is-primary">
+            <button class="delete"></button>
+            My pass list
+          </div>
+        </div>
+
+        <label class="label">Your Favorite Resort</label>
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <div class="select is-fullwidth">
+              <select name="country">
+                <option value="TBD">TBD</option>
+                <option value="TBD">TBD</option>
+                <option value="TBD">TBD</option>
+              </select>
+            </div>
+          </div>
+          <div class="control">
+            <button type="submit" class="button is-primary">Choose</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="notification is-primary">
+            <button class="delete"></button>
+            My favorite resort list
+          </div>
+        </div>
+
+        
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light">Cancel</button>
+          </div>
+        </div>
+
         <!-- Your content -->
       </div>
     </div>
