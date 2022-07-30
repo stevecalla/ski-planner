@@ -18,15 +18,15 @@
     <!-- TAB NAVIGATION -->
     <div class="tabs is-boxed">
       <ul>
-        <li class="is-active" id="daily-tab">
+        <li class="is-active daily" id="daily-tab">
           <a class="daily">
-            <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
+            <span class="icon is-small daily"><i class="fas fa-image" aria-hidden="true"></i></span>
             <span>Daily</span>
           </a>
         </li>
-        <li class="" id="hourly-tab">
+        <li class="hourly" id="hourly-tab">
           <a class="hourly">
-            <span class="icon is-small"><i class="fas fa-music" aria-hidden="true"></i></span>
+            <span class="icon is-small hourly"><i class="fas fa-music" aria-hidden="true"></i></span>
             <span>Hourly</span>
           </a>
         </li>
@@ -145,11 +145,12 @@
           }
         })
 
-        renderWeather(weatherCleanData, resortName);
+        renderWeather(weatherCleanData, resortName, timeframe);
       }
 
       //RENDER WEATHER DATA
-      function renderWeather(dailyWeather, resortName) {
+      function renderWeather(weatherCleanData, resortName, timeframe) {
+        console.lo
         weatherContainer.textContent = "";
 
         //CREATE ELEMENTS
@@ -159,7 +160,7 @@
 
         //CREATE TITLE CONTENT
         renderResortName.textContent = resortName;
-        weatherTitle.textContent = "Daily Forecast";
+        timeframe === "hourly" ? weatherTitle.textContent = "Hourly Forecast" : weatherTitle.textContent = "Daily Forecast";
         
         timeFrameContainer.classList.add("column", "is-half", "custom-weather");
         timeFrameContainer.setAttribute("id", "custom-weather");
@@ -169,11 +170,10 @@
         timeFrameContainer.append(resortName);
         timeFrameContainer.append(weatherTitle);
 
-
         weatherTitle.setAttribute("style", "background-color: white; position: sticky; top: 0;");
         
         //CREATE & APPEND WEATHER CONTENT/DATA
-        dailyWeather.forEach((element,index) => {
+        weatherCleanData.forEach((element,index) => {
           //CREATE ELEMENTS
           let weatherInfo = document.createElement('p');
           let icon = document.createElement("img");
