@@ -43,6 +43,8 @@
             <span class="icon is-small is-left">
               <i class="fas fa-user"></i>
             </span>
+            <p class="help is-success is-hidden" id="alert-name-valid">Your name was saved successfully.</p>
+            <p class="help is-danger is-hidden" id="alert-name-invalid">Your name is blank. Try again!</p>
           </div>
           <div class="control" id="save-name-input">
             <a class="button is-info">
@@ -143,48 +145,62 @@
   </button>
 
   <script>
-    // document.addEventListener('click', (event) => console.log(event.target));
-
+    //section:query selector variables go here 👇
     let nameInput = document.getElementById('name-input');
-    // nameInput.addEventListener('input', () => console.log('name = ', nameInput.value));
-    
-    let saveNameIcon = document.getElementById('save-name-input');
-    saveNameIcon.addEventListener('click', saveName);
-    
-    function saveName(event) {
-      nameInput.setAttribute("placeholder", nameInput.value);
-      nameInput.value = "";
-      
-      let allIconElements = document.querySelectorAll('i');
-      // console.log(allIconElements);
-
-      allIconElements.forEach(element => {
-        if (element.classList.contains('name-disk')) {element.classList.toggle('is-hidden')};
-        if (element.classList.contains('name-check')) {element.classList.toggle('is-hidden')};
-      })
-
-      setTimeout(() => {
-        allIconElements.forEach(element => {
-        if (element.classList.contains('name-disk')) {element.classList.toggle('is-hidden')};
-        if (element.classList.contains('name-check')) {element.classList.toggle('is-hidden')};
-      })
-      }, 1000);
-
-      // save to local storage
-      setLocalStorage("name", nameInput.getAttribute("placeholder"));
-    }
-    
     let emailInput = document.getElementById('email-input');
+    let saveNameIcon = document.getElementById('save-name-input');
+    let saveEmailIcon = document.getElementById('save-email-input');
+    let allIconElements = document.querySelectorAll('i');
     // emailInput.addEventListener('input', () => console.log('email = ', emailInput.value));
 
-    let saveEmailIcon = document.getElementById('save-email-input');
+    
+    //section:global variables go here 👇
+    
+    //section:event listeners go here 👇
+    saveNameIcon.addEventListener('click', saveName);
     saveEmailIcon.addEventListener('click', saveEmail);
+    // document.addEventListener('click', (event) => console.log(event.target));
+    // nameInput.addEventListener('input', () => console.log('name = ', nameInput.value));
+
+    //section:functions and event handlers go here 👇
+
+    function saveName(event) {
+      
+      console.log('name input = ', nameInput.value, !nameInput.value)
+      
+      if(nameInput.value) {
+        document.getElementById('alert-name-invalid').classList.add('is-hidden');
+        document.getElementById('alert-name-valid').classList.remove('is-hidden');
+        nameInput.setAttribute("placeholder", nameInput.value);
+        nameInput.value = "";
+
+        allIconElements.forEach(element => {
+          if (element.classList.contains('name-disk')) {element.classList.toggle('is-hidden')};
+          if (element.classList.contains('name-check')) {element.classList.toggle('is-hidden')};
+          // if (element.classList.contains('name-check')) {element.classList.toggle('is-hidden')};
+        })
+
+        setTimeout(() => {
+          allIconElements.forEach(element => {
+          if (element.classList.contains('name-disk')) {element.classList.toggle('is-hidden')};
+          if (element.classList.contains('name-check')) {element.classList.toggle('is-hidden')};
+          document.getElementById('alert-name-valid').classList.add('is-hidden');
+        })
+        }, 1000);
+        // save to local storage
+        setLocalStorage("name", nameInput.getAttribute("placeholder"));
+
+      } else {
+        document.getElementById('alert-name-invalid').classList.remove('is-hidden');
+      }
+    }
+    
 
     function saveEmail(event) {
       emailInput.setAttribute("placeholder", emailInput.value);
       emailInput.value = "";
 
-      let allIconElements = document.querySelectorAll('i');
+      // let allIconElements = document.querySelectorAll('i');
 
       allIconElements.forEach(element => {
         if (element.classList.contains('email-disk')) {element.classList.toggle('is-hidden')};
@@ -210,7 +226,6 @@
 
       JSON.parse(localStorage.getItem("ski-profile")) ? skiProfile = JSON.parse(localStorage.getItem("ski-profile")) : skiProfile = {name: "", email: "", memberDate: "", passes: [], resorts: [],};
 
-      // skiProfile.name = "Steve"
       skiProfile[key] = value;
       console.log(skiProfile);
 
