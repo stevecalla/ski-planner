@@ -4,18 +4,38 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello Bulma!</title>
+    <!-- add fontawesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+    />
     <!-- BULMA -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
   </head>
   <body>
 
-    <div class="container">
-      <button id="button" class="button">Button</button>
+    <!-- TAB NAVIGATION -->
+    <div class="tabs is-boxed">
+      <ul>
+        <li class="is-active" id="daily-tab">
+          <a class="daily">
+            <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
+            <span>Daily</span>
+          </a>
+        </li>
+        <li class="" id="hourly-tab">
+          <a class="hourly">
+            <span class="icon is-small"><i class="fas fa-music" aria-hidden="true"></i></span>
+            <span>Hourly</span>
+          </a>
+        </li>
+      </ul>
     </div>
-
+    
+    <!-- PLACEHOULDER FOR DAILY / HOURLY DATA -->
     <div class="columns is-desktop" id=custom-weather-container>
-      <!-- timeframe data goes here -->
+      <!-- daily / hourly weather data goes here -->
     </div>
 
     <!-- Moment -->
@@ -26,37 +46,55 @@
 
     <!-- FETCH & RENDER WEATHER DATA -->
     <script>
+
       //section:query selector variables go here 👇
       let button = document.getElementById('button');
+      let dailyTab = document.getElementById('daily-tab');
+      let hourlyTab = document.getElementById('hourly-tab');
+      let weatherContainer = document.getElementById('custom-weather-container');
 
       //section:global variables go here 👇
 
       //section:event listeners go here 👇
-      button.addEventListener('click', handleWeatherbutton);
+      dailyTab.addEventListener('click', handleTabNavigation);
+      hourlyTab.addEventListener('click', handleTabNavigation);
+
+      //add functions for tab event listener
+      //find icon for daily / hourly
+      //adjust title for daily / hourly
 
       //section:functions and event handlers go here 👇
-
-      //CREATE WEATHER CONTAINER
-      let weatherContainer = document.getElementById('custom-weather-container');
-
-      function handleWeatherbutton() {
+      function handleTabNavigation() {
+      // function handleTabNavigation(event, requestedData) {
+      // function handleWeatherbutton(event) {
         //GET LATITUDE & LONGITUDE FOR LOCATION EVENT... 
         // let latitude = event.target.getAttribute('data-lat');
         // let longitude = event.target.getAttribute('data-lon');
         // let resortName = event.target.getAttribute('data-resort');
 
+        //DETERMINE RESORT FOR FETCH
         let latitude = skiAreas[0].Latitude;
         let longitude = skiAreas[0].Longitude;
         let resortName = skiAreas[0].Name; //if necessary
 
-        // let latitude = '39.641667';
-        // let longitude = '-105.871667';
-        // let resortName = "The Resort"; //if necessary
+        //DETERIME IF DAILY OR HOURLY DATA SHOULD BE DISPLAYED
+        let requestedData = "";
+        if (event.target.parentNode.classList.contains('hourly')) {
+          console.log('hourly')
+          dailyTab.classList.remove('is-active');
+          hourlyTab.classList.add('is-active');
+          requestedData = "hourly";
+        } else {
+          console.log('daily');
+          dailyTab.classList.add('is-active');
+          hourlyTab.classList.remove('is-active');
+          requestedData = "daily";
+        }
         
-        fetchWeatherData(latitude, longitude, resortName);
+        fetchWeatherData(latitude, longitude, resortName, requestedData);
       }
-      // function fetchWeatherData(latitude, longitude, cityOrZip, cityRendered) {
-      function fetchWeatherData(latitude, longitude, resortName) {
+      
+      function fetchWeatherData(latitude, longitude, resortName, requestedData) {
 
         let currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely,alerts&appid=f0bed1b0eff80d425a392e66c50eb063&units=imperial&units=imperial`;
 
@@ -64,8 +102,7 @@
         //   .then((response) => {
         //     if (response.ok) {
         //       response.json().then((data) => {
-        //         createDailyDataSet(weather, resortName);
-        //         createHourlyDataSet(weather, resortName);
+        //         requestedData === "hourly" ? createDailyHourlyWeatherData(weather, "hourly", "Boulder") : createDailyHourlyWeatherData(weather, "daily", "Boulder");
         //       });
         //     } else {
         //       validationModal(
@@ -85,14 +122,12 @@
         // createDailyDataSet(weather, "daily", "Boulder");
         // createHourlyDataSet(weather, "hourly", "Boulder");
 
-        createDailyHourlyWeatherData(weather, "daily", "Boulder");
-        createDailyHourlyWeatherData(weather, "hourly", "Boulder");
+        requestedData === "hourly" ? createDailyHourlyWeatherData(weather, "hourly", "Boulder") : createDailyHourlyWeatherData(weather, "daily", "Boulder");
+        // createDailyHourlyWeatherData(weather, "hourly", "Boulder");
       }
 
       function createDailyHourlyWeatherData(weather, timeframe, resortName) {
         let weatherCleanData = [];
-
-        // console.log(weather[timeframe]);
 
         weather[timeframe].filter((element, index) => {
           let hourOfDay = moment.unix(element.dt).format("H") //24 hour clock
@@ -110,19 +145,12 @@
           }
         })
 
-        console.log(weatherCleanData);
-
-        // timeframe = "hourly" ? renderHourlyWeather(weatherCleanData, resortName) : renderDailyWeather(weatherCleanData, resortName);
-
-        renderDailyWeather(weatherCleanData, resortName);
-        // renderHourlyWeather(weatherCleanData, resortName);
-        // renderDailyWeather(weatherCleanData, resortName);
-
+        renderWeather(weatherCleanData, resortName);
       }
 
       //RENDER WEATHER DATA
-      function renderDailyWeather(dailyWeather, resortName) {
-        // weatherContainer.textContent = "";
+      function renderWeather(dailyWeather, resortName) {
+        weatherContainer.textContent = "";
 
         //CREATE ELEMENTS
         let timeFrameContainer = document.createElement('div');
