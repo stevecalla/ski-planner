@@ -5,10 +5,16 @@ let txtStartAddress = document.querySelector("#txtStartAddress");
 let txtStartDate = document.querySelector("#txtStartDate");
 let txtStartTime = document.querySelector("#txtStartTime");
 let tblDirections = document.querySelector("#tblDirections");
+let gmDirections = document.querySelector("#gmDirections");
 let tdTotalDistance = document.querySelector("#tdTotalDistance");
 let tdTotalTime = document.querySelector("#tdTotalTime");
+let tdArrivalTime = document.querySelector("#tdArrivalTime");
 let weatherForecast = document.querySelector("#weatherForecast");
 let snowConditions = document.querySelector("#snowConditions");
+let lblStationName = document.querySelector("#lblStationName");
+let lblElevation = document.querySelector("#lblElevation");
+let lblDistance = document.querySelector("#lblDistance");
+let lblData = document.querySelector("#lblData");
 
 let map;
 var markers;
@@ -72,7 +78,7 @@ async function displayDrivingDirections(skiArea) {
 
     // Distance
     td = document.createElement("td");
-    td.textContent = `${directions[i].distance.toFixed(1)} miles`;
+    td.textContent = `${directions[i].distance.toFixed(2)} miles`;
     tr.appendChild(td);
 
     // Latitude
@@ -111,7 +117,16 @@ async function displayDrivingDirections(skiArea) {
   tdTotalDistance.textContent = `${directions[
     directions.length - 1
   ].distance.toFixed(1)} miles`;
-  tdTotalTime.textContent = directions[directions.length - 1].formattedTime; // time is in seconds
+  tdTotalTime.textContent = directions[directions.length - 1].formattedTime; // .time is in seconds
+  tdTotalTime.dataset.time = directions[directions.length - 1].time;
+  gmDirections.href = `https://www.google.com/maps/dir/${startCoordinates}/${endCoordinates}`;
+
+  let startTime = moment(
+    `${txtStartDate.value} ${txtStartTime.value}`,
+    "YYYY-MM-DD hh:mm"
+  );
+  let endTime = startTime.add(directions[directions.length - 1].time, "s");
+  tdArrivalTime.textContent = `Arrival Time: ${endTime.format("h:mm:ss A")}`;
 }
 
 async function fetchDirections(startCoordinates, endCoordinates) {
@@ -150,8 +165,8 @@ async function fetchDirections(startCoordinates, endCoordinates) {
 
   let totals = {
     distance: data.route.distance,
-    time: data.route.realTime,
-    formattedTime: data.route.formattedTime,
+    time: data.route.legs[0].time,
+    formattedTime: data.route.legs[0].formattedTime,
   };
   directions.push(totals);
 
@@ -177,9 +192,53 @@ async function fetchCoordinatesFromAddress(address) {
   return `${coord.lat},${coord.lng}`;
 }
 
+// This function is to display the weather data in the "weatherForecast" section
 function displayWeatherForecast(skiArea) {}
 
-function displaySnowConditions(skiArea) {}
+function displaySnowConditions(skiArea) {
+  fetchSnowConditions(skiArea.Latitude, skiArea.Longitude);
+}
+
+function fetchSnowConditions(lat, lon) {
+  var settings = {
+    url: "http://api.powderlin.es/closest_stations",
+    method: "GET",
+    timeout: 0,
+    jsonp: "callback",
+    dataType: "jsonp",
+    data: {
+      lat: lat,
+      lng: lon,
+      data: true,
+      days: 0,
+      count: 3,
+    },
+  };
+
+  let dataSNOTEL;
+
+  $.ajax(settings)
+    .done(function (response) {
+      let i = 0;
+      do {
+        dataSNOTEL = response[i++];
+        lblStationName.textContent = `Closest SNOTEL: ${dataSNOTEL.station_information.name}`;
+        lblElevation.textContent = `Elevation: ${dataSNOTEL.station_information.elevation} ft`;
+        lblDistance.textContent = `Distance Away: ${dataSNOTEL.distance.toFixed(
+          2
+        )} miles`;
+        lblData.textContent = "";
+        if (dataSNOTEL.data.length > 0) {
+          for (dataProperty in dataSNOTEL.data[0]) {
+            lblData.innerHTML += `${dataProperty}: ${dataSNOTEL.data[0][dataProperty]}<br />`;
+          }
+          // If the closest SNOTEL station does not have any data, go to the next one.  Powderhorn is this way.  Pulling 3 stations just in case.
+        }
+      } while (dataSNOTEL.data.length === 0);
+    })
+    .fail()
+    .always();
+}
 
 async function displayMarkers(pass) {
   let filteredSkiAreas = skiAreas;
@@ -243,10 +302,6 @@ async function fetchWeatherData(lat, lon) {
   return data;
 }
 
-ddPass.addEventListener("change", function () {
-  displayMarkers(ddPass.value);
-});
-
 function getDefaultStartValue() {
   if (localStorage.getItem("StartAddress")) {
     return localStorage.getItem("StartAddress");
@@ -266,6 +321,19 @@ function getDefaultStartValue() {
     navigator.geolocation.getCurrentPosition(success, error, options);
   }
 }
+
+ddPass.addEventListener("change", function () {
+  displayMarkers(ddPass.value);
+});
+
+txtStartTime.addEventListener("change", function (event) {
+  let startTime = moment(
+    `${txtStartDate.value} ${txtStartTime.value}`,
+    "YYYY-MM-DD hh:mm"
+  );
+  let endTime = startTime.add(tdTotalTime.dataset.time, "s");
+  tdArrivalTime.textContent = `Arrival Time: ${endTime.format("h:mm:ss A")}`;
+});
 
 function init() {
   initMap();
