@@ -4,20 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello Bulma!</title>
+    <!-- BULMA -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
   </head>
   <body>
 
-    <button id="button" class="button">Button</button>
+    <div class="container">
+      <button id="button" class="button">Button</button>
+    </div>
 
-    <div class="columns is-desktop">
-      <div id="custom-weather" class="column is-half custom-weather"></div>
-      <div id="custom-weather" class="column is-half custom-weather"></div>
+    <div class="columns is-desktop" id=custom-weather-container>
+      <!-- timeframe data goes here -->
     </div>
 
     <!-- Moment -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
     <script src="./assets/js/skiAreas.js"></script>
     <script src="./assets/js/open-weather-data.js"></script>
 
@@ -34,10 +37,7 @@
       //section:functions and event handlers go here 👇
 
       //CREATE WEATHER CONTAINER
-      let weatherContainer = document.querySelectorAll('.custom-weather');
-      weatherContainer.forEach(element => {
-        element.setAttribute("style", "background-color: white; border: 1px solid black; height: 500px; overflow: scroll")
-      })
+      let weatherContainer = document.getElementById('custom-weather-container');
 
       function handleWeatherbutton() {
         //GET LATITUDE & LONGITUDE FOR LOCATION EVENT... 
@@ -86,7 +86,7 @@
         // createHourlyDataSet(weather, "hourly", "Boulder");
 
         createDailyHourlyWeatherData(weather, "daily", "Boulder");
-        // createDailyHourlyWeatherData(weather, "hourly", "Boulder");
+        createDailyHourlyWeatherData(weather, "hourly", "Boulder");
       }
 
       function createDailyHourlyWeatherData(weather, timeframe, resortName) {
@@ -115,22 +115,36 @@
         // timeframe = "hourly" ? renderHourlyWeather(weatherCleanData, resortName) : renderDailyWeather(weatherCleanData, resortName);
 
         renderDailyWeather(weatherCleanData, resortName);
-        renderHourlyWeather(weatherCleanData, resortName);
+        // renderHourlyWeather(weatherCleanData, resortName);
+        // renderDailyWeather(weatherCleanData, resortName);
+
       }
 
       //RENDER WEATHER DATA
       function renderDailyWeather(dailyWeather, resortName) {
-        weatherContainer[0].textContent = "";
+        // weatherContainer.textContent = "";
 
-        let renderName = document.createElement('p');
+        //CREATE ELEMENTS
+        let timeFrameContainer = document.createElement('div');
+        let renderResortName = document.createElement('p');
         let weatherTitle = document.createElement('p');
 
-        renderName.textContent = resortName;
+        //CREATE TITLE CONTENT
+        renderResortName.textContent = resortName;
         weatherTitle.textContent = "Daily Forecast";
-
-        weatherContainer[0].append(resortName);
-        weatherContainer[0].append(weatherTitle);
         
+        timeFrameContainer.classList.add("column", "is-half", "custom-weather");
+        timeFrameContainer.setAttribute("id", "custom-weather");
+        timeFrameContainer.setAttribute("style", "background-color: white; border: 1px solid black; height: 500px; overflow: scroll");
+
+        //APPEND TITLE CONTENT
+        timeFrameContainer.append(resortName);
+        timeFrameContainer.append(weatherTitle);
+
+
+        weatherTitle.setAttribute("style", "background-color: white; position: sticky; top: 0;");
+        
+        //CREATE & APPEND WEATHER CONTENT/DATA
         dailyWeather.forEach((element,index) => {
           //CREATE ELEMENTS
           let weatherInfo = document.createElement('p');
@@ -146,42 +160,8 @@
           weatherInfo.textContent = `${date} ${temp}℉`;
 
           //APPEND CONTENT
-          weatherContainer[0].append(weatherInfo);
-          weatherInfo.append(icon);
-        })
-      }
-
-      //RENDER WEATHER DATA
-      function renderHourlyWeather(hourlyWeather, resortName) {
-        weatherContainer[1].textContent = "";
-
-        let renderName = document.createElement('p');
-        let weatherTitle = document.createElement('p');
-
-        renderName.textContent = resortName;
-        weatherTitle.textContent = "Hourly Forecast";
-
-        weatherContainer[1].append(resortName);
-        weatherContainer[1].append(weatherTitle);
-
-        weatherTitle.setAttribute("style", "background-color: white; position: sticky; top: 0;");
-        
-        hourlyWeather.forEach((element,index) => {
-          //CREATE ELEMENTS
-          let weatherInfo = document.createElement('p');
-          let icon = document.createElement("img");
-
-          weatherInfo.setAttribute("style", "display: flex; align-items: center;");
-          
-          //CREATE CONTENT
-          let date = element.date;
-          let temp = Math.round(element.temp);
-          icon.setAttribute("src", `https://openweathermap.org/img/w/${element.icon}.png`);
-
-          weatherInfo.textContent = `${date} ${temp}℉`;
-
-          //APPEND CONTENT
-          weatherContainer[1].append(weatherInfo);
+          weatherContainer.append(timeFrameContainer);
+          timeFrameContainer.append(weatherInfo);
           weatherInfo.append(icon);
         })
       }
