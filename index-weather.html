@@ -86,37 +86,45 @@
         createHourlyDataSet(weather, "Boulder");
       }
       
-      function createDailyDataSet(weather, resortName) {
+      function createDailyDataSet({daily}, resortName) {
         let dailyWeather = [];
-        
-        for (let i = 0; i < weather.daily.length; i++) {
-          dailyWeather.push({
-            temp: weather.daily[i].temp.day,
-            windSpeed: weather.daily[i].wind_speed,
-            windGust: weather.daily[i].wind_gust,
-            icon: weather.daily[i].weather[0].icon,
-            description: weather.daily[i].weather[0].description,
-            date: moment.unix(weather.daily[i].dt).format("M/D/YYYY"),
-          });
-        } 
 
+        daily.filter((day, index) => {
+          let hourOfDay = moment.unix(day.dt).format("H") //24 hour clock
+
+          if (hourOfDay >= 8 && hourOfDay <= 18) { //hour >=8a && <=6p
+            dailyWeather.push({
+              temp: day.temp.day || day.temp,
+              windSpeed: day.wind_speed,
+              windGust: day.wind_gust,
+              icon: day.weather[0].icon,
+              description: day.weather[0].description,
+              date: moment.unix(day.dt).format("M/D/YYYY h:mm a"),
+            });
+          }
+        })
         renderDailyWeather(dailyWeather, resortName);
       }
         
-      function createHourlyDataSet(weather, resortName) {
+      function createHourlyDataSet({hourly}, resortName) {
         let hourlyWeather = [];
         
-        for (let i = 0; i < weather.hourly.length; i++) {
-          hourlyWeather.push({
-            temp: weather.hourly[i].temp,
-            windSpeed: weather.hourly[i].wind_speed,
-            windGust: weather.hourly[i].wind_gust,
-            icon: weather.hourly[i].weather[0].icon,
-            description: weather.hourly[i].weather[0].description,
-            date: moment.unix(weather.hourly[i].dt).format("M/D/YYYY h:mm a"),
-          });
-        }
+        hourly.filter(hour => {
+          console.log()
+          let hourOfDay = moment.unix(hour.dt).format("H") //24 hour clock
 
+          if (hourOfDay >= 8 && hourOfDay <= 18) { //hour >=8a && <=6p
+            hourlyWeather.push({
+              temp: hour.temp,
+              windSpeed: hour.wind_speed,
+              windGust: hour.wind_gust,
+              icon: hour.weather[0].icon,
+              description: hour.weather[0].description,
+              date: moment.unix(hour.dt).format("M/D/YYYY h:mm a"),
+            });
+          }
+        })
+        
         renderHourlyWeather(hourlyWeather, resortName);
       }
 
