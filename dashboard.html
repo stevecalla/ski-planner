@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+        crossorigin="" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/dashboardstyle.css">
+    <style>
+        .hero {
+            background: url(assets/images/mountaindashboard.jpg) center / cover;
+        }
+    </style>
+    <title>Ski Dashboard</title>
+</head>
+
+<body class="hero is-fullheight">
+    <header>
+        <h1 class="title level-item has-text-center">Ski Trip</h1>
+
+
+        <main>
+            <div class="tile is-ancestor">
+                <div class="tile is-vertical is-8">
+                    <div class="tile">
+                        <div class="tile is-parent is-vertical">
+                            <article class="tile is-child notification is-info">
+                                <p class="title">Map</p>
+                                <p class="subtitle">
+                                <!-- <main>
+                                    <section class="mapSection" id="mapArea">
+                                        <div id="map"></div>
+                                    </section>
+                                    <section id="drivingDirections" class="is-invisible">
+                                        <h3>Driving Directions</h3>
+                                        <input id="txtStartAddress" type="text"
+                                            placeholder="Address or Coordinates"></input>
+                                        <input id="txtStartDate" type="date"></input>
+                                        <input id="txtStartTime" type="time" value="09:00"></input>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Directions</th>
+                                                    <th>Distance</th>
+                                                    <th>Latitude</th>
+                                    <th>Longitude</th>
+                                    <th>Time (in seconds)</th> -->
+                                                    <!-- <th>Time</th>
+                                                    <th>Map</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblDirections"></tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th></th>
+                                                    <th><a id="gmDirections" target="blank">Google Map Directions</a>
+                                                    </th>
+                                                    <th id="tdTotalDistance"></th>
+                                                    <th id="tdTotalTime"></th>
+                                                    <th id="tdArrivalTime"></th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </section>
+                                    <section id="weatherForecast" class="is-invisible">
+                                        <h3>Weather Forecast</h3>
+                                    </section>
+                                    <section id="snowConditions" class="is-invisible">
+                                        <h3>Snow Conditions</h3>
+                                        <label id="lblStationName"></label><br />
+                                        <label id="lblElevation"></label><br />
+                                        <label id="lblDistance"></label><br />
+                                        <label id="lblData"></label>
+                                    </section>
+                                </main> --> 
+                                </p>
+                            </article>
+
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child notification is-info">
+                                <p class="title">Directions</p>
+                                <p class="subtitle"></p>
+
+                            </article>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child notification is-info">
+                        <div class="content">
+                            <p class="title">weather</p>
+                            <p class="subtitle"></p>
+                            <div class="content">
+                                <!-- Content -->
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+    </header>
+
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+        crossorigin=""></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+    <script src="./assets/js/config.js"></script>
+    <script src="./assets/js/utils.js"></script>
+    <script src="./assets/js/skiAreas.js"></script>
+
+    <script src="./assets/js/homepage.js"></script>
