@@ -138,7 +138,7 @@
         <!-- FOOTER DELETE BUTTON -->
         <div class="field is-grouped">
           <div class="control">
-            <button class="button is-link">Submit</button>
+            <button class="button is-link" id="delete-profile-button">Submit</button>
           </div>
           <div class="control">
             <button class="button is-link is-light">Cancel</button>
@@ -162,17 +162,76 @@
     let saveNameIcon = document.getElementById('save-name-icon');
     let saveEmailIcon = document.getElementById('save-email-icon');
     let allIconElements = document.querySelectorAll('i');
-    // emailInput.addEventListener('input', () => console.log('email = ', emailInput.value));
-    
     let passSelectedContainer = document.getElementById('pass-selected-container');
     let passInput = document.getElementById('pass-input');
     let savePassIcon = document.getElementById('save-pass-icon');
-    savePassIcon.addEventListener('click', () => savePassInput('pass'));
-
     let resortSelectedContainer = document.getElementById('resort-selected-container');
     let resortInput = document.getElementById('resort-input');
     let saveResortIcon = document.getElementById('save-resort-icon');
+    let deleteProfileButton = document.getElementById('delete-profile-button');
+    // emailInput.addEventListener('input', () => console.log('email = ', emailInput.value));
+    
+    
+    //section:global variables go here 👇
+    
+    //section:event listeners go here 👇
+    saveNameIcon.addEventListener('click', () => saveNameEmail(event, "name"));
+    saveEmailIcon.addEventListener('click', () => saveNameEmail(event, "email"));
+    passSelectedContainer.addEventListener('click', deletePassResort);
+    resortSelectedContainer.addEventListener('click', deletePassResort);
+    savePassIcon.addEventListener('click', () => savePassInput('pass'));
     saveResortIcon.addEventListener('click', () => savePassInput('resort'));
+    deleteProfileButton.addEventListener('click', clearLocalStorage);
+    // document.addEventListener('click', (event) => console.log(event.target));
+    // nameInput.addEventListener('input', () => console.log('name = ', nameInput.value));
+
+    //section:functions and event handlers go here 👇
+
+    function saveNameEmail(event, field) {
+      let input = "";
+      let validInput = false;
+      let mailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
+
+      //get input
+      field === "email" ? input = emailInput.value : input = nameInput.value;
+
+      //validate input
+      field === 'email' ? validInput = emailInput.value.match(mailFormatRegex) : validInput = (input && input.trim() !== "");
+
+      if (validInput) {
+        document.getElementById(`alert-${field}-invalid`).classList.add('is-hidden'); //ensure invalid alert is hidden
+        document.getElementById(`alert-${field}-valid`).classList.remove('is-hidden'); //render valid alert
+        field === "email" ? emailInput.setAttribute("placeholder", input) : nameInput.setAttribute("placeholder", input); //set placeholder to input value
+
+        //swap disk and check icon to confirm valid
+        allIconElements.forEach(element => {
+          if (element.classList.contains(`${field}-disk`)) {element.classList.toggle('is-hidden')};
+          if (element.classList.contains(`${field}-check`)) {element.classList.toggle('is-hidden')};
+        })
+
+        //after 1 second hide check icon, render disk icon, hide alert message
+        setTimeout(() => {
+          allIconElements.forEach(element => {
+          if (element.classList.contains(`${field}-disk`)) {element.classList.toggle('is-hidden')};
+          if (element.classList.contains(`${field}-check`)) {element.classList.toggle('is-hidden')};
+          document.getElementById(`alert-${field}-valid`).classList.add('is-hidden');
+        })
+        }, 1000);
+        //save to local storage
+        setLocalStorage(field, input);
+        //clear value
+        field === "email" ? emailInput.value = "" : nameInput.value = "";
+
+      } else {
+        //render invalid alert
+        document.getElementById(`alert-${field}-invalid`).classList.remove('is-hidden');
+        //focus cursor for input field
+        field === "email" ? emailInput.focus() : nameInput.focus();
+        //clear value
+        field === "email" ? emailInput.value = "" : nameInput.value = "";
+        
+      }
+    }
 
     function savePassInput(selectedList) {
       let skiProfile = JSON.parse(localStorage.getItem('ski-profile'));
@@ -257,74 +316,14 @@
           let noneSelected = document.createElement('div');
           noneSelected.classList.add("notification", "is-primary");
 
-          event.target.parentNode.classList.contains('passes') ? noneSelected.textContent = "No Passes Selected." : noneSelected.textContent = "No Resorts Selected";
+          event.target.parentNode.classList.contains('passes') ? noneSelected.textContent = "No Passes Selected" : noneSelected.textContent = "No Resorts Selected";
           event.target.parentNode.classList.contains('passes') ? passSelectedContainer.append(noneSelected) : resortSelectedContainer.append(noneSelected);
         }
 
         setLocalStorage(key, targetList);
       }
     }
-    
-    //section:global variables go here 👇
-    
-    //section:event listeners go here 👇
-    saveNameIcon.addEventListener('click', () => saveNameEmail(event, "name"));
-    saveEmailIcon.addEventListener('click', () => saveNameEmail(event, "email"));
-    passSelectedContainer.addEventListener('click', deletePassResort);
-    resortSelectedContainer.addEventListener('click', deletePassResort);
 
-
-    // document.addEventListener('click', (event) => console.log(event.target));
-    // nameInput.addEventListener('input', () => console.log('name = ', nameInput.value));
-
-    //section:functions and event handlers go here 👇
-
-    function saveNameEmail(event, field) {
-      let input = "";
-      let validInput = false;
-      let mailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
-
-      //get input
-      field === "email" ? input = emailInput.value : input = nameInput.value;
-
-      //validate input
-      field === 'email' ? validInput = emailInput.value.match(mailFormatRegex) : validInput = (input && input.trim() !== "");
-
-      if (validInput) {
-        document.getElementById(`alert-${field}-invalid`).classList.add('is-hidden'); //ensure invalid alert is hidden
-        document.getElementById(`alert-${field}-valid`).classList.remove('is-hidden'); //render valid alert
-        field === "email" ? emailInput.setAttribute("placeholder", input) : nameInput.setAttribute("placeholder", input); //set placeholder to input value
-
-        //swap disk and check icon to confirm valid
-        allIconElements.forEach(element => {
-          if (element.classList.contains(`${field}-disk`)) {element.classList.toggle('is-hidden')};
-          if (element.classList.contains(`${field}-check`)) {element.classList.toggle('is-hidden')};
-        })
-
-        //after 1 second hide check icon, render disk icon, hide alert message
-        setTimeout(() => {
-          allIconElements.forEach(element => {
-          if (element.classList.contains(`${field}-disk`)) {element.classList.toggle('is-hidden')};
-          if (element.classList.contains(`${field}-check`)) {element.classList.toggle('is-hidden')};
-          document.getElementById(`alert-${field}-valid`).classList.add('is-hidden');
-        })
-        }, 1000);
-        //save to local storage
-        setLocalStorage(field, input);
-        //clear value
-        field === "email" ? emailInput.value = "" : nameInput.value = "";
-
-      } else {
-        //render invalid alert
-        document.getElementById(`alert-${field}-invalid`).classList.remove('is-hidden');
-        //focus cursor for input field
-        field === "email" ? emailInput.focus() : nameInput.focus();
-        //clear value
-        field === "email" ? emailInput.value = "" : nameInput.value = "";
-        
-      }
-    }
-    
     function setLocalStorage(key, value) {
       console.log(key, value);
       let skiProfile = {};
@@ -348,10 +347,30 @@
       // localStorage.setItem("weatherSearchHistory", JSON.stringify(searchHistory));
     // }
 
-    // function clearLocalStorage() {
-      // localStorage.removeItem("weatherSearchHistory");
-      // searchHistoryButtons.textContent = "";
-    // }
+    function clearLocalStorage() {
+      console.log('clear')
+      localStorage.removeItem("ski-profile"); //clear storage
+
+      //reset name and email
+      nameInput.setAttribute('placeholder', "Powder Day");
+      emailInput.setAttribute('placeholder', "pow@skiallday.com");
+
+      //reset pass container
+      passSelectedContainer.textContent = "";
+      let clearPasses = document.createElement('div');
+      clearPasses.classList.add("notification", "is-primary");
+      clearPasses.textContent = "No Passes Selected";
+      passSelectedContainer.append(clearPasses);
+
+      //reset resort container
+      resortSelectedContainer.textContent = "";
+      let clearResorts = document.createElement('div');
+      clearResorts.classList.add("notification", "is-primary");
+      clearResorts.textContent = "No Resorts Selected";
+      resortSelectedContainer.append(clearResorts);
+
+      nameInput.focus();
+    }
 
     //OPEN AND CLOSE THE PROFILE MODAL
     document.addEventListener('DOMContentLoaded', () => {
