@@ -47,8 +47,8 @@
             <p class="help is-danger is-hidden" id="alert-name-invalid">Your name is blank. Try again!</p>
           </div>
           <div class="control" id="save-name-input">
-            <a class="button is-info">
-              <i class="fas fa-save name-disk" id="save-disk" style="color: white"></i>
+            <a class="button is-info name">
+              <i class="fas fa-save name-disk name" id="save-disk" style="color: white"></i>
               <i class="fas fa-check name-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
             </a>
           </div>
@@ -66,8 +66,8 @@
             <p class="help is-danger is-hidden" id="alert-email-invalid">The email is invalid. Try again!</p>
           </div>
           <div class="control" id="save-email-input">
-            <a class="button is-info">
-              <i class="fas fa-save email-disk" id="save-disk" style="color: white"></i>
+            <a class="button is-info email">
+              <i class="fas fa-save email-disk email" id="save-disk" style="color: white"></i>
               <i class="fas fa-check email-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
             </a>
           </div>
@@ -159,86 +159,64 @@
     //section:global variables go here 👇
     
     //section:event listeners go here 👇
-    saveNameIcon.addEventListener('click', saveName);
-    saveEmailIcon.addEventListener('click', saveEmail);
+    saveNameIcon.addEventListener('click', () => saveNameEmail(event, "name"));
+    saveEmailIcon.addEventListener('click', () => saveNameEmail(event, "email"));
     // document.addEventListener('click', (event) => console.log(event.target));
     // nameInput.addEventListener('input', () => console.log('name = ', nameInput.value));
 
     //section:functions and event handlers go here 👇
 
-    function saveName(event) {
-      
-      console.log('name input = ', nameInput.value, !nameInput.value)
-      
-      if(nameInput.value) {
-        document.getElementById('alert-name-invalid').classList.add('is-hidden');
-        document.getElementById('alert-name-valid').classList.remove('is-hidden');
+    function saveNameEmail(event, field) {
+      let input = "";
+      let validInput = false;
+      let mailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
 
-        nameInput.setAttribute("placeholder", nameInput.value);
-        nameInput.value = "";
+      //get input
+      field === "email" ? input = emailInput.value : input = nameInput.value;
 
+      //validate input
+      field === 'email' ? validInput = emailInput.value.match(mailFormatRegex) : validInput = (input && input.trim() !== "");
+
+      if (validInput) {
+        document.getElementById(`alert-${field}-invalid`).classList.add('is-hidden'); //ensure invalid alert is hidden
+        document.getElementById(`alert-${field}-valid`).classList.remove('is-hidden'); //render valid alert
+        field === "email" ? emailInput.setAttribute("placeholder", input) : nameInput.setAttribute("placeholder", input); //set placeholder to input value
+
+        //swap disk and check icon to confirm valid
         allIconElements.forEach(element => {
-          if (element.classList.contains('name-disk')) {element.classList.toggle('is-hidden')};
-          if (element.classList.contains('name-check')) {element.classList.toggle('is-hidden')};
-          // if (element.classList.contains('name-check')) {element.classList.toggle('is-hidden')};
+          if (element.classList.contains(`${field}-disk`)) {element.classList.toggle('is-hidden')};
+          if (element.classList.contains(`${field}-check`)) {element.classList.toggle('is-hidden')};
         })
 
+        //after 1 second hide check icon, render disk icon, hide alert message
         setTimeout(() => {
           allIconElements.forEach(element => {
-          if (element.classList.contains('name-disk')) {element.classList.toggle('is-hidden')};
-          if (element.classList.contains('name-check')) {element.classList.toggle('is-hidden')};
-          document.getElementById('alert-name-valid').classList.add('is-hidden');
+          if (element.classList.contains(`${field}-disk`)) {element.classList.toggle('is-hidden')};
+          if (element.classList.contains(`${field}-check`)) {element.classList.toggle('is-hidden')};
+          document.getElementById(`alert-${field}-valid`).classList.add('is-hidden');
         })
         }, 1000);
-        // save to local storage
-        setLocalStorage("name", nameInput.getAttribute("placeholder"));
+        //save to local storage
+        setLocalStorage(field, input);
+        //clear value
+        field === "email" ? emailInput.value = "" : nameInput.value = "";
 
       } else {
-        document.getElementById('alert-name-invalid').classList.remove('is-hidden');
+        //render invalid alert
+        document.getElementById(`alert-${field}-invalid`).classList.remove('is-hidden');
+        //focus cursor for input field
+        field === "email" ? emailInput.focus() : nameInput.focus();
+        //clear value
+        field === "email" ? emailInput.value = "" : nameInput.value = "";
+        
       }
     }
     
-
-    function saveEmail(event) {
-      //EMAIL VALIDATION REGEX https://stackabuse.com/validate-email-addresses-with-regular-expressions-in-javascript/
-      let mailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
-
-      console.log(emailInput.value.match(mailFormatRegex));
-      
-      if (!emailInput.value) {console.log('email invalid')}
-
-      if (emailInput.value.match(mailFormatRegex)) {
-        document.getElementById('alert-email-invalid').classList.add('is-hidden');
-        document.getElementById('alert-email-valid').classList.remove('is-hidden');
-
-        emailInput.setAttribute("placeholder", emailInput.value);
-        emailInput.value = "";
-  
-        allIconElements.forEach(element => {
-          if (element.classList.contains('email-disk')) {element.classList.toggle('is-hidden')};
-          if (element.classList.contains('email-check')) {element.classList.toggle('is-hidden')};
-        })
-  
-        setTimeout(() => {
-          allIconElements.forEach(element => {
-          if (element.classList.contains('email-disk')) {element.classList.toggle('is-hidden')};
-          if (element.classList.contains('email-check')) {element.classList.toggle('is-hidden')};
-          document.getElementById('alert-email-valid').classList.add('is-hidden');
-        })
-        }, 1000);
-  
-        setLocalStorage("email", emailInput.getAttribute("placeholder"));
-      } else {
-        document.getElementById('alert-email-invalid').classList.remove('is-hidden');
-      }
-    }
-
-
     function setLocalStorage(key, value) {
       console.log(key, value);
       let skiProfile = {};
 
-      console.log( JSON.parse(localStorage.getItem("ski-profile")));
+      console.log(JSON.parse(localStorage.getItem("ski-profile")));
 
       JSON.parse(localStorage.getItem("ski-profile")) ? skiProfile = JSON.parse(localStorage.getItem("ski-profile")) : skiProfile = {name: "", email: "", memberDate: "", passes: [], resorts: [],};
 
