@@ -198,9 +198,9 @@
 
       selectedList === "pass" ? (
         passSelected.forEach(element => {
-          console.log(passSelected, element);
+          // console.log(passSelected, element);
           let passSelectedElement = document.createElement('div');
-          passSelectedElement.classList.add("box", "is-primary", "notification");
+          passSelectedElement.classList.add("box", "is-primary", "notification", "passes");
     
           let deleteButton = document.createElement('button');
           deleteButton.classList.add("delete", "is-normal");
@@ -211,9 +211,9 @@
           passSelectedElement.append(deleteButton);
         })) : (
           resortSelected.forEach(element => {
-            console.log(resortSelected, element);
+            // console.log(resortSelected, element);
             let resortSelectedElement = document.createElement('div');
-            resortSelectedElement.classList.add("box", "is-primary", "notification");
+            resortSelectedElement.classList.add("box", "is-primary", "notification", "resorts");
       
             let deleteButton = document.createElement('button');
             deleteButton.classList.add("delete", "is-normal");
@@ -227,12 +227,41 @@
 
     }
 
+    function deletePassResort(event) {
+      if (event.target.matches('button')) {
+        // console.log(event.target, event.target.parentNode, event.target.parentNode.classList.contains('passes'))
+        event.target.parentNode.remove(); //remove resort/pass from DOM
+        
+        let skiProfile = JSON.parse(localStorage.getItem('ski-profile'));
+        let targetList = event.target.parentNode.classList.contains('passes') ? skiProfile.passes : skiProfile.resorts;
+        let key = event.target.parentNode.classList.contains('passes') ? "passes" : "resorts";
+
+        console.log(targetList, key)
+        let index = targetList.indexOf(
+          event.target.parentNode.textContent.trim()
+          ); //get index of pass/resort clicked
+
+        targetList.splice(index, 1); //remove pass or resort from local storage
+        
+        if (targetList.length === 0) {
+          let noneSelected = document.createElement('div');
+          noneSelected.classList.add("notification", "is-primary");
+
+          event.target.parentNode.classList.contains('passes') ? noneSelected.textContent = "No Passes Selected." : noneSelected.textContent = "No Resorts Selected";
+          event.target.parentNode.classList.contains('passes') ? passSelectedContainer.append(noneSelected) : resortSelectedContainer.append(noneSelected);
+        }
+
+        setLocalStorage(key, targetList);
+      }
+    }
     
     //section:global variables go here 👇
     
     //section:event listeners go here 👇
     saveNameIcon.addEventListener('click', () => saveNameEmail(event, "name"));
     saveEmailIcon.addEventListener('click', () => saveNameEmail(event, "email"));
+    passSelectedContainer.addEventListener('click', deletePassResort);
+    resortSelectedContainer.addEventListener('click', deletePassResort);
 
 
     // document.addEventListener('click', (event) => console.log(event.target));
