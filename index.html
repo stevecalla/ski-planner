@@ -11,20 +11,24 @@
     crossorigin="" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/style.css">
+<style>
+  .hero {
+    background: url(assets/images/mountainbackground.jpg) center / cover;
+  }
+</style>
 
   <title>Ski Planner</title>
 </head>
 
-<body>
-  <header>
-    <h1>Ski Planner</h1>
-  </header>
-
-
+<body class="hero is-fullheight">
+  <header class="level header">
+    <h1 class="title level-item has-text-center">Ski Trip</h1>
   <aside>
-    <section>
+    <section class="level-item level-center">
       <form id="searchForm">
         <select id="ddPass">
           <option value="">All</option>
@@ -38,8 +42,10 @@
     </section>
   </aside>
 
+</header>
+
   <main>
-    <section id="mapArea">
+    <section class="mapSection" id="mapArea">
       <div id="map"></div>
     </section>
     <section id="drivingDirections" class="is-invisible">
