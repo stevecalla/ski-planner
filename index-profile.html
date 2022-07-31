@@ -30,9 +30,10 @@
         <!-- PROFILE MODAL -->
 
         <!-- MODAL HEADER -->
-        <header class="modal-card-head">
+        <header class="modal-card-head column">
           <p class="modal-card-title">Your Profile</p>
           <!-- <button class="" aria-label="close"></button> -->
+        <p class="label mt-2 is-hidden" id="member-created-date">Member Since: January 2012</p>
         </header>
         
         <!-- NAME INPUT -->
@@ -72,9 +73,6 @@
             </a>
           </div>
         </div>
-
-        <label class="label">Member Since</label>
-        <label class="label">January 2012</label>
 
         <!-- PASS SELECTION LIST -->
         <label class="label">Your Season Pass</label>
@@ -155,6 +153,9 @@
     Open JS example modal
   </button>
 
+  <!-- Moment -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
   <script>
     //section:query selector variables go here 👇
     let nameInput = document.getElementById('name-input');
@@ -169,6 +170,7 @@
     let resortInput = document.getElementById('resort-input');
     let saveResortIcon = document.getElementById('save-resort-icon');
     let deleteProfileButton = document.getElementById('delete-profile-button');
+    let memberCreatedDate = document.getElementById('member-created-date');
     // emailInput.addEventListener('input', () => console.log('email = ', emailInput.value));
     
     
@@ -188,16 +190,17 @@
     //section:functions and event handlers go here 👇
 
     function saveNameEmail(event, field) {
+      
       let input = "";
       let validInput = false;
       let mailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
-
+      
       //get input
       field === "email" ? input = emailInput.value : input = nameInput.value;
-
+      
       //validate input
       field === 'email' ? validInput = emailInput.value.match(mailFormatRegex) : validInput = (input && input.trim() !== "");
-
+      
       if (validInput) {
         document.getElementById(`alert-${field}-invalid`).classList.add('is-hidden'); //ensure invalid alert is hidden
         document.getElementById(`alert-${field}-valid`).classList.remove('is-hidden'); //render valid alert
@@ -218,7 +221,10 @@
         })
         }, 1000);
         //save to local storage
+
+        
         setLocalStorage(field, input);
+        createMemberSinceDate();
         //clear value
         field === "email" ? emailInput.value = "" : nameInput.value = "";
 
@@ -296,6 +302,20 @@
         }
       }
 
+    function createMemberSinceDate() {
+      let skiProfile = getLocalStorage();
+      console.log(skiProfile);
+
+      if (skiProfile.memberDate === "") {
+        let createdDate = moment().format("MMMM D YYYY h:mm:ss a"); //todo:remove day, hours, min, sec
+        setLocalStorage("memberDate", createdDate)
+        memberCreatedDate.textContent = `Member Since: ${createdDate}`;
+        memberCreatedDate.classList.remove('is-hidden');
+        console.log(memberCreatedDate.textContent);
+        return memberCreatedDate;
+      }
+    }
+
     function deletePassResort(event) {
       if (event.target.matches('button')) {
         // console.log(event.target, event.target.parentNode, event.target.parentNode.classList.contains('passes'))
@@ -339,9 +359,9 @@
     }
 
     //LOCAL STORAGE FUNCTIONS
-    // function getLocalStorage() {
-      // return JSON.parse(localStorage.getItem("weatherSearchHistory"));
-    // }
+    function getLocalStorage() {
+      return JSON.parse(localStorage.getItem("ski-profile"));
+    }
 
     // function setLocalStorage(searchHistory) {
       // localStorage.setItem("weatherSearchHistory", JSON.stringify(searchHistory));
@@ -368,6 +388,9 @@
       clearResorts.classList.add("notification", "is-primary");
       clearResorts.textContent = "No Resorts Selected";
       resortSelectedContainer.append(clearResorts);
+
+      //hide member create date
+      memberCreatedDate.classList.add('is-hidden');
 
       nameInput.focus();
     }
