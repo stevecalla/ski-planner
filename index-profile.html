@@ -59,10 +59,11 @@
         <div class="field has-addons">
           <div class="control has-icons-left is-expanded">
             <input class="input is-success is-fullwidth" id="email-input" type="text" placeholder="pow@skiallday.com" value="">
-            <!-- <input class="input is-success is-fullwidth" id="email-input" type="text" placeholder="pow@skiallday.com" value="" pattern=".+@beststartupever\.com" title="Please provide only a Best Startup Ever corporate e-mail address"> -->
             <span class="icon is-small is-left">
               <i class="fas fa-user"></i>
             </span>
+            <p class="help is-success is-hidden" id="alert-email-valid">Your email was saved successfully.</p>
+            <p class="help is-danger is-hidden" id="alert-email-invalid">The email is invalid. Try again!</p>
           </div>
           <div class="control" id="save-email-input">
             <a class="button is-info">
@@ -172,6 +173,7 @@
       if(nameInput.value) {
         document.getElementById('alert-name-invalid').classList.add('is-hidden');
         document.getElementById('alert-name-valid').classList.remove('is-hidden');
+
         nameInput.setAttribute("placeholder", nameInput.value);
         nameInput.value = "";
 
@@ -198,26 +200,37 @@
     
 
     function saveEmail(event) {
-      emailInput.setAttribute("placeholder", emailInput.value);
-      emailInput.value = "";
+      //EMAIL VALIDATION REGEX https://stackabuse.com/validate-email-addresses-with-regular-expressions-in-javascript/
+      let mailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
 
+      console.log(emailInput.value.match(mailFormatRegex));
+      
       if (!emailInput.value) {console.log('email invalid')}
-      console.log('email input = ', emailInput.value)
-      if (emailInput.value === /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/) {console.log('email regex working')}
 
-      allIconElements.forEach(element => {
-        if (element.classList.contains('email-disk')) {element.classList.toggle('is-hidden')};
-        if (element.classList.contains('email-check')) {element.classList.toggle('is-hidden')};
-      })
+      if (emailInput.value.match(mailFormatRegex)) {
+        document.getElementById('alert-email-invalid').classList.add('is-hidden');
+        document.getElementById('alert-email-valid').classList.remove('is-hidden');
 
-      setTimeout(() => {
+        emailInput.setAttribute("placeholder", emailInput.value);
+        emailInput.value = "";
+  
         allIconElements.forEach(element => {
-        if (element.classList.contains('email-disk')) {element.classList.toggle('is-hidden')};
-        if (element.classList.contains('email-check')) {element.classList.toggle('is-hidden')};
-      })
-      }, 1000);
-
-      setLocalStorage("email", emailInput.getAttribute("placeholder"));
+          if (element.classList.contains('email-disk')) {element.classList.toggle('is-hidden')};
+          if (element.classList.contains('email-check')) {element.classList.toggle('is-hidden')};
+        })
+  
+        setTimeout(() => {
+          allIconElements.forEach(element => {
+          if (element.classList.contains('email-disk')) {element.classList.toggle('is-hidden')};
+          if (element.classList.contains('email-check')) {element.classList.toggle('is-hidden')};
+          document.getElementById('alert-email-valid').classList.add('is-hidden');
+        })
+        }, 1000);
+  
+        setLocalStorage("email", emailInput.getAttribute("placeholder"));
+      } else {
+        document.getElementById('alert-email-invalid').classList.remove('is-hidden');
+      }
     }
 
 
