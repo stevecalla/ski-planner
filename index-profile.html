@@ -193,6 +193,8 @@
       });
 
       selectedList === "pass" ? passSelectedContainer.textContent = "" : resortSelectedContainer.textContent = "";
+      passSelectedContainer.setAttribute("style", "height: 125px; overflow: scroll");
+      resortSelectedContainer.setAttribute("style", "height: 125px; overflow: scroll");
 
       selectedList === "pass" ? (
         passSelected.forEach(element => {
