@@ -46,7 +46,7 @@
             <p class="help is-success is-hidden" id="alert-name-valid">Your name was saved successfully.</p>
             <p class="help is-danger is-hidden" id="alert-name-invalid">Your name is blank. Try again!</p>
           </div>
-          <div class="control" id="save-name-input">
+          <div class="control" id="save-name-icon">
             <a class="button is-info name">
               <i class="fas fa-save name-disk name" id="save-disk" style="color: white"></i>
               <i class="fas fa-check name-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
@@ -65,7 +65,7 @@
             <p class="help is-success is-hidden" id="alert-email-valid">Your email was saved successfully.</p>
             <p class="help is-danger is-hidden" id="alert-email-invalid">The email is invalid. Try again!</p>
           </div>
-          <div class="control" id="save-email-input">
+          <div class="control" id="save-email-icon">
             <a class="button is-info email">
               <i class="fas fa-save email-disk email" id="save-disk" style="color: white"></i>
               <i class="fas fa-check email-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
@@ -80,49 +80,56 @@
         <label class="label">Your Season Pass</label>
         <div class="field has-addons">
           <div class="control is-expanded">
-            <div class="select is-fullwidth">
-              <select name="country">
+            <div class="select is-fullwidth" id="pass-input">
+              <select name="pass">
                 <option value="Epic">EPIC</option>
                 <option value="Ikon">Ikon</option>
                 <option value="Independent">Independent</option>
               </select>
             </div>
           </div>
-          <div class="control">
+          <!-- <div class="control">
             <button type="submit" class="button is-primary">Choose</button>
+          </div> -->
+          <div class="control">
+            <a class="button is-info pass" id="save-pass-icon">
+              <i class="fas fa-save pass-disk pass" id="save-disk" style="color: white"></i>
+              <i class="fas fa-check pass-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
+            </a>
           </div>
         </div>
 
         <!-- PASS LIST -->
-        <div>
+        <div class="box" id="pass-selected-container">
           <div class="notification is-primary">
-            <button class="delete"></button>
-            My pass list
+             No Passes Selected
           </div>
         </div>
 
         <!-- RESORT SELECTION LIST -->
-        <label class="label">Your Favorite Resort</label>
+        <label class="label">Your Favorite Resorts</label>
         <div class="field has-addons">
           <div class="control is-expanded">
-            <div class="select is-fullwidth">
-              <select name="country">
-                <option value="TBD">TBD</option>
-                <option value="TBD">TBD</option>
-                <option value="TBD">TBD</option>
+            <div class="select is-fullwidth" id="resort-input">
+              <select name="resort">
+                <option value="TBD1">TBD 1</option>
+                <option value="TBD2">TBD 2</option>
+                <option value="TBD3">TBD 3</option>
               </select>
             </div>
           </div>
           <div class="control">
-            <button type="submit" class="button is-primary">Choose</button>
+            <a class="button is-info resort" id="save-resort-icon">
+              <i class="fas fa-save resort-disk" id="save-disk" style="color: white"></i>
+              <i class="fas fa-check resort-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
+            </a>
           </div>
         </div>
 
         <!-- RESORT LIST -->
-        <div>
+        <div class="box" id="resort-selected-container">
           <div class="notification is-primary">
-            <button class="delete is-normal"></button>
-            My favorite resort list
+             No Resorts Selected
           </div>
         </div>
 
@@ -150,10 +157,73 @@
     //section:query selector variables go here 👇
     let nameInput = document.getElementById('name-input');
     let emailInput = document.getElementById('email-input');
-    let saveNameIcon = document.getElementById('save-name-input');
-    let saveEmailIcon = document.getElementById('save-email-input');
+    let saveNameIcon = document.getElementById('save-name-icon');
+    let saveEmailIcon = document.getElementById('save-email-icon');
     let allIconElements = document.querySelectorAll('i');
     // emailInput.addEventListener('input', () => console.log('email = ', emailInput.value));
+    
+    let passSelectedContainer = document.getElementById('pass-selected-container');
+    let passInput = document.getElementById('pass-input');
+    let savePassIcon = document.getElementById('save-pass-icon');
+    savePassIcon.addEventListener('click', () => savePassInput('pass'));
+
+    let resortSelectedContainer = document.getElementById('resort-selected-container');
+    let resortInput = document.getElementById('resort-input');
+    let saveResortIcon = document.getElementById('save-resort-icon');
+    saveResortIcon.addEventListener('click', () => savePassInput('resort'));
+
+    function savePassInput(selectedList) {
+      let skiProfile = JSON.parse(localStorage.getItem('ski-profile'));
+
+      let passSelected = skiProfile ? skiProfile.passes : [];
+      let resortSelected = skiProfile ? skiProfile.resorts : [];
+
+      let selectOption = document.querySelectorAll('select');
+
+      selectOption.forEach(element => {
+        if (element.getAttribute('name') === 'pass' && !passSelected.includes(element.value)) {
+          console.log(element, element.value, passSelected), 
+          passSelected.push(element.value);
+          setLocalStorage("passes", passSelected);
+        } else if (element.getAttribute('name') === 'resort' && !resortSelected.includes(element.value)) { //must be the resort selected
+          console.log(element, element.value, resortSelected), 
+          resortSelected.push(element.value);
+          setLocalStorage("resorts", resortSelected);
+        }
+      });
+
+      selectedList === "pass" ? passSelectedContainer.textContent = "" : resortSelectedContainer.textContent = "";
+
+      selectedList === "pass" ? (
+        passSelected.forEach(element => {
+          console.log(passSelected, element);
+          let passSelectedElement = document.createElement('div');
+          passSelectedElement.classList.add("box", "is-primary", "notification");
+    
+          let deleteButton = document.createElement('button');
+          deleteButton.classList.add("delete", "is-normal");
+    
+          passSelectedElement.textContent = element;
+    
+          passSelectedContainer.append(passSelectedElement);
+          passSelectedElement.append(deleteButton);
+        })) : (
+          resortSelected.forEach(element => {
+            console.log(resortSelected, element);
+            let resortSelectedElement = document.createElement('div');
+            resortSelectedElement.classList.add("box", "is-primary", "notification");
+      
+            let deleteButton = document.createElement('button');
+            deleteButton.classList.add("delete", "is-normal");
+      
+            resortSelectedElement.textContent = element;
+      
+            resortSelectedContainer.append(resortSelectedElement);
+            resortSelectedElement.append(deleteButton);
+          })
+        )
+
+    }
 
     
     //section:global variables go here 👇
@@ -161,6 +231,8 @@
     //section:event listeners go here 👇
     saveNameIcon.addEventListener('click', () => saveNameEmail(event, "name"));
     saveEmailIcon.addEventListener('click', () => saveNameEmail(event, "email"));
+
+
     // document.addEventListener('click', (event) => console.log(event.target));
     // nameInput.addEventListener('input', () => console.log('name = ', nameInput.value));
 
