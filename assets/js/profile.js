@@ -20,9 +20,9 @@ let deleteProfileButton = document.getElementById('delete-profile-button');
 //section:global variables go here 👇
 
 //section:event listeners go here 👇
-saveNameIcon.addEventListener('click', () => saveNameEmailAddressInput(event, "name"));
-saveEmailIcon.addEventListener('click', () => saveNameEmailAddressInput(event, "email"));
-saveAddressIcon.addEventListener('click', () => saveNameEmailAddressInput(event, "address"));
+saveNameIcon.addEventListener('click', saveNameEmailAddressInput);
+saveEmailIcon.addEventListener('click', saveNameEmailAddressInput);
+saveAddressIcon.addEventListener('click', saveNameEmailAddressInput);
 passSelectedContainer.addEventListener('click', deletePassResort);
 resortSelectedContainer.addEventListener('click', deletePassResort);
 savePassIcon.addEventListener('click', () => savePassInput('pass'));
@@ -94,54 +94,74 @@ function loadProfileFromStorage() {
   }
 }
 
-function saveNameEmailAddressInput(event, field) {
-  // console.log(field);
-  
-  let input = "";
-  let validInput = false;
-  let mailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
-  
-  //get input
-  field === "email" ? input = emailInput.value : field === "name" ? input = nameInput.value : input = addressInput.value
-  
-  //validate input
-  field === 'email' ? validInput = emailInput.value.match(mailFormatRegex) : validInput = (input && input.trim() !== "");
-  
+//RENDER AND SAVE NAME EMAIL ADDRESS INPUT
+function saveNameEmailAddressInput(event) {
+  let {field, input} = getInput(event); //get input
+  let {validInput} = validateInput(field, input); //validate input
   if (validInput) {
-    document.getElementById(`alert-${field}-invalid`).classList.add('is-hidden'); //ensure invalid alert is hidden
-    document.getElementById(`alert-${field}-valid`).classList.remove('is-hidden'); //render valid alert
-
-    field === "email" ? emailInput.setAttribute("placeholder", input) : field === "name" ? nameInput.setAttribute("placeholder", input) : addressInput.setAttribute("placeholder", input);//set placeholder to input value
-
-    //swap disk and check icon to confirm valid
-    allIconElements.forEach(element => {
-      if (element.classList.contains(`${field}-disk`)) {element.classList.toggle('is-hidden')};
-      if (element.classList.contains(`${field}-check`)) {element.classList.toggle('is-hidden')};
-    })
-
-    //after 1 second hide check icon, render disk icon, hide alert message
-    setTimeout(() => {
-      allIconElements.forEach(element => {
-      if (element.classList.contains(`${field}-disk`)) {element.classList.toggle('is-hidden')};
-      if (element.classList.contains(`${field}-check`)) {element.classList.toggle('is-hidden')};
-      document.getElementById(`alert-${field}-valid`).classList.add('is-hidden');
-    })
-    }, 1000);
-    //save to local storage
-
+    renderValidNameEmailAddress(field, input);
+    hideAlertTimeOut(field);
     setLocalStorage(field, input);
     createMemberSinceDate();
-    //clear value
-    field === "email" ? emailInput.value = "" : field === "name" ? nameInput.value = "" : addressInput.value = "";
-
+    resetNameEmailAddress(field); //clear/reset values
   } else {
-    //render invalid alert
-    document.getElementById(`alert-${field}-invalid`).classList.remove('is-hidden');
-    //focus cursor for input field
-    field === "email" ? emailInput.focus() : field === "name" ? nameInput.focus() : addressInput.focus();
-    //clear value
-    field === "email" ? emailInput.value = "" : field === "name" ? nameInput.value = "" : addressInput.value = "";
-    
+    document.getElementById(`alert-${field}-invalid`).classList.remove('is-hidden'); //render invalid alert
+    resetNameEmailAddress(field); //clear/reset values
+  }
+}
+
+function getInput(event) {
+  let parentNodeField = event.target.parentNode.classList;
+  parentNodeField.contains('name') ? (
+    field = 'name', input = nameInput.value.trim()) : parentNodeField.contains('email') ? (
+    field = "email", input = emailInput.value.trim()) : (
+    field = "address", input = addressInput.value.trim());
+  return {field, input};
+}
+
+function validateInput(field, input) {
+  let validInput = false;
+  let mailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
+  field === 'email' ? validInput = emailInput.value.match(mailFormatRegex) : validInput = (input && input.trim() !== "");
+  return {validInput};
+}
+
+function renderValidNameEmailAddress(field, input) {
+  document.getElementById(`alert-${field}-invalid`).classList.add('is-hidden'); //ensure invalid alert is hidden
+  document.getElementById(`alert-${field}-valid`).classList.remove('is-hidden'); //render valid alert
+
+  field === "email" ? emailInput.setAttribute("placeholder", input) : field === "name" ? nameInput.setAttribute("placeholder", input) : addressInput.setAttribute("placeholder", input); //set placeholder to input value
+
+  //swap disk and check icon to confirm valid
+  allIconElements.forEach(element => {
+    if (element.classList.contains(`${field}-disk`)) {element.classList.toggle('is-hidden')};
+    if (element.classList.contains(`${field}-check`)) {element.classList.toggle('is-hidden')};
+  })
+}
+
+function hideAlertTimeOut(field, validInput) {
+  setTimeout(() => {
+    allIconElements.forEach(element => {
+    if (element.classList.contains(`${field}-disk`)) {element.classList.toggle('is-hidden')};
+    if (element.classList.contains(`${field}-check`)) {element.classList.toggle('is-hidden')};
+    document.getElementById(`alert-${field}-valid`).classList.add('is-hidden');
+  })
+  }, 1000);
+}
+
+function resetNameEmailAddress(field) {
+  field === "email" ? emailInput.focus() : field === "name" ? nameInput.focus() : addressInput.focus(); //focus input field cursor
+  field === "email" ? emailInput.value = "" : field === "name" ? nameInput.value = "" : addressInput.value = "";
+}
+
+function createMemberSinceDate() {
+  let skiProfile = getLocalStorage();
+  if (skiProfile.memberDate === "") {
+    let createdDate = moment().format("MMMM D YYYY h:mm:ss a"); //todo:remove day, hours, min, sec
+    setLocalStorage("memberDate", createdDate)
+    memberCreatedDateInput.textContent = `Member Since: ${createdDate}`;
+    memberCreatedDateInput.classList.remove('is-hidden');
+    return memberCreatedDateInput;
   }
 }
 
@@ -213,19 +233,6 @@ function savePassInput(selectedList) {
     }
   }
 
-function createMemberSinceDate() {
-  let skiProfile = getLocalStorage();
-  // console.log(skiProfile);
-
-  if (skiProfile.memberDate === "") {
-    let createdDate = moment().format("MMMM D YYYY h:mm:ss a"); //todo:remove day, hours, min, sec
-    setLocalStorage("memberDate", createdDate)
-    memberCreatedDateInput.textContent = `Member Since: ${createdDate}`;
-    memberCreatedDateInput.classList.remove('is-hidden');
-    // console.log(memberCreatedDateInput.textContent);
-    return memberCreatedDateInput;
-  }
-}
 
 function deletePassResort(event) {
   if (event.target.matches('button')) {
