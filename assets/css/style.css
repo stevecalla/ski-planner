@@ -68,6 +68,27 @@ h6 {
   border: 3px white solid;
 }
 
+/* JQUERY AUTOCOMPLETE CSS */
+.ui-autocomplete {
+  max-width: 300px;
+  background-color: white;
+  border: 1px solid black;
+  z-index: 2147483647;
+  /* height: 400px; */
+  /* font-size: 24px; */
+  /* overflow-y: scroll; */
+}
+
+/* this class ensures the autocomplete item doesn't show at bottom right of the desktop UX */
+.ui-helper-hidden-accessible {
+  display: none !important;
+}
+
+/* .ui-autocomplete,
+.pac-container {
+  z-index: 10000 !important;
+} */
+
 /* ---------- MOBILE RESPONSIVE ---------- */
 /* --------------------------------------- */
 /* --------------------------------------- */
