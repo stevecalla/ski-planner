@@ -304,6 +304,7 @@ function fetchMapQuestSearchAhead(mapquestUrlSlug) { //need to run in vs live se
     if (response.ok) {
       response.json().then((data) => {
         createAutoCompleteList(data.results);
+        console.log(data.results);
       });
     } else {
       console.log('Error 1:', error);
@@ -315,11 +316,13 @@ function fetchMapQuestSearchAhead(mapquestUrlSlug) { //need to run in vs live se
 }
 
 function createAutoCompleteList(results) {
+  console.log(results)
   let autoCompleteDisplayString = [];
   results.forEach(element => {
     autoCompleteDisplayString.push(element.displayString);
   })
   showAutoCompleteLocationList(autoCompleteDisplayString);
+  console.log(autoCompleteDisplayString);
 }
 
 function showAutoCompleteLocationList(autoCompleteDisplayString) { //Use jQuery UI autocomplete
