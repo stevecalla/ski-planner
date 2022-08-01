@@ -27,8 +27,6 @@
     <div class="modal-background"></div>
     <div class="modal-content">
       <div class="box">
-        <!-- PROFILE MODAL -->
-
         <!-- MODAL HEADER -->
         <header class="modal-card-head column">
           <p class="modal-card-title">Your Profile</p>
@@ -70,6 +68,25 @@
             <a class="button is-info email">
               <i class="fas fa-save email-disk email" id="save-disk" style="color: white"></i>
               <i class="fas fa-check email-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- ADDRESS INPUT-->
+        <label class="label">Home Address</label>
+        <div class="field has-addons">
+          <div class="control has-icons-left is-expanded">
+            <input class="input is-success is-fullwidth" id="address-input" type="text" placeholder="123 SkiPowder Street, City, State, Zipcode" value="">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+            <p class="help is-success is-hidden" id="alert-address-valid">Your address was saved successfully.</p>
+            <p class="help is-danger is-hidden" id="alert-address-invalid">The address is invalid. Try again!</p>
+          </div>
+          <div class="control" id="save-address-icon">
+            <a class="button is-info address">
+              <i class="fas fa-save address-disk email" id="address-disk" style="color: white"></i>
+              <i class="fas fa-check address-check is-hidden" id="address-check" style="background-color: white; color: green;"></i>
             </a>
           </div>
         </div>
@@ -160,8 +177,10 @@
     //section:query selector variables go here 👇
     let nameInput = document.getElementById('name-input');
     let emailInput = document.getElementById('email-input');
+    let addressInput = document.getElementById('address-input');
     let saveNameIcon = document.getElementById('save-name-icon');
     let saveEmailIcon = document.getElementById('save-email-icon');
+    let saveAddressIcon = document.getElementById('save-address-icon');
     let allIconElements = document.querySelectorAll('i');
     let passSelectedContainer = document.getElementById('pass-selected-container');
     let passInput = document.getElementById('pass-input');
@@ -172,13 +191,16 @@
     let deleteProfileButton = document.getElementById('delete-profile-button');
     let memberCreatedDate = document.getElementById('member-created-date');
     // emailInput.addEventListener('input', () => console.log('email = ', emailInput.value));
+
+
     
     
     //section:global variables go here 👇
     
     //section:event listeners go here 👇
-    saveNameIcon.addEventListener('click', () => saveNameEmail(event, "name"));
-    saveEmailIcon.addEventListener('click', () => saveNameEmail(event, "email"));
+    saveNameIcon.addEventListener('click', () => saveNameEmailAddressInput(event, "name"));
+    saveEmailIcon.addEventListener('click', () => saveNameEmailAddressInput(event, "email"));
+    saveAddressIcon.addEventListener('click', () => saveNameEmailAddressInput(event, "address"));
     passSelectedContainer.addEventListener('click', deletePassResort);
     resortSelectedContainer.addEventListener('click', deletePassResort);
     savePassIcon.addEventListener('click', () => savePassInput('pass'));
@@ -189,14 +211,15 @@
 
     //section:functions and event handlers go here 👇
 
-    function saveNameEmail(event, field) {
+    function saveNameEmailAddressInput(event, field) {
+      console.log(field);
       
       let input = "";
       let validInput = false;
       let mailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
       
       //get input
-      field === "email" ? input = emailInput.value : input = nameInput.value;
+      field === "email" ? input = emailInput.value : field === "name" ? input = nameInput.value : input = addressInput.value
       
       //validate input
       field === 'email' ? validInput = emailInput.value.match(mailFormatRegex) : validInput = (input && input.trim() !== "");
@@ -204,7 +227,8 @@
       if (validInput) {
         document.getElementById(`alert-${field}-invalid`).classList.add('is-hidden'); //ensure invalid alert is hidden
         document.getElementById(`alert-${field}-valid`).classList.remove('is-hidden'); //render valid alert
-        field === "email" ? emailInput.setAttribute("placeholder", input) : nameInput.setAttribute("placeholder", input); //set placeholder to input value
+
+        field === "email" ? emailInput.setAttribute("placeholder", input) : field === "name" ? nameInput.setAttribute("placeholder", input) : addressInput.setAttribute("placeholder", input);//set placeholder to input value
 
         //swap disk and check icon to confirm valid
         allIconElements.forEach(element => {
@@ -222,19 +246,18 @@
         }, 1000);
         //save to local storage
 
-        
         setLocalStorage(field, input);
         createMemberSinceDate();
         //clear value
-        field === "email" ? emailInput.value = "" : nameInput.value = "";
+        field === "email" ? emailInput.value = "" : field === "name" ? nameInput.value = "" : addressInput.value = "";
 
       } else {
         //render invalid alert
         document.getElementById(`alert-${field}-invalid`).classList.remove('is-hidden');
         //focus cursor for input field
-        field === "email" ? emailInput.focus() : nameInput.focus();
+        field === "email" ? emailInput.focus() : field === "name" ? nameInput.focus() : addressInput.focus();
         //clear value
-        field === "email" ? emailInput.value = "" : nameInput.value = "";
+        field === "email" ? emailInput.value = "" : field === "name" ? nameInput.value = "" : addressInput.value = "";
         
       }
     }
@@ -350,7 +373,7 @@
 
       console.log(JSON.parse(localStorage.getItem("ski-profile")));
 
-      JSON.parse(localStorage.getItem("ski-profile")) ? skiProfile = JSON.parse(localStorage.getItem("ski-profile")) : skiProfile = {name: "", email: "", memberDate: "", passes: [], resorts: [],};
+      JSON.parse(localStorage.getItem("ski-profile")) ? skiProfile = JSON.parse(localStorage.getItem("ski-profile")) : skiProfile = {name: "", email: "", address: "", memberDate: "", passes: [], resorts: [],};
 
       skiProfile[key] = value;
       console.log(skiProfile);
