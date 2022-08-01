@@ -1,5 +1,6 @@
 //section:query selector variables go here 👇
 let profileButton = document.getElementById('profile-button');
+let resortList = document.getElementById('resort-list');
 let profileModal = document.getElementById('profile-modal');
 let nameInput = document.getElementById('name-input');
 let emailInput = document.getElementById('email-input');
@@ -20,6 +21,7 @@ let deleteProfileButton = document.getElementById('delete-profile-button');
 //section:global variables go here 👇
 
 //section:event listeners go here 👇
+profileButton.addEventListener('click', loadProfile);
 saveNameIcon.addEventListener('click', saveNameEmailAddressInput);
 saveEmailIcon.addEventListener('click', saveNameEmailAddressInput);
 saveAddressIcon.addEventListener('click', saveNameEmailAddressInput);
@@ -28,11 +30,27 @@ resortSelectedContainer.addEventListener('click', deletePassResort);
 savePassIcon.addEventListener('click', () => savePassResortInput(event, 'passes'));
 saveResortIcon.addEventListener('click', () => savePassResortInput(event, 'resorts'));
 deleteProfileButton.addEventListener('click', clearLocalStorage);
-profileButton.addEventListener('click', loadProfileFromStorage);
 addressInput.addEventListener('input', fetchMapquestCreateAutoComplete);
 // document.addEventListener('click', (event) => console.log(event.target));
 
 //section:functions and event handlers go here 👇
+//LODAD PROFILE FROM STORAGE
+function loadProfile() {
+  loadResortList();
+  loadProfileFromStorage();
+}
+
+function loadResortList() {
+  resortList.textContent = "";
+  skiAreas.forEach(resort => {
+    // console.log(resort);
+    let resortElement = document.createElement('option');
+    resortElement.setAttribute('value', resort.Name);
+    resortElement.textContent = resort.Name;
+    resortList.append(resortElement);
+  })
+}
+
 function loadProfileFromStorage() {
   // console.log('profile button');
 
@@ -76,7 +94,7 @@ function loadProfileFromStorage() {
 
     // skiProfile.resorts ? 
     if (skiProfile.resorts.length > 0) {
-      console.log('resorts'),
+      // console.log('resorts'),
       resortSelectedContainer.textContent = "",
       resortList.forEach(element => {
         let resortSelectedElement = document.createElement('div');
