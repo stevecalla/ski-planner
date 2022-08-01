@@ -23,7 +23,12 @@
 
 <body>
 
-  <div id="modal-js-example" class="modal is-active">
+  <!-- SHOW PROFILE MODAL & PULL FROM STORAGE -->
+  <button id="profile-button">SHOW PROFILE MODAL</button>
+
+  <!-- USE CLASS is-active TO SHOW/HIDE MODAL -->
+  <!-- <div id="modal-js-example" class="modal" id=""> -->
+  <div id="profile-modal" class="modal" id="">
     <div class="modal-background"></div>
     <div class="modal-content">
       <div class="box">
@@ -76,7 +81,7 @@
         <label class="label">Home Address</label>
         <div class="field has-addons">
           <div class="control has-icons-left is-expanded">
-            <input class="input is-success is-fullwidth" id="address-input" type="text" placeholder="123 SkiPowder Street, City, State, Zipcode" value="">
+            <input class="input is-success is-fullwidth" id="address-input" type="text" placeholder="5280 SkiPowder Street, City, State, Zipcode" value="">
             <span class="icon is-small is-left">
               <i class="fas fa-user"></i>
             </span>
@@ -178,6 +183,7 @@
     let nameInput = document.getElementById('name-input');
     let emailInput = document.getElementById('email-input');
     let addressInput = document.getElementById('address-input');
+    let memberCreatedDateInput = document.getElementById('member-created-date');
     let saveNameIcon = document.getElementById('save-name-icon');
     let saveEmailIcon = document.getElementById('save-email-icon');
     let saveAddressIcon = document.getElementById('save-address-icon');
@@ -189,12 +195,8 @@
     let resortInput = document.getElementById('resort-input');
     let saveResortIcon = document.getElementById('save-resort-icon');
     let deleteProfileButton = document.getElementById('delete-profile-button');
-    let memberCreatedDate = document.getElementById('member-created-date');
     // emailInput.addEventListener('input', () => console.log('email = ', emailInput.value));
 
-
-    
-    
     //section:global variables go here 👇
     
     //section:event listeners go here 👇
@@ -210,6 +212,77 @@
     // nameInput.addEventListener('input', () => console.log('name = ', nameInput.value));
 
     //section:functions and event handlers go here 👇
+    
+    // add class is-active DONE
+    // get local storage
+    // if local storage then populate all fields
+
+    let profileButton = document.getElementById('profile-button');
+    let profileModal = document.getElementById('profile-modal');
+
+    profileButton.addEventListener('click', loadProfileFromStorage);
+
+    function loadProfileFromStorage() {
+      console.log('profile button');
+
+      profileModal.classList.add('is-active'); //render profile modal
+
+      let skiProfile = getLocalStorage();
+
+      if (skiProfile) {
+        //set placeholder data
+        skiProfile.name ? nameInput.setAttribute('placeholder', skiProfile.name) : console.log('name not in storage');
+        skiProfile.email ? emailInput.setAttribute('placeholder', skiProfile.email) : console.log('email not in storage');
+        skiProfile.address ? addressInput.setAttribute('placeholder', skiProfile.address) : console.log('address not in storage');
+
+        skiProfile.memberDate ? (
+          memberCreatedDateInput.textContent = `Member Since: ${skiProfile.memberDate}`,
+          memberCreatedDateInput.classList.remove('is-hidden'))
+          : console.log('date not in storage');
+
+        // skiProfile.passes ?
+        let passList = skiProfile.passes;
+        let resortList = skiProfile.resorts;
+
+        passList.length > 0 ? (
+          console.log('passes'),
+          passSelectedContainer.textContent = "",
+          passList.forEach(element => {
+            let passSelectedElement = document.createElement('div');
+            passSelectedElement.classList.add("box", "is-primary", "notification", "passes");
+            passSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
+            // resortSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
+      
+            let deleteButton = document.createElement('button');
+            deleteButton.classList.add("delete", "is-normal");
+      
+            passSelectedElement.textContent = element;
+      
+            passSelectedContainer.append(passSelectedElement);
+            passSelectedElement.append(deleteButton);
+          }))
+          : console.log('passes not in storage');
+
+        // skiProfile.resorts ? 
+        skiProfile.resorts.length > 0 ? (
+          console.log('resorts'),
+          resortSelectedContainer.textContent = "",
+          resortList.forEach(element => {
+            let resortSelectedElement = document.createElement('div');
+            resortSelectedElement.classList.add("box", "is-primary", "notification", "resorts");
+            resortSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
+      
+            let deleteButton = document.createElement('button');
+            deleteButton.classList.add("delete", "is-normal");
+      
+            resortSelectedElement.textContent = element;
+      
+            resortSelectedContainer.append(resortSelectedElement);
+            resortSelectedElement.append(deleteButton);
+          }))
+          : console.log('resorts not in storage');
+        }
+    }
 
     function saveNameEmailAddressInput(event, field) {
       console.log(field);
@@ -284,8 +357,8 @@
         });
   
         selectedList === "pass" ? passSelectedContainer.textContent = "" : resortSelectedContainer.textContent = "";
-        passSelectedContainer.setAttribute("style", "height: 125px; overflow: scroll");
-        resortSelectedContainer.setAttribute("style", "height: 125px; overflow: scroll");
+        passSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
+        resortSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
   
         selectedList === "pass" ? (
           passSelected.forEach(element => {
@@ -332,10 +405,10 @@
       if (skiProfile.memberDate === "") {
         let createdDate = moment().format("MMMM D YYYY h:mm:ss a"); //todo:remove day, hours, min, sec
         setLocalStorage("memberDate", createdDate)
-        memberCreatedDate.textContent = `Member Since: ${createdDate}`;
-        memberCreatedDate.classList.remove('is-hidden');
-        console.log(memberCreatedDate.textContent);
-        return memberCreatedDate;
+        memberCreatedDateInput.textContent = `Member Since: ${createdDate}`;
+        memberCreatedDateInput.classList.remove('is-hidden');
+        console.log(memberCreatedDateInput.textContent);
+        return memberCreatedDateInput;
       }
     }
 
@@ -397,6 +470,7 @@
       //reset name and email
       nameInput.setAttribute('placeholder', "Powder Day");
       emailInput.setAttribute('placeholder', "pow@skiallday.com");
+      addressInput.setAttribute('placeholder', "5280 SkiPowder Street, City, State, Zipcode");
 
       //reset pass container
       passSelectedContainer.textContent = "";
@@ -413,7 +487,7 @@
       resortSelectedContainer.append(clearResorts);
 
       //hide member create date
-      memberCreatedDate.classList.add('is-hidden');
+      memberCreatedDateInput.classList.add('is-hidden');
 
       nameInput.focus();
     }
