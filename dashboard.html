@@ -25,7 +25,15 @@
 
 <body class="hero is-fullheight">
     <header>
-        <h1 class="title level-item has-text-center">Ski Trip</h1>
+        <h1 class="title level-item has-text-center">Ski Trip <span id="skiAreaName"></span></h1>
+        <p class="level-item has-text-center">
+            <input id="txtStartAddress" type="text" class="input"
+                placeholder="Address or Coordinates"></input>&nbsp;&nbsp;
+            <input id="txtStartDate" type="date" class="input"></input>&nbsp;&nbsp;
+            <input id="txtStartTime" type="time" class="input" value="09:00"></input>&nbsp;&nbsp;
+            <button id="btnUpdate" class="button">Update</button>
+            <br /><br />
+        </p>
 
 
         <main>
@@ -36,53 +44,9 @@
                             <article class="tile is-child notification is-info">
                                 <p class="title">Map</p>
                                 <p class="subtitle">
-                                <!-- <main>
-                                    <section class="mapSection" id="mapArea">
-                                        <div id="map"></div>
-                                    </section>
-                                    <section id="drivingDirections" class="is-invisible">
-                                        <h3>Driving Directions</h3>
-                                        <input id="txtStartAddress" type="text"
-                                            placeholder="Address or Coordinates"></input>
-                                        <input id="txtStartDate" type="date"></input>
-                                        <input id="txtStartTime" type="time" value="09:00"></input>
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Directions</th>
-                                                    <th>Distance</th>
-                                                    <th>Latitude</th>
-                                    <th>Longitude</th>
-                                    <th>Time (in seconds)</th> -->
-                                                    <!-- <th>Time</th>
-                                                    <th>Map</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tblDirections"></tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th></th>
-                                                    <th><a id="gmDirections" target="blank">Google Map Directions</a>
-                                                    </th>
-                                                    <th id="tdTotalDistance"></th>
-                                                    <th id="tdTotalTime"></th>
-                                                    <th id="tdArrivalTime"></th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                    </section>
-                                    <section id="weatherForecast" class="is-invisible">
-                                        <h3>Weather Forecast</h3>
-                                    </section>
-                                    <section id="snowConditions" class="is-invisible">
-                                        <h3>Snow Conditions</h3>
-                                        <label id="lblStationName"></label><br />
-                                        <label id="lblElevation"></label><br />
-                                        <label id="lblDistance"></label><br />
-                                        <label id="lblData"></label>
-                                    </section>
-                                </main> --> 
+                                <section class="mapSection" id="mapArea">
+                                    <img id="staticMap" />
+                                </section>
                                 </p>
                             </article>
 
@@ -91,6 +55,31 @@
                             <article class="tile is-child notification is-info">
                                 <p class="title">Directions</p>
                                 <p class="subtitle"></p>
+                                <section id="drivingDirections">
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Directions</th>
+                                                <th>Distance</th>
+                                                <th>Time</th>
+                                                <th>Map</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tblDirections"></tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th><a id="gmDirections" target="blank">Google Map Directions</a>
+                                                </th>
+                                                <th id="tdTotalDistance"></th>
+                                                <th id="tdTotalTime"></th>
+                                                <th id="tdArrivalTime"></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </section>
 
                             </article>
                         </div>
@@ -108,10 +97,34 @@
                         </div>
                     </article>
                 </div>
-            </div>
-    </header>
 
-    </main>
+                <div class="tile is-parent">
+                    <article class="tile is-child notification is-info">
+                        <div class="content">
+                            <p class="title">pow meter</p>
+                            <p class="subtitle"></p>
+                            <div class="content">
+                                <!-- Content -->
+                                <section id="snowConditions">
+                                    <h3>Snow Conditions</h3>
+                                    <label id="lblStationName"></label><br />
+                                    <label id="lblElevation"></label><br />
+                                    <label id="lblDistance"></label><br />
+                                    <label id="lblDate"></label><br />
+                                    <label id="lblSnowWaterEquivalent"></label><br />
+                                    <label id="lblChangeInSnowWaterEquivalent"></label><br />
+                                    <label id="lblSnowDepth"></label><br />
+                                    <label id="lblChangeInSnowDepth"></label><br />
+                                    <label id="lblObservedAirTemperature"></label><br />
+                                </section>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+            </div>
+        </main>
+    </header>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -125,4 +138,8 @@
     <script src="./assets/js/utils.js"></script>
     <script src="./assets/js/skiAreas.js"></script>
 
-    <script src="./assets/js/homepage.js"></script>
+    <script src="./assets/js/dashboard.js"></script>
+
+</body>
+
+</html>

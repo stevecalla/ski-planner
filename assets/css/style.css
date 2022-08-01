@@ -8,7 +8,6 @@
   --skiblue: #00bfff;
 }
 
-
 .hidden {
   visibility: hidden;
 }
@@ -18,12 +17,15 @@
   box-sizing: border-box;
 }
 
-.title{
+.title {
   font-family: bangers;
   font-size: 60px;
   color: white;
 }
 
+.hero-bkg {
+  background: url(assets/images/mountaindashboard.jpg);
+}
 
 html {
   /* width: 100%;
@@ -44,14 +46,9 @@ h6 {
   font-weight: bolder;
 }
 
-.mapSection{
-  display: flex;
-  justify-content: center;
-}
-
 /* Set the size of the div element that contains the map */
 #map {
-  height: 700px;
+  height: 820px;
   width: 80%;
   border-radius: 10px;
   border: 3px white solid;
