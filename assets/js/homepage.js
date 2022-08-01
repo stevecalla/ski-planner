@@ -1,8 +1,5 @@
 let searchForm = document.querySelector("#searchForm");
 let ddPass = document.querySelector("#ddPass");
-let drivingDirections = document.querySelector("#drivingDirections");
-let weatherForecast = document.querySelector("#weatherForecast");
-let snowConditions = document.querySelector("#snowConditions");
 
 let map;
 var markers;
@@ -20,30 +17,6 @@ function initMap() {
 
   markers = L.layerGroup().addTo(map);
 }
-
-// This function is called when the Details button is clicked in the resort popup
-// Use this function to pass the ski area name to other parts of the app
-function getResortInfo(event) {
-  event.preventDefault();
-
-  const skiArea = skiAreas.find(
-    (element) => element.Name === event.target.dataset.skiarea
-  );
-
-  alert(
-    `${skiArea.Name}\n${skiArea.Pass}\n${skiArea.Latitude}\n${skiArea.Longitude}`
-  );
-
-  displayDrivingDirections(skiArea);
-  displayWeatherForecast(skiArea);
-  displaySnowConditions(skiArea);
-}
-
-function displayDrivingDirections(skiArea) {}
-
-function displayWeatherForecast(skiArea) {}
-
-function displaySnowConditions(skiArea) {}
 
 async function displayMarkers(pass) {
   let filteredSkiAreas = skiAreas;
@@ -73,8 +46,7 @@ async function displayMarkers(pass) {
         <p>Weather: ${weatherData.current.weather[0].main}<br />
         Temperature: ${weatherData.current.temp} \xB0F<br />
         Wind Speed: ${weatherData.current.wind_speed} MPH<br />
-        Humidity: ${weatherData.current.humidity}%</p>
-        <button id="btnDetails" type="button" class="resortInfo" data-skiarea="${filteredSkiAreas[i].Name}">Details</a>
+        <a href="./dashboard.html?resort=${filteredSkiAreas[i].Name}">Details ➡️</a>
       `;
 
       L.popup()
@@ -84,9 +56,6 @@ async function displayMarkers(pass) {
         })
         .setContent(popupText)
         .openOn(map);
-
-      const btnDetails = document.querySelector("#btnDetails");
-      btnDetails.addEventListener("click", getResortInfo);
     }
     marker.addEventListener("click", markerClick);
   }

@@ -10,42 +10,47 @@
     integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
     crossorigin="" />
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/style.css">
+  <style>
+    .hero {
+      background: url(assets/images/mountainbackground.jpg) center / cover;
+    }
+  </style>
 
   <title>Ski Planner</title>
 </head>
 
-<body>
-  <header>
-    <h1>Ski Planner</h1>
+<body class="hero is-fullheight">
+  <header class="level header">
+    <h1 class="title level-item has-text-center">Ski Trip</h1>
   </header>
+  <div class="custom-button">
+    <button class="button is-info is-inverted">Profile</button>
+  </div>
+    <aside>
+      <section  class="level-item has-text-center" >
+        <form id="searchForm">
+          <select id="ddPass">
+            <option value="">All</option>
+            <option value="Epic">Epic</option>
+            <option value="Ikon">Ikon</option>
+            <option value="Independent">Independent</option>
+          </select>
+        </form>
 
+        <hr>
+      </section>
+    </aside>
 
-  <aside>
-    <section>
-      <form id="searchForm">
-        <select id="ddPass">
-          <option value="">All</option>
-          <option value="Epic">Epic</option>
-          <option value="Ikon">Ikon</option>
-          <option value="Independent">Independent</option>
-        </select>
-      </form>
-
-      <hr>
-    </section>
-  </aside>
+  
 
   <main>
-    <div id="map"></div>
-    <section id="drivingDirections">
-      <h3>Driving Directions</h3>
-    </section>
-    <section id="weatherForecast">
-      <h3>Weather Forecast</h3>
-    </section>
-    <section id="snowConditions">
-      <h3>Snow Conditions</h3>
+    <section class="mapSection" id="mapArea">
+      <div id="map"></div>
     </section>
   </main>
 
@@ -59,7 +64,10 @@
     integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
     crossorigin=""></script>
 
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
   <script src="./assets/js/config.js"></script>
+  <script src="./assets/js/utils.js"></script>
   <script src="./assets/js/skiAreas.js"></script>
 
   <script src="./assets/js/homepage.js"></script>
