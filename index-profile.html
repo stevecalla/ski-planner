@@ -216,7 +216,7 @@
 
     //section:functions and event handlers go here 👇
     function loadProfileFromStorage() {
-      console.log('profile button');
+      // console.log('profile button');
 
       profileModal.classList.add('is-active'); //render profile modal
 
@@ -238,7 +238,7 @@
         let resortList = skiProfile.resorts;
 
         passList.length > 0 ? (
-          console.log('passes'),
+          // console.log('passes'),
           passSelectedContainer.textContent = "",
           passList.forEach(element => {
             let passSelectedElement = document.createElement('div');
@@ -355,7 +355,7 @@
   
         selectedList === "pass" ? (
           passSelected.forEach(element => {
-            // console.log(passSelected, element);
+            console.log(passSelected, element);
             let passSelectedElement = document.createElement('div');
             passSelectedElement.classList.add("box", "is-primary", "notification", "passes");
       
@@ -511,7 +511,7 @@
         let key = '4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i';
         let limit = 5;
         let collection = 'adminArea,poi,address,category,franchise,airport';
-        let urlSlug = `http://www.mapquestapi.com/search/v3/prediction?key=${key}&limit=${limit}&collection=${collection}&q=${input}`
+        let urlSlug = `https://www.mapquestapi.com/search/v3/prediction?key=${key}&limit=${limit}&collection=${collection}&q=${input}`
         fetchMapQuestSearchAhead(urlSlug)
       }
     })
