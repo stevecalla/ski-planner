@@ -9,12 +9,12 @@ let saveNameIcon = document.getElementById('save-name-icon');
 let saveEmailIcon = document.getElementById('save-email-icon');
 let saveAddressIcon = document.getElementById('save-address-icon');
 let allIconElements = document.querySelectorAll('i');
-let passSelectedContainer = document.getElementById('pass-selected-container');
-let passInput = document.getElementById('pass-input');
-let savePassIcon = document.getElementById('save-pass-icon');
-let resortSelectedContainer = document.getElementById('resort-selected-container');
-let resortInput = document.getElementById('resort-input');
-let saveResortIcon = document.getElementById('save-resort-icon');
+let passSelectedContainer = document.getElementById('passes-selected-container');
+let passInput = document.getElementById('passes-input');
+let savePassIcon = document.getElementById('save-passes-icon');
+let resortSelectedContainer = document.getElementById('resorts-selected-container');
+let resortInput = document.getElementById('resorts-input');
+let saveResortIcon = document.getElementById('save-resorts-icon');
 let deleteProfileButton = document.getElementById('delete-profile-button');
 
 //section:global variables go here 👇
@@ -25,8 +25,10 @@ saveEmailIcon.addEventListener('click', saveNameEmailAddressInput);
 saveAddressIcon.addEventListener('click', saveNameEmailAddressInput);
 passSelectedContainer.addEventListener('click', deletePassResort);
 resortSelectedContainer.addEventListener('click', deletePassResort);
-savePassIcon.addEventListener('click', () => savePassInput('pass'));
-saveResortIcon.addEventListener('click', () => savePassInput('resort'));
+
+savePassIcon.addEventListener('click', () => savePassInput(event, 'passes'));
+saveResortIcon.addEventListener('click', () => savePassInput(event, 'resorts'));
+
 deleteProfileButton.addEventListener('click', clearLocalStorage);
 profileButton.addEventListener('click', loadProfileFromStorage);
 // document.addEventListener('click', (event) => console.log(event.target));
@@ -165,90 +167,79 @@ function createMemberSinceDate() {
   }
 }
 
-function savePassInput(selectedList) {
-  let skiProfile = JSON.parse(localStorage.getItem('ski-profile'));
+//RENDER AND SAVE PASSES OR RESORTS
+function savePassInput(event, selectedList) {
+  let skiProfile = getLocalStorage();
 
   if (skiProfile) {
-    let passSelected = skiProfile ? skiProfile.passes : [];
-    let resortSelected = skiProfile ? skiProfile.resorts : [];
-
-    let selectOption = document.querySelectorAll('select');
-
-    // console.log(event, event.target)
-    selectOption.forEach(element => {
-      // console.log('selectedOption', selectOption, element, element.getAttribute('name'))
-
-      if (event.target.classList.contains('pass') && element.getAttribute('name') === 'pass' && !passSelected.includes(element.value)) {
-        // console.log(element, element.value, passSelected, event.parentNode), 
-        passSelected.push(element.value);
-        setLocalStorage("passes", passSelected);
-
-      // } else if (element.getAttribute('name') === 'resort' && !resortSelected.includes(element.value)) { //must be the resort selected
-      } else if (event.target.classList.contains('resort') && element.getAttribute('name') === 'resort' && !resortSelected.includes(element.value)) { //must be the resort selected
-        // console.log(element, element.value, resortSelected), 
-        resortSelected.push(element.value);
-        setLocalStorage("resorts", resortSelected);
-      }
-    });
-
-    selectedList === "pass" ? passSelectedContainer.textContent = "" : resortSelectedContainer.textContent = "";
-    passSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
-    resortSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
-
-    selectedList === "pass" ? (
-      passSelected.forEach(element => {
-        // console.log(passSelected, element);
-        let passSelectedElement = document.createElement('div');
-        passSelectedElement.classList.add("box", "is-primary", "notification", "passes");
-  
-        let deleteButton = document.createElement('button');
-        deleteButton.classList.add("delete", "is-normal");
-  
-        passSelectedElement.textContent = element;
-  
-        passSelectedContainer.append(passSelectedElement);
-        passSelectedElement.append(deleteButton);
-      })) : (
-        resortSelected.forEach(element => {
-          // console.log(resortSelected, element);
-          let resortSelectedElement = document.createElement('div');
-          resortSelectedElement.classList.add("box", "is-primary", "notification", "resorts");
-    
-          let deleteButton = document.createElement('button');
-          deleteButton.classList.add("delete", "is-normal");
-    
-          resortSelectedElement.textContent = element;
-    
-          resortSelectedContainer.append(resortSelectedElement);
-          resortSelectedElement.append(deleteButton);
-        })
-      )
+    let {savedPassOrResortList} = createPassOrResortFromStorage(skiProfile, selectedList); //get selected list
+    let {appendedPassOrResortList} = appendCurrentSelection(event, selectedList, savedPassOrResortList);  //get dropdown selected item
+    resetPassResortContainer(selectedList);
+    renderPassOrResorts(appendedPassOrResortList, selectedList)
+  } else {
+    console.log('please complete profile');
+    document.getElementById(`alert-${selectedList}-invalid`).classList.remove('is-hidden');
+    setTimeout(() => {
       document.getElementById(`alert-${selectedList}-invalid`).classList.add('is-hidden');
-    } else {
-      console.log('please complete profile');
-      document.getElementById(`alert-${selectedList}-invalid`).classList.remove('is-hidden');
-      setTimeout(() => {
-        document.getElementById(`alert-${selectedList}-invalid`).classList.add('is-hidden');
-      }, 3000);
-    }
+    }, 3000);
   }
+}
 
 
+function createPassOrResortFromStorage(skiProfile, selectedList) {
+  let savedPassOrResortList = [];
+  if (skiProfile) {savedPassOrResortList = skiProfile[selectedList]};
+  return {savedPassOrResortList};
+}
+
+function appendCurrentSelection(event, selectedList, appendedPassOrResortList) {
+  let selectOption = document.querySelectorAll('select');
+  selectOption.forEach(element => {
+    if (event.target.classList.contains(selectedList) && element.getAttribute('name') === selectedList && !appendedPassOrResortList.includes(element.value)) {
+      appendedPassOrResortList.push(element.value);
+      setLocalStorage(selectedList, appendedPassOrResortList);
+    }})
+    return {appendedPassOrResortList}
+}
+
+function resetPassResortContainer(selectedList) {
+  selectedList === "passes" ? passSelectedContainer.textContent = "" : resortSelectedContainer.textContent = "";
+  passSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
+  resortSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
+}
+
+function renderPassOrResorts(appendedPassOrResortList, selectedList) {
+  appendedPassOrResortList.forEach(element => {
+    let selectedElement = document.createElement('div');
+    selectedElement.classList.add("box", "is-primary", "notification", selectedList);
+
+    let deleteButton = document.createElement('button');
+    deleteButton.classList.add("delete", "is-normal");
+
+    selectedElement.textContent = element;
+
+    selectedList === "passes" ? passSelectedContainer.append(selectedElement) : resortSelectedContainer.append(selectedElement);
+    selectedElement.append(deleteButton);
+  })
+  document.getElementById(`alert-${selectedList}-invalid`).classList.add('is-hidden'); //ensures invalid alert is hidden
+}
+
+// DELETE PASS OR RESORTS
 function deletePassResort(event) {
   if (event.target.matches('button')) {
     // console.log(event.target, event.target.parentNode, event.target.parentNode.classList.contains('passes'))
-    event.target.parentNode.remove(); //remove resort/pass from DOM
+    event.target.parentNode.remove(); //remove resorts/pass from DOM
     
     let skiProfile = JSON.parse(localStorage.getItem('ski-profile'));
     let targetList = event.target.parentNode.classList.contains('passes') ? skiProfile.passes : skiProfile.resorts;
     let key = event.target.parentNode.classList.contains('passes') ? "passes" : "resorts";
 
-    console.log(targetList, key)
+    // console.log(targetList, key)
     let index = targetList.indexOf(
       event.target.parentNode.textContent.trim()
-      ); //get index of pass/resort clicked
+      ); //get index of pass/resorts clicked
 
-    targetList.splice(index, 1); //remove pass or resort from local storage
+    targetList.splice(index, 1); //remove pass or resorts from local storage
     
     if (targetList.length === 0) {
       let noneSelected = document.createElement('div');
@@ -262,6 +253,7 @@ function deletePassResort(event) {
   }
 }
 
+//LOCAL STORAGE FUNCTIONS
 function setLocalStorage(key, value) {
   // console.log(key, value);
   let skiProfile = {};
@@ -276,7 +268,6 @@ function setLocalStorage(key, value) {
   localStorage.setItem('ski-profile', JSON.stringify(skiProfile));
 }
 
-//LOCAL STORAGE FUNCTIONS
 function getLocalStorage() {
   return JSON.parse(localStorage.getItem("ski-profile"));
 }
@@ -301,7 +292,7 @@ function clearLocalStorage() {
   clearPasses.textContent = "No Passes Selected";
   passSelectedContainer.append(clearPasses);
 
-  //reset resort container
+  //reset resorts container
   resortSelectedContainer.textContent = "";
   let clearResorts = document.createElement('div');
   clearResorts.classList.add("notification", "is-primary");
@@ -314,7 +305,7 @@ function clearLocalStorage() {
   nameInput.focus();
 }
 
-// API CALLS TO OPEN WEATHER
+// API CALLS TO MAPQUEST FOR LOCATION AUTOCOMPLETE USING JQUERY
 function fetchMapQuestSearchAhead(myRequest) { //need to run in vs live server
   fetch(myRequest)
     .then((response) => {
