@@ -180,6 +180,8 @@
 
   <script>
     //section:query selector variables go here 👇
+    let profileButton = document.getElementById('profile-button');
+    let profileModal = document.getElementById('profile-modal');
     let nameInput = document.getElementById('name-input');
     let emailInput = document.getElementById('email-input');
     let addressInput = document.getElementById('address-input');
@@ -208,20 +210,11 @@
     savePassIcon.addEventListener('click', () => savePassInput('pass'));
     saveResortIcon.addEventListener('click', () => savePassInput('resort'));
     deleteProfileButton.addEventListener('click', clearLocalStorage);
+    profileButton.addEventListener('click', loadProfileFromStorage);
     // document.addEventListener('click', (event) => console.log(event.target));
     // nameInput.addEventListener('input', () => console.log('name = ', nameInput.value));
 
     //section:functions and event handlers go here 👇
-    
-    // add class is-active DONE
-    // get local storage
-    // if local storage then populate all fields
-
-    let profileButton = document.getElementById('profile-button');
-    let profileModal = document.getElementById('profile-modal');
-
-    profileButton.addEventListener('click', loadProfileFromStorage);
-
     function loadProfileFromStorage() {
       console.log('profile button');
 
@@ -492,6 +485,76 @@
       nameInput.focus();
     }
 
+  // API CALLS TO OPEN WEATHER
+    function fetchMapQuestSearchAhead(myRequest) { //need to run in vs live server
+      fetch(myRequest)
+        .then((response) => {
+        if (response.ok) {
+          response.json().then((data) => {
+            console.log(data.results);
+            createAutoComplete(data.results);
+          });
+        } else {
+          console.log('Error 1:', error);
+        }
+      })
+      .catch((error) => {
+        console.log('Error 2:', error);
+      });
+    }
+
+    //add event listner for address input
+    addressInput.addEventListener('input', () => {
+      let input = addressInput.value;
+      console.log(input)
+      if (input.length > 1) {
+        let key = '4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i';
+        let limit = 5;
+        let collection = 'adminArea,poi,address,category,franchise,airport';
+        let urlSlug = `http://www.mapquestapi.com/search/v3/prediction?key=${key}&limit=${limit}&collection=${collection}&q=${input}`
+        fetchMapQuestSearchAhead(urlSlug)
+      }
+    })
+
+    function createAutoComplete(results) {
+      // console.log(results)
+      let autoCompleteDisplayString = [];
+      results.forEach(element => {
+        // console.log(element)
+        autoCompleteDisplayString.push(element.displayString);
+      })
+      // console.log(autoCompleteDisplayString);
+      showAutoCompleteLocationList(autoCompleteDisplayString);
+      return autoCompleteDisplayString;
+    }
+
+    //then use that array in jquery autocomplete
+    function showAutoCompleteLocationList(autoCompleteDisplayString) {
+      console.log('jquery', autoCompleteDisplayString);
+      $("#address-input").autocomplete({
+        minLength: 2,
+        // source: autoCompleteList,
+        source: autoCompleteDisplayString,
+      });
+    }
+
+    addressInput.addEventListener("input", showAutoCompleteLocationList);
+
+    function testAutoComplete() {
+      console.log('test')
+      $( function() {
+        var availableTags = [
+          "ActionScript",
+          "AppleScript",
+          "Asp",
+          "BASIC",
+        ];
+        $( "#address-input" ).autocomplete({
+          source: availableTags
+        });
+      });
+    }
+
     //OPEN AND CLOSE THE PROFILE MODAL
     document.addEventListener('DOMContentLoaded', () => {
       // Functions to open and close a modal
@@ -539,6 +602,12 @@
     });
 
   </script>
+
+
+    <!-- Added link to the jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
 </body>
 </html>
