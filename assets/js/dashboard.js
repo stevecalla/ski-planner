@@ -157,7 +157,7 @@ async function fetchDirections(startCoordinates, endCoordinates) {
   };
 
   //http://www.mapquestapi.com/directions/v2/route?key=onM30fdvaziP9ykjaYeleR5hvIhOmLm1&from=39.633077,-105.1388028&to=39.68,-105.897
-  let apiUrl = `http://www.mapquestapi.com/directions/v2/route?key=${config.MAPQUEST_KEY}&from=${startCoordinates}&to=${endCoordinates}`;
+  let apiUrl = `https://www.mapquestapi.com/directions/v2/route?key=${config.MAPQUEST_KEY}&from=${startCoordinates}&to=${endCoordinates}`;
 
   const response = await fetch(apiUrl, requestOptions);
   const data = await response.json();
@@ -197,7 +197,7 @@ async function fetchCoordinatesFromAddress(address) {
     redirect: "follow",
   };
 
-  let apiUrl = `http://www.mapquestapi.com/geocoding/v1/address?key=${config.MAPQUEST_KEY}&location=${address}`;
+  let apiUrl = `https://www.mapquestapi.com/geocoding/v1/address?key=${config.MAPQUEST_KEY}&location=${address}`;
 
   const response = await fetch(apiUrl, requestOptions);
   const data = await response.json();
