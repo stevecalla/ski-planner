@@ -52,64 +52,25 @@ function loadResortList() {
 }
 
 function loadProfileFromStorage() {
-  // console.log('profile button');
-
   profileModal.classList.add('is-active'); //render profile modal
-
   let skiProfile = getLocalStorage();
-
   if (skiProfile) {
     //set placeholder data
     if (skiProfile.name) {nameInput.setAttribute('placeholder', skiProfile.name)};
     if (skiProfile.email) {emailInput.setAttribute('placeholder', skiProfile.email)};
     if (skiProfile.address) {addressInput.setAttribute('placeholder', skiProfile.address)};
-
     if (skiProfile.memberDate) {
       memberCreatedDateInput.textContent = `Member Since: ${skiProfile.memberDate}`;
       memberCreatedDateInput.classList.remove('is-hidden');
     }
-
-    // skiProfile.passes ?
-    let passList = skiProfile.passes;
-    let resortList = skiProfile.resorts;
-
-    if (passList.length > 0) {
-      // console.log('passes'),
-      passSelectedContainer.textContent = "",
-      passList.forEach(element => {
-        let passSelectedElement = document.createElement('div');
-        passSelectedElement.classList.add("box", "is-primary", "notification", "passes");
-        passSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
-        // resortSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
-  
-        let deleteButton = document.createElement('button');
-        deleteButton.classList.add("delete", "is-normal");
-  
-        passSelectedElement.textContent = element;
-  
-        passSelectedContainer.append(passSelectedElement);
-        passSelectedElement.append(deleteButton);
-      })
-    }
-
-    // skiProfile.resorts ? 
+    if (skiProfile.passes.length > 0) {
+      resetPassResortContainer("passes");
+      renderPassOrResorts(skiProfile.passes, "passes");
+    };
     if (skiProfile.resorts.length > 0) {
-      // console.log('resorts'),
-      resortSelectedContainer.textContent = "",
-      resortList.forEach(element => {
-        let resortSelectedElement = document.createElement('div');
-        resortSelectedElement.classList.add("box", "is-primary", "notification", "resorts");
-        resortSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
-  
-        let deleteButton = document.createElement('button');
-        deleteButton.classList.add("delete", "is-normal");
-  
-        resortSelectedElement.textContent = element;
-  
-        resortSelectedContainer.append(resortSelectedElement);
-        resortSelectedElement.append(deleteButton);
-      })
-    }
+      resetPassResortContainer("resorts");
+      renderPassOrResorts(skiProfile.resorts, "resorts");
+    };
   }
 }
 
@@ -219,9 +180,13 @@ function appendCurrentSelection(event, selectedList, appendedPassOrResortList) {
 }
 
 function resetPassResortContainer(selectedList) {
-  selectedList === "passes" ? passSelectedContainer.textContent = "" : resortSelectedContainer.textContent = "";
-  passSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
-  resortSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll");
+  selectedList === "passes" ? (
+    passSelectedContainer.textContent = "",
+    passSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll")) 
+    : (
+    resortSelectedContainer.textContent = "",
+    resortSelectedContainer.setAttribute("style", "height: 150px; overflow: scroll")
+    )
 }
 
 function renderPassOrResorts(appendedPassOrResortList, selectedList) {
@@ -275,10 +240,20 @@ function getLocalStorage() {
 }
 
 function setLocalStorage(key, value) {
-  let skiProfile = {};
-  JSON.parse(localStorage.getItem("ski-profile")) ? skiProfile = JSON.parse(localStorage.getItem("ski-profile")) : skiProfile = {name: "", email: "", address: "", memberDate: "", passes: [], resorts: [],};
-  skiProfile[key] = value;
-  localStorage.setItem('ski-profile', JSON.stringify(skiProfile));
+  let skiProfile = {
+    name: "", 
+    email: "", 
+    address: "", 
+    memberDate: "", 
+    passes: [], 
+    resorts: [],
+  };
+  let storedProfile = getLocalStorage();
+
+  storedProfile ? skiProfile = storedProfile : storedProfile = skiProfile; //if local storage exits use it, else create stored object
+  
+  skiProfile[key] = value; //add key & value to local storage
+  localStorage.setItem('ski-profile', JSON.stringify(skiProfile)); //set local storatge
 }
 
 function clearLocalStorage() {
