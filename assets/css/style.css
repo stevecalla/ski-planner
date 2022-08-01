@@ -47,6 +47,12 @@ h6 {
 }
 
 /* Set the size of the div element that contains the map */
+.mapSection {
+  display: flex;
+  justify-content: center;
+}
+
+/* Set the size of the div element that contains the map */
 #map {
   height: 820px;
   width: 80%;

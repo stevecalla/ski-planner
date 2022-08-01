@@ -46,7 +46,7 @@ async function displayMarkers(pass) {
         <p>Weather: ${weatherData.current.weather[0].main}<br />
         Temperature: ${weatherData.current.temp} \xB0F<br />
         Wind Speed: ${weatherData.current.wind_speed} MPH<br />
-        <a href="./dashboard.html?resort=${filteredSkiAreas[i].Name}">Details ➡️</a>
+        <a class="button is-small is-info is-light" href="./dashboard.html?resort=${filteredSkiAreas[i].Name}">Details ➡️</a>
       `;
 
       L.popup()

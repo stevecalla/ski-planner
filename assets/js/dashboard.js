@@ -210,8 +210,11 @@ async function fetchCoordinatesFromAddress(address) {
 function displayWeatherForecast(skiArea) {}
 
 function displaySnowConditions(skiArea) {
+  // http://api.powderlin.es/closest_stations
+  // https://dqmoczhn0pnkc.cloudfront.net/closest_stations
+
   var settings = {
-    url: "http://api.powderlin.es/closest_stations",
+    url: "https://dqmoczhn0pnkc.cloudfront.net/closest_stations",
     method: "GET",
     timeout: 0,
     jsonp: "callback",
@@ -285,7 +288,12 @@ function init() {
   txtStartDate.value = moment().add(1, "day").format("yyyy-MM-DD");
 
   if (localStorage.getItem("StartAddress")) {
+    // Pull the current position from the profile
     txtStartAddress.value = localStorage.getItem("StartAddress");
+    getResortInfo();
+  } else if (sessionStorage.getItem("userCurrentPosition")) {
+    // If they don't have a profile and have already used navigator to get the user's current position, don't ask again.
+    txtStartAddress.value = sessionStorage.getItem("userCurrentPosition");
     getResortInfo();
   } else {
     const options = {
@@ -296,6 +304,11 @@ function init() {
 
     function success(pos) {
       txtStartAddress.value = `${pos.coords.latitude},${pos.coords.longitude}`;
+      // Save the current position to sessionStorage
+      sessionStorage.setItem(
+        "userCurrentPosition",
+        `${pos.coords.latitude},${pos.coords.longitude}`
+      );
       getResortInfo();
     }
 
