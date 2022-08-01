@@ -22,7 +22,7 @@ async function displayMarkers(pass) {
   let filteredSkiAreas = skiAreas;
   if (pass) {
     filteredSkiAreas = skiAreas.filter(function (skiArea) {
-      return skiArea.Pass === pass;
+      return skiArea.Pass.trim().toLowerCase() === pass.trim().toLowerCase();
     });
   }
 

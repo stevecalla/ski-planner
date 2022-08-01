@@ -35,7 +35,9 @@ function getResortInfo() {
     });
 
     const skiArea = skiAreas.find(
-      (element) => element.Name === queryString.resort
+      (element) =>
+        element.Name.trim().toLowerCase() ===
+        queryString.resort.trim().toLowerCase()
     );
 
     skiAreaName.textContent = ` - ${queryString.resort}`;
@@ -277,7 +279,9 @@ btnUpdate.addEventListener("click", function (event) {
   });
 
   const skiArea = skiAreas.find(
-    (element) => element.Name === queryString.resort
+    (element) =>
+      element.Name.trim().toLowerCase() ===
+      queryString.resort.trim().toLowerCase()
   );
 
   displayDrivingDirections(skiArea);
