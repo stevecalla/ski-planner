@@ -25,12 +25,11 @@ saveEmailIcon.addEventListener('click', saveNameEmailAddressInput);
 saveAddressIcon.addEventListener('click', saveNameEmailAddressInput);
 passSelectedContainer.addEventListener('click', deletePassResort);
 resortSelectedContainer.addEventListener('click', deletePassResort);
-
-savePassIcon.addEventListener('click', () => savePassInput(event, 'passes'));
-saveResortIcon.addEventListener('click', () => savePassInput(event, 'resorts'));
-
+savePassIcon.addEventListener('click', () => savePassResortInput(event, 'passes'));
+saveResortIcon.addEventListener('click', () => savePassResortInput(event, 'resorts'));
 deleteProfileButton.addEventListener('click', clearLocalStorage);
 profileButton.addEventListener('click', loadProfileFromStorage);
+addressInput.addEventListener('input', fetchMapquestCreateAutoComplete);
 // document.addEventListener('click', (event) => console.log(event.target));
 
 //section:functions and event handlers go here 👇
@@ -168,7 +167,7 @@ function createMemberSinceDate() {
 }
 
 //RENDER AND SAVE PASSES OR RESORTS
-function savePassInput(event, selectedList) {
+function savePassResortInput(event, selectedList) {
   let skiProfile = getLocalStorage();
 
   if (skiProfile) {
@@ -184,7 +183,6 @@ function savePassInput(event, selectedList) {
     }, 3000);
   }
 }
-
 
 function createPassOrResortFromStorage(skiProfile, selectedList) {
   let savedPassOrResortList = [];
@@ -224,7 +222,7 @@ function renderPassOrResorts(appendedPassOrResortList, selectedList) {
   document.getElementById(`alert-${selectedList}-invalid`).classList.add('is-hidden'); //ensures invalid alert is hidden
 }
 
-// DELETE PASS OR RESORTS
+//DELETE PASS OR RESORTS
 function deletePassResort(event) {
   if (event.target.matches('button')) {
     // console.log(event.target, event.target.parentNode, event.target.parentNode.classList.contains('passes'))
@@ -254,27 +252,16 @@ function deletePassResort(event) {
 }
 
 //LOCAL STORAGE FUNCTIONS
-function setLocalStorage(key, value) {
-  // console.log(key, value);
-  let skiProfile = {};
-
-  // console.log(JSON.parse(localStorage.getItem("ski-profile")));
-
-  JSON.parse(localStorage.getItem("ski-profile")) ? skiProfile = JSON.parse(localStorage.getItem("ski-profile")) : skiProfile = {name: "", email: "", address: "", memberDate: "", passes: [], resorts: [],};
-
-  skiProfile[key] = value;
-  // console.log(skiProfile);
-
-  localStorage.setItem('ski-profile', JSON.stringify(skiProfile));
-}
-
 function getLocalStorage() {
   return JSON.parse(localStorage.getItem("ski-profile"));
 }
 
-// function setLocalStorage(searchHistory) {
-  // localStorage.setItem("weatherSearchHistory", JSON.stringify(searchHistory));
-// }
+function setLocalStorage(key, value) {
+  let skiProfile = {};
+  JSON.parse(localStorage.getItem("ski-profile")) ? skiProfile = JSON.parse(localStorage.getItem("ski-profile")) : skiProfile = {name: "", email: "", address: "", memberDate: "", passes: [], resorts: [],};
+  skiProfile[key] = value;
+  localStorage.setItem('ski-profile', JSON.stringify(skiProfile));
+}
 
 function clearLocalStorage() {
   console.log('clear')
@@ -306,13 +293,24 @@ function clearLocalStorage() {
 }
 
 // API CALLS TO MAPQUEST FOR LOCATION AUTOCOMPLETE USING JQUERY
-function fetchMapQuestSearchAhead(myRequest) { //need to run in vs live server
-  fetch(myRequest)
+function fetchMapquestCreateAutoComplete() {
+  let input = addressInput.value;
+  if (input.length > 1) {
+    let key = '4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i';
+    let limit = 5;
+    let collection = 'adminArea,poi,address,category,franchise,airport';
+    let urlSlug = `https://www.mapquestapi.com/search/v3/prediction?key=${key}&limit=${limit}&collection=${collection}&q=${input}`
+    fetchMapQuestSearchAhead(urlSlug)
+    return urlSlug;
+  }
+}
+
+function fetchMapQuestSearchAhead(mapquestUrlSlug) { //need to run in vs live server
+  fetch(mapquestUrlSlug)
     .then((response) => {
     if (response.ok) {
       response.json().then((data) => {
-        // console.log(data.results);
-        createAutoComplete(data.results);
+        createAutoCompleteList(data.results);
       });
     } else {
       console.log('Error 1:', error);
@@ -323,55 +321,18 @@ function fetchMapQuestSearchAhead(myRequest) { //need to run in vs live server
   });
 }
 
-//add event listner for address input
-addressInput.addEventListener('input', () => {
-  let input = addressInput.value;
-  // console.log(input)
-  if (input.length > 1) {
-    let key = '4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i';
-    let limit = 5;
-    let collection = 'adminArea,poi,address,category,franchise,airport';
-    let urlSlug = `https://www.mapquestapi.com/search/v3/prediction?key=${key}&limit=${limit}&collection=${collection}&q=${input}`
-    fetchMapQuestSearchAhead(urlSlug)
-  }
-})
-
-function createAutoComplete(results) {
-  // console.log(results)
+function createAutoCompleteList(results) {
   let autoCompleteDisplayString = [];
   results.forEach(element => {
-    // console.log(element)
     autoCompleteDisplayString.push(element.displayString);
   })
-  // console.log(autoCompleteDisplayString);
   showAutoCompleteLocationList(autoCompleteDisplayString);
-  return autoCompleteDisplayString;
 }
 
-//then use that array in jquery autocomplete
-function showAutoCompleteLocationList(autoCompleteDisplayString) {
-  // console.log('jquery', autoCompleteDisplayString);
+function showAutoCompleteLocationList(autoCompleteDisplayString) { //Use jQuery UI autocomplete
   $("#address-input").autocomplete({
     minLength: 2,
-    // source: autoCompleteList,
     source: autoCompleteDisplayString,
-  });
-}
-
-addressInput.addEventListener("input", showAutoCompleteLocationList);
-
-function testAutoComplete() {
-  console.log('test')
-  $( function() {
-    var availableTags = [
-      "ActionScript",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-    ];
-    $( "#address-input" ).autocomplete({
-      source: availableTags
-    });
   });
 }
 
