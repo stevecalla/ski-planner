@@ -19,8 +19,18 @@
 
 .title {
   font-family: bangers;
-  font-size: 60px;
+  font-size: 75px;
   color: white;
+  padding-bottom: 0px;
+}
+
+.custom-button{
+  font-family: bangers;
+  display: flex;
+  justify-content: center;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  
 }
 
 .hero-bkg {
@@ -47,8 +57,12 @@ h6 {
 }
 
 /* Set the size of the div element that contains the map */
+.mapSection{
+  display: flex;
+  justify-content: center;
+}
 #map {
-  height: 820px;
+  height: 700px;
   width: 80%;
   border-radius: 10px;
   border: 3px white solid;
