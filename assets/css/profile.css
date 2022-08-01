@@ -1,0 +1,18 @@
+body {
+  /* font-family: 'Bangers'; */
+  font-family: 'Cambria', Cochin, Georgia, Times, "Times New Roman", serif;
+  color: white;
+}
+
+/* JQUERY AUTOCOMPLETE CSS */
+.ui-autocomplete {
+  max-width: 300px;
+  background-color: white;
+  border: 1px solid black;
+  z-index: 2147483647;
+}
+
+/* this class ensures the autocomplete item doesn't show at bottom right of the desktop UX */
+.ui-helper-hidden-accessible {
+  display: none !important;
+}

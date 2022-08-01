@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    rel="shortcut icon"
+    type="image/jpg"
+    href="./assets/images/favicon-16x16.png"
+  />
+  <title>Snow Planner</title>
+
+  <!-- ADD GOOGLE FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+  <!-- ADD FONTAWESOME -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+  />
+  <!-- ADD BULMA -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/css/profile.css">
+</head>
+
+<body>
+
+  <!-- SHOW PROFILE MODAL & PULL FROM STORAGE -->
+  <button id="profile-button">SHOW PROFILE MODAL</button>
+
+  <!-- USE CLASS is-active TO SHOW/HIDE MODAL -->
+  <!-- <div id="modal-js-example" class="modal" id=""> -->
+  <div id="profile-modal" class="modal" id="">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="box">
+
+        <!-- MODAL HEADER -->
+        <header class="modal-card-head column">
+          <p class="modal-card-title">Your Profile</p>
+          <!-- <button class="" aria-label="close"></button> -->
+          <p class="label mt-2 is-hidden" id="member-created-date">Member Since: January 2012</p>
+        </header>
+        
+        <!-- NAME INPUT -->
+        <label class="label">Name</label>
+        <div class="field has-addons">
+          <div class="control has-icons-left is-expanded">
+            <input class="input is-success is-fullwidth" id="name-input" type="text" placeholder="Powder Day" value="">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+            <p class="help is-success is-hidden" id="alert-name-valid">Your name was saved successfully.</p>
+            <p class="help is-danger is-hidden" id="alert-name-invalid">Your name is blank. Try again!</p>
+          </div>
+          <div class="control name" id="save-name-icon">
+            <a class="button is-info name">
+              <i class="fas fa-save name-disk name" id="save-disk" style="color: white"></i>
+              <i class="fas fa-check name-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- EMAIL INPUT-->
+        <label class="label">Email</label>
+        <div class="field has-addons">
+          <div class="control has-icons-left is-expanded">
+            <input class="input is-success is-fullwidth" id="email-input" type="text" placeholder="pow@skiallday.com" value="">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+            <p class="help is-success is-hidden" id="alert-email-valid">Your email was saved successfully.</p>
+            <p class="help is-danger is-hidden" id="alert-email-invalid">The email is invalid. Try again!</p>
+          </div>
+          <div class="control email" id="save-email-icon">
+            <a class="button is-info email">
+              <i class="fas fa-save email-disk email" id="save-disk" style="color: white"></i>
+              <i class="fas fa-check email-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- ADDRESS INPUT-->
+        <label class="label">Home Address</label>
+        <div class="field has-addons">
+          <div class="control has-icons-left is-expanded">
+            <input class="input is-success is-fullwidth" id="address-input" type="text" placeholder="5280 SkiPowder Street, City, State, Zipcode" value="">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+            <p class="help is-success is-hidden" id="alert-address-valid">Your address was saved successfully.</p>
+            <p class="help is-danger is-hidden" id="alert-address-invalid">The address is invalid. Try again!</p>
+          </div>
+          <div class="control address" id="save-address-icon">
+            <a class="button is-info address">
+              <i class="fas fa-save address-disk email" id="address-disk" style="color: white"></i>
+              <i class="fas fa-check address-check is-hidden" id="address-check" style="background-color: white; color: green;"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- PASSES SELECTION LIST -->
+        <label class="label">Your Season passes</label>
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <div class="select is-fullwidth" id="passes-input">
+              <select name="passes">
+                <option value="Epic">EPIC</option>
+                <option value="Ikon">Ikon</option>
+                <option value="Independent">Independent</option>
+              </select>
+            </div>
+            <p class="help is-danger is-hidden" id="alert-passes-invalid">Please add your name or email.</p>
+          </div>
+          <!-- <div class="control">
+            <button type="submit" class="button is-primary">Choose</button>
+          </div> -->
+          <div class="control">
+            <a class="button is-info passes" id="save-passes-icon">
+              <i class="fas fa-save passes-disk passes" id="save-disk" style="color: white"></i>
+              <i class="fas fa-check passes-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- PASSES LIST -->
+        <div class="box" id="passes-selected-container">
+          <div class="notification is-primary">
+             No Passes Selected
+          </div>
+        </div>
+
+        <!-- RESORTS SELECTION LIST -->
+        <label class="label">Your Favorite Resorts</label>
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <div class="select is-fullwidth" id="resorts-input">
+              <select name="resorts" id="resort-list">
+                <option value="TBD1">TBD 1</option>
+                <option value="TBD2">TBD 2</option>
+                <option value="TBD3">TBD 3</option>
+              </select>
+            </div>
+            <p class="help is-danger is-hidden" id="alert-resorts-invalid">Please add your name or email.</p>
+          </div>
+          <div class="control">
+            <a class="button is-info resorts" id="save-resorts-icon">
+              <i class="fas fa-save resorts-disk resorts" id="save-disk" style="color: white"></i>
+              <i class="fas fa-check resorts-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- resorts LIST -->
+        <div class="box" id="resorts-selected-container">
+          <div class="notification is-primary">
+             No Resorts Selected
+          </div>
+        </div>
+
+        <!-- FOOTER DELETE BUTTON -->
+        <div class="field is-grouped">
+          <div class="control is-expanded">
+            <button class="button is-link is-fullwidth" id="delete-profile-button">Delete Profile</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL DELETE / CLOSE OVERLAY WITH THE X IN THE UPPER RIGHT -->
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+
+  <button class="button js-modal-trigger" data-target="modal-js-example">
+    Open JS example modal
+  </button>
+
+  <!-- Moment -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+  <!-- Added link to the jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+  <!-- jQuery UI -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script src="./assets/js/skiAreas.js"></script>
+  <script src="./assets/js/profile.js"></script>
+  
+</body>
+</html>
