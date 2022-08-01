@@ -15,11 +15,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/style.css">
-<style>
-  .hero {
-    background: url(assets/images/mountainbackground.jpg) center / cover;
-  }
-</style>
+  <style>
+    .hero {
+      background: url(assets/images/mountainbackground.jpg) center / cover;
+    }
+  </style>
 
   <title>Ski Planner</title>
 </head>
@@ -27,66 +27,26 @@
 <body class="hero is-fullheight">
   <header class="level header">
     <h1 class="title level-item has-text-center">Ski Trip</h1>
-  <aside>
-    <section class="level-item level-center">
-      <form id="searchForm">
-        <select id="ddPass">
-          <option value="">All</option>
-          <option value="Epic">Epic</option>
-          <option value="Ikon">Ikon</option>
-          <option value="Independent">Independent</option>
-        </select>
-      </form>
+    <aside>
+      <section class="level-item level-center">
+        <form id="searchForm">
+          <select id="ddPass">
+            <option value="">All</option>
+            <option value="Epic">Epic</option>
+            <option value="Ikon">Ikon</option>
+            <option value="Independent">Independent</option>
+          </select>
+        </form>
 
-      <hr>
-    </section>
-  </aside>
+        <hr>
+      </section>
+    </aside>
 
-</header>
+  </header>
 
   <main>
     <section class="mapSection" id="mapArea">
       <div id="map"></div>
-    </section>
-    <section id="drivingDirections" class="is-invisible">
-      <h3>Driving Directions</h3>
-      <input id="txtStartAddress" type="text" placeholder="Address or Coordinates"></input>
-      <input id="txtStartDate" type="date"></input>
-      <input id="txtStartTime" type="time" value="09:00"></input>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Directions</th>
-            <th>Distance</th>
-            <!-- <th>Latitude</th>
-            <th>Longitude</th>
-            <th>Time (in seconds)</th> -->
-            <th>Time</th>
-            <th>Map</th>
-          </tr>
-        </thead>
-        <tbody id="tblDirections"></tbody>
-        <tfoot>
-          <tr>
-            <th></th>
-            <th><a id="gmDirections" target="blank">Google Map Directions</a></th>
-            <th id="tdTotalDistance"></th>
-            <th id="tdTotalTime"></th>
-            <th id="tdArrivalTime"></th>
-          </tr>
-        </tfoot>
-      </table>
-    </section>
-    <section id="weatherForecast" class="is-invisible">
-      <h3>Weather Forecast</h3>
-    </section>
-    <section id="snowConditions" class="is-invisible">
-      <h3>Snow Conditions</h3>
-      <label id="lblStationName"></label><br />
-      <label id="lblElevation"></label><br />
-      <label id="lblDistance"></label><br />
-      <label id="lblData"></label>
     </section>
   </main>
 
