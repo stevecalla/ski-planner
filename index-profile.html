@@ -224,20 +224,20 @@
 
       if (skiProfile) {
         //set placeholder data
-        skiProfile.name ? nameInput.setAttribute('placeholder', skiProfile.name) : console.log('name not in storage');
-        skiProfile.email ? emailInput.setAttribute('placeholder', skiProfile.email) : console.log('email not in storage');
-        skiProfile.address ? addressInput.setAttribute('placeholder', skiProfile.address) : console.log('address not in storage');
+        if (skiProfile.name) {nameInput.setAttribute('placeholder', skiProfile.name)};
+        if (skiProfile.email) {emailInput.setAttribute('placeholder', skiProfile.email)};
+        if (skiProfile.address) {addressInput.setAttribute('placeholder', skiProfile.address)};
 
-        skiProfile.memberDate ? (
-          memberCreatedDateInput.textContent = `Member Since: ${skiProfile.memberDate}`,
-          memberCreatedDateInput.classList.remove('is-hidden'))
-          : console.log('date not in storage');
+        if (skiProfile.memberDate) {
+          memberCreatedDateInput.textContent = `Member Since: ${skiProfile.memberDate}`;
+          memberCreatedDateInput.classList.remove('is-hidden');
+        }
 
         // skiProfile.passes ?
         let passList = skiProfile.passes;
         let resortList = skiProfile.resorts;
 
-        passList.length > 0 ? (
+        if (passList.length > 0) {
           // console.log('passes'),
           passSelectedContainer.textContent = "",
           passList.forEach(element => {
@@ -253,11 +253,11 @@
       
             passSelectedContainer.append(passSelectedElement);
             passSelectedElement.append(deleteButton);
-          }))
-          : console.log('passes not in storage');
+          })
+        }
 
         // skiProfile.resorts ? 
-        skiProfile.resorts.length > 0 ? (
+        if (skiProfile.resorts.length > 0) {
           console.log('resorts'),
           resortSelectedContainer.textContent = "",
           resortList.forEach(element => {
@@ -272,13 +272,13 @@
       
             resortSelectedContainer.append(resortSelectedElement);
             resortSelectedElement.append(deleteButton);
-          }))
-          : console.log('resorts not in storage');
+          })
         }
+      }
     }
 
     function saveNameEmailAddressInput(event, field) {
-      console.log(field);
+      // console.log(field);
       
       let input = "";
       let validInput = false;
@@ -337,13 +337,18 @@
   
         let selectOption = document.querySelectorAll('select');
   
+        // console.log(event, event.target)
         selectOption.forEach(element => {
-          if (element.getAttribute('name') === 'pass' && !passSelected.includes(element.value)) {
-            console.log(element, element.value, passSelected), 
+          // console.log('selectedOption', selectOption, element, element.getAttribute('name'))
+
+          if (event.target.classList.contains('pass') && element.getAttribute('name') === 'pass' && !passSelected.includes(element.value)) {
+            // console.log(element, element.value, passSelected, event.parentNode), 
             passSelected.push(element.value);
             setLocalStorage("passes", passSelected);
-          } else if (element.getAttribute('name') === 'resort' && !resortSelected.includes(element.value)) { //must be the resort selected
-            console.log(element, element.value, resortSelected), 
+
+          // } else if (element.getAttribute('name') === 'resort' && !resortSelected.includes(element.value)) { //must be the resort selected
+          } else if (event.target.classList.contains('resort') && element.getAttribute('name') === 'resort' && !resortSelected.includes(element.value)) { //must be the resort selected
+            // console.log(element, element.value, resortSelected), 
             resortSelected.push(element.value);
             setLocalStorage("resorts", resortSelected);
           }
@@ -355,7 +360,7 @@
   
         selectedList === "pass" ? (
           passSelected.forEach(element => {
-            console.log(passSelected, element);
+            // console.log(passSelected, element);
             let passSelectedElement = document.createElement('div');
             passSelectedElement.classList.add("box", "is-primary", "notification", "passes");
       
@@ -393,14 +398,14 @@
 
     function createMemberSinceDate() {
       let skiProfile = getLocalStorage();
-      console.log(skiProfile);
+      // console.log(skiProfile);
 
       if (skiProfile.memberDate === "") {
         let createdDate = moment().format("MMMM D YYYY h:mm:ss a"); //todo:remove day, hours, min, sec
         setLocalStorage("memberDate", createdDate)
         memberCreatedDateInput.textContent = `Member Since: ${createdDate}`;
         memberCreatedDateInput.classList.remove('is-hidden');
-        console.log(memberCreatedDateInput.textContent);
+        // console.log(memberCreatedDateInput.textContent);
         return memberCreatedDateInput;
       }
     }
@@ -434,15 +439,15 @@
     }
 
     function setLocalStorage(key, value) {
-      console.log(key, value);
+      // console.log(key, value);
       let skiProfile = {};
 
-      console.log(JSON.parse(localStorage.getItem("ski-profile")));
+      // console.log(JSON.parse(localStorage.getItem("ski-profile")));
 
       JSON.parse(localStorage.getItem("ski-profile")) ? skiProfile = JSON.parse(localStorage.getItem("ski-profile")) : skiProfile = {name: "", email: "", address: "", memberDate: "", passes: [], resorts: [],};
 
       skiProfile[key] = value;
-      console.log(skiProfile);
+      // console.log(skiProfile);
 
       localStorage.setItem('ski-profile', JSON.stringify(skiProfile));
     }
@@ -491,7 +496,7 @@
         .then((response) => {
         if (response.ok) {
           response.json().then((data) => {
-            console.log(data.results);
+            // console.log(data.results);
             createAutoComplete(data.results);
           });
         } else {
@@ -506,7 +511,7 @@
     //add event listner for address input
     addressInput.addEventListener('input', () => {
       let input = addressInput.value;
-      console.log(input)
+      // console.log(input)
       if (input.length > 1) {
         let key = '4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i';
         let limit = 5;
@@ -530,7 +535,7 @@
 
     //then use that array in jquery autocomplete
     function showAutoCompleteLocationList(autoCompleteDisplayString) {
-      console.log('jquery', autoCompleteDisplayString);
+      // console.log('jquery', autoCompleteDisplayString);
       $("#address-input").autocomplete({
         minLength: 2,
         // source: autoCompleteList,
