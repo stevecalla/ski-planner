@@ -14,3 +14,8 @@
     font-size: 60px;
     color: white;
   }
+
+  .custom-button{
+   margin-left: 95%;
+   font-family: bangers;
+  }
