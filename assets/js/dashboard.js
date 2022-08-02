@@ -2,9 +2,7 @@
 let skiAreaName = document.querySelector("#skiAreaName");
 let staticMap = document.querySelector("#staticMap");
 let drivingDirections = document.querySelector("#drivingDirections");
-
 let txtStartAddress = document.querySelector("#txtStartAddress");
-
 let txtStartDate = document.querySelector("#txtStartDate");
 let txtStartTime = document.querySelector("#txtStartTime");
 let btnUpdate = document.querySelector("#btnUpdate");
@@ -310,7 +308,11 @@ function init() {
     getResortInfo();
   } else if (sessionStorage.getItem("userCurrentPosition")) {
     // If they don't have a profile and have already used navigator to get the user's current position, don't ask again.
-    txtStartAddress.value = sessionStorage.getItem("userCurrentPosition");
+
+    // txtStartAddress.value = sessionStorage.getItem("userCurrentPosition");
+    txtStartAddress.setAttribute('placeholder', sessionStorage.getItem("userCurrentPosition"));
+    txtStartAddress.focus();
+    
     getResortInfo();
   } else {
     const options = {
