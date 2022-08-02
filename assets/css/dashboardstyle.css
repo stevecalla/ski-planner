@@ -1,3 +1,6 @@
+/* * {
+  border: 3px red solid;
+} */
 :root {
     /* declare a variable with `--` syntax */
     --dark-text: #13293d;
@@ -16,6 +19,22 @@
   }
 
   .custom-button{
-   margin-left: 95%;
    font-family: bangers;
   }
+
+  .title-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .sub-title{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  /* .custom-tile{
+    max-height: 600px;
+    overflow: scroll;
+  } */

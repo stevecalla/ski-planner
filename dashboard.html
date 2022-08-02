@@ -23,61 +23,64 @@
     <title>Ski Dashboard</title>
 </head>
 
-<body class="hero is-fullheight">
-    <header>
-        <h1 class="title level-item has-text-center">Ski Trip <span id="skiAreaName"></span></h1>
-        <p class="level-item has-text-center">
-            <button class="button is-medium custom-button is-info">Profile</button>
-            <br /><br />
-        </p>
+<body class="hero is-fullheight ">
+    <header >
+        <div class="title-wrapper">
+            <button class="button is-medium custom-button is-info ">Go Back</button>
+        
+        <h1 class="title">Ski Trip </h1>
+      
+            <button class="button is-medium custom-button is-info ">Profile</button>
+        </div>
+        <h1  class="sub-title title" id="skiAreaName"></h1>
+    </header>
 
+    <main>
+        <div class="tile is-ancestor">
+            <div class="tile is-vertical is-8">
+                <div class="tile">
+                    <div class="tile is-parent is-vertical">
+                        <article class="tile is-child notification is-info">
+                            <p class="title">Map</p>
+                            <p class="subtitle">
+                            <section class="mapSection" id="mapArea">
+                                <img id="staticMap" />
+                            </section>
+                            </p>
+                        </article>
 
-        <main>
-            <div class="tile is-ancestor">
-                <div class="tile is-vertical is-8">
-                    <div class="tile">
-                        <div class="tile is-parent is-vertical">
-                            <article class="tile is-child notification is-info">
-                                <p class="title">Map</p>
-                                <p class="subtitle">
-                                <section class="mapSection" id="mapArea">
-                                    <img id="staticMap" />
-                                </section>
-                                </p>
-                            </article>
+                    </div>
+                    <div class="tile is-parent ">
+                        <article class="tile is-child notification is-info custom-tile">
+                            <p class="title">Directions</p>
+                            <p class="subtitle"></p>
+                            <input id="txtStartAddress" type="text" class="input"
+                                placeholder="Address or Coordinates"></input>&nbsp;&nbsp;
+                            <input id="txtStartDate" type="date" class="input"></input>&nbsp;&nbsp;
+                            <input id="txtStartTime" type="time" class="input" value="09:00"></input>&nbsp;&nbsp;
+                            <button id="btnUpdate" class="button">Update</button>
+                            <section id="drivingDirections">
 
-                        </div>
-                        <div class="tile is-parent">
-                            <article class="tile is-child notification is-info">
-                                <p class="title">Directions</p>
-                                <p class="subtitle"></p>
-                                <input id="txtStartAddress" type="text" class="input"
-                                    placeholder="Address or Coordinates"></input>&nbsp;&nbsp;
-                                <input id="txtStartDate" type="date" class="input"></input>&nbsp;&nbsp;
-                                <input id="txtStartTime" type="time" class="input" value="09:00"></input>&nbsp;&nbsp;
-                                <button id="btnUpdate" class="button">Update</button>
-                                <section id="drivingDirections">
-
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th><a id="gmDirections" target="blank">Google Map Directions</a>
-                                                </th>
-                                                <th id="tdTotalDistance"></th>
-                                                <th id="tdTotalTime"></th>
-                                                <th id="tdArrivalTime"></th>
-                                            </tr>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Directions</th>
-                                                <th>Distance</th>
-                                                <th>Time</th>
-                                                <th>Map</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tblDirections"></tbody>
-                                        <!-- <tfoot>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th><a id="gmDirections" target="blank">Google Map Directions</a>
+                                            </th>
+                                            <th id="tdTotalDistance"></th>
+                                            <th id="tdTotalTime"></th>
+                                            <th id="tdArrivalTime"></th>
+                                        </tr>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Directions</th>
+                                            <th>Distance</th>
+                                            <th>Time</th>
+                                            <th>Map</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblDirections"></tbody>
+                                    <!-- <tfoot>
                                             <tr>
                                                 <th></th>
                                                 <th><a id="gmDirections" target="blank">Google Map Directions</a>
@@ -87,53 +90,53 @@
                                                 <th id="tdArrivalTime"></th>
                                             </tr>
                                         </tfoot> -->
-                                    </table>
-                                </section>
+                                </table>
+                            </section>
 
-                            </article>
-                        </div>
+                        </article>
                     </div>
-
-                </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child notification is-info">
-                        <div class="content">
-                            <p class="title">weather</p>
-                            <p class="subtitle"></p>
-                            <div class="content">
-                                <!-- Content -->
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="tile is-parent">
-                    <article class="tile is-child notification is-info">
-                        <div class="content">
-                            <p class="title">pow meter</p>
-                            <p class="subtitle"></p>
-                            <div class="content">
-                                <!-- Content -->
-                                <section id="snowConditions">
-                                    <h3>Snow Conditions</h3>
-                                    <label id="lblStationName"></label><br />
-                                    <label id="lblElevation"></label><br />
-                                    <label id="lblDistance"></label><br />
-                                    <label id="lblDate"></label><br />
-                                    <label id="lblSnowWaterEquivalent"></label><br />
-                                    <label id="lblChangeInSnowWaterEquivalent"></label><br />
-                                    <label id="lblSnowDepth"></label><br />
-                                    <label id="lblChangeInSnowDepth"></label><br />
-                                    <label id="lblObservedAirTemperature"></label><br />
-                                </section>
-                            </div>
-                        </div>
-                    </article>
                 </div>
 
             </div>
-        </main>
-    </header>
+            <div class="tile is-parent">
+                <article class="tile is-child notification is-info custom-tile">
+                    <div class="content">
+                        <p class="title">weather</p>
+                        <p class="subtitle"></p>
+                        <div class="content">
+                            <!-- Content -->
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="tile is-parent">
+                <article class="tile is-child notification is-info custom-tile">
+                    <div class="content">
+                        <p class="title">pow meter</p>
+                        <p class="subtitle"></p>
+                        <div class="content">
+                            <!-- Content -->
+                            <section id="snowConditions">
+                                <h3>Snow Conditions</h3>
+                                <label id="lblStationName"></label><br />
+                                <label id="lblElevation"></label><br />
+                                <label id="lblDistance"></label><br />
+                                <label id="lblDate"></label><br />
+                                <label id="lblSnowWaterEquivalent"></label><br />
+                                <label id="lblChangeInSnowWaterEquivalent"></label><br />
+                                <label id="lblSnowDepth"></label><br />
+                                <label id="lblChangeInSnowDepth"></label><br />
+                                <label id="lblObservedAirTemperature"></label><br />
+                            </section>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+    </main>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

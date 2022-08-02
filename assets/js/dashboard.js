@@ -40,7 +40,7 @@ function getResortInfo() {
         queryString.resort.trim().toLowerCase()
     );
 
-    skiAreaName.textContent = ` - ${queryString.resort}`;
+    skiAreaName.textContent = `${queryString.resort}`;
 
     displayStaticMap(skiArea);
     displayDrivingDirections(skiArea);
@@ -62,7 +62,7 @@ function displayStaticMap(skiArea) {
   let lat = skiArea.Latitude;
   let lon = skiArea.Longitude;
   let zoom = 13;
-  let size = "400x400";
+  let size = "1000x1000";
   staticMap.src = `https://maps.googleapis.com/maps/api/staticmap?center=${lat}%2c%20${lon}&zoom=${zoom}&size=${size}&key=${apiKey}`;
   staticMap.alt = skiArea.Name;
 }
