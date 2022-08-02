@@ -32,6 +32,8 @@ let modalProfileFromDashBoard = document.getElementById('modal-profile-dashboard
 
 //section:event listeners go here 👇
 modalProfileFromDashBoard.addEventListener('click', renderProfileModal);
+txtStartAddress.addEventListener('input', () => fetchMapquestCreateAutoComplete(txtStartAddress));
+// SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
 
 //section:functions and event handlers go here 👇
 // This function is called on init and will pull the resort name from the QueryString
@@ -306,7 +308,11 @@ function init() {
     getResortInfo();
   } else if (sessionStorage.getItem("userCurrentPosition")) {
     // If they don't have a profile and have already used navigator to get the user's current position, don't ask again.
-    txtStartAddress.value = sessionStorage.getItem("userCurrentPosition");
+
+    // txtStartAddress.value = sessionStorage.getItem("userCurrentPosition");
+    txtStartAddress.setAttribute('placeholder', sessionStorage.getItem("userCurrentPosition"));
+    txtStartAddress.focus();
+    
     getResortInfo();
   } else {
     const options = {
@@ -335,3 +341,4 @@ function init() {
   }
 }
 init();
+
