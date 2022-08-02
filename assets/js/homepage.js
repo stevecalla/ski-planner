@@ -29,11 +29,48 @@ async function displayMarkers(pass) {
   // remove all the markers
   markers.clearLayers();
 
+  const ResortIcon = L.Icon.extend({
+    options: {
+      shadowUrl: "./assets/images/msmarker.shadow.png",
+      iconSize: [32, 32],
+      shadowSize: [59, 32],
+      iconAnchor: [0, 0],
+      shadowAnchor: [0, 0],
+      popupAnchor: [0, 0],
+    },
+  });
+  const greenIcon = new ResortIcon({
+    iconUrl: "./assets/images/green-dot.png",
+  });
+  const redIcon = new ResortIcon({ iconUrl: "./assets/images/red-dot.png" });
+  const orangeIcon = new ResortIcon({
+    iconUrl: "./assets/images/orange-dot.png",
+  });
+  const blueIcon = new ResortIcon({
+    iconUrl: "./assets/images/blue-dot.png",
+  });
+  const yellowIcon = new ResortIcon({
+    iconUrl: "./assets/images/yellow-dot.png",
+  });
+  const pinkIcon = new ResortIcon({
+    iconUrl: "./assets/images/pink-dot.png",
+  });
+  const purpleIcon = new ResortIcon({
+    iconUrl: "./assets/images/purple-dot.png",
+  });
+
   for (let i = 0; i < filteredSkiAreas.length; i++) {
-    var marker = L.marker([
-      filteredSkiAreas[i].Latitude,
-      filteredSkiAreas[i].Longitude,
-    ]).addTo(markers);
+    let passIcon = blueIcon;
+    if (filteredSkiAreas[i].Pass.trim().toLowerCase() === "epic") {
+      passIcon = yellowIcon;
+    } else if (filteredSkiAreas[i].Pass.trim().toLowerCase() === "ikon") {
+      passIcon = redIcon;
+    }
+
+    var marker = L.marker(
+      [filteredSkiAreas[i].Latitude, filteredSkiAreas[i].Longitude],
+      { icon: passIcon }
+    ).addTo(markers);
 
     async function markerClick() {
       let weatherData = await fetchWeatherData(
