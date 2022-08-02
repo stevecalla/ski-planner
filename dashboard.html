@@ -30,7 +30,7 @@
         <div class="title-wrapper">
             <button class="button is-medium custom-button is-info ">Go Back</button>
 
-            <h1 class="title">Ski Trip </h1>
+            <h1 class="title">Powder Bound</h1>
 
             <button class="button is-medium custom-button is-info" id="modal-profile-dashboard-button">Profile</button>
         </div>
@@ -43,8 +43,7 @@
                 <div class="tile">
                     <div class="tile is-parent is-vertical">
                         <article class="tile is-child notification is-info">
-                            <p class="title">Map</p>
-                            <p class="subtitle">
+                            <p class="custom-title">Map</p>
                             <section class="mapSection" id="mapArea">
                                 <img id="staticMap" />
                             </section>
@@ -54,13 +53,14 @@
                     </div>
                     <div class="tile is-parent">
                         <article class="tile is-child notification is-info custom-tile">
-                            <p class="title">Directions</p>
-                            <p class="subtitle"></p>
-                            <input id="txtStartAddress" type="text" class="input"
-                                placeholder="Address or Coordinates"></input>&nbsp;&nbsp;
-                            <input id="txtStartDate" type="date" class="input"></input>&nbsp;&nbsp;
-                            <input id="txtStartTime" type="time" class="input" value="09:00"></input>&nbsp;&nbsp;
-                            <button id="btnUpdate" class="button">Update</button>
+                            <p class="custom-title">Directions</p>
+                           <div class="inputSection">
+                            <input id="txtStartAddress" type="text" class="input custom-input"
+                                placeholder="Address or Coordinates"></input>
+                            <input id="txtStartDate" type="date" class="input custom-input"></input>
+                            <input id="txtStartTime" type="time" class="input custom-input" value="09:00"></input>
+                            <button id="btnUpdate" class="button updateButton">Update</button>
+                            </div>
                             <section id="drivingDirections">
 
                                 <table class="table">
@@ -103,8 +103,8 @@
             <div class="tile is-parent is-vertical">
                 <article class="tile is-child notification is-info custom-tile">
                     <div class="content">
-                        <p class="title">weather</p>
-                        <p class="subtitle"></p>
+                        <p class="custom-title">weather</p>
+                
                         <div class="content">
                             <!-- Content -->
                         </div>
@@ -112,8 +112,8 @@
                 </article>
                 <article class="tile is-child notification is-info custom-tile">
                     <div class="content">
-                        <p class="title">pow meter</p>
-                        <p class="subtitle"></p>
+                        <p class="custom-title">pow meter</p>
+                        
                         <div class="content">
                             <!-- Content -->
                             <section id="snowConditions">
