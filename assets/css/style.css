@@ -24,13 +24,12 @@
   padding-bottom: 0px;
 }
 
-.custom-button{
+.custom-button {
   font-family: bangers;
   display: flex;
   justify-content: center;
   margin-top: 1px;
   margin-bottom: 1px;
-  
 }
 
 .hero-bkg {
@@ -57,10 +56,11 @@ h6 {
 }
 
 /* Set the size of the div element that contains the map */
-.mapSection{
+.mapSection {
   display: flex;
   justify-content: center;
 }
+
 #map {
   height: 700px;
   width: 80%;
