@@ -17,3 +17,8 @@ function isLatLong(coords) {
     return true;
   }
 }
+
+// RENDER PROFILE MODAL FROM HOME PAGE OR DASHBOARD PAGE BUTTON CLICK; SEE DASHBOARD JS OR HOMEPAGE JS FOR EVENT LISTENER
+function renderProfileModal() {
+  location.href = "./profile.html"
+}

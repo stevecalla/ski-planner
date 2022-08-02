@@ -1,5 +1,4 @@
 //section:query selector variables go here 👇
-let profileButton = document.getElementById('profile-button');
 let resortList = document.getElementById('resort-list');
 let profileModal = document.getElementById('profile-modal');
 let nameInput = document.getElementById('name-input');
@@ -17,11 +16,11 @@ let resortSelectedContainer = document.getElementById('resorts-selected-containe
 let resortInput = document.getElementById('resorts-input');
 let saveResortIcon = document.getElementById('save-resorts-icon');
 let deleteProfileButton = document.getElementById('delete-profile-button');
+let closeModalElement = document.getElementById('custom-close-modal');
 
 //section:global variables go here 👇
 
 //section:event listeners go here 👇
-profileButton.addEventListener('click', loadProfile);
 saveNameIcon.addEventListener('click', saveNameEmailAddressInput);
 saveEmailIcon.addEventListener('click', saveNameEmailAddressInput);
 saveAddressIcon.addEventListener('click', saveNameEmailAddressInput);
@@ -31,13 +30,16 @@ savePassIcon.addEventListener('click', () => savePassResortInput(event, 'passes'
 saveResortIcon.addEventListener('click', () => savePassResortInput(event, 'resorts'));
 deleteProfileButton.addEventListener('click', clearLocalStorage);
 addressInput.addEventListener('input', fetchMapquestCreateAutoComplete);
-// document.addEventListener('click', (event) => console.log(event.target));
+closeModalElement.addEventListener('click', closeProfileModal);
+document.addEventListener('keydown', closeProfileModal);
+window.addEventListener('load', loadProfile);
 
 //section:functions and event handlers go here 👇
-//LODAD PROFILE FROM STORAGE
+//LOAD PROFILE FROM STORAGE
 function loadProfile() {
   loadResortList();
   loadProfileFromStorage();
+  nameInput.focus();
 }
 
 function loadResortList() {
@@ -329,48 +331,9 @@ function showAutoCompleteLocationList(autoCompleteDisplayString) { //Use jQuery 
   });
 }
 
-//OPEN AND CLOSE THE PROFILE MODAL - USED BULMA SUGGESTED CODE
-document.addEventListener('DOMContentLoaded', () => {
-  // Functions to open and close a modal
-  function openModal($el) {
-    $el.classList.add('is-active');
+// CLOSE MODAL ON CLICK OR ESC KEY
+function closeProfileModal(event) {
+  if (event.keyCode === 27 || event.target.classList.contains('modal-close')) {
+    location.href = document.referrer;
   }
-
-  function closeModal($el) {
-    $el.classList.remove('is-active');
-  }
-
-  function closeAllModals() {
-    (document.querySelectorAll('.modal') || []).forEach(($modal) => {
-      closeModal($modal);
-    });
-  }
-
-  // Add a click event on buttons to open a specific modal
-  (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
-    const modal = $trigger.dataset.target;
-    const $target = document.getElementById(modal);
-
-    $trigger.addEventListener('click', () => {
-      openModal($target);
-    });
-  });
-
-  // Add a click event on various child elements to close the parent modal
-  (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-    const $target = $close.closest('.modal');
-
-    $close.addEventListener('click', () => {
-      closeModal($target);
-    });
-  });
-
-  // Add a keyboard event to close all modals
-  document.addEventListener('keydown', (event) => {
-    const e = event || window.event;
-
-    if (e.keyCode === 27) { // Escape key
-      closeAllModals();
-    }
-  });
-});
+}

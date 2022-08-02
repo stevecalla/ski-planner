@@ -27,13 +27,11 @@
 </head>
 
 <body>
-
   <!-- SHOW PROFILE MODAL & PULL FROM STORAGE -->
-  <button id="profile-button">SHOW PROFILE MODAL</button>
+  <!-- <button id="profile-button">SHOW PROFILE MODAL</button> -->
 
   <!-- USE CLASS is-active TO SHOW/HIDE MODAL -->
-  <!-- <div id="modal-js-example" class="modal" id=""> -->
-  <div id="profile-modal" class="modal" id="">
+  <div id="profile-modal" class="modal is-active" id="">
     <div class="modal-background"></div>
     <div class="modal-content">
       <div class="box">
@@ -41,7 +39,6 @@
         <!-- MODAL HEADER -->
         <header class="modal-card-head column">
           <p class="modal-card-title">Your Profile</p>
-          <!-- <button class="" aria-label="close"></button> -->
           <p class="label mt-2 is-hidden" id="member-created-date">Member Since: January 2012</p>
         </header>
         
@@ -170,12 +167,13 @@
       </div>
     </div>
     <!-- MODAL DELETE / CLOSE OVERLAY WITH THE X IN THE UPPER RIGHT -->
-    <button class="modal-close is-large" aria-label="close"></button>
+    <!-- <button class="modal-close is-large" aria-label="close"></button> -->
+    <button class="modal-close is-large" id="custom-close-modal" aria-label="close"></button>
   </div>
 
-  <button class="button js-modal-trigger" data-target="modal-js-example">
+  <!-- <button class="button js-modal-trigger" data-target="modal-js-example">
     Open JS example modal
-  </button>
+  </button> -->
 
   <!-- Moment -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

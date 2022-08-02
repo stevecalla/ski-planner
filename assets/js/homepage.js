@@ -1,9 +1,16 @@
+//section:query selector variables go here 👇
 let searchForm = document.querySelector("#searchForm");
 let ddPass = document.querySelector("#ddPass");
+let modalProfileFromHomePage = document.getElementById('modal-profile-homepage-button');
 
+//section:global variables go here 👇
 let map;
 var markers;
 
+//section:event listeners go here 👇
+modalProfileFromHomePage.addEventListener('click', renderProfileModal);
+
+//section:functions and event handlers go here 👇
 function initMap() {
   let lat = "39.00";
   let lon = "-106.302";
