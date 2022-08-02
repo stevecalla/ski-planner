@@ -24,24 +24,26 @@ function renderProfileModal() {
 }
 
 // // API CALLS TO MAPQUEST FOR LOCATION AUTOCOMPLETE USING JQUERY
-function fetchMapquestCreateAutoComplete() {
-  let input = txtStartAddress.value;
+function fetchMapquestCreateAutoComplete(addressElement) {
+  console.log('1= ', addressElement);
+  let input = addressElement.value;
   if (input.length > 1) {
     let key = '4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i';
     let limit = 5;
     let collection = 'adminArea,poi,address,category,franchise,airport';
     let urlSlug = `https://www.mapquestapi.com/search/v3/prediction?key=${key}&limit=${limit}&collection=${collection}&q=${input}`
-    fetchMapQuestSearchAhead(urlSlug)
+    fetchMapQuestSearchAhead(urlSlug, addressElement)
     return urlSlug;
   }
 }
 
-function fetchMapQuestSearchAhead(mapquestUrlSlug) { //need to run in vs live server
+function fetchMapQuestSearchAhead(mapquestUrlSlug, addressElement) { //need to run in vs live server
+  console.log('2= ', addressElement);
   fetch(mapquestUrlSlug)
     .then((response) => {
     if (response.ok) {
       response.json().then((data) => {
-        createAutoCompleteList(data.results);
+        createAutoCompleteList(data.results, addressElement);
       });
     } else {
       console.log('Error 1:', error);
@@ -52,16 +54,21 @@ function fetchMapQuestSearchAhead(mapquestUrlSlug) { //need to run in vs live se
   });
 }
 
-function createAutoCompleteList(results) {
+function createAutoCompleteList(results, addressElement) {
+  console.log('3= ', addressElement);
   let autoCompleteDisplayString = [];
   results.forEach(element => {
     autoCompleteDisplayString.push(element.displayString);
   })
-  showAutoCompleteLocationList(autoCompleteDisplayString);
+  showAutoCompleteLocationList(autoCompleteDisplayString, addressElement);
 }
 
-function showAutoCompleteLocationList(autoCompleteDisplayString) { //Use jQuery UI autocomplete
-  $("#txtStartAddress").autocomplete({
+function showAutoCompleteLocationList(autoCompleteDisplayString, addressElement) { //Use jQuery UI autocomplete
+  console.log(addressElement.getAttribute('id'));
+  let addressElementIdString = addressElement.getAttribute('id');
+  console.log('4= ', addressElement);
+  // $("#txtStartAddress").autocomplete({
+  $("#" + addressElementIdString).autocomplete({
     minLength: 2,
     source: autoCompleteDisplayString,
   });

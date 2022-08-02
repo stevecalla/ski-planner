@@ -29,7 +29,8 @@ resortSelectedContainer.addEventListener('click', deletePassResort);
 savePassIcon.addEventListener('click', () => savePassResortInput(event, 'passes'));
 saveResortIcon.addEventListener('click', () => savePassResortInput(event, 'resorts'));
 deleteProfileButton.addEventListener('click', clearLocalStorage);
-addressInput.addEventListener('input', fetchMapquestCreateAutoComplete);
+addressInput.addEventListener('input', () => fetchMapquestCreateAutoComplete(addressInput)); 
+// SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
 closeModalElement.addEventListener('click', closeProfileModal);
 document.addEventListener('keydown', closeProfileModal);
 window.addEventListener('load', loadProfile);
@@ -285,50 +286,6 @@ function clearLocalStorage() {
   memberCreatedDateInput.classList.add('is-hidden');
 
   nameInput.focus();
-}
-
-// API CALLS TO MAPQUEST FOR LOCATION AUTOCOMPLETE USING JQUERY
-function fetchMapquestCreateAutoComplete() {
-  let input = addressInput.value;
-  if (input.length > 1) {
-    let key = '4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i';
-    let limit = 5;
-    let collection = 'adminArea,poi,address,category,franchise,airport';
-    let urlSlug = `https://www.mapquestapi.com/search/v3/prediction?key=${key}&limit=${limit}&collection=${collection}&q=${input}`
-    fetchMapQuestSearchAhead(urlSlug)
-    return urlSlug;
-  }
-}
-
-function fetchMapQuestSearchAhead(mapquestUrlSlug) { //need to run in vs live server
-  fetch(mapquestUrlSlug)
-    .then((response) => {
-    if (response.ok) {
-      response.json().then((data) => {
-        createAutoCompleteList(data.results);
-      });
-    } else {
-      console.log('Error 1:', error);
-    }
-  })
-  .catch((error) => {
-    console.log('Error 2:', error);
-  });
-}
-
-function createAutoCompleteList(results) {
-  let autoCompleteDisplayString = [];
-  results.forEach(element => {
-    autoCompleteDisplayString.push(element.displayString);
-  })
-  showAutoCompleteLocationList(autoCompleteDisplayString);
-}
-
-function showAutoCompleteLocationList(autoCompleteDisplayString) { //Use jQuery UI autocomplete
-  $("#address-input").autocomplete({
-    minLength: 2,
-    source: autoCompleteDisplayString,
-  });
 }
 
 // CLOSE MODAL ON CLICK OR ESC KEY

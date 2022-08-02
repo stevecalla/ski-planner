@@ -34,6 +34,8 @@ let modalProfileFromDashBoard = document.getElementById('modal-profile-dashboard
 
 //section:event listeners go here 👇
 modalProfileFromDashBoard.addEventListener('click', renderProfileModal);
+txtStartAddress.addEventListener('input', () => fetchMapquestCreateAutoComplete(txtStartAddress));
+// SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
 
 //section:functions and event handlers go here 👇
 // This function is called on init and will pull the resort name from the QueryString
@@ -337,9 +339,4 @@ function init() {
   }
 }
 init();
-
-txtStartAddress.addEventListener('input', () => {
-  console.log(txtStartAddress.value);
-  fetchMapquestCreateAutoComplete();
-})
 
