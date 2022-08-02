@@ -52,61 +52,92 @@
                         </article>
 
                     </div>
+
+                    
                     <div class="tile is-parent ">
-                        <article class="tile is-child notification is-info custom-tile">
-                            <p class="title">Directions</p>
-                            <p class="subtitle"></p>
-                            <input id="txtStartAddress" type="text" class="input"
-                                placeholder="Address or Coordinates"></input>&nbsp;&nbsp;
-                            <input id="txtStartDate" type="date" class="input"></input>&nbsp;&nbsp;
-                            <input id="txtStartTime" type="time" class="input" value="09:00"></input>&nbsp;&nbsp;
-                            <button id="btnUpdate" class="button">Update</button>
-                            <section id="drivingDirections">
+                      <article class="tile is-child notification is-info custom-tile">
+                        <p class="title">Directions</p>
+                        <p class="subtitle"></p>
+                        <input id="txtStartAddress" type="text" class="input"
+                        placeholder="Address or Coordinates"></input>&nbsp;&nbsp;
+                        <input id="txtStartDate" type="date" class="input"></input>&nbsp;&nbsp;
+                        <input id="txtStartTime" type="time" class="input" value="09:00"></input>&nbsp;&nbsp;
+                        <button id="btnUpdate" class="button">Update</button>
 
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th><a id="gmDirections" target="blank">Google Map Directions</a>
-                                            </th>
-                                            <th id="tdTotalDistance"></th>
-                                            <th id="tdTotalTime"></th>
-                                            <th id="tdArrivalTime"></th>
-                                        </tr>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Directions</th>
-                                            <th>Distance</th>
-                                            <th>Time</th>
-                                            <th>Map</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tblDirections"></tbody>
-                                    <!-- <tfoot>
-                                            <tr>
-                                                <th></th>
-                                                <th><a id="gmDirections" target="blank">Google Map Directions</a>
-                                                </th>
-                                                <th id="tdTotalDistance"></th>
-                                                <th id="tdTotalTime"></th>
-                                                <th id="tdArrivalTime"></th>
-                                            </tr>
-                                        </tfoot> -->
-                                </table>
-                            </section>
+                        <section class="box table-container" id="drivingDirections">
+                          <table class="table is-fullwidth">
+                            <thead>
+                              <tr>
+                                  <!-- <th></th> -->
+                                  <a class="is-left" id="gmDirections" target="blank">Google Map Directions</a>
+                                  <th id="tdTotalDistance"></th>
+                                  <th id="tdTotalTime"></th>
+                                  <th id="tdArrivalTime"></th>
+                              </tr>
+                              <tr>
+                                  <th>#</th>
+                                  <th>Directions</th>
+                                  <th>Distance</th>
+                                  <th>Time</th>
+                                  <th>Map</th>
+                              </tr>
+                            </thead>
+                            <tbody id="tblDirections"></tbody>
+                            <tfoot>
+                              <tr>
+                                  <!-- <th></th> -->
+                                  <th><a id="gmDirections" target="blank">Google Map Directions</a>
+                                  </th>
+                                  <th id="tdTotalDistance"></th>
+                                  <th id="tdTotalTime"></th>
+                                  <th id="tdArrivalTime"></th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </section>
 
-                        </article>
+                      </article>
                     </div>
+                  </div>
                 </div>
+              </div>
 
-            </div>
+
             <div class="tile is-parent">
                 <article class="tile is-child notification is-info custom-tile">
                     <div class="content">
                         <p class="title">weather</p>
                         <p class="subtitle"></p>
                         <div class="content">
-                            <!-- Content -->
+                          <!-- WEATHER CONTENT -->
+
+                          <!-- TAB NAVIGATION -->
+                          <div class="box">
+                            <div class="tabs is-boxed">
+                              <ul>
+                                <li class="is-active daily" id="daily-tab">
+                                  <a class="daily">
+                                    <span class="icon is-small daily"><i class="fas fa-calendar" aria-hidden="true"></i></span>
+                                    <span>Daily</span>
+                                  </a>
+                                </li>
+                                <li class="hourly" id="hourly-tab">
+                                  <a class="hourly">
+                                    <span class="icon is-small hourly"><i class="fas fa-hourglass" aria-hidden="true"></i></span>
+                                    <span>Hourly</span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                            
+                            <!-- PLACEHOULDER FOR DAILY / HOURLY DATA -->
+                            <div class="columns is-desktop" id=custom-weather-container>
+                              <!-- daily / hourly weather data goes here -->
+                            </div>
+                          </div>
+                          
+                          <!-- WEATHER CONTENT -->
+
                         </div>
                     </div>
                 </article>

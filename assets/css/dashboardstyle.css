@@ -1,6 +1,7 @@
-/* * {
+* {
   border: 3px red solid;
-} */
+}
+
 :root {
     /* declare a variable with `--` syntax */
     --dark-text: #13293d;
@@ -34,9 +35,11 @@
     justify-content: center;
   }
 
+  /* CHANGE COLOR OF PLACEHOLDER TEXT FROM GRAY TO BLACK */
   #txtStartAddress::placeholder {
     color: black
   }
+  
 
   /* .custom-tile{
     max-height: 600px;
