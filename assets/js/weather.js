@@ -28,12 +28,12 @@
     //DETERIME IF DAILY OR HOURLY DATA SHOULD BE DISPLAYED
     let requestedData = "";
     if (event.target.parentNode.classList.contains('hourly')) {
-      console.log('hourly weather js')
+      // console.log('hourly weather js')
       dailyTab.classList.remove('is-active');
       hourlyTab.classList.add('is-active');
       requestedData = "hourly";
     } else {
-      console.log('daily weather js');
+      // console.log('daily weather js');
       dailyTab.classList.add('is-active');
       hourlyTab.classList.remove('is-active');
       requestedData = "daily";
@@ -44,38 +44,29 @@
   
   function fetchWeatherData(latitude, longitude, resortName, requestedData) {
 
-    let currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely,alerts&appid=f0bed1b0eff80d425a392e66c50eb063&units=imperial&units=imperial`;
+    let currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,alerts&appid=f0bed1b0eff80d425a392e66c50eb063&units=imperial&units=imperial`;
 
     // fetch(currentWeatherURL)
     //   .then((response) => {
     //     if (response.ok) {
     //       response.json().then((data) => {
-    //         requestedData === "hourly" ? createDailyHourlyWeatherData(weather, "hourly", "Boulder") : createDailyHourlyWeatherData(weather, "daily", "Boulder");
+    //           requestedData === "hourly" ? createDailyHourlyWeatherData(data, "hourly", resortName) : createDailyHourlyWeatherData(data, "daily", resortName);
     //       });
     //     } else {
-    //       validationModal(
-    //         "Error: City/Zip Not Found",
-    //         `Try Again: ${response.statusText}`
-    //       );
+    //       console.log('Error: ', error);
     //     }
     //   })
     //   .catch((error) => {
-    //     validationModal(
-    //       "Error: City/Zip Not Found",
-    //       `Try Again: ${response.statusText}`
-    //     );
+    //     console.log('Error: ', error);
     //   });
 
     // to test in development use the 2 lines below; to test in production comment outlines below and comment in the fetch above
-    // createDailyDataSet(weather, "daily", "Boulder");
-    // createHourlyDataSet(weather, "hourly", "Boulder");
-
     requestedData === "hourly" ? createDailyHourlyWeatherData(weather, "hourly", "Boulder") : createDailyHourlyWeatherData(weather, "daily", "Boulder");
-    // createDailyHourlyWeatherData(weather, "hourly", "Boulder");
   }
 
   function createDailyHourlyWeatherData(weather, timeframe, resortName) {
     let weatherCleanData = [];
+    // console.log('2 = ', weather, resortName, timeframe);
 
     weather[timeframe].filter((element, index) => {
       let hourOfDay = moment.unix(element.dt).format("H") //24 hour clock
@@ -83,7 +74,7 @@
       if (hourOfDay >= 8 && hourOfDay <= 18) { //hour >=8a && <=6p
         weatherCleanData.push({
           type: timeframe,
-          date: type = "hourly" ? moment.unix(element.dt).format("M/D/YYYY ha") : moment.unix(element.dt).format("M/D/YYYY"),
+          date: type = "hourly" ? moment.unix(element.dt).format("ddd, M/D/YY ha") : moment.unix(element.dt).format("M/D/YYYY"),
           description: element.weather[0].description,
           icon: element.weather[0].icon,
           temp: element.temp.day || element.temp, // element.temp.day is the daily array and element.temp is the hourly array
@@ -98,7 +89,8 @@
 
   //RENDER WEATHER DATA
   function renderWeather(weatherCleanData, resortName, timeframe) {
-    console.lo
+    // console.log('3 = ', weatherCleanData, resortName, timeframe);
+
     weatherContainer.textContent = "";
 
     //CREATE ELEMENTS
