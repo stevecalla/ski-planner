@@ -121,7 +121,7 @@ async function displayDrivingDirections(skiArea) {
     if (directions[i].mapUrl) {
       td = document.createElement("td");
       let img = document.createElement("img");
-      img.src = directions[i].mapUrl;
+      img.src = directions[i].mapUrl.replace("http://", "https://");
       img.alt = "Map";
       td.appendChild(img);
       tr.appendChild(td);
@@ -285,6 +285,7 @@ btnUpdate.addEventListener("click", function (event) {
   );
 
   displayDrivingDirections(skiArea);
+  displayWeatherForecast(skiArea);
 });
 
 function init() {
