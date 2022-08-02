@@ -1,195 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <!-- LEAFLET -->
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+          integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+          crossorigin="" />
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-        crossorigin="" />
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="./assets/css/profile.css">
-    <link rel="stylesheet" href="./assets/css/dashboardstyle.css">
-    <style>
-        .hero {
-            background: url(assets/images/mountaindashboard.jpg) center / cover;
-        }
-    </style>
-    <title>Ski Dashboard</title>
-</head>
-
-<body class="hero is-fullheight ">
-    <header >
-        <div class="title-wrapper">
-            <button class="button is-medium custom-button is-info ">Go Back</button>
-        
-        <h1 class="title">Ski Trip </h1>
+      <!-- FONTAWESOME ICONS -->
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+      />
       
-            <button class="button is-medium custom-button is-info" id="modal-profile-dashboard-button">Profile</button>
-        </div>
-        <h1  class="sub-title title" id="skiAreaName"></h1>
-    </header>
+      <!-- BULMA -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+      
+      <!-- GOOGLE FONTS -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+      
+      <link rel="stylesheet" href="./assets/css/profile.css">
+      <link rel="stylesheet" href="./assets/css/style.css">
+      <link rel="stylesheet" href="./assets/css/dashboardstyle.css">
+      <style>
+          .hero {
+              background: url(assets/images/mountaindashboard.jpg) center / cover;
+          }
+      </style>
+      <title>Ski Dashboard</title>
+  </head>
 
-    <main>
-        <div class="tile is-ancestor">
-            <div class="tile is-vertical is-8">
-                <div class="tile">
-                    <div class="tile is-parent is-vertical">
-                        <article class="tile is-child notification is-info">
-                            <p class="title">Map</p>
-                            <p class="subtitle">
-                            <section class="mapSection" id="mapArea">
-                                <img id="staticMap" />
-                            </section>
-                            </p>
+  <body class="hero is-fullheight ">
+      <header >
+          <div class="title-wrapper">
+              <button class="button is-medium custom-button is-info ">Go Back</button>
+          
+          <h1 class="title">Ski Trip </h1>
+        
+              <button class="button is-medium custom-button is-info" id="modal-profile-dashboard-button">Profile</button>
+          </div>
+          <h1  class="sub-title title" id="skiAreaName"></h1>
+      </header>
+
+      <main>
+          <div class="tile is-ancestor">
+              <div class="tile is-vertical is-8">
+                  <div class="tile">
+                      <div class="tile is-parent is-vertical">
+                          <article class="tile is-child notification is-info">
+                              <p class="title">Map</p>
+                              <p class="subtitle">
+                              <section class="mapSection" id="mapArea">
+                                  <img id="staticMap" />
+                              </section>
+                              </p>
+                          </article>
+
+                      </div>
+
+                      
+                      <div class="tile is-parent ">
+                        <article class="tile is-child notification is-info custom-tile">
+                          <p class="title">Directions</p>
+                          <p class="subtitle"></p>
+                          <input id="txtStartAddress" type="text" class="input"
+                          placeholder="Address or Coordinates"></input>&nbsp;&nbsp;
+                          <input id="txtStartDate" type="date" class="input"></input>&nbsp;&nbsp;
+                          <input id="txtStartTime" type="time" class="input" value="09:00"></input>&nbsp;&nbsp;
+                          <button id="btnUpdate" class="button">Update</button>
+
+                          <section class="box table-container" id="drivingDirections">
+                            <table class="table is-fullwidth">
+                              <thead>
+                                <tr>
+                                    <!-- <th></th> -->
+                                    <a class="is-left" id="gmDirections" target="blank">Google Map Directions</a>
+                                    <th id="tdTotalDistance"></th>
+                                    <th id="tdTotalTime"></th>
+                                    <th id="tdArrivalTime"></th>
+                                </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Directions</th>
+                                    <th>Distance</th>
+                                    <th>Time</th>
+                                    <th>Map</th>
+                                </tr>
+                              </thead>
+                              <tbody id="tblDirections"></tbody>
+                              <tfoot>
+                                <tr>
+                                    <!-- <th></th> -->
+                                    <th><a id="gmDirections" target="blank">Google Map Directions</a>
+                                    </th>
+                                    <th id="tdTotalDistance"></th>
+                                    <th id="tdTotalTime"></th>
+                                    <th id="tdArrivalTime"></th>
+                                </tr>
+                              </tfoot>
+                            </table>
+                          </section>
+
                         </article>
-
-                    </div>
-
-                    
-                    <div class="tile is-parent ">
-                      <article class="tile is-child notification is-info custom-tile">
-                        <p class="title">Directions</p>
-                        <p class="subtitle"></p>
-                        <input id="txtStartAddress" type="text" class="input"
-                        placeholder="Address or Coordinates"></input>&nbsp;&nbsp;
-                        <input id="txtStartDate" type="date" class="input"></input>&nbsp;&nbsp;
-                        <input id="txtStartTime" type="time" class="input" value="09:00"></input>&nbsp;&nbsp;
-                        <button id="btnUpdate" class="button">Update</button>
-
-                        <section class="box table-container" id="drivingDirections">
-                          <table class="table is-fullwidth">
-                            <thead>
-                              <tr>
-                                  <!-- <th></th> -->
-                                  <a class="is-left" id="gmDirections" target="blank">Google Map Directions</a>
-                                  <th id="tdTotalDistance"></th>
-                                  <th id="tdTotalTime"></th>
-                                  <th id="tdArrivalTime"></th>
-                              </tr>
-                              <tr>
-                                  <th>#</th>
-                                  <th>Directions</th>
-                                  <th>Distance</th>
-                                  <th>Time</th>
-                                  <th>Map</th>
-                              </tr>
-                            </thead>
-                            <tbody id="tblDirections"></tbody>
-                            <tfoot>
-                              <tr>
-                                  <!-- <th></th> -->
-                                  <th><a id="gmDirections" target="blank">Google Map Directions</a>
-                                  </th>
-                                  <th id="tdTotalDistance"></th>
-                                  <th id="tdTotalTime"></th>
-                                  <th id="tdArrivalTime"></th>
-                              </tr>
-                            </tfoot>
-                          </table>
-                        </section>
-
-                      </article>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
 
-            <div class="tile is-parent">
-                <article class="tile is-child notification is-info custom-tile">
-                    <div class="content">
-                        <p class="title">weather</p>
-                        <p class="subtitle"></p>
-                        <div class="content">
+              <div class="tile is-parent">
+                  <article class="tile is-child notification is-info custom-tile">
+                      <div class="content">
+                          <p class="title">weather</p>
+                          <p class="subtitle"></p>
+                          <div class="content">
+
                           <!-- WEATHER CONTENT -->
-
                           <!-- TAB NAVIGATION -->
-                          <div class="box">
-                            <div class="tabs is-boxed">
-                              <ul>
-                                <li class="is-active daily" id="daily-tab">
-                                  <a class="daily">
-                                    <span class="icon is-small daily"><i class="fas fa-calendar" aria-hidden="true"></i></span>
-                                    <span>Daily</span>
-                                  </a>
-                                </li>
-                                <li class="hourly" id="hourly-tab">
-                                  <a class="hourly">
-                                    <span class="icon is-small hourly"><i class="fas fa-hourglass" aria-hidden="true"></i></span>
-                                    <span>Hourly</span>
-                                  </a>
-                                </li>
-                              </ul>
+
+                            <div class="box">
+                              <div class="tabs is-boxed m-0">
+                                <ul class="m-0 mb-2">
+                                  <li class="is-active daily" id="daily-tab">
+                                    <a class="daily">
+                                      <span class="icon is-small daily"><i class="fas fa-calendar" aria-hidden="true"></i></span>
+                                      <span>Daily</span>
+                                    </a>
+                                  </li>
+                                  <li class="hourly" id="hourly-tab">
+                                    <a class="hourly">
+                                      <span class="icon is-small hourly"><i class="fas fa-hourglass" aria-hidden="true"></i></span>
+                                      <span>Hourly</span>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              
+                              <!-- PLACEHOULDER FOR DAILY / HOURLY DATA -->
+                              <div class="columns is-desktop" id=custom-weather-container>
+                                <div class="row" id="weather-elements">
+                                  <!-- daily / hourly weather data goes here -->
+                                </div>
+                              </div>
                             </div>
                             
-                            <!-- PLACEHOULDER FOR DAILY / HOURLY DATA -->
-                            <div class="columns is-desktop" id=custom-weather-container>
-                              <!-- daily / hourly weather data goes here -->
-                            </div>
+                          <!-- WEATHER CONTENT
+
                           </div>
-                          
-                          <!-- WEATHER CONTENT -->
+                      </div>
+                  </article>
+              </div>
 
-                        </div>
-                    </div>
-                </article>
-            </div>
+              <div class="tile is-parent">
+                  <article class="tile is-child notification is-info custom-tile">
+                      <div class="content">
+                          <p class="title">pow meter</p>
+                          <p class="subtitle"></p>
+                          <div class="content">
+                              <!-- Content -->
+                              <section id="snowConditions">
+                                  <h3>Snow Conditions</h3>
+                                  <label id="lblStationName"></label><br />
+                                  <label id="lblElevation"></label><br />
+                                  <label id="lblDistance"></label><br />
+                                  <label id="lblDate"></label><br />
+                                  <label id="lblSnowWaterEquivalent"></label><br />
+                                  <label id="lblChangeInSnowWaterEquivalent"></label><br />
+                                  <label id="lblSnowDepth"></label><br />
+                                  <label id="lblChangeInSnowDepth"></label><br />
+                                  <label id="lblObservedAirTemperature"></label><br />
+                              </section>
+                          </div>
+                      </div>
+                  </article>
+              </div>
 
-            <div class="tile is-parent">
-                <article class="tile is-child notification is-info custom-tile">
-                    <div class="content">
-                        <p class="title">pow meter</p>
-                        <p class="subtitle"></p>
-                        <div class="content">
-                            <!-- Content -->
-                            <section id="snowConditions">
-                                <h3>Snow Conditions</h3>
-                                <label id="lblStationName"></label><br />
-                                <label id="lblElevation"></label><br />
-                                <label id="lblDistance"></label><br />
-                                <label id="lblDate"></label><br />
-                                <label id="lblSnowWaterEquivalent"></label><br />
-                                <label id="lblChangeInSnowWaterEquivalent"></label><br />
-                                <label id="lblSnowDepth"></label><br />
-                                <label id="lblChangeInSnowDepth"></label><br />
-                                <label id="lblObservedAirTemperature"></label><br />
-                            </section>
-                        </div>
-                    </div>
-                </article>
-            </div>
+          </div>
+      </main>
 
-        </div>
-    </main>
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-      <!-- Added link to the jQuery library -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-    <!-- jQuery UI -->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-        crossorigin=""></script>
-
+    <!-- MOMENT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
 
+    <!-- JQUERY Library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- JQUERY UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- LEAFLET -->
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin="">
+    </script>
+
+    <script src="./assets/js/open-weather-data.js"></script>
     <script src="./assets/js/config.js"></script>
     <script src="./assets/js/utils.js"></script>
     <script src="./assets/js/skiAreas.js"></script>
+    <script src="./assets/js/weather.js"></script>
     <script src="./assets/js/dashboard.js"></script>
 
-</body>
-
+  </body>
 </html>

@@ -218,9 +218,6 @@ async function fetchCoordinatesFromAddress(address) {
   return `${coord.lat},${coord.lng}`;
 }
 
-// This function is to display the weather data in the "weatherForecast" section
-function displayWeatherForecast(skiArea) {}
-
 function displaySnowConditions(skiArea) {
   // http://api.powderlin.es/closest_stations
   // https://dqmoczhn0pnkc.cloudfront.net/closest_stations
@@ -265,21 +262,6 @@ function displaySnowConditions(skiArea) {
     })
     .fail()
     .always();
-}
-
-async function fetchWeatherData(lat, lon) {
-  //https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly,alerts&appid={apiKey}
-  let apiKey = config.OPEN_WEATHER_KEY;
-  let lang = "en";
-  let units = "imperial";
-  let exclude = "minutely,hourly,alerts";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}&lang=${lang}&exclude=${exclude}`;
-
-  // Force it to wait for data to return before going on
-  const response = await fetch(apiUrl);
-  const data = await response.json();
-
-  return data;
 }
 
 btnUpdate.addEventListener("click", function (event) {

@@ -25,11 +25,11 @@
 }
 
 .custom-button {
-  font-family: bangers;
   display: flex;
   justify-content: center;
   margin-top: 1px;
   margin-bottom: 1px;
+  font-family: bangers;
 }
 
 .hero-bkg {
