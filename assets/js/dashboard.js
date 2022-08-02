@@ -2,7 +2,9 @@
 let skiAreaName = document.querySelector("#skiAreaName");
 let staticMap = document.querySelector("#staticMap");
 let drivingDirections = document.querySelector("#drivingDirections");
+
 let txtStartAddress = document.querySelector("#txtStartAddress");
+
 let txtStartDate = document.querySelector("#txtStartDate");
 let txtStartTime = document.querySelector("#txtStartTime");
 let btnUpdate = document.querySelector("#btnUpdate");
@@ -335,3 +337,9 @@ function init() {
   }
 }
 init();
+
+txtStartAddress.addEventListener('input', () => {
+  console.log(txtStartAddress.value);
+  fetchMapquestCreateAutoComplete();
+})
+
