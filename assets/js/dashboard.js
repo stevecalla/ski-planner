@@ -1,3 +1,4 @@
+//section:query selector variables go here 👇
 let skiAreaName = document.querySelector("#skiAreaName");
 let staticMap = document.querySelector("#staticMap");
 let drivingDirections = document.querySelector("#drivingDirections");
@@ -25,7 +26,14 @@ let lblChangeInSnowDepth = document.querySelector("#lblChangeInSnowDepth");
 let lblObservedAirTemperature = document.querySelector(
   "#lblObservedAirTemperature"
 );
+let modalProfileFromDashBoard = document.getElementById('modal-profile-dashboard-button');
 
+//section:global variables go here 👇
+
+//section:event listeners go here 👇
+modalProfileFromDashBoard.addEventListener('click', renderProfileModal);
+
+//section:functions and event handlers go here 👇
 // This function is called on init and will pull the resort name from the QueryString
 function getResortInfo() {
   if (document.location.search.length > 0) {
