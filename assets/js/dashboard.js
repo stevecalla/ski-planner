@@ -54,7 +54,7 @@ function getResortInfo() {
 
     displayStaticMap(skiArea);
     displayDrivingDirections(skiArea);
-    displayWeatherForecast(skiArea);
+    // displayWeatherForecast(skiArea);
     displaySnowConditions(skiArea);
   } else {
     document.location.replace("./index.html");
