@@ -374,7 +374,6 @@ function clearLocalStorage() {
 // CLOSE MODAL ON CLICK OR ESC KEY
 function closeProfileModal(event) {
   if (event.keyCode === 27 || event.target.classList.contains("modal-close")) {
-    //location.href = document.referrer;
     history.back();
   }
 }
