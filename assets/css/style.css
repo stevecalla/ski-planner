@@ -17,19 +17,26 @@
   box-sizing: border-box;
 }
 
+.header{
+  display: flex;
+  
+}
 .title {
   font-family: bangers;
   font-size: 75px;
   color: white;
   padding-bottom: 0px;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5%;
 }
 
 .custom-button {
-  display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 1px;
-  margin-bottom: 1px;
+  margin-right: 5px;
   font-family: bangers;
+  color:var(--skiblue);
 }
 
 .hero-bkg {
