@@ -26,13 +26,17 @@ let lblChangeInSnowDepth = document.querySelector("#lblChangeInSnowDepth");
 let lblObservedAirTemperature = document.querySelector(
   "#lblObservedAirTemperature"
 );
-let modalProfileFromDashBoard = document.getElementById('modal-profile-dashboard-button');
+let modalProfileFromDashBoard = document.getElementById(
+  "modal-profile-dashboard-button"
+);
 
 //section:global variables go here 👇
 
 //section:event listeners go here 👇
-modalProfileFromDashBoard.addEventListener('click', renderProfileModal);
-txtStartAddress.addEventListener('input', () => fetchMapquestCreateAutoComplete(txtStartAddress));
+modalProfileFromDashBoard.addEventListener("click", renderProfileModal);
+// txtStartAddress.addEventListener("input", () =>
+//   fetchMapquestCreateAutoComplete(txtStartAddress)
+// );
 // SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
 
 //section:functions and event handlers go here 👇
@@ -127,15 +131,21 @@ async function displayDrivingDirections(skiArea) {
     td.textContent = directions[i].formattedTime;
     tr.appendChild(td);
 
+    //
+    //
+    // Put the image back in for the presentation
+    //
+    //
+
     // Map
-    if (directions[i].mapUrl) {
-      td = document.createElement("td");
-      let img = document.createElement("img");
-      img.src = directions[i].mapUrl.replace("http://", "https://");
-      img.alt = "Map";
-      td.appendChild(img);
-      tr.appendChild(td);
-    }
+    // if (directions[i].mapUrl) {
+    //   td = document.createElement("td");
+    //   let img = document.createElement("img");
+    //   img.src = directions[i].mapUrl.replace("http://", "https://");
+    //   img.alt = "Map";
+    //   td.appendChild(img);
+    //   tr.appendChild(td);
+    // }
 
     tblDirections.appendChild(tr);
   }
@@ -171,8 +181,15 @@ async function fetchDirections(startCoordinates, endCoordinates) {
   //http://www.mapquestapi.com/directions/v2/route?key=onM30fdvaziP9ykjaYeleR5hvIhOmLm1&from=39.633077,-105.1388028&to=39.68,-105.897
   let apiUrl = `https://www.mapquestapi.com/directions/v2/route?key=${config.MAPQUEST_KEY}&from=${startCoordinates}&to=${endCoordinates}`;
 
-  const response = await fetch(apiUrl, requestOptions);
-  const data = await response.json();
+  //
+  //
+  // Put the fetch call back in for the presentation
+  //
+  //
+
+  // const response = await fetch(apiUrl, requestOptions);
+  // const data = await response.json();
+  const data = testDirections;
 
   const maneuvers = data.route.legs[0].maneuvers;
   const directions = [];
@@ -244,12 +261,13 @@ function displaySnowConditions(skiArea) {
       let i = 0;
       do {
         dataSNOTEL = response[i++];
-        lblStationName.textContent = `Closest SNOTEL: ${dataSNOTEL.station_information.name}`;
-        lblElevation.textContent = `Elevation: ${dataSNOTEL.station_information.elevation} ft`;
-        lblDistance.textContent = `Distance Away: ${dataSNOTEL.distance.toFixed(
-          2
-        )} miles`;
         if (dataSNOTEL.data.length > 0) {
+          lblStationName.textContent = `Closest SNOTEL: ${dataSNOTEL.station_information.name}`;
+          lblElevation.textContent = `Elevation: ${dataSNOTEL.station_information.elevation} ft`;
+          lblDistance.textContent = `Distance Away: ${dataSNOTEL.distance.toFixed(
+            2
+          )} miles`;
+
           lblDate.textContent = `Date: ${dataSNOTEL.data[0]["Date"]}`;
           lblSnowWaterEquivalent.textContent = `Snow Water Equivalent (in): ${dataSNOTEL.data[0]["Snow Water Equivalent (in)"]}`;
           lblChangeInSnowWaterEquivalent.textContent = `Change In Snow Water Equivalent (in): ${dataSNOTEL.data[0]["Change In Snow Water Equivalent (in)"]}`;
@@ -291,10 +309,10 @@ function init() {
   } else if (sessionStorage.getItem("userCurrentPosition")) {
     // If they don't have a profile and have already used navigator to get the user's current position, don't ask again.
 
-    // txtStartAddress.value = sessionStorage.getItem("userCurrentPosition");
-    txtStartAddress.setAttribute('placeholder', sessionStorage.getItem("userCurrentPosition"));
-    txtStartAddress.focus();
-    
+    txtStartAddress.value = sessionStorage.getItem("userCurrentPosition");
+    //txtStartAddress.setAttribute('placeholder', sessionStorage.getItem("userCurrentPosition"));
+    //txtStartAddress.focus();
+
     getResortInfo();
   } else {
     const options = {
@@ -323,4 +341,3 @@ function init() {
   }
 }
 init();
-
