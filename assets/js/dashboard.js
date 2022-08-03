@@ -13,19 +13,8 @@ let tdTotalTime = document.querySelector("#tdTotalTime");
 let tdArrivalTime = document.querySelector("#tdArrivalTime");
 let weatherForecast = document.querySelector("#weatherForecast");
 let snowConditions = document.querySelector("#snowConditions");
-let lblStationName = document.querySelector("#lblStationName");
-let lblElevation = document.querySelector("#lblElevation");
-let lblDistance = document.querySelector("#lblDistance");
-let lblDate = document.querySelector("#lblDate");
-let lblSnowWaterEquivalent = document.querySelector("#lblSnowWaterEquivalent");
-let lblChangeInSnowWaterEquivalent = document.querySelector(
-  "#lblChangeInSnowWaterEquivalent"
-);
 let lblSnowDepth = document.querySelector("#lblSnowDepth");
 let lblChangeInSnowDepth = document.querySelector("#lblChangeInSnowDepth");
-let lblObservedAirTemperature = document.querySelector(
-  "#lblObservedAirTemperature"
-);
 let modalProfileFromDashBoard = document.getElementById(
   "modal-profile-dashboard-button"
 );
@@ -39,22 +28,27 @@ modalProfileFromDashBoard.addEventListener("click", renderProfileModal);
 // );
 // SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
 
+function getCurrentSkiArea() {
+  // https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+  const queryString = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+
+  const skiArea = skiAreas.find(
+    (element) =>
+      element.Name.trim().toLowerCase() ===
+      queryString.resort.trim().toLowerCase()
+  );
+  return skiArea;
+}
+
 //section:functions and event handlers go here 👇
 // This function is called on init and will pull the resort name from the QueryString
 function getResortInfo() {
   if (document.location.search.length > 0) {
-    // https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-    const queryString = new Proxy(new URLSearchParams(window.location.search), {
-      get: (searchParams, prop) => searchParams.get(prop),
-    });
+    const skiArea = getCurrentSkiArea();
 
-    const skiArea = skiAreas.find(
-      (element) =>
-        element.Name.trim().toLowerCase() ===
-        queryString.resort.trim().toLowerCase()
-    );
-
-    skiAreaName.textContent = `${queryString.resort}`;
+    skiAreaName.textContent = skiArea.Name;
 
     displayStaticMap(skiArea);
     displayDrivingDirections(skiArea);
@@ -262,18 +256,19 @@ function displaySnowConditions(skiArea) {
       do {
         dataSNOTEL = response[i++];
         if (dataSNOTEL.data.length > 0) {
-          lblStationName.textContent = `Closest SNOTEL: ${dataSNOTEL.station_information.name}`;
-          lblElevation.textContent = `Elevation: ${dataSNOTEL.station_information.elevation} ft`;
-          lblDistance.textContent = `Distance Away: ${dataSNOTEL.distance.toFixed(
-            2
-          )} miles`;
+          // Data is:
+          // `Closest SNOTEL: ${dataSNOTEL.station_information.name}`
+          // `Elevation: ${dataSNOTEL.station_information.elevation} ft`
+          // `Distance Away: ${dataSNOTEL.distance.toFixed(2)} miles`
+          // `Date: ${dataSNOTEL.data[0]["Date"]}`
+          // `Snow Water Equivalent (in): ${dataSNOTEL.data[0]["Snow Water Equivalent (in)"]}`
+          // `Change In Snow Water Equivalent (in): ${dataSNOTEL.data[0]["Change In Snow Water Equivalent (in)"]}`
+          // `Snow Depth (in): ${dataSNOTEL.data[0]["Snow Depth (in)"]}`
+          // `Change In Snow Depth (in): ${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}`
+          // `Observed Air Temperature (degrees farenheit): ${dataSNOTEL.data[0]["Observed Air Temperature (degrees farenheit)"]}`
 
-          lblDate.textContent = `Date: ${dataSNOTEL.data[0]["Date"]}`;
-          lblSnowWaterEquivalent.textContent = `Snow Water Equivalent (in): ${dataSNOTEL.data[0]["Snow Water Equivalent (in)"]}`;
-          lblChangeInSnowWaterEquivalent.textContent = `Change In Snow Water Equivalent (in): ${dataSNOTEL.data[0]["Change In Snow Water Equivalent (in)"]}`;
           lblSnowDepth.textContent = `Snow Depth (in): ${dataSNOTEL.data[0]["Snow Depth (in)"]}`;
           lblChangeInSnowDepth.textContent = `Change In Snow Depth (in): ${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}`;
-          lblObservedAirTemperature.textContent = `Observed Air Temperature (degrees farenheit): ${dataSNOTEL.data[0]["Observed Air Temperature (degrees farenheit)"]}`;
         }
         // If the closest SNOTEL station does not have any data, go to the next one.  Powderhorn is this way.  Pulling 3 stations just in case.
       } while (dataSNOTEL.data.length === 0);
@@ -283,16 +278,7 @@ function displaySnowConditions(skiArea) {
 }
 
 btnUpdate.addEventListener("click", function (event) {
-  // https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-  const queryString = new Proxy(new URLSearchParams(window.location.search), {
-    get: (searchParams, prop) => searchParams.get(prop),
-  });
-
-  const skiArea = skiAreas.find(
-    (element) =>
-      element.Name.trim().toLowerCase() ===
-      queryString.resort.trim().toLowerCase()
-  );
+  const skiArea = getCurrentSkiArea();
 
   displayDrivingDirections(skiArea);
   displayWeatherForecast(skiArea);
