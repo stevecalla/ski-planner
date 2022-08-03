@@ -15,16 +15,20 @@ let weatherForecast = document.querySelector("#weatherForecast");
 let snowConditions = document.querySelector("#snowConditions");
 let lblSnowDepth = document.querySelector("#lblSnowDepth");
 let lblChangeInSnowDepth = document.querySelector("#lblChangeInSnowDepth");
-let modalProfileFromDashBoard = document.getElementById("modal-profile-dashboard-button");
-let backButton = document.getElementById("back-button")
+let modalProfileFromDashBoard = document.getElementById(
+  "modal-profile-dashboard-button"
+);
+let backButton = document.getElementById("back-button");
 
 //section:global variables go here 👇
 
 //section:event listeners go here 👇
 modalProfileFromDashBoard.addEventListener("click", renderProfileModal);
 // SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
-txtStartAddress.addEventListener("input", () => fetchMapquestCreateAutoComplete(txtStartAddress)); //todo:make live
-backButton.addEventListener('click', () => renderLastPage());
+txtStartAddress.addEventListener("input", () =>
+  fetchMapquestCreateAutoComplete(txtStartAddress)
+); //todo:make live
+backButton.addEventListener("click", () => renderLastPage());
 
 function getCurrentSkiArea() {
   // https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
@@ -74,10 +78,22 @@ function displayStaticMap(skiArea) {
 }
 
 async function displayDrivingDirections(skiArea) {
-  startCoordinates = txtStartAddress.value;
-  if (!isLatLong(startCoordinates)) {
+  let startCoordinates = txtStartAddress.value;
+  let userCurrentPosition = JSON.parse(
+    localStorage.getItem("userCurrentPosition")
+  );
+
+  if (
+    txtStartAddress.value.trim().toLowerCase() ===
+    userCurrentPosition.address.trim().toLowerCase()
+  ) {
+    // If the Start Address is the same as what's in local storage, don't have to fetch the coordinates.
+    startCoordinates = userCurrentPosition.coordinates;
+  } else if (!isLatLong(startCoordinates)) {
+    // If the textbox and localstorage is different, we do have to fetch the coordinates
     startCoordinates = await fetchCoordinatesFromAddress(txtStartAddress.value);
   }
+  // Else, the text box should have Lat/Long in it
 
   let endCoordinates = `${skiArea.Latitude},${skiArea.Longitude}`;
   let directions = await fetchDirections(startCoordinates, endCoordinates);
@@ -279,7 +295,7 @@ btnUpdate.addEventListener("click", function (event) {
   const skiArea = getCurrentSkiArea();
 
   displayDrivingDirections(skiArea);
-  displayWeatherForecast(skiArea);
+  //displayWeatherForecast(skiArea);
 });
 
 function init() {
@@ -288,18 +304,21 @@ function init() {
 
   renderDailyHourlyWeatherData("daily"); // loads weather data upon page load
 
-  if (localStorage.getItem("StartAddress")) {
-    // Pull the current position from the profile
-    txtStartAddress.value = localStorage.getItem("StartAddress");
-    getResortInfo();
-  } else if (sessionStorage.getItem("userCurrentPosition")) {
-    // If they don't have a profile and have already used navigator to get the user's current position, don't ask again.`
+  let skiProfile = JSON.parse(localStorage.getItem("ski-profile"));
 
-    txtStartAddress.value = sessionStorage.getItem("userCurrentPosition");
-    txtStartAddress.setAttribute(
-      "placeholder",
-      sessionStorage.getItem("userCurrentPosition")
+  if (skiProfile && skiProfile.address) {
+    // Pull the current position from the profile
+    txtStartAddress.value = skiProfile.address;
+    getResortInfo();
+  } else if (localStorage.getItem("userCurrentPosition")) {
+    // If they don't have a profile and have already used navigator to get the user's current position, don't ask again.
+
+    let userCurrentPosition = JSON.parse(
+      localStorage.getItem("userCurrentPosition")
     );
+
+    txtStartAddress.value = userCurrentPosition.address;
+    txtStartAddress.setAttribute("placeholder", userCurrentPosition.address);
     txtStartAddress.focus();
 
     getResortInfo();
@@ -311,12 +330,48 @@ function init() {
     };
 
     function success(pos) {
-      txtStartAddress.value = `${pos.coords.latitude},${pos.coords.longitude}`;
-      // Save the current position to sessionStorage
-      sessionStorage.setItem(
-        "userCurrentPosition",
-        `${pos.coords.latitude},${pos.coords.longitude}`
-      );
+      let address = `${pos.coords.latitude},${pos.coords.longitude}`; //Deault address to the coordinates
+      let apiUrl = `http://www.mapquestapi.com/geocoding/v1/reverse?key=${config.MAPQUEST_KEY}&location=${address}`;
+
+      fetch(apiUrl)
+        .then(function (response) {
+          if (response.ok) {
+            response.json().then(function (data) {
+              let location = data.results[0].locations[0];
+
+              // Build the address starting at the state, then city, then street address
+              if (location.adminArea3) {
+                address = location.adminArea3; // State
+
+                if (location.adminArea5) {
+                  address = location.adminArea5 + ", " + address; // City
+
+                  if (location.street) {
+                    address = location.street + ", " + address; // Street
+                  }
+                }
+              }
+
+              let jUserCurrentPosition = {
+                address: address,
+                coordinates: `${pos.coords.latitude},${pos.coords.longitude}`,
+              };
+
+              txtStartAddress.value = address;
+              // Save the current position to localStorage
+              localStorage.setItem(
+                "userCurrentPosition",
+                JSON.stringify(jUserCurrentPosition)
+              );
+            });
+          } else {
+            alert("Error: " + response.statusText);
+          }
+        })
+        .catch(function (error) {
+          alert("Error: " + error);
+        });
+
       getResortInfo();
     }
 
