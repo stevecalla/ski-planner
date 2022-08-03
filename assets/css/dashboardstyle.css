@@ -1,6 +1,6 @@
-* {
-  /* border: 1px red` solid; */
-}
+/* * {
+  border: 1px red solid;
+} */
 
 :root {
   /* declare a variable with `--` syntax */
@@ -9,13 +9,18 @@
   --light-text: #f5f5f5;
   --light-background: white;
   --border-radius: 5px;
-  --skiblue: #0099ff;
+  --skiblue: #3e8ed0;
 }
 
 .title {
   font-family: bangers;
   font-size: 60px;
   color: white;
+}
+.subtitle {
+  font-family: bangers;
+  font-size: 45px;
+  color: #209CEE;
 }
 
 .custom-button {
@@ -47,17 +52,30 @@
 .updateButton {
   font-family: bangers;
   color: var(--skiblue);
-  margin: 4px;
-  margin-left: 40%;
+  margin-bottom: 10px;
+  
 }
 
-.custom-input {
-  margin-bottom: 4px;
+.inputParent {
+  display:flex;
+  margin-bottom: 5px;
+  margin-top: 3px;
+  
 }
 
-.inputSection {
-  display: column;
+.input{
+  margin-bottom: 5px;
+  justify-content: space-evenly;
 }
+
+/* .powMeterSection{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+
+
 
 /* .custom-tile{
     max-height: 600px;
