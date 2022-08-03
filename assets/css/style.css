@@ -110,21 +110,21 @@ h6 {
 }
 
 /* LARGE SCREEN SIZE */
-@media screen and (min-width: 1600px) {
-}
+/* @media screen and (min-width: 1600px) {
+} */
 
 /* LARGE SCREENS / TABLETS */
-@media screen and (max-width: 992px) {
-}
+/* @media screen and (max-width: 992px) {
+} */
 
 /* MEDIUM SCREEN SIZE - LARGE SMARTPHONES*/
-@media screen and (max-width: 768px) {
-}
+/* @media screen and (max-width: 768px) {
+} */
 
 /* SMALL SCREEN SIZE */
-@media screen and (max-width: 650px) {
-}
+/* @media screen and (max-width: 650px) {
+} */
 
 /* SMALL SMARTPHONES */
-@media screen and (max-width: 576px) {
-}
+/* @media screen and (max-width: 576px) {
+} */
