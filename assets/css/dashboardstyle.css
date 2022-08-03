@@ -68,6 +68,15 @@
   justify-content: space-evenly;
 }
 
+/* .powMeterSection{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+
+
+
 /* .custom-tile{
     max-height: 600px;
     overflow: scroll;
