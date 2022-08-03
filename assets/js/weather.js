@@ -30,7 +30,7 @@
 
     console.log(requestedData)
     if (requestedData === "load") {
-      requestedData = "daily";g
+      requestedData = "daily";
     // } else if (event.target.parentNode.classList.contains('hourly')) {
     } else if (requestedData === "daily") {
       // console.log('hourly weather js')
