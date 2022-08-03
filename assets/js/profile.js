@@ -362,6 +362,9 @@ function clearLocalStorage() {
     "placeholder",
     "5280 SkiPowder Street, City, State, Zipcode"
   );
+  nameInput.value = "";
+  emailInput.value = "";
+  addressInput.value = "";
 
   //reset pass container
   passSelectedContainer.textContent = "";
