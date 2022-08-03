@@ -3,67 +3,63 @@
 }
 
 :root {
-    /* declare a variable with `--` syntax */
-    --dark-text: #13293d;
-    --dark-background: #13293d;
-    --light-text: #f5f5f5;
-    --light-background: white;
-    --border-radius: 5px;
-    --skiblue: #0099ff;
-  }
-  
+  /* declare a variable with `--` syntax */
+  --dark-text: #13293d;
+  --dark-background: #13293d;
+  --light-text: #f5f5f5;
+  --light-background: white;
+  --border-radius: 5px;
+  --skiblue: #0099ff;
+}
 
-.title{
-    font-family: bangers;
-    font-size: 60px;
-    color: white;
-  }
+.title {
+  font-family: bangers;
+  font-size: 60px;
+  color: white;
+}
 
-  .custom-button{
-   font-family: bangers;
-  }
+.custom-button {
+  font-family: bangers;
+}
 
-  .sub-title{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
+.sub-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
-  .title-wrapper{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
+.title-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
-  #txtStartAddress::placeholder {
-    color: black
-  }
-  
+#txtStartAddress::placeholder {
+  color: black;
+}
 
-  .custom-title{
-    font-family: bangers;
-    font-size: 45px;
-    color: white;
-  }
+.custom-title {
+  font-family: bangers;
+  font-size: 45px;
+  color: white;
+}
 
-  .updateButton{
-    font-family: bangers;
-    color: var(--skiblue);
-    margin: 4px;
-    margin-left: 40%;
-  }
+.updateButton {
+  font-family: bangers;
+  color: var(--skiblue);
+  margin: 4px;
+  margin-left: 40%;
+}
 
-  .custom-input{
-    margin-bottom: 4px;
+.custom-input {
+  margin-bottom: 4px;
+}
 
-  }
+.inputSection {
+  display: column;
+}
 
-  .inputSection{
-    display: column;
-  }
-
-
-  /* .custom-tile{
+/* .custom-tile{
     max-height: 600px;
     overflow: scroll;
   } */
