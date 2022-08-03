@@ -286,7 +286,7 @@ function init() {
   // Load default values for Directions Start Controls
   txtStartDate.value = moment().add(1, "day").format("yyyy-MM-DD");
 
-  handleTabNavigation("load"); // loads weather data upon page load
+  renderDailyHourlyWeatherData("daily"); // loads weather data upon page load
 
   if (localStorage.getItem("StartAddress")) {
     // Pull the current position from the profile
