@@ -29,17 +29,12 @@
     justify-content: center;
   }
 
-<<<<<<< HEAD
-  /* CHANGE COLOR OF PLACEHOLDER TEXT FROM GRAY TO BLACK */
-=======
   .title-wrapper{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
 
-
->>>>>>> bf5525bd1e9ab474655909826dfff76f5223161e
   #txtStartAddress::placeholder {
     color: black
   }

@@ -291,7 +291,7 @@ function init() {
   } else if (sessionStorage.getItem("userCurrentPosition")) {
     // If they don't have a profile and have already used navigator to get the user's current position, don't ask again.
 
-    // txtStartAddress.value = sessionStorage.getItem("userCurrentPosition");
+    txtStartAddress.value = sessionStorage.getItem("userCurrentPosition");
     txtStartAddress.setAttribute('placeholder', sessionStorage.getItem("userCurrentPosition"));
     txtStartAddress.focus();
     
