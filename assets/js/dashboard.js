@@ -47,6 +47,7 @@ function getCurrentSkiArea() {
   return skiArea;
   // const { Name, Longitude, Latitude, Pass } = skiArea; //todo:destructing makes it easier to use
   // return { Name, Longitude, Latitude, Pass }; //todo:destructing makes it easier to use
+  // I disagree that it makes it easier to use.  Also, if the object structure changes, e.g. more properties are added, you have to update the interface to access those properties.  If you return the whole object, you don't have to.  Real world example: If I want to update the skiArea object to include an logo and a website address, the currently live code won't have to be updated, but the commented out code will.  In addition, when you return the entire object in OOP, you will return it's methods as well as it's properties, which allows for Abstraction and Encapulation.  The deconstruction method would return only it's properties. (And, no, our skiAreas object doesn't have any methods yet.)
 }
 
 //section:functions and event handlers go here 👇
