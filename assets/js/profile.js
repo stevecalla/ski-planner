@@ -310,7 +310,7 @@ function deletePassResort(event) {
       let noneSelected = document.createElement("div");
       noneSelected.classList.add(
         "box",
-        "notification",
+        // "notification",
         'has-text-white',
         'is-size-4',
         'custom-box-gray',

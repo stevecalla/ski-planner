@@ -38,38 +38,35 @@
 
         <!-- MODAL HEADER -->
         <header class="custom-header">
-          <div class="header-title">
-            <p class="has-text-white is-size-1 pl-2">Your Profile</p>
-            <div>
-              <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2" aria-hidden=""></i>
-              <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2" aria-hidden=""></i>
-              <!-- <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-5" aria-hidden=""></i> -->
-            </div>
+        <div class="header-title">
+          <p class="has-text-white is-size-1 pl-2">Your Profile</p>
+          <div>
+          <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2" aria-hidden=""></i>
+          <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2" aria-hidden=""></i>
           </div>
-            <p class="label column class is-hidden column has-text-white is-size-4 p-0 pl-2" id="member-created-date">Member Since: January 2012</p>
-          </header>
-        
+          </div>
+          <p class="label column class is-hidden column has-text-white is-size-4 p-0 pl-2" id="member-created-date">Member Since: January 2012</p>
+        </header>       
+
         <!-- NAME INPUT -->
         <label class="label has-text-white m-0 mt-2 is-size-3">Name</label>
         <div class="field has-addons">
           <div class="control has-icons-left is-expanded">
-            
-            <input class="input is-success is-fullwidth" id="name-input" type="text" placeholder="Powder Day" value="">
+              <input class="input is-success is-fullwidth" id="name-input" type="text" placeholder="Powder Day" value="">
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+              <p class="help is-success is-hidden is-size-5" id="alert-name-valid">Your name was saved successfully.</p>
+              <p class="help is-hidden has-text-white is-size-5" id="alert-name-invalid">Your name is blank. Try again!</p>
+            </div>
+            <div class="control name" id="save-name-icon">
+              <a class="button is-success name">
+                <i class="fas fa-save name-disk name" id="save-disk" style="color: white"></i>
+                <i class="fas fa-check name-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
+              </a>
+            </div>
+          </div>
 
-            <span class="icon is-small is-left">
-              <i class="fas fa-user"></i>
-            </span>
-            <p class="help is-success is-hidden is-size-5" id="alert-name-valid">Your name was saved successfully.</p>
-            <p class="help is-hidden has-text-white is-size-5" id="alert-name-invalid">Your name is blank. Try again!</p>
-          </div>
-          <div class="control name" id="save-name-icon">
-            <a class="button is-info is-success name">
-              <i class="fas fa-save name-disk name" id="save-disk" style="color: white"></i>
-              <i class="fas fa-check name-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
-            </a>
-          </div>
-        </div>
-        
         <!-- EMAIL INPUT-->
         <label class="label has-text-white m-0 mt-2 is-size-3">Email</label>
         <div class="field has-addons">
@@ -78,13 +75,13 @@
             <span class="icon is-small is-left">
               <i class="fas fa-user"></i>
             </span>
-            <p class="help is-success is-hidden" id="alert-email-valid">Your email was saved successfully.</p>
+            <p class="help is-success is-hidden is-size-5" id="alert-email-valid">Your email was saved successfully.</p>
             <p class="help is-hidden has-text-white is-size-5" id="alert-email-invalid">The email is invalid. Try again!</p>
           </div>
           <div class="control email" id="save-email-icon">
-            <a class="button is-info is-success email">
-              <i class="fas fa-save email-disk email" id="save-disk" style="color: white"></i>
-              <i class="fas fa-check email-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
+            <a class="button is-success email">
+              <i class="fas fa-save email-disk email" id="email-disk" style="color: white"></i>
+              <i class="fas fa-check email-check is-hidden" id="email-check" style="background-color: white; color: green;"></i>
             </a>
           </div>
         </div>
@@ -97,11 +94,12 @@
             <span class="icon is-small is-left">
               <i class="fas fa-user"></i>
             </span>
-            <p class="help is-success is-hidden" id="alert-address-valid">Your address was saved successfully.</p>
-            <p class="help  is-hidden has-text-white is-size-5" id="alert-address-invalid">The address is invalid. Try again!</p>
+            <p class="help is-success is-hidden is-size-6q
+            " id="alert-address-valid">Your address was saved successfully.</p>
+            <p class="help is-hidden has-text-white is-size-5" id="alert-address-invalid">The address is invalid. Try again!</p>
           </div>
           <div class="control address" id="save-address-icon">
-            <a class="button is-info is-success address">
+            <a class="button is-success address">
               <i class="fas fa-save address-disk email" id="address-disk" style="color: white"></i>
               <i class="fas fa-check address-check is-hidden" id="address-check" style="background-color: white; color: green;"></i>
             </a>
@@ -125,7 +123,7 @@
             <button type="submit" class="button is-primary">Choose</button>
           </div> -->
           <div class="control">
-            <a class="button is-info is-success passes" id="save-passes-icon">
+            <a class="button is-success passes" id="save-passes-icon">
               <i class="fas fa-save passes-disk passes" id="save-disk" style="color: white"></i>
               <i class="fas fa-check passes-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
             </a>
@@ -134,7 +132,7 @@
 
         <!-- PASSES LIST -->
         <div class="box" id="passes-selected-container">
-          <div class="notification has-text-white is-size-4 custom-box-gray">
+          <div class="box has-text-white is-size-4 custom-box-gray mb-1">
              No Passes Selected
           </div>
         </div>
@@ -145,15 +143,15 @@
           <div class="control is-expanded">
             <div class="select is-fullwidth" id="resorts-input">
               <select name="resorts" id="resort-list">
-                <!-- <option value="TBD1">TBD 1</option>
+                <option value="TBD1">TBD 1</option>
                 <option value="TBD2">TBD 2</option>
-                <option value="TBD3">TBD 3</option> -->
+                <option value="TBD3">TBD 3</option>
               </select>
             </div>
             <p class="help is-hidden has-text-white is-size-5" id="alert-resorts-invalid">Please add your name or email.</p>
           </div>
           <div class="control">
-            <a class="button is-info is-success resorts" id="save-resorts-icon">
+            <a class="button is-info resorts" id="save-resorts-icon">
               <i class="fas fa-save resorts-disk resorts" id="save-disk" style="color: white"></i>
               <i class="fas fa-check resorts-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
             </a>
@@ -162,7 +160,7 @@
 
         <!-- resorts LIST -->
         <div class="box" id="resorts-selected-container">
-          <div class="notification has-text-white is-size-4 custom-box-gray">
+          <div class="box has-text-white is-size-4 custom-box-gray mb-1">
              No Resorts Selected
           </div>
         </div>
@@ -196,7 +194,7 @@
   <!-- jQuery UI -->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-  <script src="./assets/js/testAutoComplete.js"></script>
+  <script src="./assets/js/testAutoComplete.jsgi"></script>
   <script src="./assets/js/utils.js"></script>
   <script src="./assets/js/skiAreas.js"></script>
   <script src="./assets/js/profile.js"></script>
