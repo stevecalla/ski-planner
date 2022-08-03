@@ -354,6 +354,7 @@ function setLocalStorage(key, value) {
 function clearLocalStorage() {
   console.log("clear");
   localStorage.removeItem("ski-profile"); //clear storage
+  localStorage.removeItem("userCurrentPosition");
 
   //reset name and email
   nameInput.setAttribute("placeholder", "Powder Day");
