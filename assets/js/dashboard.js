@@ -15,18 +15,16 @@ let weatherForecast = document.querySelector("#weatherForecast");
 let snowConditions = document.querySelector("#snowConditions");
 let lblSnowDepth = document.querySelector("#lblSnowDepth");
 let lblChangeInSnowDepth = document.querySelector("#lblChangeInSnowDepth");
-let modalProfileFromDashBoard = document.getElementById(
-  "modal-profile-dashboard-button"
-);
+let modalProfileFromDashBoard = document.getElementById("modal-profile-dashboard-button");
+let backButton = document.getElementById("back-button")
 
 //section:global variables go here 👇
 
 //section:event listeners go here 👇
 modalProfileFromDashBoard.addEventListener("click", renderProfileModal);
-// txtStartAddress.addEventListener("input", () =>
-//   fetchMapquestCreateAutoComplete(txtStartAddress)
-// );
 // SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
+// txtStartAddress.addEventListener("input", () => fetchMapquestCreateAutoComplete(txtStartAddress)); //todo:make live
+backButton.addEventListener('click', () => renderLastPage());
 
 function getCurrentSkiArea() {
   // https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
@@ -295,7 +293,7 @@ function init() {
     txtStartAddress.value = localStorage.getItem("StartAddress");
     getResortInfo();
   } else if (sessionStorage.getItem("userCurrentPosition")) {
-    // If they don't have a profile and have already used navigator to get the user's current position, don't ask again.
+    // If they don't have a profile and have already used navigator to get the user's current position, don't ask again.`
 
     txtStartAddress.value = sessionStorage.getItem("userCurrentPosition");
     txtStartAddress.setAttribute(
