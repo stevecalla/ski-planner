@@ -53,12 +53,12 @@
             <article class="tile is-child notification is-info">
               <div class="content">
                 <p class="subtitle">pow meter</p>
-                <img src="./assets/images/bad.png">
                 <div class="content">
                   <section id="snowConditions">
                     <h3>Snow Conditions</h3>
                     <label id="lblSnowDepth"></label><br />
                     <label id="lblChangeInSnowDepth"></label><br />
+                    <img src="./assets/images/bad.png">
                   </section>
                 </div>
               </div>
@@ -75,12 +75,13 @@
           <div class="tile is-parent ">
             <article class="tile is-child notification is-info">
               <p class="subtitle">Directions</p>
-              <p class="subtitle"></p>
               <input id="txtStartAddress" type="text" class="input"
-                placeholder="Address or Coordinates"></input>&nbsp;&nbsp;
-              <input id="txtStartDate" type="date" class="input"></input>&nbsp;&nbsp;
-              <input id="txtStartTime" type="time" class="input" value="09:00"></input>&nbsp;&nbsp;
-              <button id="btnUpdate" class="button updateButton">Update</button>
+                placeholder="Address or Coordinates"></input>
+                <div class="inputParent is-fullwidth">
+              <input id="txtStartDate" type="date" class="input"></input>
+              <input id="txtStartTime" type="time" class="input" value="09:00"></input>
+            </div>
+              <button id="btnUpdate" class="button updateButton is-fullwidth">Update</button>
 
               <section class="box table-container" id="drivingDirections">
                 <table class="table is-fullwidth">

@@ -52,17 +52,20 @@
 .updateButton {
   font-family: bangers;
   color: var(--skiblue);
- 
-  margin: 4px;
-  margin-left: 40%;
+  margin-bottom: 10px;
+  
 }
 
-.custom-input {
-  margin-bottom: 4px;
+.inputParent {
+  display:flex;
+  margin-bottom: 5px;
+  margin-top: 3px;
+  
 }
 
-.inputSection {
-  display: column;
+.input{
+  margin-bottom: 5px;
+  justify-content: space-evenly;
 }
 
 /* .custom-tile{
