@@ -9,7 +9,7 @@
     --light-text: #f5f5f5;
     --light-background: white;
     --border-radius: 5px;
-    --skiblue: #00bfff;
+    --skiblue: #0099ff;
   }
   
 
@@ -23,23 +23,50 @@
    font-family: bangers;
   }
 
-  .title-wrapper{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
   .sub-title{
     display: flex;
     flex-direction: row;
     justify-content: center;
   }
 
+<<<<<<< HEAD
   /* CHANGE COLOR OF PLACEHOLDER TEXT FROM GRAY TO BLACK */
+=======
+  .title-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+
+>>>>>>> bf5525bd1e9ab474655909826dfff76f5223161e
   #txtStartAddress::placeholder {
     color: black
   }
   
+
+  .custom-title{
+    font-family: bangers;
+    font-size: 45px;
+    color: white;
+  }
+
+  .updateButton{
+    font-family: bangers;
+    color: var(--skiblue);
+    margin: 4px;
+    margin-left: 40%;
+  }
+
+  .custom-input{
+    margin-bottom: 4px;
+
+  }
+
+  .inputSection{
+    display: column;
+  }
+
 
   /* .custom-tile{
     max-height: 600px;
