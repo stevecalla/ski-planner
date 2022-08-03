@@ -81,6 +81,14 @@ function displayMarkers(pass) {
       { icon: passIcon }
     ).addTo(markers);
 
+    var toolTipOptions = {
+      offset: [20, 0],
+      direction: "right",
+      opacity: 0.8,
+    };
+
+    marker.bindTooltip(`<h4>${filteredSkiAreas[i].Name}</h4>`, toolTipOptions);
+
     function markerClick(event) {
       // http://api.powderlin.es/closest_stations
       // https://dqmoczhn0pnkc.cloudfront.net/closest_stations
