@@ -8,11 +8,11 @@
   //section:global variables go here 👇
 
   //section:event listeners go here 👇
-  dailyTab.addEventListener('click', handleTabNavigation);
-  hourlyTab.addEventListener('click', handleTabNavigation);
+  dailyTab.addEventListener('click', () => handleTabNavigation("daily"));
+  hourlyTab.addEventListener('click', () => handleTabNavigation("hourly"));
 
   //section:functions and event handlers go here 👇
-  function handleTabNavigation() {
+  function handleTabNavigation(requestedData) {
   // function handleTabNavigation(event, requestedData) {
   // function handleWeatherbutton(event) {
     //GET LATITUDE & LONGITUDE FOR LOCATION EVENT... 
@@ -26,17 +26,22 @@
     let resortName = skiAreas[0].Name; //if necessary
 
     //DETERIME IF DAILY OR HOURLY DATA SHOULD BE DISPLAYED
-    let requestedData = "";
-    if (event.target.parentNode.classList.contains('hourly')) {
+    // let requestedData = "daily";
+
+    console.log(requestedData)
+    if (requestedData === "load") {
+      requestedData = "daily";g
+    // } else if (event.target.parentNode.classList.contains('hourly')) {
+    } else if (requestedData === "daily") {
       // console.log('hourly weather js')
       dailyTab.classList.remove('is-active');
       hourlyTab.classList.add('is-active');
-      requestedData = "hourly";
+      requestedData = "daily";
     } else {
       // console.log('daily weather js');
       dailyTab.classList.add('is-active');
       hourlyTab.classList.remove('is-active');
-      requestedData = "daily";
+      requestedData = "hourly";
     }
     
     fetchWeatherData(latitude, longitude, resortName, requestedData);
