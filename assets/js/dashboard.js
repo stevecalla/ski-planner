@@ -310,8 +310,11 @@ function init() {
     // If they don't have a profile and have already used navigator to get the user's current position, don't ask again.
 
     txtStartAddress.value = sessionStorage.getItem("userCurrentPosition");
-    //txtStartAddress.setAttribute('placeholder', sessionStorage.getItem("userCurrentPosition"));
-    //txtStartAddress.focus();
+    txtStartAddress.setAttribute(
+      "placeholder",
+      sessionStorage.getItem("userCurrentPosition")
+    );
+    txtStartAddress.focus();
 
     getResortInfo();
   } else {
