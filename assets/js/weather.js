@@ -8,39 +8,27 @@
   //section:global variables go here 👇
 
   //section:event listeners go here 👇
-  dailyTab.addEventListener('click', () => handleTabNavigation("daily"));
-  hourlyTab.addEventListener('click', () => handleTabNavigation("hourly"));
+  dailyTab.addEventListener('click', () => renderDailyHourlyWeatherData("daily"));
+  hourlyTab.addEventListener('click', () => renderDailyHourlyWeatherData("hourly"));
 
   //section:functions and event handlers go here 👇
-  function handleTabNavigation(requestedData) {
-  // function handleTabNavigation(event, requestedData) {
-  // function handleWeatherbutton(event) {
-    //GET LATITUDE & LONGITUDE FOR LOCATION EVENT... 
-    // let latitude = event.target.getAttribute('data-lat');
-    // let longitude = event.target.getAttribute('data-lon');
-    // let resortName = event.target.getAttribute('data-resort');
+  let customTabColor = document.getElementById('custom-tab-color');
 
+  function renderDailyHourlyWeatherData(requestedData) {
     //DETERMINE RESORT FOR FETCH
     let latitude = skiAreas[0].Latitude;
     let longitude = skiAreas[0].Longitude;
     let resortName = skiAreas[0].Name; //if necessary
 
-    //DETERIME IF DAILY OR HOURLY DATA SHOULD BE DISPLAYED
-    // let requestedData = "daily";
-
-    console.log(requestedData)
-    if (requestedData === "load") {
-      requestedData = "daily";
-    // } else if (event.target.parentNode.classList.contains('hourly')) {
-    } else if (requestedData === "daily") {
+    if (requestedData === "daily") {
       // console.log('hourly weather js')
-      dailyTab.classList.remove('is-active');
-      hourlyTab.classList.add('is-active');
+      dailyTab.classList.add('is-active');
+      hourlyTab.classList.remove('is-active');
       requestedData = "daily";
     } else {
       // console.log('daily weather js');
-      dailyTab.classList.add('is-active');
-      hourlyTab.classList.remove('is-active');
+      dailyTab.classList.remove('is-active');
+      hourlyTab.classList.add('is-active');
       requestedData = "hourly";
     }
     
@@ -94,7 +82,13 @@
 
   //RENDER WEATHER DATA
   function renderWeather(weatherCleanData, resortName, timeframe) {
-    // console.log('3 = ', weatherCleanData, resortName, timeframe);
+    // ALTERNATE BACKGROUND & BODER COLOR FOR ACTIVE TAB (REMOVE DEFAULT COLORS)
+    let allCustomTabColor = document.querySelectorAll('.all-custom-tab-color');
+    allCustomTabColor.forEach(element => {
+      element.parentNode.classList.contains('is-active') ? 
+        element.setAttribute("style", "background-color: #3E8ED0; border: #3E8ED0") : 
+        element.setAttribute("style", "background-color: white");
+    })
 
     weatherContainer.textContent = "";
 
@@ -111,14 +105,14 @@
     timeFrameContainer.classList.add("column", "is-justify-content-space-between", "custom-weather");
     timeFrameContainer.setAttribute("id", "custom-weather");
     // timeFrameContainer.setAttribute("style", "background-color: white; border: 1px solid black; height: 500px; overflow: scroll");
-    timeFrameContainer.setAttribute("style", "background-color: white; height: 500px; overflow: scroll");
+    timeFrameContainer.setAttribute("style", "background-color: white;");
 
     //APPEND TITLE CONTENT
-    timeFrameContainer.append(renderResortName);
-    timeFrameContainer.append(weatherTitle);
+    // timeFrameContainer.append(renderResortName);
+    // timeFrameContainer.append(weatherTitle);
 
-    renderResortName.setAttribute("style", "background-color: white; position: sticky; top: 0;");
-    weatherTitle.setAttribute("style", "background-color: white; position: sticky; top: 0;");
+    renderResortName.setAttribute("style", "background-color: white; position: sticky; top: 0px;");
+    weatherTitle.setAttribute("style", "background-color: white; position: sticky; top: 24px;");
     
     //CREATE & APPEND WEATHER CONTENT/DATA
     weatherCleanData.forEach((element,index) => {
@@ -129,6 +123,7 @@
       let icon = document.createElement("img");
       let lineElement = document.createElement('hr');
 
+      weatherContainer.setAttribute("style", "height: 400px; overflow: scroll;")
       weatherElement.setAttribute("style", "display: flex; align-items: center; justify-content: space-around;");
       lineElement.setAttribute("style", "margin: 0px");
       renderDate.setAttribute("style", "margin: 0px");

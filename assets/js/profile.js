@@ -25,6 +25,7 @@ let closeModalElement = document.getElementById("custom-close-modal");
 //section:global variables go here 👇
 
 //section:event listeners go here 👇
+window.addEventListener("load", loadProfile);
 saveNameIcon.addEventListener("click", saveNameEmailAddressInput);
 saveEmailIcon.addEventListener("click", saveNameEmailAddressInput);
 saveAddressIcon.addEventListener("click", saveNameEmailAddressInput);
@@ -41,9 +42,12 @@ addressInput.addEventListener("input", () =>
   fetchMapquestCreateAutoComplete(addressInput)
 );
 // SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
-closeModalElement.addEventListener("click", closeProfileModal);
-document.addEventListener("keydown", closeProfileModal);
-window.addEventListener("load", loadProfile);
+closeModalElement.addEventListener("click", () => renderLastPage());
+document.addEventListener("keydown", (event) => {
+  if (event.keyCode === 27 || event.target.classList.contains("modal-close")) {
+      renderLastPage();
+    }
+});
 
 //section:functions and event handlers go here 👇
 //LOAD PROFILE FROM STORAGE
@@ -369,12 +373,4 @@ function clearLocalStorage() {
   memberCreatedDateInput.classList.add("is-hidden");
 
   nameInput.focus();
-}
-
-// CLOSE MODAL ON CLICK OR ESC KEY
-function closeProfileModal(event) {
-  if (event.keyCode === 27 || event.target.classList.contains("modal-close")) {
-    //location.href = document.referrer;
-    history.back();
-  }
 }
