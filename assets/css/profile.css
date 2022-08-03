@@ -1,7 +1,37 @@
+* {
+  border: 1px solid red;
+}
 body {
   /* font-family: 'Bangers'; */
-  font-family: 'Cambria', Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: 'Bangers', 'Cambria', Cochin, Georgia, Times, "Times New Roman", serif;
   /* color: white; */
+}
+
+.custom-header,
+.custom-box-blue {
+  background-color: #3E8ED0;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.custom-box-gray {
+  background-color: gray;
+}
+
+.custom-font {
+  font-family: 'Bangers', 'Cambria', Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.custom-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* JQUERY AUTOCOMPLETE CSS */
@@ -12,7 +42,7 @@ body {
   z-index: 2147483647;
 }
 
-/* this class ensures the autocomplete item doesn't show at bottom right of the desktop UX */
+/* ENSURES THE AUTOCOMPLETE ITEM DOESNT RENDER AT THE BOTTOM LEFT OF DESKTOP UX */
 .ui-helper-hidden-accessible {
   display: none !important;
 }
