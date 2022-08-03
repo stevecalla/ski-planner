@@ -38,10 +38,7 @@ saveResortIcon.addEventListener("click", () =>
   savePassResortInput(event, "resorts")
 );
 deleteProfileButton.addEventListener("click", clearLocalStorage);
-addressInput.addEventListener("input", () =>
-  fetchMapquestCreateAutoComplete(addressInput)
-);
-// SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
+addressInput.addEventListener("input", () => fetchMapquestCreateAutoComplete(addressInput));// SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
 closeModalElement.addEventListener("click", () => renderLastPage());
 document.addEventListener("keydown", (event) => {
   if (event.keyCode === 27 || event.target.classList.contains("modal-close")) {

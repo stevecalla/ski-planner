@@ -23,7 +23,7 @@ let backButton = document.getElementById("back-button")
 //section:event listeners go here 👇
 modalProfileFromDashBoard.addEventListener("click", renderProfileModal);
 // SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
-// txtStartAddress.addEventListener("input", () => fetchMapquestCreateAutoComplete(txtStartAddress)); //todo:make live
+txtStartAddress.addEventListener("input", () => fetchMapquestCreateAutoComplete(txtStartAddress)); //todo:make live
 backButton.addEventListener('click', () => renderLastPage());
 
 function getCurrentSkiArea() {
