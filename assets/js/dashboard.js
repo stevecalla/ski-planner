@@ -32,12 +32,17 @@ function getCurrentSkiArea() {
     get: (searchParams, prop) => searchParams.get(prop),
   });
 
+  // console.log(queryString.resort);
+
   const skiArea = skiAreas.find(
     (element) =>
       element.Name.trim().toLowerCase() ===
       queryString.resort.trim().toLowerCase()
   );
+
   return skiArea;
+  // const { Name, Longitude, Latitude, Pass } = skiArea; //todo:destructing makes it easier to use
+  // return { Name, Longitude, Latitude, Pass }; //todo:destructing makes it easier to use
 }
 
 //section:functions and event handlers go here 👇

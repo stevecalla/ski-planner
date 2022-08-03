@@ -16,22 +16,33 @@
 
   function renderDailyHourlyWeatherData(requestedData) {
     //DETERMINE RESORT FOR FETCH
-    let latitude = skiAreas[0].Latitude;
-    let longitude = skiAreas[0].Longitude;
-    let resortName = skiAreas[0].Name; //if necessary
+    let latitude = skiAreas[5].Latitude;
+    let longitude = skiAreas[5].Longitude;
+    let resortName = skiAreas[5].Name; //if necessary
+    
+    let skiArea = getCurrentSkiArea(); //returns skiArea object with Name, Longitude, Latitude, Pass
+    latitude = skiArea.Latitude;
+    longitude = skiArea.Longitude;
+    resortName = skiArea.Name;
+    let pass = skiArea.pass
+
+    // let { Latitude, Longitude, Name } = getCurrentSkiArea(); //todo:destructing
+    // latitude = Latitude;
+    // longitude = Longitude
+    // resortName = Name;
+    // console.log(latitude, longitude, resortName, requestedData)
 
     if (requestedData === "daily") {
-      // console.log('hourly weather js')
       dailyTab.classList.add('is-active');
       hourlyTab.classList.remove('is-active');
       requestedData = "daily";
     } else {
-      // console.log('daily weather js');
       dailyTab.classList.remove('is-active');
       hourlyTab.classList.add('is-active');
       requestedData = "hourly";
     }
-    
+
+    // console.log(latitude, longitude, resortName, requestedData)
     fetchWeatherData(latitude, longitude, resortName, requestedData);
   }
   
@@ -108,8 +119,8 @@
     timeFrameContainer.setAttribute("style", "background-color: white;");
 
     //APPEND TITLE CONTENT
-    // timeFrameContainer.append(renderResortName);
-    // timeFrameContainer.append(weatherTitle);
+    timeFrameContainer.append(renderResortName);
+    timeFrameContainer.append(weatherTitle);
 
     renderResortName.setAttribute("style", "background-color: white; position: sticky; top: 0px;");
     weatherTitle.setAttribute("style", "background-color: white; position: sticky; top: 24px;");
