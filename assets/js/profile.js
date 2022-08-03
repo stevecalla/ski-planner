@@ -184,7 +184,8 @@ function resetNameEmailAddress(field) {
 function createMemberSinceDate() {
   let skiProfile = getLocalStorage();
   if (skiProfile.memberDate === "") {
-    let createdDate = moment().format("MMMM D YYYY h:mm:ss a"); //todo:remove day, hours, min, sec
+    // let createdDate = moment().format("MMMM D, YYYY h:mm:ss a"); //todo:remove day, hours, min, sec
+    let createdDate = moment().format("MMMM D, YYYY"); //todo:remove day, hours, min, sec
     setLocalStorage("memberDate", createdDate);
     memberCreatedDateInput.textContent = `Member Since: ${createdDate}`;
     memberCreatedDateInput.classList.remove("is-hidden");
@@ -249,13 +250,13 @@ function resetPassResortContainer(selectedList) {
     ? ((passSelectedContainer.textContent = ""),
       passSelectedContainer.setAttribute(
         "style",
-        "height: 150px; overflow: scroll"
-      ))
+        "height: 125px; overflow: scroll")
+      )
     : ((resortSelectedContainer.textContent = ""),
       resortSelectedContainer.setAttribute(
         "style",
-        "height: 150px; overflow: scroll"
-      ));
+        "height: 125px; overflow: scroll")
+      );
 }
 
 function renderPassOrResorts(appendedPassOrResortList, selectedList) {
@@ -263,8 +264,11 @@ function renderPassOrResorts(appendedPassOrResortList, selectedList) {
     let selectedElement = document.createElement("div");
     selectedElement.classList.add(
       "box",
-      "is-primary",
       "notification",
+      'has-text-white',
+      'is-size-4',
+      'custom-box-blue',
+      'mb-1',
       selectedList
     );
 
@@ -304,7 +308,14 @@ function deletePassResort(event) {
 
     if (targetList.length === 0) {
       let noneSelected = document.createElement("div");
-      noneSelected.classList.add("notification", "is-primary");
+      noneSelected.classList.add(
+        "box",
+        "notification",
+        'has-text-white',
+        'is-size-4',
+        'custom-box-gray',
+        'mb-1',
+      );
 
       event.target.parentNode.classList.contains("passes")
         ? (noneSelected.textContent = "No Passes Selected")

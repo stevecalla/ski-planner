@@ -34,27 +34,36 @@
   <div id="profile-modal" class="modal is-active" id="">
     <div class="modal-background"></div>
     <div class="modal-content">
-      <div class="box">
+      <div class="box custom-box-blue">
 
         <!-- MODAL HEADER -->
-        <header class="modal-card-head column">
-          <p class="modal-card-title">Your Profile</p>
-          <p class="label mt-2 is-hidden" id="member-created-date">Member Since: January 2012</p>
-        </header>
+        <header class="custom-header">
+          <div class="header-title">
+            <p class="has-text-white is-size-1 pl-2">Your Profile</p>
+            <div>
+              <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2" aria-hidden=""></i>
+              <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2" aria-hidden=""></i>
+              <!-- <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-5" aria-hidden=""></i> -->
+            </div>
+          </div>
+            <p class="label column class is-hidden column has-text-white is-size-4 p-0 pl-2" id="member-created-date">Member Since: January 2012</p>
+          </header>
         
         <!-- NAME INPUT -->
-        <label class="label">Name</label>
+        <label class="label has-text-white m-0 mt-2 is-size-3">Name</label>
         <div class="field has-addons">
           <div class="control has-icons-left is-expanded">
+            
             <input class="input is-success is-fullwidth" id="name-input" type="text" placeholder="Powder Day" value="">
+
             <span class="icon is-small is-left">
               <i class="fas fa-user"></i>
             </span>
-            <p class="help is-success is-hidden" id="alert-name-valid">Your name was saved successfully.</p>
-            <p class="help is-danger is-hidden" id="alert-name-invalid">Your name is blank. Try again!</p>
+            <p class="help is-success is-hidden is-size-5" id="alert-name-valid">Your name was saved successfully.</p>
+            <p class="help is-hidden has-text-white is-size-5" id="alert-name-invalid">Your name is blank. Try again!</p>
           </div>
           <div class="control name" id="save-name-icon">
-            <a class="button is-info name">
+            <a class="button is-info is-success name">
               <i class="fas fa-save name-disk name" id="save-disk" style="color: white"></i>
               <i class="fas fa-check name-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
             </a>
@@ -62,7 +71,7 @@
         </div>
         
         <!-- EMAIL INPUT-->
-        <label class="label">Email</label>
+        <label class="label has-text-white m-0 mt-2 is-size-3">Email</label>
         <div class="field has-addons">
           <div class="control has-icons-left is-expanded">
             <input class="input is-success is-fullwidth" id="email-input" type="text" placeholder="pow@skiallday.com" value="">
@@ -70,10 +79,10 @@
               <i class="fas fa-user"></i>
             </span>
             <p class="help is-success is-hidden" id="alert-email-valid">Your email was saved successfully.</p>
-            <p class="help is-danger is-hidden" id="alert-email-invalid">The email is invalid. Try again!</p>
+            <p class="help is-hidden has-text-white is-size-5" id="alert-email-invalid">The email is invalid. Try again!</p>
           </div>
           <div class="control email" id="save-email-icon">
-            <a class="button is-info email">
+            <a class="button is-info is-success email">
               <i class="fas fa-save email-disk email" id="save-disk" style="color: white"></i>
               <i class="fas fa-check email-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
             </a>
@@ -81,7 +90,7 @@
         </div>
         
         <!-- ADDRESS INPUT-->
-        <label class="label">Home Address</label>
+        <label class="label has-text-white m-0 mt-2 is-size-3">Home Address</label>
         <div class="field has-addons">
           <div class="control has-icons-left is-expanded">
             <input class="input is-success is-fullwidth" id="address-input" type="text" placeholder="5280 SkiPowder Street, City, State, Zipcode" value="">
@@ -89,10 +98,10 @@
               <i class="fas fa-user"></i>
             </span>
             <p class="help is-success is-hidden" id="alert-address-valid">Your address was saved successfully.</p>
-            <p class="help is-danger is-hidden" id="alert-address-invalid">The address is invalid. Try again!</p>
+            <p class="help  is-hidden has-text-white is-size-5" id="alert-address-invalid">The address is invalid. Try again!</p>
           </div>
           <div class="control address" id="save-address-icon">
-            <a class="button is-info address">
+            <a class="button is-info is-success address">
               <i class="fas fa-save address-disk email" id="address-disk" style="color: white"></i>
               <i class="fas fa-check address-check is-hidden" id="address-check" style="background-color: white; color: green;"></i>
             </a>
@@ -100,7 +109,7 @@
         </div>
 
         <!-- PASSES SELECTION LIST -->
-        <label class="label">Your Season passes</label>
+        <label class="label has-text-white m-0 mt-2 is-size-3">Your Season passes</label>
         <div class="field has-addons">
           <div class="control is-expanded">
             <div class="select is-fullwidth" id="passes-input">
@@ -110,13 +119,13 @@
                 <option value="Independent">Independent</option>
               </select>
             </div>
-            <p class="help is-danger is-hidden" id="alert-passes-invalid">Please add your name or email.</p>
+            <p class="help is-hidden has-text-white is-size-5" id="alert-passes-invalid">Please add your name or email.</p>
           </div>
           <!-- <div class="control">
             <button type="submit" class="button is-primary">Choose</button>
           </div> -->
           <div class="control">
-            <a class="button is-info passes" id="save-passes-icon">
+            <a class="button is-info is-success passes" id="save-passes-icon">
               <i class="fas fa-save passes-disk passes" id="save-disk" style="color: white"></i>
               <i class="fas fa-check passes-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
             </a>
@@ -125,26 +134,26 @@
 
         <!-- PASSES LIST -->
         <div class="box" id="passes-selected-container">
-          <div class="notification is-primary">
+          <div class="notification has-text-white is-size-4 custom-box-gray">
              No Passes Selected
           </div>
         </div>
 
         <!-- RESORTS SELECTION LIST -->
-        <label class="label">Your Favorite Resorts</label>
+        <label class="label has-text-white m-0 mt-2 is-size-3">Your Favorite Resorts</label>
         <div class="field has-addons">
           <div class="control is-expanded">
             <div class="select is-fullwidth" id="resorts-input">
               <select name="resorts" id="resort-list">
-                <option value="TBD1">TBD 1</option>
+                <!-- <option value="TBD1">TBD 1</option>
                 <option value="TBD2">TBD 2</option>
-                <option value="TBD3">TBD 3</option>
+                <option value="TBD3">TBD 3</option> -->
               </select>
             </div>
-            <p class="help is-danger is-hidden" id="alert-resorts-invalid">Please add your name or email.</p>
+            <p class="help is-hidden has-text-white is-size-5" id="alert-resorts-invalid">Please add your name or email.</p>
           </div>
           <div class="control">
-            <a class="button is-info resorts" id="save-resorts-icon">
+            <a class="button is-info is-success resorts" id="save-resorts-icon">
               <i class="fas fa-save resorts-disk resorts" id="save-disk" style="color: white"></i>
               <i class="fas fa-check resorts-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
             </a>
@@ -153,7 +162,7 @@
 
         <!-- resorts LIST -->
         <div class="box" id="resorts-selected-container">
-          <div class="notification is-primary">
+          <div class="notification has-text-white is-size-4 custom-box-gray">
              No Resorts Selected
           </div>
         </div>
@@ -161,7 +170,10 @@
         <!-- FOOTER DELETE BUTTON -->
         <div class="field is-grouped">
           <div class="control is-expanded">
-            <button class="button is-link is-fullwidth" id="delete-profile-button">Delete Profile</button>
+            <button class="button is-fullwidth is-success is-size-5 custom-font" id="">Save Profile</button>
+          </div>
+          <div class="control is-expanded">
+            <button class="button is-fullwidth is-danger is-size-5 custom-font" id="delete-profile-button">Delete Profile</button>
           </div>
         </div>
       </div>
