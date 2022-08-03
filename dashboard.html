@@ -38,7 +38,7 @@
     <div class="title-wrapper">
       <button class="button is-medium custom-button is-info" id="back-button">Go Back</button>
 
-      <h1 class="title">Ski Trip </h1>
+      <h1 class="title">Powder Bound</h1>
 
       <button class="button is-medium custom-button is-info" id="modal-profile-dashboard-button">Profile</button>
     </div>
@@ -50,10 +50,10 @@
       <div class="tile is-12">
         
           <div class="tile is-parent is-vertical">
-            <article class="tile is-child notification is-info custom-tile">
+            <article class="tile is-child notification is-info">
               <div class="content">
-                <p class="title">pow meter</p>
-                <p class="subtitle"></p>
+                <p class="subtitle">pow meter</p>
+                <img src="./assets/images/bad.png">
                 <div class="content">
                   <section id="snowConditions">
                     <h3>Snow Conditions</h3>
@@ -64,7 +64,7 @@
               </div>
             </article>
             <article class="tile is-child notification is-info">
-              <p class="title">Map</p>
+              <p class="subtitle">Map</p>
               <section class="mapSection" id="mapArea">
                 <img id="staticMap" />
               </section>
@@ -73,14 +73,14 @@
 
 
           <div class="tile is-parent ">
-            <article class="tile is-child notification is-info custom-tile">
-              <p class="title">Directions</p>
+            <article class="tile is-child notification is-info">
+              <p class="subtitle">Directions</p>
               <p class="subtitle"></p>
               <input id="txtStartAddress" type="text" class="input"
                 placeholder="Address or Coordinates"></input>&nbsp;&nbsp;
               <input id="txtStartDate" type="date" class="input"></input>&nbsp;&nbsp;
               <input id="txtStartTime" type="time" class="input" value="09:00"></input>&nbsp;&nbsp;
-              <button id="btnUpdate" class="button">Update</button>
+              <button id="btnUpdate" class="button updateButton">Update</button>
 
               <section class="box table-container" id="drivingDirections">
                 <table class="table is-fullwidth">
@@ -117,9 +117,9 @@
             </article>
           </div>
           <div class="tile is-parent">
-            <article class="tile is-child notification is-info custom-tile">
+            <article class="tile is-child notification is-info">
               <div class="content">
-                <p class="title">weather</p>
+                <p class="subtitle">weather</p>
                 <p class="subtitle"></p>
                 <div class="content">
       
@@ -132,13 +132,13 @@
                         <li class="is-active daily" id="daily-tab">
                           <a class="daily all-custom-tab-color">
                             <span class="icon is-small daily"><i class="fas fa-calendar" aria-hidden="true"></i></span>
-                            <span>Daily</span>
+                            <span class="subtitle2">Daily</span>
                           </a>
                         </li>
                         <li class="hourly" id="hourly-tab">
                           <a class="hourly all-custom-tab-color">
                             <span class="icon is-small hourly"><i class="fas fa-hourglass" aria-hidden="true"></i></span>
-                            <span>Hourly</span>
+                            <span class="subtitle2">Hourly</span>
                           </a>
                         </li>
                       </ul>

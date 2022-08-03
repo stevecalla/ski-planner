@@ -5,7 +5,7 @@
   --light-text: #f5f5f5;
   --light-background: white;
   --border-radius: 5px;
-  --skiblue: #00bfff;
+  --skiblue: #3e8ed0;
 }
 
 .hidden {
@@ -29,6 +29,9 @@
   justify-content: center;
   align-items: center;
   margin-left: 5%;
+}
+.subtitle2{
+  font-family: bangers;
 }
 
 .custom-button {
