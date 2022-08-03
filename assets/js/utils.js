@@ -19,10 +19,8 @@ function isLatLong(coords) {
 }
 
 // BACK BUTTON FOR HOME & DASHBOARD PAGE
-function renderLastPage(passValue) {
-  // if (passValue) {
+function renderLastPage() {
     history.back();
-  // }
 }
 
 // RENDER PROFILE MODAL FROM HOME PAGE OR DASHBOARD PAGE BUTTON CLICK; SEE DASHBOARD JS OR HOMEPAGE JS FOR EVENT LISTENER
@@ -36,32 +34,35 @@ function fetchMapquestCreateAutoComplete(addressElement) {
   let input = addressElement.value;
   if (input.length > 1) {
     let key = '4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i';
-    let limit = 5;
+    let limit = 15;
     let collection = 'adminArea,poi,address,category,franchise,airport';
     let urlSlug = `https://www.mapquestapi.com/search/v3/prediction?key=${key}&limit=${limit}&collection=${collection}&q=${input}`
-    fetchMapQuestSearchAhead(urlSlug, addressElement)
-    return urlSlug;
+    fetchMapQuestSearchAhead(urlSlug, addressElement);
+    // return urlSlug;
   }
 }
 
 function fetchMapQuestSearchAhead(mapquestUrlSlug, addressElement) { //need to run in vs live server
   // console.log('2= ', addressElement);
-  fetch(mapquestUrlSlug)
-    .then((response) => {
-    if (response.ok) {
-      response.json().then((data) => {
-        createAutoCompleteList(data.results, addressElement);
-      });
-    } else {
-      // console.log('Error 1:', error);
-    }
-  })
-  .catch((error) => {
-    // console.log('Error 2:', error);
-  });
+  // fetch(mapquestUrlSlug)
+  //   .then((response) => {
+  //   if (response.ok) {
+  //     response.json().then((data) => {
+  //       createAutoCompleteList(data.results, addressElement);
+  //     });
+  //   } else {
+  //     // console.log('Error 1:', error);
+  //   }
+  // })
+  // .catch((error) => {
+  //   // console.log('Error 2:', error);
+  // });
+
+  createAutoCompleteList(testAutoComplete, addressElement);
 }
 
 function createAutoCompleteList(results, addressElement) {
+  console.log(results)
   // console.log('3= ', addressElement);
   let autoCompleteDisplayString = [];
   results.forEach(element => {
