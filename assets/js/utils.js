@@ -62,8 +62,6 @@ function fetchMapQuestSearchAhead(mapquestUrlSlug, addressElement) { //need to r
 }
 
 function createAutoCompleteList(results, addressElement) {
-  console.log(results)
-  // console.log('3= ', addressElement);
   let autoCompleteDisplayString = [];
   results.forEach(element => {
     autoCompleteDisplayString.push(element.displayString);
