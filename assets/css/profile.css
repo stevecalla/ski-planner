@@ -1,11 +1,18 @@
 /* * {
   border: 1px solid red;
 } */
+
 body {
   /* font-family: 'Bangers'; */
   font-family: 'Bangers', 'Cambria', Cochin, Georgia, Times, "Times New Roman", serif;
   /* color: white; */
 }
+
+/* body {
+  overflow: none!important;
+  overflow-y: none!important;
+  overflow-x: none!important;
+} */
 
 .custom-header,
 .custom-box-blue {
@@ -22,6 +29,13 @@ body {
   border-radius: 5px;
 }
 
+.custom-box-blue:hover,
+.custom-box-blue:focus,
+.custom-box-red:hover {
+  color: white;
+  border: 2px solid white;
+}
+
 .custom-box-gray {
   background-color: gray;
 }
@@ -35,6 +49,11 @@ body {
   flex-direction: column;
   justify-content: space-between;
 }
+
+/* .customer-red-border {
+  border: 2px solid red;
+  border-radius: 3px;
+} */
 
 .header-title {
   display: flex;
@@ -53,4 +72,9 @@ body {
 /* ENSURES THE AUTOCOMPLETE ITEM DOESNT RENDER AT THE BOTTOM LEFT OF DESKTOP UX */
 .ui-helper-hidden-accessible {
   display: none !important;
+}
+
+.custom-save-button {
+  position: sticky;
+  bottom: 0px;
 }
