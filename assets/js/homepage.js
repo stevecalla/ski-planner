@@ -48,24 +48,13 @@ function displayMarkers(pass) {
       tooltipAnchor: [10, -24],
     },
   });
-  const greenIcon = new ResortIcon({
-    iconUrl: "./assets/images/green-dot.png",
-  });
+
   const redIcon = new ResortIcon({ iconUrl: "./assets/images/red-dot.png" });
-  const orangeIcon = new ResortIcon({
-    iconUrl: "./assets/images/orange-dot.png",
-  });
   const blueIcon = new ResortIcon({
     iconUrl: "./assets/images/blue-dot.png",
   });
   const yellowIcon = new ResortIcon({
     iconUrl: "./assets/images/yellow-dot.png",
-  });
-  const pinkIcon = new ResortIcon({
-    iconUrl: "./assets/images/pink-dot.png",
-  });
-  const purpleIcon = new ResortIcon({
-    iconUrl: "./assets/images/purple-dot.png",
   });
 
   for (let i = 0; i < filteredSkiAreas.length; i++) {
@@ -189,5 +178,7 @@ ddPass.addEventListener("change", function () {
 function init() {
   initMap();
   displayMarkers("");
+
+  // Note: the validation modal popup is underneath the map.
 }
 init();

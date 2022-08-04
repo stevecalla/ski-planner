@@ -60,7 +60,7 @@
             // launchValidationModal(
             //   "Error: Weather Not found",
             //   // `Try Again at a Later Date: ${response.statusText}`
-            //   'weather'
+            //   'weather-wrapper'
             // );
     //     }
     //   })
@@ -68,7 +68,7 @@
         // launchValidationModal(
         //   "Error: Weather Not found",
         //   // `Try Again at a Later Date: ${response.statusText}`
-        //   'weather'
+        //   'weather-wrapper'
         // );
     //   });
 
