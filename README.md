@@ -66,9 +66,11 @@ THEN I can set my preferred started location, my preferred mountains, preferred 
 
 ## Website Preview
 
-### Static Screenshot
+### Static Screenshots
 
-<img width="1437" alt="Screen Shot 2022-07-19 at 8 11 17 PM" src="./assets/images/wireframe-page2.png">
+<img alt="Map" src="./assets/images/screenshot_map.jpg">
+<img alt="Dashboard" src="./assets/images/screenshot_dashboard.jpg">
+<img alt="Profile" src="./assets/images/screenshot_profile.jpg">
 
 ### Video Preview
 
