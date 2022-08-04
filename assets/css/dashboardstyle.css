@@ -12,7 +12,7 @@
   --skiblue: #3e8ed0;
 }
 
-.title {
+.dashboardtitle {
   font-family: bangers;
   font-size: 60px;
   color: white;
@@ -85,6 +85,10 @@
 .powText{
   font-family: bangers;
   color: white;
+}
+
+#staticMap{
+  border-radius: 5px;
 }
 
 /* .powMeterSection{
