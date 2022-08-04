@@ -89,29 +89,22 @@ function showAutoCompleteLocationList(
 let validationModal = document.getElementById("validation-modal");
 let modalTitle = document.getElementById("modal-title");
 let modalBody = document.getElementById("modal-body");
-//let weatherWrapper = document.getElementById("weather-wrapper");
+let weatherWrapper = document.getElementById("weather-wrapper");
 
 function launchValidationModal(title, body, source) {
   validationModal.classList.add("is-active"); //displays modal
   modalTitle.textContent = title; //adds title
   modalBody.textContent = body; //adds content
   document.getElementById(source).classList.add("hide"); //hides element with no info
-  // if (source === "weather") {
-  //   weatherWrapper.classList.add("hide"); //hides element with no info
-  // } else if (
-  //   source === "staticmap-wrapper" ||
-  //   source === "powmeter-wrapper" ||
-  //   source === "directions-wrapper"
-  // ) {
-  //   document.getElementById(source).classList.add("hide");
-  // }
-}
-
-// This overload is if you don't want to hide anything.
-function launchValidationModal(title, body) {
-  validationModal.classList.add("is-active"); //displays modal
-  modalTitle.textContent = title; //adds title
-  modalBody.textContent = body; //adds content
+  if (source === "weather") {
+    weatherWrapper.classList.add("hide"); //hides element with no info
+  } else if (
+    source === "staticmap-wrapper" ||
+    source === "powmeter-wrapper" ||
+    source === "directions-wrapper"
+  ) {
+    document.getElementById(source).classList.add("hide");
+  }
 }
 
 let closeModal = document.getElementById("close-modal");

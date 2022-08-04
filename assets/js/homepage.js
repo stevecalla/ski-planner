@@ -176,8 +176,13 @@ ddPass.addEventListener("change", function () {
 });
 
 function init() {
-  initMap();
-  displayMarkers("");
+  try {
+    initMap();
+    displayMarkers("");
+    //throw "Map Error";
+  } catch (error) {
+    launchValidationModal("Map Error", error, "Map");
+  }
 
   // Note: the validation modal popup is underneath the map.
 }

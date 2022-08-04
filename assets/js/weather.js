@@ -61,7 +61,7 @@ function fetchWeatherData(latitude, longitude, resortName, requestedData) {
   // launchValidationModal(
   //   "Error: Weather Not found",
   //   // `Try Again at a Later Date: ${response.statusText}`
-  //   'weather-wrapper'
+  //   'weather'
   // );
   //     }
   //   })
@@ -69,7 +69,7 @@ function fetchWeatherData(latitude, longitude, resortName, requestedData) {
   // launchValidationModal(
   //   "Error: Weather Not found",
   //   // `Try Again at a Later Date: ${response.statusText}`
-  //   'weather-wrapper'
+  //   'weather'
   // );
   //   });
 
@@ -79,7 +79,7 @@ function fetchWeatherData(latitude, longitude, resortName, requestedData) {
   //   "Error: Weather Not found",
   //   // `Try Again at a Later Date: ${response.statusText}`
   //   `Try Again at a Later Date`,
-  //   'weather-wrapper'
+  //   'weather'
   // );
   requestedData === "hourly"
     ? createDailyHourlyWeatherData(weather, "hourly", "Boulder")

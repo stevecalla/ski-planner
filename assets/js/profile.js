@@ -161,7 +161,7 @@ function saveNameEmailAddressInput(event) {
       launchValidationModal(
         `Please Complete Profile`,
         `Enter name, email and preferred address, please.`,
-        "save-button"
+        'profileSaveButton'
       );
     }
   }
