@@ -141,7 +141,7 @@ function displayMarkers(pass) {
                 <p>Snow Depth (in): ${dataSNOTEL.data[0]["Snow Depth (in)"]}<br />
                 Change In Snow Depth (in): ${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}<br />
                 Air Temperature: ${dataSNOTEL.data[0]["Observed Air Temperature (degrees farenheit)"]} \xB0F<br />
-                <a class="button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.Name}">Details ➡️</a>
+                <a class="button custom-button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.Name}">Details ➡️</a>
               `;
 
               let popupOptions = {

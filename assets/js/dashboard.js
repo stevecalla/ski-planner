@@ -128,11 +128,6 @@ async function displayDrivingDirections(skiArea) {
     td.textContent = directions[i].narrative;
     tr.appendChild(td);
 
-    // Distance
-    td = document.createElement("td");
-    td.textContent = `${directions[i].distance.toFixed(2)} miles`;
-    tr.appendChild(td);
-
     // Latitude
     // td = document.createElement("td");
     // td.textContent = directions[i].latitude;
@@ -151,6 +146,11 @@ async function displayDrivingDirections(skiArea) {
     // formattedTime
     td = document.createElement("td");
     td.textContent = directions[i].formattedTime;
+    tr.appendChild(td);
+
+    // Distance
+    td = document.createElement("td");
+    td.textContent = `${directions[i].distance.toFixed(2)} miles`;
     tr.appendChild(td);
 
     //
