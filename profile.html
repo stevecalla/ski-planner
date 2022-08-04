@@ -55,20 +55,20 @@
         <label class="label has-text-white m-0 mt-2 is-size-3">Name</label>
         <div class="field has-addons name">
           <div class="control has-icons-left is-expanded">
-              <input class="input is-success is-fullwidth" id="name-input" type="text" placeholder="Powder Day" value="">
-              <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-              </span>
-              <p class="help is-success is-hidden is-size-5" id="alert-name-valid">Your name was saved successfully.</p>
-              <p class="help is-hidden has-text-white is-size-5" id="alert-name-invalid">Your name is blank. Try again!</p>
-            </div>
-            <div class="control name" id="save-name-icon">
-              <a class="button is-success name">
-                <i class="fas fa-save name-disk name" id="save-disk" style="color: white"></i>
-                <i class="fas fa-check name-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
-              </a>
-            </div>
+            <input class="input is-success is-fullwidth" id="name-input" type="text" placeholder="Powder Day" value="">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+            <p class="help is-success is-hidden is-size-5" id="alert-name-valid">Your name was saved successfully.</p>
+            <p class="help is-hidden has-text-white is-size-5" id="alert-name-invalid">⚠️ Your name is blank. Try again! ⚠️</p>
           </div>
+          <div class="control name" id="save-name-icon">
+            <a class="button is-success name">
+              <i class="fas fa-save name-disk name" id="save-disk" style="color: white"></i>
+              <i class="fas fa-check name-check is-hidden" id="save-check" style="background-color: white; color: green;"></i>
+            </a>
+          </div>
+        </div>
 
         <!-- EMAIL INPUT-->
         <label class="label has-text-white m-0 mt-2 is-size-3">Email</label>
@@ -79,7 +79,7 @@
               <i class="fas fa-user"></i>
             </span>
             <p class="help is-success is-hidden is-size-5" id="alert-email-valid">Your email was saved successfully.</p>
-            <p class="help is-hidden has-text-white is-size-5" id="alert-email-invalid">The email is invalid. Try again!</p>
+            <p class="help is-hidden has-text-white is-size-5" id="alert-email-invalid">⚠️ The email is invalid. Try again! ⚠️</p>
           </div>
           <div class="control email" id="save-email-icon">
             <a class="button is-success email">
@@ -99,7 +99,7 @@
             </span>
             <p class="help is-success is-hidden is-size-6q
             " id="alert-address-valid">Your address was saved successfully.</p>
-            <p class="help is-hidden has-text-white is-size-5" id="alert-address-invalid">The address is invalid. Try again!</p>
+            <p class="help is-hidden has-text-white is-size-5" id="alert-address-invalid">⚠️ The address is invalid. Try again! ⚠️</p>
           </div>
           <div class="control address" id="save-address-icon">
             <a class="button is-success address">
@@ -121,7 +121,7 @@
                 <option value="Independent">Independent</option> -->
               </select>
             </div>
-            <p class="help is-hidden has-text-white is-size-5" id="alert-passes-invalid">Please add your name or email.</p>
+            <p class="help is-hidden has-text-white is-size-5" id="alert-passes-invalid">⚠️ Please add your name or email. ⚠️</p>
           </div>
           <!-- <div class="control">
             <button type="submit" class="button is-primary">Choose</button>
@@ -137,7 +137,7 @@
         <!-- PASSES LIST -->
         <div class="box" id="passes-selected-container">
           <div class="box has-text-white is-size-4 custom-box-gray mb-1">
-             No Passes Selected
+             No Pass Selected
           </div>
         </div>
 
@@ -153,7 +153,7 @@
                 <option value="TBD3">TBD 3</option>
               </select>
             </div>
-            <p class="help is-hidden has-text-white is-size-5" id="alert-resorts-invalid">Please add your name or email.</p>
+            <p class="help is-hidden has-text-white is-size-5" id="alert-resorts-invalid">⚠️  Please add your name or email. ⚠️</p>
           </div>
           <div class="control">
             <a class="button is-success resorts" id="save-resorts-icon">
@@ -166,7 +166,7 @@
         <!-- resorts LIST -->
         <div class="box" id="resorts-selected-container">
           <div class="box has-text-white is-size-4 custom-box-gray mb-1">
-             No Resorts Selected
+             No Resort Selected
           </div>
         </div>
 

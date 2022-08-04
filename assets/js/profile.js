@@ -142,15 +142,8 @@ function loadProfileFromStorage() {
 
 //RENDER AND SAVE NAME EMAIL ADDRESS INPUT
 function saveNameEmailAddressInput(event) {
-  // console.log(event.target, event.target.parentNode);
-
-  // let field = key.trim();
-  // let input = value.trim();
-
   let { field, input } = getInput(event); //get input
   let { validInput } = validateInput(field, input); //validate input
-  
-  // console.log(validInput, field, input, validInput.length)
 
   if (validInput) {
     renderValidNameEmailAddress(field, input);
@@ -159,10 +152,9 @@ function saveNameEmailAddressInput(event) {
     createMemberSinceDate();
     resetNameEmailAddress(field); //clear/reset values
   } else {
-    document
-      .getElementById(`alert-${field}-invalid`)
-      .classList.remove("is-hidden"); //render invalid alert
+    document.getElementById(`alert-${field}-invalid`).classList.remove("is-hidden"); //render invalid alert
     resetNameEmailAddress(field); //clear/reset values
+    hideAlertTimeOut(field);
   }
 }
 
@@ -212,14 +204,13 @@ function hideAlertTimeOut(field, validInput) {
   setTimeout(() => {
     allIconElements.forEach((element) => {
       if (element.classList.contains(`${field}-disk`)) {
-        element.classList.toggle("is-hidden");
+        element.classList.remove("is-hidden");
       }
       if (element.classList.contains(`${field}-check`)) {
-        element.classList.toggle("is-hidden");
+        element.classList.add("is-hidden");
       }
-      document
-        .getElementById(`alert-${field}-valid`)
-        .classList.add("is-hidden");
+      document.getElementById(`alert-${field}-valid`).classList.add("is-hidden");
+      document.getElementById(`alert-${field}-invalid`).classList.add("is-hidden");
     });
   }, 1000);
 }
