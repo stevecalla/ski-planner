@@ -19,6 +19,8 @@
 
 .header{
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   
 }
 .title {
@@ -26,9 +28,8 @@
   font-size: 75px;
   color: white;
   padding-bottom: 0px;
-  justify-content: center;
-  align-items: center;
-  margin-left: 5%;
+  
+
 }
 .subtitle2{
   font-family: bangers;
@@ -36,9 +37,7 @@
 
 
 .custom-button {
-  flex-direction: column;
-  justify-content: center;
-  margin-right: 5px;
+  margin: 5px;
   font-family: bangers;
   color:var(--skiblue);
 }
@@ -118,8 +117,11 @@ h6 {
 } */
 
 /* LARGE SCREENS / TABLETS */
-/* @media screen and (max-width: 992px) {
-} */
+@media screen and (max-width: 992px) {
+  .header {
+    flex-direction: column;
+  }
+}
 
 /* MEDIUM SCREEN SIZE - LARGE SMARTPHONES*/
 /* @media screen and (max-width: 768px) {
