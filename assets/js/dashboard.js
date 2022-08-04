@@ -21,7 +21,6 @@ let modalProfileFromDashBoard = document.getElementById(
 let backButton = document.getElementById("back-button");
 let powMeterImage = document.querySelector("#powMeterImage");
 
-
 //section:global variables go here 👇
 
 //section:event listeners go here 👇
@@ -87,9 +86,16 @@ function displayStaticMap(skiArea) {
 
 async function displayDrivingDirections(skiArea) {
   let startCoordinates = txtStartAddress.value;
-  let userCurrentPosition = JSON.parse(
-    localStorage.getItem("userCurrentPosition")
-  );
+  let userCurrentPosition = {
+    address: "Denver, CO",
+    coordinates: "39.74,-104.99",
+  }; // Default to Denver, CO
+
+  if (localStorage.getItem("userCurrentPosition")) {
+    userCurrentPosition = JSON.parse(
+      localStorage.getItem("userCurrentPosition")
+    );
+  }
 
   if (
     txtStartAddress.value.trim().toLowerCase() ===
@@ -291,17 +297,17 @@ function displaySnowConditions(skiArea) {
 
           lblSnowDepth.textContent = `Snow Depth (in): ${dataSNOTEL.data[0]["Snow Depth (in)"]}`;
           lblChangeInSnowDepth.textContent = `Change In Snow Depth (in): ${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}`;
-          
+
           // console.log(`${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}`);
         }
-        if (`${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}` >= 6){
-          powMeterImage.src = "./assets/images/rad.png"
-        }
-        else if (`${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}` >= 1 && `${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}` < 6){
-          powMeterImage.src = "./assets/images/good.png"
-        }
-        else
-        powMeterImage.src = "./assets/images/bad.png";
+        if (`${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}` >= 6) {
+          powMeterImage.src = "./assets/images/rad.png";
+        } else if (
+          `${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}` >= 1 &&
+          `${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}` < 6
+        ) {
+          powMeterImage.src = "./assets/images/good.png";
+        } else powMeterImage.src = "./assets/images/bad.png";
         // If the closest SNOTEL station does not have any data, go to the next one.  Powderhorn is this way.  Pulling 3 stations just in case.
       } while (dataSNOTEL.data.length === 0);
     })
