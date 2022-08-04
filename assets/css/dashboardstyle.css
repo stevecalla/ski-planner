@@ -56,6 +56,11 @@
   
 }
 
+.custom-table{
+  max-height: 600px;
+  overflow: scroll;
+}
+
 .inputParent {
   display:flex;
   margin-bottom: 5px;
@@ -70,6 +75,16 @@
 
 .hide {
   display: none!important;
+}
+
+#powMeterImage {
+  max-height: 250px;
+  max-width: 250px;
+}
+
+.powText{
+  font-family: bangers;
+  color: white;
 }
 
 /* .powMeterSection{
