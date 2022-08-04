@@ -24,8 +24,6 @@ let deleteProfileButton = document.getElementById("delete-profile-button");
 let closeModalElement = document.getElementById("custom-close-modal");
 let saveButtonElement = document.getElementById("save-button");
 
-
-
 //section:global variables go here 👇
 
 //section:event listeners go here 👇
@@ -36,11 +34,11 @@ saveAddressIcon.addEventListener("click", saveNameEmailAddressInput);
 passSelectedContainer.addEventListener("click", deletePassResort);
 resortSelectedContainer.addEventListener("click", deletePassResort);
 savePassIcon.addEventListener("click", () =>
-savePassResortInput(event, "passes")
-);
-saveResortIcon.addEventListener("click", () =>
-savePassResortInput(event, "resorts")
-);
+  savePassResortInput(event, "passes")
+  );
+saveResortIcon.addEventListener("click", () => 
+  savePassResortInput(event, "resorts")
+  );
 deleteProfileButton.addEventListener("click", clearLocalStorage);
 addressInput.addEventListener("input", () => fetchMapquestCreateAutoComplete(addressInput));// SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
 closeModalElement.addEventListener("click", () => renderLastPage());
@@ -52,16 +50,6 @@ document.addEventListener("keydown", (event) => {
 saveButtonElement.addEventListener('click', saveAllProfileSelections);
 
 //section:functions and event handlers go here 👇
-function saveAllProfileSelections() {
-  // console.log('save it');
-  saveNameIcon.click();
-  saveEmailIcon.click();
-  saveAddressIcon.click();
-  savePassIcon.click();
-  saveResortIcon.click();
-
-}
-
 //LOAD PROFILE FROM STORAGE
 function loadProfile() {
   loadResortList();
@@ -140,6 +128,16 @@ function loadProfileFromStorage() {
   }
 }
 
+//SAVE PROFILE BUTTON
+function saveAllProfileSelections() {
+  // console.log('save it');
+  saveNameIcon.click();
+  saveEmailIcon.click();
+  saveAddressIcon.click();
+  savePassIcon.click();
+  saveResortIcon.click();
+}
+
 //RENDER AND SAVE NAME EMAIL ADDRESS INPUT
 function saveNameEmailAddressInput(event) {
   let { field, input } = getInput(event); //get input
@@ -152,14 +150,16 @@ function saveNameEmailAddressInput(event) {
     createMemberSinceDate();
     resetNameEmailAddress(field); //clear/reset values
   } else {
-    document.getElementById(`alert-${field}-invalid`).classList.remove("is-hidden"); //render invalid alert
-    resetNameEmailAddress(field); //clear/reset values
-    hideAlertTimeOut(field);
+    if (!getLocalStorage()) {
+      document.getElementById(`alert-${field}-invalid`).classList.remove("is-hidden"); //render invalid alert
+      resetNameEmailAddress(field); //clear/reset values
+      hideAlertTimeOut(field);
       launchValidationModal(
         `Please Complete Profile`,
         `Enter name, email and preferred address, please.`,
         'profileSaveButton'
       );
+    }
     }
   }
 
@@ -248,18 +248,23 @@ function createMemberSinceDate() {
 
 //RENDER AND SAVE PASSES OR RESORTS
 function savePassResortInput(event, selectedList) {
-  let skiProfile = getLocalStorage();
 
+  
+  let skiProfile = getLocalStorage();
+  
   if (skiProfile) {
     let { savedPassOrResortList } = createPassOrResortFromStorage(
       skiProfile,
       selectedList
-    ); //get selected list
-    let { appendedPassOrResortList } = appendCurrentSelection(
-      event,
-      selectedList,
-      savedPassOrResortList
-    ); //get dropdown selected item
+      ); //get selected list
+      
+      let { appendedPassOrResortList } = appendCurrentSelection(
+        event,
+        selectedList,
+        savedPassOrResortList,
+
+        ); //get dropdown selected item
+
     resetPassResortContainer(selectedList);
     renderPassOrResorts(appendedPassOrResortList, selectedList);
   } else {
@@ -284,8 +289,10 @@ function createPassOrResortFromStorage(skiProfile, selectedList) {
 }
 
 function appendCurrentSelection(event, selectedList, appendedPassOrResortList) {
+
   let selectOption = document.querySelectorAll("select");
   selectOption.forEach((element) => {
+
     if (
       event.target.classList.contains(selectedList) &&
       element.getAttribute("name") === selectedList &&
@@ -293,6 +300,7 @@ function appendCurrentSelection(event, selectedList, appendedPassOrResortList) {
       element.value !== "none"
       ) {
       appendedPassOrResortList.push(element.value);
+
       setLocalStorage(selectedList, appendedPassOrResortList);
     }
   });
@@ -314,6 +322,7 @@ function resetPassResortContainer(selectedList) {
 }
 
 function renderPassOrResorts(appendedPassOrResortList, selectedList) {
+
   appendedPassOrResortList.forEach((element) => {
     let selectedElement = document.createElement("div");
 
@@ -340,15 +349,12 @@ function renderPassOrResorts(appendedPassOrResortList, selectedList) {
 
   if (appendedPassOrResortList.length === 0) { //if none selected render default containers
     // console.log('create');
-    createPassResortDefaultContainer();
+    createPassResortDefaultContainer(selectedList);
   }
 
   document
     .getElementById(`alert-${selectedList}-invalid`)
     .classList.add("is-hidden"); //ensures invalid alert is hidden
-
-  loadResortList();
-  loadPassList();
 }
 
 //DELETE PASS OR RESORTS
@@ -440,10 +446,12 @@ function clearLocalStorage() {
   nameInput.focus();
 }
 
-function createPassResortDefaultContainer() {
-  let defaultList = ['pass', 'resort'];
-  defaultList.forEach(element => {
-    element === 'pass' ? passSelectedContainer.textContent = "" : resortSelectedContainer.textContent = "";
+function createPassResortDefaultContainer(list) {
+  // let defaultList = ['pass', 'resort'];
+
+  // defaultList.forEach(element => {
+  //   element === 'pass' ? passSelectedContainer.textContent = "" : resortSelectedContainer.textContent = "";
+    list === 'passes' ? passSelectedContainer.textContent = "" : resortSelectedContainer.textContent = "";
     let defaultContainer = document.createElement("div");
     defaultContainer.classList.add(
       "box",
@@ -452,7 +460,9 @@ function createPassResortDefaultContainer() {
       'custom-box-gray',
       'mb-1',
     );
-    defaultContainer.textContent = `No ${element} Selected`;
-    element === 'pass' ? passSelectedContainer.append(defaultContainer) : resortSelectedContainer.append(defaultContainer);
-  })
+    // defaultContainer.textContent = `No ${element} Selected`;
+    defaultContainer.textContent = `No ${list} Selected`;
+    // element === 'pass' ? passSelectedContainer.append(defaultContainer) : resortSelectedContainer.append(defaultContainer);
+    list === 'passes' ? passSelectedContainer.append(defaultContainer) : resortSelectedContainer.append(defaultContainer);
+  // })
 }
