@@ -317,9 +317,6 @@ function resetPassResortContainer(selectedList) {
 }
 
 function renderPassOrResorts(appendedPassOrResortList, selectedList) {
-
-  // console.log(appendedPassOrResortList, appendedPassOrResortList.length, appendedPassOrResortList.length === 0);
-
   appendedPassOrResortList.forEach((element) => {
     let selectedElement = document.createElement("div");
 
@@ -343,7 +340,6 @@ function renderPassOrResorts(appendedPassOrResortList, selectedList) {
       : resortSelectedContainer.append(selectedElement);
     selectedElement.append(deleteButton);
   });
-
 
   if (appendedPassOrResortList.length === 0) { //if none selected render default containers
     // console.log('create');
@@ -448,32 +444,18 @@ function clearLocalStorage() {
 }
 
 function createPassResortDefaultContainer() {
-  // console.log('create#2')
-    //reset pass container
-    passSelectedContainer.textContent = "";
-    let clearPasses = document.createElement("div");
-    clearPasses.classList.add(
+  let defaultList = ['pass', 'resort'];
+  defaultList.forEach(element => {
+    element === 'pass' ? passSelectedContainer.textContent = "" : resortSelectedContainer.textContent = "";
+    let defaultContainer = document.createElement("div");
+    defaultContainer.classList.add(
       "box",
       'has-text-white',
       'is-size-4',
       'custom-box-gray',
       'mb-1',
     );
-  
-    clearPasses.textContent = "No Passes Selected";
-    passSelectedContainer.append(clearPasses);
-  
-    //reset resorts container
-    resortSelectedContainer.textContent = "";
-    let clearResorts = document.createElement("div");
-    clearResorts.classList.add(
-      "box",
-      'has-text-white',
-      'is-size-4',
-      'custom-box-gray',
-      'mb-1',
-    );
-
-    clearResorts.textContent = "No Resorts Selected";
-    resortSelectedContainer.append(clearResorts);
+    defaultContainer.textContent = `No ${element} Selected`;
+    element = 'pass' ? passSelectedContainer.append(defaultContainer) : resortSelectedContainer.append(defaultContainer);
+  })
 }
