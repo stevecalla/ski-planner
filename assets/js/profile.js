@@ -21,6 +21,9 @@ let resortInput = document.getElementById("resorts-input");
 let saveResortIcon = document.getElementById("save-resorts-icon");
 let deleteProfileButton = document.getElementById("delete-profile-button");
 let closeModalElement = document.getElementById("custom-close-modal");
+let saveButtonElement = document.getElementById("save-button")
+
+saveButtonElement.addEventListener('click', saveAllProfileSelections);
 
 //section:global variables go here 👇
 
@@ -47,6 +50,41 @@ document.addEventListener("keydown", (event) => {
 });
 
 //section:functions and event handlers go here 👇
+function saveAllProfileSelections() {
+  console.log('save it');
+
+  //get passes / resorts selcted values
+  let selectOption = document.querySelectorAll("select");
+
+  let passSelected = ""; 
+  let resortSelected = "";
+
+  for (let i = 0; i < selectOption.length; i++) {
+    passSelected = selectOption[0].value;
+    resortSelected = selectOption[1].value;
+  }
+  console.log(passSelected, resortSelected);
+
+  let allInput = [];
+  allInput.push(
+    {name: nameInput.value},
+    {email: emailInput.value},
+    {address: addressInput.value},
+    {passes: passSelected},
+    {resorts: resortSelected}
+  );
+  console.log(allInput);
+
+  allInput.forEach((element, index) => {
+    if (index < 3) {
+      console.log(Object.keys(element), Object.values(element));
+      saveNameEmailAddressInput(event, Object.keys(element), Object.values(element));
+    }
+  })
+    
+
+}
+
 //LOAD PROFILE FROM STORAGE
 function loadProfile() {
   loadResortList();
@@ -95,9 +133,16 @@ function loadProfileFromStorage() {
 }
 
 //RENDER AND SAVE NAME EMAIL ADDRESS INPUT
-function saveNameEmailAddressInput(event) {
-  let { field, input } = getInput(event); //get input
+function saveNameEmailAddressInput(event, key, value) {
+  console.log(event.target, event.target.parentNode, key, value);
+
+  let field = key;
+  let input = value;
+  // value = value parameter
+
+  // let { field, input } = getInput(event); //get input
   let { validInput } = validateInput(field, input); //validate input
+  
   if (validInput) {
     renderValidNameEmailAddress(field, input);
     hideAlertTimeOut(field);
@@ -127,11 +172,12 @@ function validateInput(field, input) {
   let mailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
   field === "email"
     ? (validInput = emailInput.value.match(mailFormatRegex))
-    : (validInput = input && input.trim() !== "");
+    : (validInput = input && input.length > 0);
   return { validInput };
 }
 
 function renderValidNameEmailAddress(field, input) {
+  console.log(field)
   document.getElementById(`alert-${field}-invalid`).classList.add("is-hidden"); //ensure invalid alert is hidden
   document.getElementById(`alert-${field}-valid`).classList.remove("is-hidden"); //render valid alert
 
