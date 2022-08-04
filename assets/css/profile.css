@@ -22,6 +22,13 @@ body {
   border-radius: 5px;
 }
 
+.custom-box-blue:hover,
+.custom-box-blue:focus,
+.custom-box-red:hover {
+  color: white;
+  border: 2px solid white;
+}
+
 .custom-box-gray {
   background-color: gray;
 }
