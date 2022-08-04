@@ -16,14 +16,14 @@
 
   function renderDailyHourlyWeatherData(requestedData) {
     //DETERMINE RESORT FOR FETCH
-    let latitude = skiAreas[5].Latitude;
-    let longitude = skiAreas[5].Longitude;
-    let resortName = skiAreas[5].Name; //if necessary
+    // let latitude = skiAreas[5].Latitude;
+    // let longitude = skiAreas[5].Longitude;
+    // let resortName = skiAreas[5].Name; //if necessary
     
     let skiArea = getCurrentSkiArea(); //returns skiArea object with Name, Longitude, Latitude, Pass
-    latitude = skiArea.Latitude;
-    longitude = skiArea.Longitude;
-    resortName = skiArea.Name;
+    let latitude = skiArea.Latitude;
+    let longitude = skiArea.Longitude;
+    let resortName = skiArea.Name;
     let pass = skiArea.pass
 
     // let { Latitude, Longitude, Name } = getCurrentSkiArea(); //todo:destructing
@@ -57,14 +57,29 @@
     //           requestedData === "hourly" ? createDailyHourlyWeatherData(data, "hourly", resortName) : createDailyHourlyWeatherData(data, "daily", resortName);
     //       });
     //     } else {
-    //       console.log('Error: ', error);
+            // launchValidationModal(
+            //   "Error: Weather Not found",
+            //   // `Try Again at a Later Date: ${response.statusText}`
+            //   'weather'
+            // );
     //     }
     //   })
     //   .catch((error) => {
-    //     console.log('Error: ', error);
+        // launchValidationModal(
+        //   "Error: Weather Not found",
+        //   // `Try Again at a Later Date: ${response.statusText}`
+        //   'weather'
+        // );
     //   });
 
     // to test in development use the 2 lines below; to test in production comment outlines below and comment in the fetch above
+
+    // launchValidationModal(
+    //   "Error: Weather Not found",
+    //   // `Try Again at a Later Date: ${response.statusText}`
+    //   `Try Again at a Later Date`,
+    //   'weather'
+    // );
     requestedData === "hourly" ? createDailyHourlyWeatherData(weather, "hourly", "Boulder") : createDailyHourlyWeatherData(weather, "daily", "Boulder");
   }
 

@@ -28,7 +28,7 @@ function renderProfileModal() {
   location.href = "./profile.html"
 }
 
-// // API CALLS TO MAPQUEST FOR LOCATION AUTOCOMPLETE USING JQUERY
+// API CALLS TO MAPQUEST FOR LOCATION AUTOCOMPLETE USING JQUERY
 function fetchMapquestCreateAutoComplete(addressElement) {
   // console.log('1= ', addressElement);
   let input = addressElement.value;
@@ -79,3 +79,37 @@ function showAutoCompleteLocationList(autoCompleteDisplayString, addressElement)
     source: autoCompleteDisplayString,
   });
 }
+
+// VALIDATION MODAL
+let validationModal = document.getElementById('validation-modal');
+let modalTitle = document.getElementById('modal-title');
+let modalBody = document.getElementById('modal-body');
+let weatherWrapper = document.getElementById('weather-wrapper');
+
+function launchValidationModal(title, body, source) {
+  validationModal.classList.add("is-active"); //displays modal
+  modalTitle.textContent = title; //adds title
+  modalBody.textContent = body; //adds content
+  if (source === "weather") {weatherWrapper.classList.add('hide')}; //hides element with no info
+}
+
+let closeModal = document.getElementById('close-modal');
+closeModal.addEventListener('click', exitValidationModal);
+
+function exitValidationModal() {
+  // console.log('close modal');
+  validationModal.classList.remove('is-active');
+}
+
+// STEP #1: Create document getelement for the element you'll want to hide
+//  i.e let weatherWrapper = document.getElementById('weather-wrapper');
+
+// STEP #2: Install the launchValidationModal(title, body, source) in your error statement
+//  i.e. launchValidationModal("Opps Didn't Find Weather", "Try again later", "weather");
+
+// STEP #3: Add conditiional to the launchValidationModal function to hide the element from step #1
+//  i.e. if (source === "weather") {weatherWrapper.classList.add('hide')}; //hides element with no info
+
+// STEP #4: Make sure it all works. I didn't launch the actual fetch (didn't want to make api calls), I just put it inside the fetch function. One I finished I put it in the fetch conditional. 
+
+// STEP #5: Test the close button. I think it will work bases on the closeModal code in the utils.js file. It works that way for me.

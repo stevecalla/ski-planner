@@ -125,7 +125,7 @@
 
           </article>
         </div>
-        <div class="tile is-parent">
+        <div class="tile is-parent" id="weather-wrapper">
           <article class="tile is-child notification is-info">
             <div class="content">
               <p class="subtitle">weather</p>
@@ -167,14 +167,27 @@
             </div>
           </article>
         </div>
-
-
-
-
-
       </div>
     </div>
 
+    <!-- VALIDATION MODAL -->
+    <!-- <div id="modal-js-example" class="modal"> -->
+    <div id="validation-modal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content" style="width: 330px">
+        <div class="box">
+          <p id="modal-title" style="font-weight: bold">Title</p>
+          <hr>
+          <p id="modal-body">Content</p>
+          <hr>
+        </div>
+      </div>
+      <button class="modal-close is-large" id="close-modal" aria-label="close"></button>
+    </div>
+
+    <!-- <button class="js-modal-trigger" data-target="modal-js-example">
+      Open JS example modal
+    </button> -->
 
 
   </main>
