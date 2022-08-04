@@ -155,11 +155,17 @@ function saveNameEmailAddressInput(event) {
     document.getElementById(`alert-${field}-invalid`).classList.remove("is-hidden"); //render invalid alert
     resetNameEmailAddress(field); //clear/reset values
     hideAlertTimeOut(field);
+      launchValidationModal(
+        `Please Complete Profile`,
+        `Enter name, email and preferred address, please.`,
+        'profileSaveButton'
+      );
+    }
   }
-}
 
 function getInput(event) {
   let parentNodeField = event.target.parentNode.classList;
+  // console.log(nameInput.value.trim(), emailInput.value, addressInput.value);
 
   parentNodeField.contains("name")
     ? ((field = "name"), (input = nameInput.value.trim()))
@@ -179,7 +185,7 @@ function validateInput(field, input) {
 }
 
 function renderValidNameEmailAddress(field, input) {
-  console.log(field)
+  // console.log(field)
   document.getElementById(`alert-${field}-invalid`).classList.add("is-hidden"); //ensure invalid alert is hidden
   document.getElementById(`alert-${field}-valid`).classList.remove("is-hidden"); //render valid alert
 
@@ -257,7 +263,7 @@ function savePassResortInput(event, selectedList) {
     resetPassResortContainer(selectedList);
     renderPassOrResorts(appendedPassOrResortList, selectedList);
   } else {
-    console.log("please complete profile");
+    // console.log("please complete profile");
     document
       .getElementById(`alert-${selectedList}-invalid`)
       .classList.remove("is-hidden");
