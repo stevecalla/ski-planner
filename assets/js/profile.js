@@ -456,6 +456,6 @@ function createPassResortDefaultContainer() {
       'mb-1',
     );
     defaultContainer.textContent = `No ${element} Selected`;
-    element = 'pass' ? passSelectedContainer.append(defaultContainer) : resortSelectedContainer.append(defaultContainer);
+    element === 'pass' ? passSelectedContainer.append(defaultContainer) : resortSelectedContainer.append(defaultContainer);
   })
 }
