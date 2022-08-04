@@ -355,7 +355,7 @@ function init() {
 
     function success(pos) {
       let address = `${pos.coords.latitude},${pos.coords.longitude}`; //Deault address to the coordinates
-      let apiUrl = `http://www.mapquestapi.com/geocoding/v1/reverse?key=${config.MAPQUEST_KEY}&location=${address}`;
+      let apiUrl = `https://www.mapquestapi.com/geocoding/v1/reverse?key=${config.MAPQUEST_KEY}&location=${address}`;
 
       fetch(apiUrl)
         .then(function (response) {
@@ -409,4 +409,3 @@ function init() {
   }
 }
 init();
-
