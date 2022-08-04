@@ -11,6 +11,14 @@ body {
 .custom-box-blue {
   background-color: #3E8ED0;
   border: 1px solid white;
+  color: white;
+  border-radius: 5px;
+}
+
+.custom-box-red {
+  background-color: #3E8ED0;
+  border: 1px solid white!important;
+  color: white;
   border-radius: 5px;
 }
 
