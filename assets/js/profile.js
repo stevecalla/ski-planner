@@ -39,7 +39,7 @@ savePassIcon.addEventListener("click", () =>
 saveResortIcon.addEventListener("click", () => 
   savePassResortInput(event, "resorts")
   );
-deleteProfileButton.addEventListener("click", clearLocalStorage);
+deleteProfileButton.addEventListener("click", confirmDeleteLocalStorage);
 addressInput.addEventListener("input", () => fetchMapquestCreateAutoComplete(addressInput));// SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
 closeModalElement.addEventListener("click", () => renderLastPage());
 document.addEventListener("keydown", (event) => {
@@ -421,8 +421,28 @@ function setLocalStorage(key, value) {
   localStorage.setItem("ski-profile", JSON.stringify(skiProfile)); //set local storatge
 }
 
+function confirmDeleteLocalStorage() {
+  // let deleteButton = document.getElementById('delete-button');
+  // let cancelButton = document.getElementById('cancel-button');
+
+  cancelButton.addEventListener('click', (event) => {
+    validationModal.classList.remove("is-active");
+  })
+
+  launchValidationModal(
+    `Delete Profile`,
+    `Are you sure you want to delete your profiele?`,
+    'profileDeleteButton'
+  );
+
+  deleteButton.addEventListener('click', clearLocalStorage);
+}
+
 function clearLocalStorage() {
   // console.log("clear");
+  // console.log(confirmDelete, confirmDelete === true, confirmDelete === "true");
+  validationModal.classList.remove("is-active");
+
   localStorage.removeItem("ski-profile"); //clear storage
   localStorage.removeItem("userCurrentPosition");
 
@@ -443,7 +463,7 @@ function clearLocalStorage() {
   //hide member create date
   memberCreatedDateInput.classList.add("is-hidden");
 
-  nameInput.focus();
+    nameInput.focus();
 }
 
 function createPassResortDefaultContainer(list) {

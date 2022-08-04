@@ -86,11 +86,21 @@ let modalTitle = document.getElementById('modal-title');
 let modalBody = document.getElementById('modal-body');
 let weatherWrapper = document.getElementById('weather-wrapper');
 
+let deleteButton = document.getElementById('delete-button');
+let cancelButton = document.getElementById('cancel-button');
+
 function launchValidationModal(title, body, source) {
+  console.log(source);
+
   validationModal.classList.add("is-active"); //displays modal
   modalTitle.textContent = title; //adds title
   modalBody.textContent = body; //adds content
   if (source === "weather") {weatherWrapper.classList.add('hide')}; //hides element with no info
+  
+  if (source === 'profileDeleteButton') {
+    deleteButton.classList.remove('hide');
+    cancelButton.classList.remove('hide');
+  }
 }
 
 let closeModal = document.getElementById('close-modal');
