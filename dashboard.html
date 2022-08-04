@@ -30,7 +30,7 @@
       background: url(assets/images/mountaindashboard.jpg) center / cover;
     }
   </style>
-  <title>Ski Dashboard</title>
+  <title>Powder Bound Dashboard</title>
 </head>
 
 <body class="hero is-fullheight ">
@@ -48,129 +48,135 @@
   <main>
     <div class="tile is-ancestor">
       <div class="tile is-12">
-        
-          <div class="tile is-parent is-vertical">
-            <article class="tile is-child notification is-info">
-              <div class="content">
-                <p class="subtitle">pow meter</p>
-                <div class="content powMeterSection">
-                  <section id="snowConditions">
-                    <h3>Snow Conditions</h3>
-                    <label id="lblSnowDepth"></label><br />
-                    <label id="lblChangeInSnowDepth"></label><br />
-                    <figure class="is-image is-square">
+
+        <div class="tile is-parent is-vertical">
+          <article class="tile is-child notification is-info">
+            <div class="content">
+              <p class="subtitle">pow meter</p>
+              <div class="content powMeterSection">
+                <section id="snowConditions">
+                  <h3>Snow Conditions</h3>
+                  <label id="lblSnowDepth"></label><br />
+                  <label id="lblChangeInSnowDepth"></label><br />
+                  <figure class="is-image is-square">
                     <img id="powMeterImage" src="">
                   </figure>
-                  </section>
-                </div>
+                </section>
               </div>
-            </article>
-            <article class="tile is-child notification is-info">
-              <p class="subtitle">Map</p>
-              <section class="mapSection" id="mapArea">
-                <img id="staticMap" />
-              </section>
-            </article>
-          </div>
-
-
-          <div class="tile is-parent ">
-            <article class="tile is-child notification is-info">
-              <p class="subtitle">Directions</p>
-              <input id="txtStartAddress" type="text" class="input"
-                placeholder="Address or Coordinates"></input>
-                <div class="inputParent is-fullwidth">
-              <input id="txtStartDate" type="date" class="input"></input>
-              <input id="txtStartTime" type="time" class="input" value="09:00"></input>
             </div>
-              <button id="btnUpdate" class="button updateButton is-fullwidth">Update</button>
+          </article>
+          <article class="tile is-child notification is-info">
+            <p class="subtitle">Map</p>
+            <section class="mapSection" id="mapArea">
+              <img id="staticMap" />
+            </section>
+          </article>
+        </div>
 
-              <section class="box table-container" id="drivingDirections">
-                <table class="table is-fullwidth">
-                  <thead>
-                    <tr>
-                      <!-- <th></th> -->
-                      <a class="is-left" id="gmDirections" target="blank">Google Map Directions</a>
-                      <th id="tdTotalDistance"></th>
-                      <th id="tdTotalTime"></th>
-                      <th id="tdArrivalTime"></th>
-                    </tr>
-                    <tr>
-                      <th>#</th>
-                      <th>Directions</th>
-                      <th>Distance</th>
-                      <th>Time</th>
-                      <th>Map</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tblDirections"></tbody>
-                  <tfoot>
-                    <tr>
-                      <!-- <th></th> -->
-                      <th><a id="gmDirections" target="blank">Google Map Directions</a>
-                      </th>
-                      <th id="tdTotalDistance"></th>
-                      <th id="tdTotalTime"></th>
-                      <th id="tdArrivalTime"></th>
-                    </tr>
-                  </tfoot>
-                </table>
-              </section>
 
-            </article>
-          </div>
-          <div class="tile is-parent">
-            <article class="tile is-child notification is-info">
+        <div class="tile is-parent ">
+          <article class="tile is-child notification is-info">
+            <p class="subtitle">Directions</p>
+            <input id="txtStartAddress" type="text" class="input" placeholder="Address or Coordinates"></input>
+            <div class="inputParent is-fullwidth">
+              <input id="txtStartDate" type="date" class="input mr-1"></input>
+              <input id="txtStartTime" type="time" class="input ml-1" value="09:00"></input>
+            </div>
+            <button id="btnUpdate" class="button updateButton is-fullwidth">Update</button>
+
+            <section class="box table-container" id="drivingDirections">
+              <table class="table is-fullwidth">
+                <thead>
+                  <tr>
+                    <th class="has-text-centered" colspan="5">
+                      <a id="gmDirections" class="button custom-button" target="blank">Google Map Directions</a>
+                    </th>
+                  </tr>
+                  <tr>
+
+                    <th id="tdArrivalTime" colspan="2"></th>
+
+                    <th id="tdTotalTime"></th>
+                    <th id="tdTotalDistance" colspan="2"></th>
+
+                  </tr>
+                  <tr>
+                    <th>#</th>
+                    <th>Directions</th>
+
+                    <th>Time</th>
+                    <th>Distance</th>
+                    <th>Map</th>
+                  </tr>
+                </thead>
+                <tbody id="tblDirections"></tbody>
+                <!-- <tfoot>
+                  <tr>
+                    <th></th>
+                    <th><a id="gmDirections" target="blank">Google Map Directions</a>
+                    </th>
+                    <th id="tdTotalDistance"></th>
+                    <th id="tdTotalTime"></th>
+                    <th id="tdArrivalTime"></th>
+                  </tr>
+                </tfoot> -->
+              </table>
+            </section>
+
+          </article>
+        </div>
+        <div class="tile is-parent">
+          <article class="tile is-child notification is-info">
+            <div class="content">
+              <p class="subtitle">weather</p>
+              <p class="subtitle"></p>
               <div class="content">
-                <p class="subtitle">weather</p>
-                <p class="subtitle"></p>
-                <div class="content">
-      
-                  <!-- WEATHER CONTENT -->
-                  <!-- TAB NAVIGATION -->
-      
-                  <div class="box">
-                    <div class="tabs is-toggle is-fullwidth is-medium m-2">
-                      <ul class="m-0">
-                        <li class="is-active daily" id="daily-tab">
-                          <a class="daily all-custom-tab-color">
-                            <span class="icon is-small daily"><i class="fas fa-calendar" aria-hidden="true"></i></span>
-                            <span class="subtitle2">Daily</span>
-                          </a>
-                        </li>
-                        <li class="hourly" id="hourly-tab">
-                          <a class="hourly all-custom-tab-color">
-                            <span class="icon is-small hourly"><i class="fas fa-hourglass" aria-hidden="true"></i></span>
-                            <span class="subtitle2">Hourly</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-      
-                    <!-- PLACEHOULDER FOR DAILY / HOURLY DATA -->
-                    <div class="columns is-desktop mt-2" id=custom-weather-container>
-                      <div class="row" id="weather-elements">
-                        <!-- daily / hourly weather data goes here -->
-                      </div>
+
+                <!-- WEATHER CONTENT -->
+                <!-- TAB NAVIGATION -->
+
+                <div class="box">
+                  <div class="tabs is-toggle is-fullwidth is-medium m-2">
+                    <ul class="m-0">
+                      <li class="is-active daily" id="daily-tab">
+                        <a class="daily all-custom-tab-color">
+                          <span class="icon is-small daily"><i class="fas fa-calendar" aria-hidden="true"></i></span>
+                          <span class="subtitle2">Daily</span>
+                        </a>
+                      </li>
+                      <li class="hourly" id="hourly-tab">
+                        <a class="hourly all-custom-tab-color">
+                          <span class="icon is-small hourly"><i class="fas fa-hourglass" aria-hidden="true"></i></span>
+                          <span class="subtitle2">Hourly</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- PLACEHOULDER FOR DAILY / HOURLY DATA -->
+                  <div class="columns is-desktop mt-2" id=custom-weather-container>
+                    <div class="row" id="weather-elements">
+                      <!-- daily / hourly weather data goes here -->
                     </div>
                   </div>
-      
-                  <!-- WEATHER CONTENT -->
-      
                 </div>
+
+                <!-- WEATHER CONTENT -->
+
               </div>
-            </article>
-          </div>
+            </div>
+          </article>
+        </div>
 
 
 
 
-      
+
       </div>
     </div>
 
 
-    
+
   </main>
 
   <!-- MOMENT -->

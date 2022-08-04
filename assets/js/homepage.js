@@ -43,9 +43,9 @@ function displayMarkers(pass) {
       shadowUrl: "./assets/images/msmarker.shadow.png",
       iconSize: [32, 32],
       shadowSize: [59, 32],
-      iconAnchor: [0, 0],
-      shadowAnchor: [0, 0],
-      popupAnchor: [0, 0],
+      iconAnchor: [16, 32],
+      shadowAnchor: [16, 32],
+      tooltipAnchor: [10, -24],
     },
   });
   const greenIcon = new ResortIcon({
@@ -76,13 +76,17 @@ function displayMarkers(pass) {
       passIcon = redIcon;
     }
 
+    var markerOptions = {
+      icon: passIcon,
+      riseOnHover: true,
+    };
     var marker = L.marker(
       [filteredSkiAreas[i].Latitude, filteredSkiAreas[i].Longitude],
-      { icon: passIcon }
+      markerOptions
     ).addTo(markers);
 
     var toolTipOptions = {
-      offset: [20, 0],
+      offset: [0, 0],
       direction: "right",
       opacity: 0.8,
     };
@@ -137,10 +141,15 @@ function displayMarkers(pass) {
                 <p>Snow Depth (in): ${dataSNOTEL.data[0]["Snow Depth (in)"]}<br />
                 Change In Snow Depth (in): ${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}<br />
                 Air Temperature: ${dataSNOTEL.data[0]["Observed Air Temperature (degrees farenheit)"]} \xB0F<br />
-                <a class="button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.Name}">Details ➡️</a>
+                <a class="button custom-button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.Name}">Details ➡️</a>
               `;
 
-              L.popup()
+              let popupOptions = {
+                autoPan: true,
+                keepInView: true,
+                offset: [0, -24],
+              };
+              L.popup(popupOptions)
                 .setLatLng({
                   lat: skiArea.Latitude,
                   lng: skiArea.Longitude,
