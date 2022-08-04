@@ -1,5 +1,6 @@
 //section:query selector variables go here 👇
 let resortList = document.getElementById("resort-list");
+let passList = document.getElementById('pass-list');
 let profileModal = document.getElementById("profile-modal");
 let nameInput = document.getElementById("name-input");
 let emailInput = document.getElementById("email-input");
@@ -21,9 +22,9 @@ let resortInput = document.getElementById("resorts-input");
 let saveResortIcon = document.getElementById("save-resorts-icon");
 let deleteProfileButton = document.getElementById("delete-profile-button");
 let closeModalElement = document.getElementById("custom-close-modal");
-let saveButtonElement = document.getElementById("save-button")
+let saveButtonElement = document.getElementById("save-button");
 
-saveButtonElement.addEventListener('click', saveAllProfileSelections);
+
 
 //section:global variables go here 👇
 
@@ -35,71 +36,78 @@ saveAddressIcon.addEventListener("click", saveNameEmailAddressInput);
 passSelectedContainer.addEventListener("click", deletePassResort);
 resortSelectedContainer.addEventListener("click", deletePassResort);
 savePassIcon.addEventListener("click", () =>
-  savePassResortInput(event, "passes")
+savePassResortInput(event, "passes")
 );
 saveResortIcon.addEventListener("click", () =>
-  savePassResortInput(event, "resorts")
+savePassResortInput(event, "resorts")
 );
 deleteProfileButton.addEventListener("click", clearLocalStorage);
 addressInput.addEventListener("input", () => fetchMapquestCreateAutoComplete(addressInput));// SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
 closeModalElement.addEventListener("click", () => renderLastPage());
 document.addEventListener("keydown", (event) => {
   if (event.keyCode === 27 || event.target.classList.contains("modal-close")) {
-      renderLastPage();
-    }
+    renderLastPage();
+  }
 });
+saveButtonElement.addEventListener('click', saveAllProfileSelections);
 
 //section:functions and event handlers go here 👇
 function saveAllProfileSelections() {
-  console.log('save it');
-
-  //get passes / resorts selcted values
-  let selectOption = document.querySelectorAll("select");
-
-  let passSelected = ""; 
-  let resortSelected = "";
-
-  for (let i = 0; i < selectOption.length; i++) {
-    passSelected = selectOption[0].value;
-    resortSelected = selectOption[1].value;
-  }
-  console.log(passSelected, resortSelected);
-
-  let allInput = [];
-  allInput.push(
-    {name: nameInput.value},
-    {email: emailInput.value},
-    {address: addressInput.value},
-    {passes: passSelected},
-    {resorts: resortSelected}
-  );
-  console.log(allInput);
-
-  allInput.forEach((element, index) => {
-    if (index < 3) {
-      console.log(Object.keys(element), Object.values(element));
-      saveNameEmailAddressInput(event, Object.keys(element), Object.values(element));
-    }
-  })
-    
+  // console.log('save it');
+  saveNameIcon.click();
+  saveEmailIcon.click();
+  saveAddressIcon.click();
+  savePassIcon.click();
+  saveResortIcon.click();
 
 }
 
 //LOAD PROFILE FROM STORAGE
 function loadProfile() {
   loadResortList();
+  loadPassList();
   loadProfileFromStorage();
   nameInput.focus();
 }
 
 function loadResortList() {
   resortList.textContent = "";
+
+  //SET DEFAULT OPTION
+  let resortElement = document.createElement("option");
+  resortElement.setAttribute("value", "none");
+  resortElement.setAttribute("selected", "true");
+  resortElement.setAttribute("disabled", "true");
+  resortElement.setAttribute("hidden", "true");
+  resortElement.textContent = "Select a Resort";
+  resortList.append(resortElement);
+
   skiAreas.forEach((resort) => {
-    // console.log(resort);
-    let resortElement = document.createElement("option");
+    resortElement = document.createElement("option");
     resortElement.setAttribute("value", resort.Name);
     resortElement.textContent = resort.Name;
     resortList.append(resortElement);
+  });
+}
+
+function loadPassList() {
+  passList.textContent = "";
+  let passListAll = ['Epic', 'Icon', 'Independant'];
+
+  //SET DEFAULT OPTION
+  let passElement = document.createElement("option");
+  passElement.setAttribute("value", "none");
+  passElement.setAttribute("selected", "true");
+  passElement.setAttribute("disabled", "true");
+  passElement.setAttribute("hidden", "true");
+  passElement.textContent = "Select a Pass";
+  passList.append(passElement);
+
+  passListAll.forEach((pass) => {
+    passElement = document.createElement("option");
+    passElement.setAttribute("value", pass);
+    passElement.textContent = pass;
+    passList.append(passElement);
   });
 }
 
@@ -133,16 +141,17 @@ function loadProfileFromStorage() {
 }
 
 //RENDER AND SAVE NAME EMAIL ADDRESS INPUT
-function saveNameEmailAddressInput(event, key, value) {
-  console.log(event.target, event.target.parentNode, key, value);
+function saveNameEmailAddressInput(event) {
+  // console.log(event.target, event.target.parentNode);
 
-  let field = key;
-  let input = value;
-  // value = value parameter
+  // let field = key.trim();
+  // let input = value.trim();
 
-  // let { field, input } = getInput(event); //get input
+  let { field, input } = getInput(event); //get input
   let { validInput } = validateInput(field, input); //validate input
   
+  // console.log(validInput, field, input, validInput.length)
+
   if (validInput) {
     renderValidNameEmailAddress(field, input);
     hideAlertTimeOut(field);
@@ -159,6 +168,7 @@ function saveNameEmailAddressInput(event, key, value) {
 
 function getInput(event) {
   let parentNodeField = event.target.parentNode.classList;
+
   parentNodeField.contains("name")
     ? ((field = "name"), (input = nameInput.value.trim()))
     : parentNodeField.contains("email")
@@ -172,7 +182,7 @@ function validateInput(field, input) {
   let mailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
   field === "email"
     ? (validInput = emailInput.value.match(mailFormatRegex))
-    : (validInput = input && input.length > 0);
+    : (validInput = input && input !== "");
   return { validInput };
 }
 
@@ -282,8 +292,9 @@ function appendCurrentSelection(event, selectedList, appendedPassOrResortList) {
     if (
       event.target.classList.contains(selectedList) &&
       element.getAttribute("name") === selectedList &&
-      !appendedPassOrResortList.includes(element.value)
-    ) {
+      !appendedPassOrResortList.includes(element.value) &&
+      element.value !== "none"
+      ) {
       appendedPassOrResortList.push(element.value);
       setLocalStorage(selectedList, appendedPassOrResortList);
     }
@@ -306,8 +317,12 @@ function resetPassResortContainer(selectedList) {
 }
 
 function renderPassOrResorts(appendedPassOrResortList, selectedList) {
+
+  // console.log(appendedPassOrResortList, appendedPassOrResortList.length, appendedPassOrResortList.length === 0);
+
   appendedPassOrResortList.forEach((element) => {
     let selectedElement = document.createElement("div");
+
     selectedElement.classList.add(
       "box",
       "notification",
@@ -328,9 +343,19 @@ function renderPassOrResorts(appendedPassOrResortList, selectedList) {
       : resortSelectedContainer.append(selectedElement);
     selectedElement.append(deleteButton);
   });
+
+
+  if (appendedPassOrResortList.length === 0) { //if none selected render default containers
+    // console.log('create');
+    createPassResortDefaultContainer();
+  }
+
   document
     .getElementById(`alert-${selectedList}-invalid`)
     .classList.add("is-hidden"); //ensures invalid alert is hidden
+
+  loadResortList();
+  loadPassList();
 }
 
 //DELETE PASS OR RESORTS
@@ -398,7 +423,7 @@ function setLocalStorage(key, value) {
 }
 
 function clearLocalStorage() {
-  console.log("clear");
+  // console.log("clear");
   localStorage.removeItem("ski-profile"); //clear storage
   localStorage.removeItem("userCurrentPosition");
 
@@ -413,22 +438,42 @@ function clearLocalStorage() {
   emailInput.value = "";
   addressInput.value = "";
 
-  //reset pass container
-  passSelectedContainer.textContent = "";
-  let clearPasses = document.createElement("div");
-  clearPasses.classList.add("notification", "is-primary");
-  clearPasses.textContent = "No Passes Selected";
-  passSelectedContainer.append(clearPasses);
-
-  //reset resorts container
-  resortSelectedContainer.textContent = "";
-  let clearResorts = document.createElement("div");
-  clearResorts.classList.add("notification", "is-primary");
-  clearResorts.textContent = "No Resorts Selected";
-  resortSelectedContainer.append(clearResorts);
+  //reset pass resort container
+  createPassResortDefaultContainer();
 
   //hide member create date
   memberCreatedDateInput.classList.add("is-hidden");
 
   nameInput.focus();
+}
+
+function createPassResortDefaultContainer() {
+  // console.log('create#2')
+    //reset pass container
+    passSelectedContainer.textContent = "";
+    let clearPasses = document.createElement("div");
+    clearPasses.classList.add(
+      "box",
+      'has-text-white',
+      'is-size-4',
+      'custom-box-gray',
+      'mb-1',
+    );
+  
+    clearPasses.textContent = "No Passes Selected";
+    passSelectedContainer.append(clearPasses);
+  
+    //reset resorts container
+    resortSelectedContainer.textContent = "";
+    let clearResorts = document.createElement("div");
+    clearResorts.classList.add(
+      "box",
+      'has-text-white',
+      'is-size-4',
+      'custom-box-gray',
+      'mb-1',
+    );
+
+    clearResorts.textContent = "No Resorts Selected";
+    resortSelectedContainer.append(clearResorts);
 }
