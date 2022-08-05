@@ -23,9 +23,9 @@ function renderDailyHourlyWeatherData(requestedData) {
   // let resortName = skiAreas[5].Name; //if necessary
 
   let skiArea = getCurrentSkiArea(); //returns skiArea object with Name, Longitude, Latitude, Pass
-  let latitude = skiArea.Latitude;
-  let longitude = skiArea.Longitude;
-  let resortName = skiArea.Name;
+  let latitude = skiArea.latitude;
+  let longitude = skiArea.longitude;
+  let resortName = skiArea.name;
   let pass = skiArea.pass;
 
   // let { Latitude, Longitude, Name } = getCurrentSkiArea(); //todo:destructing

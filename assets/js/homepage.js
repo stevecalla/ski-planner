@@ -31,7 +31,7 @@ function displayMarkers(pass) {
   let filteredSkiAreas = skiAreas;
   if (pass) {
     filteredSkiAreas = skiAreas.filter(function (skiArea) {
-      return skiArea.Pass.trim().toLowerCase() === pass.trim().toLowerCase();
+      return skiArea.pass.trim().toLowerCase() === pass.trim().toLowerCase();
     });
   }
 
@@ -59,9 +59,9 @@ function displayMarkers(pass) {
 
   for (let i = 0; i < filteredSkiAreas.length; i++) {
     let passIcon = blueIcon;
-    if (filteredSkiAreas[i].Pass.trim().toLowerCase() === "epic") {
+    if (filteredSkiAreas[i].pass.trim().toLowerCase() === "epic") {
       passIcon = yellowIcon;
-    } else if (filteredSkiAreas[i].Pass.trim().toLowerCase() === "ikon") {
+    } else if (filteredSkiAreas[i].pass.trim().toLowerCase() === "ikon") {
       passIcon = redIcon;
     }
 
@@ -70,7 +70,7 @@ function displayMarkers(pass) {
       riseOnHover: true,
     };
     var marker = L.marker(
-      [filteredSkiAreas[i].Latitude, filteredSkiAreas[i].Longitude],
+      [filteredSkiAreas[i].latitude, filteredSkiAreas[i].longitude],
       markerOptions
     ).addTo(markers);
 
@@ -80,7 +80,7 @@ function displayMarkers(pass) {
       opacity: 0.8,
     };
 
-    marker.bindTooltip(`<h4>${filteredSkiAreas[i].Name}</h4>`, toolTipOptions);
+    marker.bindTooltip(`<h4>${filteredSkiAreas[i].name}</h4>`, toolTipOptions);
 
     function markerClick(event) {
       // http://api.powderlin.es/closest_stations
@@ -88,8 +88,8 @@ function displayMarkers(pass) {
 
       const skiArea = skiAreas.find(
         (element) =>
-          element.Latitude === event.latlng.lat &&
-          element.Longitude === event.latlng.lng
+          element.latitude === event.latlng.lat &&
+          element.longitude === event.latlng.lng
       );
 
       var settings = {
@@ -99,8 +99,8 @@ function displayMarkers(pass) {
         jsonp: "callback",
         dataType: "jsonp",
         data: {
-          lat: skiArea.Latitude,
-          lng: skiArea.Longitude,
+          lat: skiArea.latitude,
+          lng: skiArea.longitude,
           data: true,
           days: 0,
           count: 3,
@@ -110,9 +110,9 @@ function displayMarkers(pass) {
       let dataSNOTEL;
 
       // Initial popup text
-      let popupText = `<h4>${skiArea.Name}</h4>
+      let popupText = `<h4>${skiArea.name}</h4>
                 <p><progress class="progress is-small is-info" max="100"></progress></p>
-                <a class="button custom-button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.Name}">Details ➡️</a>
+                <a class="button custom-button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.name}">Details ➡️</a>
               `;
 
       let popupOptions = {
@@ -123,8 +123,8 @@ function displayMarkers(pass) {
 
       let popup = L.popup(popupOptions)
         .setLatLng({
-          lat: skiArea.Latitude,
-          lng: skiArea.Longitude,
+          lat: skiArea.latitude,
+          lng: skiArea.longitude,
         })
         .setContent(popupText)
         .openOn(map);
@@ -147,11 +147,11 @@ function displayMarkers(pass) {
               // `Observed Air Temperature (degrees farenheit): ${dataSNOTEL.data[0]["Observed Air Temperature (degrees farenheit)"]}`
 
               // Update the popup text with SNOTEL data
-              popupText = `<h4>${skiArea.Name}</h4>
+              popupText = `<h4>${skiArea.name}</h4>
                 <p>Snow Depth (in): ${dataSNOTEL.data[0]["Snow Depth (in)"]}<br />
                 Change In Snow Depth (in): ${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}<br />
                 Air Temperature: ${dataSNOTEL.data[0]["Observed Air Temperature (degrees farenheit)"]} \xB0F</p>
-                <a class="button custom-button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.Name}">Details ➡️</a>
+                <a class="button custom-button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.name}">Details ➡️</a>
               `;
 
               popup.setContent(popupText);
@@ -166,21 +166,6 @@ function displayMarkers(pass) {
   }
 }
 
-// async function fetchWeatherData(lat, lon) {
-//   //https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly,alerts&appid={apiKey}
-//   let apiKey = config.OPEN_WEATHER_KEY;
-//   let lang = "en";
-//   let units = "imperial";
-//   let exclude = "minutely,hourly,alerts";
-//   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}&lang=${lang}&exclude=${exclude}`;
-
-//   // Force it to wait for data to return before going on
-//   const response = await fetch(apiUrl);
-//   const data = await response.json();
-
-//   return data;
-// }
-
 ddPass.addEventListener("change", function () {
   displayMarkers(ddPass.value);
 });
@@ -193,7 +178,5 @@ function init() {
   } catch (error) {
     launchValidationModal("Map Error", error, "Map");
   }
-
-  // Note: the validation modal popup is underneath the map.
 }
 init();

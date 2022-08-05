@@ -48,7 +48,7 @@ function getCurrentSkiArea() {
 
   const skiArea = skiAreas.find(
     (element) =>
-      element.Name.trim().toLowerCase() ===
+      element.name.trim().toLowerCase() ===
       queryString.resort.trim().toLowerCase()
   );
 
@@ -64,7 +64,7 @@ function getResortInfo() {
   if (document.location.search.length > 0) {
     const skiArea = getCurrentSkiArea();
 
-    skiAreaName.textContent = skiArea.Name;
+    skiAreaName.textContent = skiArea.name;
 
     try {
       displayStaticMap(skiArea);
@@ -99,17 +99,17 @@ function getResortInfo() {
 function displayStaticMap(skiArea) {
   // MapQuest
   // let zoom = 14;
-  // staticMap.src = `https://www.mapquestapi.com/staticmap/v5/map?key=${config.MAPQUEST_KEY}&center=${skiArea.Latitude},${skiArea.Longitude}&zoom=${zoom}`;
-  // staticMap.alt = skiArea.Name;
+  // staticMap.src = `https://www.mapquestapi.com/staticmap/v5/map?key=${config.MAPQUEST_KEY}&center=${skiArea.latitude},${skiArea.longitude}&zoom=${zoom}`;
+  // staticMap.alt = skiArea.name;
 
   // Google Maps - Looks better since it'll show ski runs for the bigger ski areas
   let apiKey = config.GOOGLE_STATIC_MAPS_KEY;
-  let lat = skiArea.Latitude;
-  let lon = skiArea.Longitude;
+  let lat = skiArea.latitude;
+  let lon = skiArea.longitude;
   let zoom = 13;
   let size = "1000x1000";
   staticMap.src = `https://maps.googleapis.com/maps/api/staticmap?center=${lat}%2c%20${lon}&zoom=${zoom}&size=${size}&key=${apiKey}`;
-  staticMap.alt = skiArea.Name;
+  staticMap.alt = skiArea.name;
 }
 
 async function displayDrivingDirections(skiArea) {
@@ -137,7 +137,7 @@ async function displayDrivingDirections(skiArea) {
   }
   // Else, the text box should have Lat/Long in it
 
-  let endCoordinates = `${skiArea.Latitude},${skiArea.Longitude}`;
+  let endCoordinates = `${skiArea.latitude},${skiArea.longitude}`;
   let directions = await fetchDirections(startCoordinates, endCoordinates);
 
   removeAllChildNodes(tblDirections);
@@ -296,8 +296,8 @@ function displaySnowConditions(skiArea) {
     jsonp: "callback",
     dataType: "jsonp",
     data: {
-      lat: skiArea.Latitude,
-      lng: skiArea.Longitude,
+      lat: skiArea.latitude,
+      lng: skiArea.longitude,
       data: true,
       days: 0,
       count: 3,
