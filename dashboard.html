@@ -75,12 +75,15 @@
         <div id="directions-wrapper" class="tile is-parent ">
           <article class="tile is-child notification is-info">
             <p class="subtitle">Directions</p>
-            <input id="txtStartAddress" type="text" class="input" placeholder="Address or Coordinates"></input>
-            <div class="inputParent is-fullwidth">
-              <input id="txtStartDate" type="date" class="input mr-1"></input>
-              <input id="txtStartTime" type="time" class="input ml-1" value="09:00"></input>
-            </div>
-            <button id="btnUpdate" class="button updateButton is-fullwidth">Update</button>
+            <form>
+              <input id="txtStartAddress" type="text" class="input" placeholder="Address or Coordinates"
+                required></input>
+              <div class="inputParent is-fullwidth">
+                <input id="txtStartDate" type="date" class="input mr-1" required></input>
+                <input id="txtStartTime" type="time" class="input ml-1" value="09:00" required></input>
+              </div>
+              <button id="btnUpdate" class="button updateButton is-fullwidth">Update</button>
+            </form>
 
             <section class="box table-container custom-table" id="drivingDirections">
               <table class="table is-fullwidth ">

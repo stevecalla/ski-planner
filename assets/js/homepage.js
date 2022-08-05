@@ -109,6 +109,26 @@ function displayMarkers(pass) {
 
       let dataSNOTEL;
 
+      // Initial popup text
+      let popupText = `<h4>${skiArea.Name}</h4>
+                <p><progress class="progress is-small is-info" max="100"></progress></p>
+                <a class="button custom-button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.Name}">Details ➡️</a>
+              `;
+
+      let popupOptions = {
+        autoPan: true,
+        keepInView: true,
+        offset: [0, -24],
+      };
+
+      let popup = L.popup(popupOptions)
+        .setLatLng({
+          lat: skiArea.Latitude,
+          lng: skiArea.Longitude,
+        })
+        .setContent(popupText)
+        .openOn(map);
+
       $.ajax(settings)
         .done(function (response) {
           let i = 0;
@@ -126,25 +146,15 @@ function displayMarkers(pass) {
               // `Change In Snow Depth (in): ${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}`
               // `Observed Air Temperature (degrees farenheit): ${dataSNOTEL.data[0]["Observed Air Temperature (degrees farenheit)"]}`
 
-              let popupText = `<h4>${skiArea.Name}</h4>
+              // Update the popup text with SNOTEL data
+              popupText = `<h4>${skiArea.Name}</h4>
                 <p>Snow Depth (in): ${dataSNOTEL.data[0]["Snow Depth (in)"]}<br />
                 Change In Snow Depth (in): ${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}<br />
-                Air Temperature: ${dataSNOTEL.data[0]["Observed Air Temperature (degrees farenheit)"]} \xB0F<br />
+                Air Temperature: ${dataSNOTEL.data[0]["Observed Air Temperature (degrees farenheit)"]} \xB0F</p>
                 <a class="button custom-button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.Name}">Details ➡️</a>
               `;
 
-              let popupOptions = {
-                autoPan: true,
-                keepInView: true,
-                offset: [0, -24],
-              };
-              L.popup(popupOptions)
-                .setLatLng({
-                  lat: skiArea.Latitude,
-                  lng: skiArea.Longitude,
-                })
-                .setContent(popupText)
-                .openOn(map);
+              popup.setContent(popupText);
             }
             // If the closest SNOTEL station does not have any data, go to the next one.  Powderhorn is this way.  Pulling 3 stations just in case.
           } while (dataSNOTEL.data.length === 0);

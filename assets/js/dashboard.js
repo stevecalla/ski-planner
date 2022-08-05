@@ -37,7 +37,14 @@ function getCurrentSkiArea() {
     get: (searchParams, prop) => searchParams.get(prop),
   });
 
-  // console.log(queryString.resort);
+  // Theoretically, this should never execute
+  if (!queryString.resort) {
+    launchValidationModal(
+      "Querystring Error",
+      "Please Select a Ski Area",
+      "getCurrentSkiArea"
+    );
+  }
 
   const skiArea = skiAreas.find(
     (element) =>
@@ -337,6 +344,8 @@ function displaySnowConditions(skiArea) {
 }
 
 btnUpdate.addEventListener("click", function (event) {
+  event.preventDefault();
+
   const skiArea = getCurrentSkiArea();
 
   displayDrivingDirections(skiArea);
