@@ -33,6 +33,10 @@ body {
   align-items: center;
 }
 
+.custom-letter-spacing {
+  letter-spacing: .1rem;
+}
+
 .custom-box-blue {
   background-color: #3E8ED0;
   color: white;
