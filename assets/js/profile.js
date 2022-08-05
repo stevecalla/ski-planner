@@ -477,11 +477,11 @@ function clearLocalStorage() {
   localStorage.removeItem("userCurrentPosition");
 
   //reset name and email
-  nameInput.setAttribute("placeholder", "Powder Day");
-  emailInput.setAttribute("placeholder", "pow@skiallday.com");
+  nameInput.setAttribute("placeholder", "Enter first & last name");
+  emailInput.setAttribute("placeholder", "Enter valid email");
   addressInput.setAttribute(
     "placeholder",
-    "5280 SkiPowder Street, City, State, Zipcode"
+    "Street, City, State, Zipcode"
   );
   nameInput.value = "";
   emailInput.value = "";
