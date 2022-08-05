@@ -49,9 +49,8 @@
     <div class="tile is-ancestor">
       <div class="tile is-12">
 
-        <div class="tile is-parent is-vertical">
-          <article id="powmeter-wrapper" class="tile is-child notification is-info">
-            <div class="content">
+        <div class="tile is-parent is-vertical ml-2 mr-2">
+          <article id="powmeter-wrapper" class="tile is-child notification is-info custom-tile">
               <p class="subtitle">pow meter</p>
               <div class="content powMeterSection">
                 <section id="snowConditions">
@@ -63,9 +62,8 @@
                   </figure>
                 </section>
               </div>
-            </div>
           </article>
-          <article id="staticmap-wrapper" class="tile is-child notification is-info">
+          <article id="staticmap-wrapper" class="tile is-child notification is-info custom-tile">
             <p class="subtitle">Map</p>
             <section class="mapSection" id="mapArea">
               <img id="staticMap" />
@@ -73,7 +71,7 @@
           </article>
         </div>
         <div id="directions-wrapper" class="tile is-parent ">
-          <article class="tile is-child notification is-info">
+          <article class="tile is-child notification is-info custom-tile">
             <p class="subtitle">Directions</p>
             <form>
               <input id="txtStartAddress" type="text" class="input" placeholder="Address or Coordinates"
@@ -82,7 +80,7 @@
                 <input id="txtStartDate" type="date" class="input mr-1" required></input>
                 <input id="txtStartTime" type="time" class="input ml-1" value="09:00" required></input>
               </div>
-              <button id="btnUpdate" class="button updateButton is-fullwidth">Update</button>
+              <button id="btnUpdate" class="button updateButton is-fullwidth is-size">Update</button>
             </form>
 
             <section class="box table-container custom-table" id="drivingDirections">
@@ -123,16 +121,12 @@
                 </tfoot> -->
               </table>
             </section>
-
           </article>
         </div>
         <div class="tile is-parent" id="weather-wrapper">
-          <article class="tile is-child notification is-info">
-            <div class="content">
+          <article class="tile is-child notification is-info custom-tile">
               <p class="subtitle">weather</p>
-              <p class="subtitle"></p>
-              <div class="content">
-
+              
                 <!-- WEATHER CONTENT -->
                 <!-- TAB NAVIGATION -->
 
@@ -163,9 +157,6 @@
                 </div>
 
                 <!-- WEATHER CONTENT -->
-
-              </div>
-            </div>
           </article>
         </div>
       </div>
