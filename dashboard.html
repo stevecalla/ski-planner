@@ -38,11 +38,11 @@
     <div class="title-wrapper">
       <button class="button is-medium custom-button is-info" id="back-button">Go Back</button>
 
-      <h1 class="title">Powder Bound</h1>
+      <h1 class="dashboardtitle">Powder Bound</h1>
 
       <button class="button is-medium custom-button is-info" id="modal-profile-dashboard-button">Profile</button>
     </div>
-    <h1 class="sub-title title" id="skiAreaName"></h1>
+    <h1 class="sub-title dashboardtitle" id="skiAreaName"></h1>
   </header>
 
   <main>
@@ -55,9 +55,9 @@
               <p class="subtitle">pow meter</p>
               <div class="content powMeterSection">
                 <section id="snowConditions">
-                  <h3>Snow Conditions</h3>
-                  <label id="lblSnowDepth"></label><br />
-                  <label id="lblChangeInSnowDepth"></label><br />
+                  <h3 class="powText">Snow Conditions</h3>
+                  <label class="powText" id="lblSnowDepth"></label><br />
+                  <label class="powText" id="lblChangeInSnowDepth"></label><br />
                   <figure class="is-image is-square">
                     <img id="powMeterImage" src="">
                   </figure>
@@ -72,8 +72,6 @@
             </section>
           </article>
         </div>
-
-
         <div id="directions-wrapper" class="tile is-parent ">
           <article class="tile is-child notification is-info">
             <p class="subtitle">Directions</p>
@@ -84,8 +82,8 @@
             </div>
             <button id="btnUpdate" class="button updateButton is-fullwidth">Update</button>
 
-            <section class="box table-container" id="drivingDirections">
-              <table class="table is-fullwidth">
+            <section class="box table-container custom-table" id="drivingDirections">
+              <table class="table is-fullwidth ">
                 <thead>
                   <tr>
                     <th class="has-text-centered" colspan="5">
