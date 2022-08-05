@@ -47,6 +47,17 @@ function displayMarkers(pass) {
     },
   });
 
+  const FavoriteResortIcon = L.Icon.extend({
+    options: {
+      shadowUrl: "./assets/images/star.shadow.png",
+      iconSize: [32, 32],
+      shadowSize: [59, 32],
+      iconAnchor: [16, 32],
+      shadowAnchor: [16, 32],
+      tooltipAnchor: [10, -24],
+    },
+  });
+
   const redIcon = new ResortIcon({ iconUrl: "./assets/images/red-dot.png" });
   const blueIcon = new ResortIcon({
     iconUrl: "./assets/images/blue-dot.png",
@@ -54,13 +65,24 @@ function displayMarkers(pass) {
   const yellowIcon = new ResortIcon({
     iconUrl: "./assets/images/yellow-dot.png",
   });
+  const favoriteIcon = new FavoriteResortIcon({
+    iconUrl: "./assets/images/star.png",
+  });
 
   for (let i = 0; i < filteredSkiAreas.length; i++) {
+    // Default icon is for Independent
     let passIcon = blueIcon;
     if (filteredSkiAreas[i].pass.trim().toLowerCase() === "epic") {
       passIcon = yellowIcon;
     } else if (filteredSkiAreas[i].pass.trim().toLowerCase() === "ikon") {
       passIcon = redIcon;
+    }
+
+    let favoriteResorts = getFavoriteResorts();
+    //let favoriteResorts = ["Loveland", "Winter Park", "Vail"];
+
+    if (favoriteResorts.includes(filteredSkiAreas[i].name)) {
+      passIcon = favoriteIcon;
     }
 
     var markerOptions = {
@@ -111,6 +133,17 @@ function displayMarkers(pass) {
     }
     marker.addEventListener("click", markerClick);
   }
+}
+
+function getFavoriteResorts() {
+  let favoriteResorts = [];
+  if (localStorage.getItem("ski-profile")) {
+    const skiProfile = JSON.parse(localStorage.getItem("ski-profile"));
+    if (skiProfile.resorts.length > 0) {
+      favoriteResorts = skiProfile.resorts;
+    }
+  }
+  return favoriteResorts;
 }
 
 function displaySNOTELDataInPopup(skiArea, popup) {
@@ -186,10 +219,48 @@ chkEpic.addEventListener("click", passChecked);
 chkIkon.addEventListener("click", passChecked);
 chkIndependent.addEventListener("click", passChecked);
 
+function selectAndDisplayMarkers() {
+  if (localStorage.getItem("ski-profile")) {
+    const skiProfile = JSON.parse(localStorage.getItem("ski-profile"));
+
+    if (skiProfile.passes.length > 0) {
+      // Uncheck all checkboxes
+      chkEpic.checked = false;
+      chkIkon.checked = false;
+      chkIndependent.checked = false;
+
+      // Display their passes
+      for (let i = 0; i < skiProfile.passes.length; i++) {
+        // Check the appropriate checkboxes based on their profile
+        if (skiProfile.passes[i].trim().toLowerCase() === "epic") {
+          chkEpic.checked = true;
+        }
+        if (skiProfile.passes[i].trim().toLowerCase() === "ikon") {
+          chkIkon.checked = true;
+        }
+        if (skiProfile.passes[i].trim().toLowerCase() === "independent") {
+          chkIndependent.checked = true;
+        }
+
+        // Display their profile passes
+        displayMarkers(skiProfile.passes[i]);
+      }
+    } else {
+      // if they have a profile, but no passes selected, show them all
+      displayMarkers("");
+    }
+  } else {
+    // if they don't have a profile, show them all
+    displayMarkers("");
+  }
+}
+
 function init() {
   try {
     initMap();
-    displayMarkers("");
+
+    selectAndDisplayMarkers();
+
     //throw "Map Error";
   } catch (error) {
     launchValidationModal("Map Error", error, "Map");

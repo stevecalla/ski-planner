@@ -20,7 +20,7 @@ function isLatLong(coords) {
 
 // BACK BUTTON FOR HOME & DASHBOARD PAGE
 function renderLastPage() {
-  history.back();
+  document.referrer ? (window.location = document.referrer) : history.back();
 }
 
 // RENDER PROFILE MODAL FROM HOME PAGE OR DASHBOARD PAGE BUTTON CLICK; SEE DASHBOARD JS OR HOMEPAGE JS FOR EVENT LISTENER
@@ -91,8 +91,8 @@ let modalTitle = document.getElementById("modal-title");
 let modalBody = document.getElementById("modal-body");
 let weatherWrapper = document.getElementById("weather-wrapper");
 
-let deleteButton = document.getElementById('delete-button');
-let cancelButton = document.getElementById('cancel-button');
+let deleteButton = document.getElementById("delete-button");
+let cancelButton = document.getElementById("cancel-button");
 
 function launchValidationModal(title, body, source) {
   console.log(source);
@@ -100,14 +100,14 @@ function launchValidationModal(title, body, source) {
   validationModal.classList.add("is-active"); //displays modal
   modalTitle.textContent = title; //adds title
   modalBody.textContent = body; //adds content
-  
+
   // if (source === "weather") {weatherWrapper.classList.add('hide')}; //hides element with no info
-  
-  if (source === 'profileDeleteButton') {
-    deleteButton.classList.remove('hide');
-    cancelButton.classList.remove('hide');
+
+  if (source === "profileDeleteButton") {
+    deleteButton.classList.remove("hide");
+    cancelButton.classList.remove("hide");
   }
-  
+
   if (source === "weather") {
     weatherWrapper.classList.add("hide"); //hides element with no info
   } else if (
