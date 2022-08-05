@@ -10,6 +10,7 @@ let saveNameIcon = document.getElementById("save-name-icon");
 let saveEmailIcon = document.getElementById("save-email-icon");
 let saveAddressIcon = document.getElementById("save-address-icon");
 let allIconElements = document.querySelectorAll("i");
+let allButtonElements = document.querySelectorAll("button");
 let passSelectedContainer = document.getElementById(
   "passes-selected-container"
 );
@@ -33,12 +34,15 @@ saveEmailIcon.addEventListener("click", saveNameEmailAddressInput);
 saveAddressIcon.addEventListener("click", saveNameEmailAddressInput);
 passSelectedContainer.addEventListener("click", deletePassResort);
 resortSelectedContainer.addEventListener("click", deletePassResort);
+
 savePassIcon.addEventListener("click", () =>
   savePassResortInput(event, "passes")
 );
+
 saveResortIcon.addEventListener("click", () =>
   savePassResortInput(event, "resorts")
 );
+
 deleteProfileButton.addEventListener("click", confirmDeleteLocalStorage);
 addressInput.addEventListener("input", () =>
   fetchMapquestCreateAutoComplete(addressInput)
@@ -151,6 +155,7 @@ function saveNameEmailAddressInput(event) {
     setLocalStorage(field, input);
     createMemberSinceDate();
     resetNameEmailAddress(field); //clear/reset values
+    enableNameEmailAddress();
   } else {
     if (!getLocalStorage()) {
       document
@@ -200,7 +205,9 @@ function renderValidNameEmailAddress(field, input) {
     : addressInput.setAttribute("placeholder", input); //set placeholder to input value
 
   //swap disk and check icon to confirm valid
-  allIconElements.forEach((element) => {
+  // allIconElements.forEach((element) => {
+  allButtonElements.forEach((element) => {
+    // console.log(field, element.classList)
     if (element.classList.contains(`${field}-disk`)) {
       element.classList.toggle("is-hidden");
     }
@@ -212,7 +219,8 @@ function renderValidNameEmailAddress(field, input) {
 
 function hideAlertTimeOut(field, validInput) {
   setTimeout(() => {
-    allIconElements.forEach((element) => {
+    // allIconElements.forEach((element) => {
+    allButtonElements.forEach((element) => {
       if (element.classList.contains(`${field}-disk`)) {
         element.classList.remove("is-hidden");
       }
@@ -252,6 +260,24 @@ function createMemberSinceDate() {
     memberCreatedDateInput.classList.remove("is-hidden");
     return memberCreatedDateInput;
   }
+}
+
+function enableNameEmailAddress() {
+  allButtonElements.forEach((element) => {
+    if (element.classList.contains(`input`)) {
+      element.removeAttribute('disabled');
+      element.classList.add('is-primary');
+    }
+  });
+}
+
+function disableNameEmailAddress() {
+  allButtonElements.forEach((element) => {
+    if (element.classList.contains(`input`)) {
+      element.setAttribute('disabled', 'true');
+      element.classList.remove('is-primary');
+    }
+  });
 }
 
 //RENDER AND SAVE PASSES OR RESORTS
@@ -352,7 +378,8 @@ function renderPassOrResorts(appendedPassOrResortList, selectedList) {
   if (appendedPassOrResortList.length === 0) {
     //if none selected render default containers
     // console.log('create');
-    createPassResortDefaultContainer(selectedList);
+    console.log('yes')
+    createPassResortDefaultContainer('selectedUpdate', selectedList);
   }
 
   document
@@ -450,46 +477,80 @@ function clearLocalStorage() {
   localStorage.removeItem("userCurrentPosition");
 
   //reset name and email
-  nameInput.setAttribute("placeholder", "Powder Day");
-  emailInput.setAttribute("placeholder", "pow@skiallday.com");
+  nameInput.setAttribute("placeholder", "Enter first & last name");
+  emailInput.setAttribute("placeholder", "Enter valid email");
   addressInput.setAttribute(
     "placeholder",
-    "5280 SkiPowder Street, City, State, Zipcode"
+    "Street, City, State, Zipcode"
   );
   nameInput.value = "";
   emailInput.value = "";
   addressInput.value = "";
 
   //reset pass resort container
-  createPassResortDefaultContainer();
+  createPassResortDefaultContainer('deleteProfile');
 
   //hide member create date
   memberCreatedDateInput.classList.add("is-hidden");
 
   nameInput.focus();
+
+  disableNameEmailAddress();
+  loadPassList();
+  loadResortList();
 }
 
-function createPassResortDefaultContainer(list) {
-  // let defaultList = ['pass', 'resort'];
+function createPassResortDefaultContainer(source, list) {
+  let defaultList = ['passes', 'resort'];
 
-  // defaultList.forEach(element => {
-  //   element === 'pass' ? passSelectedContainer.textContent = "" : resortSelectedContainer.textContent = "";
-  list === "passes"
-    ? (passSelectedContainer.textContent = "")
-    : (resortSelectedContainer.textContent = "");
-  let defaultContainer = document.createElement("div");
-  defaultContainer.classList.add(
-    "box",
-    "has-text-white",
-    "is-size-4",
-    "custom-box-gray",
-    "mb-1"
-  );
-  // defaultContainer.textContent = `No ${element} Selected`;
-  defaultContainer.textContent = `No ${list} Selected`;
-  // element === 'pass' ? passSelectedContainer.append(defaultContainer) : resortSelectedContainer.append(defaultContainer);
-  list === "passes"
-    ? passSelectedContainer.append(defaultContainer)
-    : resortSelectedContainer.append(defaultContainer);
-  // })
+  if (source === 'deleteProfile') {
+    defaultList.forEach(element => {
+      if (element === 'passes') {
+        let defaultContainer = document.createElement("div");
+        defaultContainer.classList.add(
+          "box",
+          "has-text-white",
+          "is-size-4",
+          "custom-box-gray",
+          "mb-1"
+        );
+        defaultContainer.textContent = `No ${element} Selected`;
+  
+        passSelectedContainer.textContent = "";
+        passSelectedContainer.append(defaultContainer);
+      } else {
+        let defaultContainer = document.createElement("div");
+        defaultContainer.classList.add(
+          "box",
+          "has-text-white",
+          "is-size-4",
+          "custom-box-gray",
+          "mb-1"
+        );
+        defaultContainer.textContent = `No ${element} Selected`;
+  
+        resortSelectedContainer.textContent = "";
+        resortSelectedContainer.append(defaultContainer);
+      }
+    })
+  }
+
+  if (source === 'selectedUpdate') {
+    list === "passes"
+      ? (passSelectedContainer.textContent = "")
+      : (resortSelectedContainer.textContent = "");
+    let defaultContainer = document.createElement("div");
+    defaultContainer.classList.add(
+      "box",
+      "has-text-white",
+      "is-size-4",
+      "custom-box-gray",
+      "mb-1"
+    );
+    defaultContainer.textContent = `No ${list} Selected`;
+    list === "passes"
+      ? passSelectedContainer.append(defaultContainer)
+      : resortSelectedContainer.append(defaultContainer);
+    // })
+  }
 }
