@@ -21,27 +21,33 @@
 </head>
 
 <body>
+  <!-- SHOW PROFILE MODAL & PULL FROM STORAGE -->
+  <!-- <button id="profile-button">SHOW PROFILE MODAL</button> -->
 
-  <div class="modal is-active" id="profile-modal">
+  <!-- USE CLASS is-active TO SHOW/HIDE MODAL -->
+  <div id="profile-modal" class="modal is-active">
     <div class="modal-background"></div>
-    <div class="modal-card custom-card custom-box-blue">
+    <div class="modal-content">
+      <div class="box custom-box-blue">
 
-        <header class="header-wrapper m-3">
-          <div class="header-title">
-            <p class="has-text-white is-size-1 pl-2">Your Profile</p>
-            <div>
-              <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2" aria-hidden=""></i>
-              <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2" aria-hidden=""></i>
+        <!-- TO DELETE -->
+        <div class="mb-2" style="overflow: scroll; height: 550px">
+
+          <!-- MODAL HEADER -->
+          <header class="custom-header">
+            <div class="header-title">
+              <p class="has-text-white is-size-1 pl-2">Your Profile</p>
+              <div>
+                <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2" aria-hidden=""></i>
+                <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2" aria-hidden=""></i>
+              </div>
             </div>
-          </div>
-          <p class="label column class is-hidden column has-text-white is-size-4 p-0 pl-2" id="member-created-date">
-            Member Since: January 2012</p>
-        </header>
-
-        <section class="modal-card-body custom-box-blue m-0 pt-0">
+            <p class="label column class is-hidden column has-text-white is-size-4 p-0 pl-2" id="member-created-date">
+              Member Since: January 2012</p>
+          </header>
 
           <!-- NAME INPUT -->
-          <label class="label has-text-white m-0 is-size-3">Name</label>
+          <label class="label has-text-white m-0 mt-2 is-size-3">Name</label>
           <div class="field has-addons name">
             <div class="control has-icons-left is-expanded">
               <input class="input is-success is-fullwidth" id="name-input" type="text" placeholder="Powder Day"
@@ -63,7 +69,7 @@
           </div>
 
           <!-- EMAIL INPUT-->
-          <label class="label has-text-white m-0 is-size-3">Email</label>
+          <label class="label has-text-white m-0 mt-2 is-size-3">Email</label>
           <div class="field has-addons email">
             <div class="control has-icons-left is-expanded">
               <input class="input is-success is-fullwidth" id="email-input" type="text" placeholder="pow@skiallday.com"
@@ -86,7 +92,7 @@
           </div>
 
           <!-- ADDRESS INPUT-->
-          <label class="label has-text-white m-0 is-size-3">Home Address</label>
+          <label class="label has-text-white m-0 mt-2 is-size-3">Home Address</label>
           <div class="field has-addons address">
             <div class="control has-icons-left is-expanded">
               <input class="input is-success is-fullwidth" id="address-input" type="text"
@@ -109,7 +115,7 @@
           </div>
 
           <!-- PASSES SELECTION LIST -->
-          <label class="label has-text-white m-0 is-size-3">Your Season passes</label>
+          <label class="label has-text-white m-0 mt-2 is-size-3">Your Season passes</label>
           <div class="field has-addons">
             <div class="control is-expanded">
               <div class="select is-fullwidth" id="passes-input">
@@ -136,14 +142,14 @@
           </div>
 
           <!-- PASSES LIST -->
-          <div class="box mb-3" id="passes-selected-container">
-            <div class="box has-text-white is-size-4 custom-box-gray">
+          <div class="box" id="passes-selected-container">
+            <div class="box has-text-white is-size-4 custom-box-gray mb-1">
               No Passes Selected
             </div>
           </div>
 
           <!-- RESORTS SELECTION LIST -->
-          <label class="label has-text-white m-0 is-size-3">Your Favorite Resorts</label>
+          <label class="label has-text-white m-0 mt-2 is-size-3">Your Favorite Resorts</label>
           <div class="field has-addons">
             <div class="control is-expanded">
               <div class="select is-fullwidth" id="resorts-input">
@@ -166,48 +172,49 @@
             </div>
           </div>
 
-          <!-- RESORTS LIST -->
+          <!-- resorts LIST -->
           <div class="box" id="resorts-selected-container">
-            <div class="box has-text-white is-size-4 custom-box-gray">
+            <div class="box has-text-white is-size-4 custom-box-gray mb-1">
               No Resorts Selected
             </div>
           </div>
-        </section>
 
-        <!-- FOOTER -->
-        <footer class="field is-grouped ml-4 mr-4 custom-box-blue">
+        </div>
+
+        <!-- FOOTER DELETE BUTTON -->
+        <div class="field is-grouped">
           <div class="control is-expanded">
-            <button class="button is-size-5 custom-font custom-box-blue custom-hover is-fullwidth mt-1"
+            <button class="button is-fullwidth is-size-5 custom-font custom-box-blue"
               id="save-button">Save Profile</button>
           </div>
           <div class="control is-expanded">
-            <button class="button is-danger is-size-5 custom-font custom-box-red custom-hover is-fullwidth mt-1"
+            <button class="button is-fullwidth is-danger is-size-5 custom-font custom-box-red"
               id="delete-profile-button">Delete Profile</button>
           </div>
-        </footer>
-        <!-- MODAL DELETE / CLOSE OVERLAY WITH THE X IN THE UPPER RIGHT -->
-        <!-- <button class="modal-close is-large" aria-label="close"></button> -->
-        <button class="modal-close is-large custom-close-modal" id="custom-close-modal" aria-label="close"></button>
+        </div>
       </div>
     </div>
-
+    <!-- MODAL DELETE / CLOSE OVERLAY WITH THE X IN THE UPPER RIGHT -->
+    <!-- <button class="modal-close is-large" aria-label="close"></button> -->
+    <button class="modal-close is-large" id="custom-close-modal" aria-label="close"></button>
+  </div>
 
   <!-- VALIDATION MODAL -->
-  <div id="validation-modal" class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-content" style="width: 330px">
-      <div class="box">
-        <p id="modal-title" style="font-weight: bold">Title</p>
-        <hr>
-        <p id="modal-body">Content</p>
-        <hr>
-        <button class="button is-success delete-button hide" id="delete-button">Delete</button>
-        <button class="button cancel-button hide" id="cancel-button">Cancel</button>
+    <div id="validation-modal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content" style="width: 330px">
+        <div class="box">
+          <p id="modal-title" style="font-weight: bold">Title</p>
+          <hr>
+          <p id="modal-body">Content</p>
+          <hr>
+          <button class="button is-success delete-button hide" id="delete-button">Delete</button>
+          <button class="button cancel-button hide" id="cancel-button">Cancel</button>
+        </div>
       </div>
     </div>
+    <button class="modal-close is-large" id="close-modal" aria-label="close"></button>
   </div>
-  <button class="modal-close is-large" id="close-modal" aria-label="close"></button>
-</div>
 
   <!-- Moment -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

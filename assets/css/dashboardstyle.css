@@ -21,9 +21,11 @@
 .subtitle {
   font-family: bangers;
   font-size: 45px;
+
   color: #209CEE;
   padding-bottom: 0px;
   margin-bottom: 0px;
+
 }
 
 .custom-button {
@@ -56,11 +58,12 @@
   font-family: bangers;
   color: var(--skiblue);
   margin-bottom: 10px;
-  
 }
 
-.custom-table{
-  max-height: 700px;
+
+.custom-table {
+  max-height: 730px;
+
   overflow-y: scroll;
 }
 
@@ -69,19 +72,18 @@
 }
 
 .inputParent {
-  display:flex;
+  display: flex;
   margin-bottom: 5px;
   margin-top: 3px;
-  
 }
 
-.input{
+.input {
   margin-bottom: 5px;
   justify-content: space-evenly;
 }
 
 .hide {
-  display: none!important;
+  display: none !important;
 }
 
 #powMeterImage {
@@ -89,13 +91,13 @@
   max-width: 250px;
 }
 
+.powText {
 
-.powText{
   font-family: bangers;
   color: white;
 }
 
-#staticMap{
+#staticMap {
   border-radius: 5px;
   border: 3px white solid;
   max-height: 400px;
@@ -116,9 +118,6 @@
   justify-content: center;
   align-items: center;
 } */
-
-
-
 
 /* .custom-tile{
     max-height: 600px;

@@ -1,25 +1,41 @@
-/* * {
-  border: 1px solid red;
-} */
-
-body {
-  /* font-family: 'Bangers'; */
-  font-family: 'Bangers', 'Cambria', Cochin, Georgia, Times, "Times New Roman", serif;
-  /* color: white; */
+* {
+  /* border: 1px solid red; */
 }
 
-/* body {
-  overflow: none!important;
-  overflow-y: none!important;
-  overflow-x: none!important;
-} */
+body {
+  font-family: 'Bangers', 'Cambria', Cochin, Georgia, Times, "Times New Roman", serif;
+}
 
-.custom-header,
+.custom-font {
+  font-family: 'Bangers', 'Cambria', Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.custom-card {
+  margin-top: 60px;
+}
+
+.custom-card {
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.header-wrapper {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid white;
+  border-radius: 5px;
+
+}
+
+.header-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .custom-box-blue {
   background-color: #3E8ED0;
-  border: 1px solid white;
   color: white;
-  border-radius: 5px;
 }
 
 .custom-box-red {
@@ -29,9 +45,9 @@ body {
   border-radius: 5px;
 }
 
-.custom-box-blue:hover,
-.custom-box-blue:focus,
-.custom-box-red:hover {
+.custom-hover:hover,
+.custom-hover:focus,
+.custom-hover:hover {
   color: white;
   border: 2px solid white;
 }
@@ -40,25 +56,19 @@ body {
   background-color: gray;
 }
 
-.custom-font {
-  font-family: 'Bangers', 'Cambria', Cochin, Georgia, Times, "Times New Roman", serif;
+/* FOOTER */
+.custom-footer {
+  display: flex;
+  justify-content: space-around;
 }
 
-.custom-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+/* MAIN PAGE CLOSE MODAL X */
+.custom-close-modal {
+  right: 5px;
 }
 
-/* .customer-red-border {
-  border: 2px solid red;
-  border-radius: 3px;
-} */
-
-.header-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.hide {
+  display: none;
 }
 
 /* JQUERY AUTOCOMPLETE CSS */
@@ -72,13 +82,4 @@ body {
 /* ENSURES THE AUTOCOMPLETE ITEM DOESNT RENDER AT THE BOTTOM LEFT OF DESKTOP UX */
 .ui-helper-hidden-accessible {
   display: none !important;
-}
-
-.custom-save-button {
-  position: sticky;
-  bottom: 0px;
-}
-
-.hide {
-  display: none;
 }

@@ -34,20 +34,19 @@
 
   <aside>
     <section class="level-item has-text-center">
-      <form id="searchForm">
-        <select id="ddPass">
-          <option value="">All</option>
-          <option value="Epic">Epic</option>
-          <option value="Ikon">Ikon</option>
-          <option value="Independent">Independent</option>
-        </select>
+      <form>
+        <div class="custom-checkboxes mb-2">
+          <label for="chkEpic" class="checkbox m-2">
+            <input id="chkEpic" type="checkbox" name="resortGroup" value="Epic" checked> Epic</label>
+          <label for="chkIkon" class="checkbox m-2">
+            <input id="chkIkon" type="checkbox" name="resortGroup" value="Ikon" checked> Ikon</label>
+          <label for="chkIndependent" class="checkbox m-2">
+            <input id="chkIndependent" type="checkbox" name="resortGroup" value="Independent" checked>
+            Independent</label>
+        </div>
       </form>
-
-      <hr>
     </section>
   </aside>
-
-
 
   <main>
     <section class="mapSection" id="mapArea">

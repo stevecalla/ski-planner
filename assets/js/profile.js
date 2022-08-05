@@ -38,9 +38,11 @@ savePassIcon.addEventListener("click", () =>
 );
 saveResortIcon.addEventListener("click", () =>
   savePassResortInput(event, "resorts")
-  );
+);
 deleteProfileButton.addEventListener("click", confirmDeleteLocalStorage);
-addressInput.addEventListener("input", () => fetchMapquestCreateAutoComplete(addressInput));// SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
+addressInput.addEventListener("input", () =>
+  fetchMapquestCreateAutoComplete(addressInput)
+); // SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
 closeModalElement.addEventListener("click", () => renderLastPage());
 document.addEventListener("keydown", (event) => {
   if (event.keyCode === 27 || event.target.classList.contains("modal-close")) {
@@ -72,15 +74,15 @@ function loadResortList() {
 
   skiAreas.forEach((resort) => {
     resortElement = document.createElement("option");
-    resortElement.setAttribute("value", resort.Name);
-    resortElement.textContent = resort.Name;
+    resortElement.setAttribute("value", resort.name);
+    resortElement.textContent = resort.name;
     resortList.append(resortElement);
   });
 }
 
 function loadPassList() {
   passList.textContent = "";
-  let passListAll = ["Epic", "IKon", "Independent"];
+  let passListAll = ["Epic", "Ikon", "Independent"];
 
   //SET DEFAULT OPTION
   let passElement = document.createElement("option");
@@ -159,7 +161,7 @@ function saveNameEmailAddressInput(event) {
       launchValidationModal(
         `Please Complete Profile`,
         `Enter name, email and preferred address, please.`,
-        'profileSaveButton'
+        "profileSaveButton"
       );
     }
   }
@@ -426,17 +428,17 @@ function confirmDeleteLocalStorage() {
   // let deleteButton = document.getElementById('delete-button');
   // let cancelButton = document.getElementById('cancel-button');
 
-  cancelButton.addEventListener('click', (event) => {
+  cancelButton.addEventListener("click", (event) => {
     validationModal.classList.remove("is-active");
-  })
+  });
 
   launchValidationModal(
     `Delete Profile`,
     `Are you sure you want to delete your profiele?`,
-    'profileDeleteButton'
+    "profileDeleteButton"
   );
 
-  deleteButton.addEventListener('click', clearLocalStorage);
+  deleteButton.addEventListener("click", clearLocalStorage);
 }
 
 function clearLocalStorage() {
@@ -464,7 +466,7 @@ function clearLocalStorage() {
   //hide member create date
   memberCreatedDateInput.classList.add("is-hidden");
 
-    nameInput.focus();
+  nameInput.focus();
 }
 
 function createPassResortDefaultContainer(list) {
