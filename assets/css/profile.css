@@ -78,3 +78,7 @@ body {
   position: sticky;
   bottom: 0px;
 }
+
+.hide {
+  display: none;
+}
