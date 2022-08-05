@@ -12,7 +12,7 @@
   --skiblue: #3e8ed0;
 }
 
-.title {
+.dashboardtitle {
   font-family: bangers;
   font-size: 60px;
   color: white;
@@ -56,6 +56,11 @@
   
 }
 
+.custom-table{
+  max-height: 730px;
+  overflow-y: scroll;
+}
+
 .inputParent {
   display:flex;
   margin-bottom: 5px;
@@ -70,6 +75,20 @@
 
 .hide {
   display: none!important;
+}
+
+#powMeterImage {
+  max-height: 250px;
+  max-width: 250px;
+}
+
+.powText{
+  font-family: bangers;
+  color: white;
+}
+
+#staticMap{
+  border-radius: 5px;
 }
 
 /* .powMeterSection{
