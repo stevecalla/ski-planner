@@ -16,11 +16,14 @@
   font-family: bangers;
   font-size: 60px;
   color: white;
+  white-space: nowrap;
 }
 .subtitle {
   font-family: bangers;
   font-size: 45px;
   color: #209CEE;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 .custom-button {
@@ -57,8 +60,12 @@
 }
 
 .custom-table{
-  max-height: 730px;
+  max-height: 700px;
   overflow-y: scroll;
+}
+
+.custom-tile{
+  padding: 20px;
 }
 
 .inputParent {
@@ -82,6 +89,7 @@
   max-width: 250px;
 }
 
+
 .powText{
   font-family: bangers;
   color: white;
@@ -89,7 +97,19 @@
 
 #staticMap{
   border-radius: 5px;
+  border: 3px white solid;
+  max-height: 400px;
+  max-width: 450px;
 }
+
+
+/* .pad-left{
+  margin-left: 5px;
+}
+
+.pad-right{
+  margin-right: 5px;
+} */
 
 /* .powMeterSection{
   display: flex;
