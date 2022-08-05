@@ -45,7 +45,7 @@
           <div class="field has-addons name">
             <div class="control has-icons-left is-expanded">
               <input class="input is-success is-fullwidth" id="name-input" type="text" placeholder="Powder Day"
-                value="">
+                value="" required>
               <span class="icon is-small is-left">
                 <i class="fas fa-user"></i>
               </span>
@@ -54,11 +54,15 @@
                 again! ⚠️</p>
             </div>
             <div class="control name" id="save-name-icon">
-              <a class="button is-success name">
-                <i class="fas fa-save name-disk name" id="save-disk" style="color: white"></i>
-                <i class="fas fa-check name-check is-hidden" id="save-check"
-                  style="background-color: white; color: green;"></i>
-              </a>
+              <button class="button fas fa-edit name-disk name input" id="name-disk" disabled></button>
+              <button class="button fas fa-check name-check is-primary is-hidden" id="name-check" style="color: white;"></button>
+
+              <!-- <a class="button is-primary name" disabled> -->
+                <!-- <i class="fas fa-save name-disk name" disabled id="save-disk" style="color: white"></i> -->
+                <!-- <i class="fas fa-check name-check is-hidden" id="save-check"
+                  style="background-color: white; color: green;"></i> -->
+              <!-- </a> -->
+
             </div>
           </div>
 
@@ -77,11 +81,8 @@
                 again! ⚠️</p>
             </div>
             <div class="control email" id="save-email-icon">
-              <a class="button is-success email">
-                <i class="fas fa-save email-disk email" id="email-disk" style="color: white"></i>
-                <i class="fas fa-check email-check is-hidden" id="email-check"
-                  style="background-color: white; color: green;"></i>
-              </a>
+              <button class="button fas fa-edit email-disk email input" id="email-disk" disabled></button>
+              <button class="button fas fa-check email-check is-primary is-hidden" id="email-check" style="color: white;"></button>
             </div>
           </div>
 
@@ -100,11 +101,8 @@
                 Try again! ⚠️</p>
             </div>
             <div class="control address" id="save-address-icon">
-              <a class="button is-success address">
-                <i class="fas fa-save address-disk email" id="address-disk" style="color: white"></i>
-                <i class="fas fa-check address-check is-hidden" id="address-check"
-                  style="background-color: white; color: green;"></i>
-              </a>
+              <button class="button fas fa-edit address-disk address input" id="address-disk" disabled></button>
+              <button class="button fas fa-check address-check is-primary is-hidden" id="address-check" style="color: white;"></button>
             </div>
           </div>
 
@@ -127,11 +125,16 @@
             <button type="submit" class="button is-primary">Choose</button>
           </div> -->
             <div class="control">
-              <a class="button is-success passes" id="save-passes-icon">
+
+              <button class="button fas fa-edit passes-disk passes input" id="save-passes-icon" disabled></button>
+              <button class="button fas fa-check passes-check is-primary is-hidden" style="color: white;"></button>
+
+              <!-- <a class="button is-success passes" id="save-passes-icon">
                 <i class="fas fa-save passes-disk passes" id="save-disk" style="color: white"></i>
                 <i class="fas fa-check passes-check is-hidden" id="save-check"
                   style="background-color: white; color: green;"></i>
-              </a>
+              </a> -->
+
             </div>
           </div>
 
@@ -158,11 +161,16 @@
                 email. ⚠️</p>
             </div>
             <div class="control">
+
+              <button class="button fas fa-edit resorts-disk resorts input" id="save-resorts-icon" disabled></button>
+              <button class="button fas fa-check resorts-check is-primary is-hidden" style="color: white;"></button>
+<!-- 
               <a class="button is-success resorts" id="save-resorts-icon">
                 <i class="fas fa-save resorts-disk resorts" id="save-disk" style="color: white"></i>
                 <i class="fas fa-check resorts-check is-hidden" id="save-check"
                   style="background-color: white; color: green;"></i>
-              </a>
+              </a> -->
+
             </div>
           </div>
 
@@ -177,11 +185,11 @@
         <!-- FOOTER -->
         <footer class="field is-grouped ml-4 mr-4 custom-box-blue">
           <div class="control is-expanded">
-            <button class="button is-size-5 custom-font custom-box-blue custom-hover is-fullwidth mt-1"
+            <button class="button is-size-5 custom-font custom-box-blue custom-hover is-fullwidth mt-1 custom-letter-spacing"
               id="save-button">Save Profile</button>
           </div>
           <div class="control is-expanded">
-            <button class="button is-danger is-size-5 custom-font custom-box-red custom-hover is-fullwidth mt-1"
+            <button class="button is-danger is-size-5 custom-font custom-box-red custom-hover is-fullwidth mt-1 custom-letter-spacing"
               id="delete-profile-button">Delete Profile</button>
           </div>
         </footer>
@@ -220,6 +228,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   <script src="./assets/js/testAutoComplete.js"></script>
+  <script src="./assets/js/config.js"></script>
   <script src="./assets/js/utils.js"></script>
   <script src="./assets/js/skiAreas.js"></script>
   <script src="./assets/js/profile.js"></script>

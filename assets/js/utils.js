@@ -34,6 +34,7 @@ function fetchMapquestCreateAutoComplete(addressElement) {
   let input = addressElement.value;
   if (input.length > 1) {
     let key = config.MAPQUEST_KEY;
+    // let key = '4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i';
     let limit = 15;
     let collection = "adminArea,poi,address,category,franchise,airport";
     let urlSlug = `https://www.mapquestapi.com/search/v3/prediction?key=${key}&limit=${limit}&collection=${collection}&q=${input}`;
