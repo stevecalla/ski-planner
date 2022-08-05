@@ -28,20 +28,20 @@
 
         <header class="header-wrapper m-3">
           <div class="header-title">
-            <p class="has-text-white is-size-1 pl-2">Your Profile</p>
+            <p class="has-text-white is-size-2-mobile is-size-1 pl-2 custom-letter-spacing">Your Profile</p>
             <div>
               <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2" aria-hidden=""></i>
               <i class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2" aria-hidden=""></i>
             </div>
           </div>
-          <p class="label column class is-hidden column has-text-white is-size-4 p-0 pl-2" id="member-created-date">
+          <p class="label column class is-hidden column has-text-white is-size-4 p-0 pl-2 custom-letter-spacing" id="member-created-date">
             Member Since: January 2012</p>
         </header>
 
         <section class="modal-card-body custom-box-blue m-0 pt-0">
 
           <!-- NAME INPUT -->
-          <label class="label has-text-white m-0 is-size-3">Name</label>
+          <label class="label has-text-white m-0 is-size-3 custom-letter-spacing">Name</label>
           <div class="field has-addons name">
             <div class="control has-icons-left is-expanded">
               <input class="input is-success is-fullwidth" id="name-input" type="text" placeholder="Powder Day"
@@ -63,7 +63,7 @@
           </div>
 
           <!-- EMAIL INPUT-->
-          <label class="label has-text-white m-0 is-size-3">Email</label>
+          <label class="label has-text-white m-0 is-size-3 custom-letter-spacing">Email</label>
           <div class="field has-addons email">
             <div class="control has-icons-left is-expanded">
               <input class="input is-success is-fullwidth" id="email-input" type="text" placeholder="pow@skiallday.com"
@@ -86,7 +86,7 @@
           </div>
 
           <!-- ADDRESS INPUT-->
-          <label class="label has-text-white m-0 is-size-3">Home Address</label>
+          <label class="label has-text-white m-0 is-size-3 custom-letter-spacing">Home Address</label>
           <div class="field has-addons address">
             <div class="control has-icons-left is-expanded">
               <input class="input is-success is-fullwidth" id="address-input" type="text"
@@ -109,7 +109,7 @@
           </div>
 
           <!-- PASSES SELECTION LIST -->
-          <label class="label has-text-white m-0 is-size-3">Your Season passes</label>
+          <label class="label has-text-white m-0 is-size-3 custom-letter-spacing">Your Season passes</label>
           <div class="field has-addons">
             <div class="control is-expanded">
               <div class="select is-fullwidth" id="passes-input">
@@ -143,7 +143,7 @@
           </div>
 
           <!-- RESORTS SELECTION LIST -->
-          <label class="label has-text-white m-0 is-size-3">Your Favorite Resorts</label>
+          <label class="label has-text-white m-0 is-size-3 custom-letter-spacing">Your Favorite Resorts</label>
           <div class="field has-addons">
             <div class="control is-expanded">
               <div class="select is-fullwidth" id="resorts-input">
@@ -193,21 +193,22 @@
 
 
   <!-- VALIDATION MODAL -->
-  <div id="validation-modal" class="modal">
+  <div class="modal custom-font" id="validation-modal">
     <div class="modal-background"></div>
-    <div class="modal-content" style="width: 330px">
-      <div class="box">
-        <p id="modal-title" style="font-weight: bold">Title</p>
-        <hr>
+    <div class="modal-card"  style="width: 350px">
+      <header class="modal-card-head">
+        <p class="modal-card-title custom-letter-spacing" id="modal-title">Modal title</p>
+        <button class="delete" id="close-modal" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
         <p id="modal-body">Content</p>
-        <hr>
+      </section>
+      <footer class="modal-card-foot">
         <button class="button is-success delete-button hide" id="delete-button">Delete</button>
         <button class="button cancel-button hide" id="cancel-button">Cancel</button>
-      </div>
+      </footer>
     </div>
   </div>
-  <button class="modal-close is-large" id="close-modal" aria-label="close"></button>
-</div>
 
   <!-- Moment -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

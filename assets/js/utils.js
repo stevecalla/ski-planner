@@ -106,6 +106,9 @@ function launchValidationModal(title, body, source) {
   if (source === "profileDeleteButton") {
     deleteButton.classList.remove("hide");
     cancelButton.classList.remove("hide");
+  } else {
+    deleteButton.classList.add("hide");
+    cancelButton.classList.add("hide");
   }
 
   if (source === "weather") {

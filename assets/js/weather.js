@@ -68,7 +68,7 @@ function fetchWeatherData(latitude, longitude, resortName, requestedData) {
   //   .catch((error) => {
   // launchValidationModal(
   //   "Error: Weather Not found",
-  //   // `Try Again at a Later Date: ${response.statusText}`
+  //   // `Try again later, please`,: ${response.statusText}`
   //   'weather'
   // );
   //   });
@@ -78,7 +78,7 @@ function fetchWeatherData(latitude, longitude, resortName, requestedData) {
   // launchValidationModal(
   //   "Error: Weather Not found",
   //   // `Try Again at a Later Date: ${response.statusText}`
-  //   `Try Again at a Later Date`,
+  //   `Try again later, please`,
   //   'weather'
   // );
   requestedData === "hourly"
