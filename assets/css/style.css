@@ -17,29 +17,25 @@
   box-sizing: border-box;
 }
 
-.header{
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
 }
 .title {
   font-family: bangers;
   font-size: 75px;
   color: white;
   padding-bottom: 0px;
-  
-
 }
-.subtitle2{
+.subtitle2 {
   font-family: bangers;
 }
-
 
 .custom-button {
   margin: 5px;
   font-family: bangers;
-  color:var(--skiblue);
+  color: var(--skiblue);
 }
 
 .hero-bkg {
@@ -76,6 +72,13 @@ h6 {
   width: 80%;
   border-radius: 10px;
   border: 3px white solid;
+}
+
+.custom-checkboxes {
+  font-family: bangers;
+  color: var(--skiblue);
+  border-radius: 5px;
+  background-color: var(--light-background);
 }
 
 /* JQUERY AUTOCOMPLETE CSS */
