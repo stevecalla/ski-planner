@@ -193,21 +193,22 @@
 
 
   <!-- VALIDATION MODAL -->
-  <div id="validation-modal" class="modal">
+  <div class="modal" id="validation-modal">
     <div class="modal-background"></div>
-    <div class="modal-content" style="width: 330px">
-      <div class="box">
-        <p id="modal-title" style="font-weight: bold">Title</p>
-        <hr>
+    <div class="modal-card"  style="width: 350px">
+      <header class="modal-card-head">
+        <p class="modal-card-title custom-letter-spacing" id="modal-title">Modal title</p>
+        <button class="delete" id="close-modal" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
         <p id="modal-body">Content</p>
-        <hr>
+      </section>
+      <footer class="modal-card-foot">
         <button class="button is-success delete-button hide" id="delete-button">Delete</button>
         <button class="button cancel-button hide" id="cancel-button">Cancel</button>
-      </div>
+      </footer>
     </div>
   </div>
-  <button class="modal-close is-large" id="close-modal" aria-label="close"></button>
-</div>
 
   <!-- Moment -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

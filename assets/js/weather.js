@@ -75,12 +75,12 @@ function fetchWeatherData(latitude, longitude, resortName, requestedData) {
 
   // to test in development use the 2 lines below; to test in production comment outlines below and comment in the fetch above
 
-  // launchValidationModal(
-  //   "Error: Weather Not found",
-  //   // `Try Again at a Later Date: ${response.statusText}`
-  //   `Try Again at a Later Date`,
-  //   'weather'
-  // );
+  launchValidationModal(
+    "Error: Weather Not found",
+    // `Try Again at a Later Date: ${response.statusText}`
+    `Try again later, please.`,
+    'weather'
+  );
   requestedData === "hourly"
     ? createDailyHourlyWeatherData(weather, "hourly", "Boulder")
     : createDailyHourlyWeatherData(weather, "daily", "Boulder");

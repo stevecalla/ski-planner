@@ -171,23 +171,23 @@
       </div>
     </div>
 
-    <!-- VALIDATION MODAL -->
-    <div id="validation-modal" class="modal">
-      <div class="modal-background"></div>
-      <div class="modal-content" style="width: 330px">
-        <div class="box">
-          <p id="modal-title" style="font-weight: bold">Title</p>
-          <hr>
-          <p id="modal-body">Content</p>
-          <hr>
-        </div>
-      </div>
-      <button class="modal-close is-large" id="close-modal" aria-label="close"></button>
+  <!-- VALIDATION MODAL -->
+  <div class="modal" id="validation-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card"  style="width: 360px">
+      <header class="modal-card-head">
+        <p class="modal-card-title custom-letter-spacing" id="modal-title">Modal title</p>
+        <button class="delete" id="close-modal" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p id="modal-body">Content</p>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success delete-button hide" id="delete-button">Delete</button>
+        <button class="button cancel-button hide" id="cancel-button">Cancel</button>
+      </footer>
     </div>
-
-    <!-- <button class="js-modal-trigger" data-target="modal-js-example">
-      Open JS example modal
-    </button> -->
+  </div>
 
 
   </main>

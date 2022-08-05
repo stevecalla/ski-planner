@@ -160,7 +160,7 @@ function saveNameEmailAddressInput(event) {
       hideAlertTimeOut(field);
       launchValidationModal(
         `Please Complete Profile`,
-        `Enter name, email and preferred address, please.`,
+        `Enter name, email and preferred address.`,
         "profileSaveButton"
       );
     }
@@ -434,7 +434,7 @@ function confirmDeleteLocalStorage() {
 
   launchValidationModal(
     `Delete Profile`,
-    `Are you sure you want to delete your profiele?`,
+    `Are you sure you want to delete your profile?`,
     "profileDeleteButton"
   );
 

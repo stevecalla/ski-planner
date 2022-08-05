@@ -12,6 +12,10 @@
   --skiblue: #3e8ed0;
 }
 
+body {
+  font-family: 'Bangers', 'Cambria', Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
 .dashboardtitle {
   font-family: bangers;
   font-size: 60px;
