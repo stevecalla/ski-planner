@@ -59,10 +59,31 @@ function getResortInfo() {
 
     skiAreaName.textContent = skiArea.Name;
 
-    displayStaticMap(skiArea);
-    displayDrivingDirections(skiArea);
+    try {
+      displayStaticMap(skiArea);
+      //throw "Static Map Error";
+    } catch (error) {
+      launchValidationModal("Static Map Error", error, "staticmap-wrapper");
+    }
+
+    try {
+      displayDrivingDirections(skiArea);
+      //throw "Driving Directions Error";
+    } catch (error) {
+      launchValidationModal(
+        "Driving Directions Error",
+        error,
+        "directions-wrapper"
+      );
+    }
+
     // displayWeatherForecast(skiArea);
-    displaySnowConditions(skiArea);
+    try {
+      displaySnowConditions(skiArea);
+      //throw "POW Meter Error";
+    } catch (error) {
+      launchValidationModal("POW Meter Error", error, "powmeter-wrapper");
+    }
   } else {
     document.location.replace("./index.html");
   }
@@ -323,6 +344,10 @@ btnUpdate.addEventListener("click", function (event) {
 });
 
 function init() {
+  if (!document.location.search) {
+    document.location.href = "./index.html";
+  }
+
   // Load default values for Directions Start Controls
   txtStartDate.value = moment().add(1, "day").format("yyyy-MM-DD");
 
@@ -355,14 +380,13 @@ function init() {
 
     function success(pos) {
       let address = `${pos.coords.latitude},${pos.coords.longitude}`; //Deault address to the coordinates
-      let apiUrl = `http://www.mapquestapi.com/geocoding/v1/reverse?key=${config.MAPQUEST_KEY}&location=${address}`;
+      let apiUrl = `https://www.mapquestapi.com/geocoding/v1/reverse?key=${config.MAPQUEST_KEY}&location=${address}`;
 
       fetch(apiUrl)
         .then(function (response) {
           if (response.ok) {
             response.json().then(function (data) {
               let location = data.results[0].locations[0];
-
               // Build the address starting at the state, then city, then street address
               if (location.adminArea3) {
                 address = location.adminArea3; // State
@@ -389,11 +413,14 @@ function init() {
               );
             });
           } else {
-            alert("Error: " + response.statusText);
+            launchValidationModal(
+              "Reverse Geolocation Error",
+              "Error: " + response.statusText
+            );
           }
         })
         .catch(function (error) {
-          alert("Error: " + error);
+          launchValidationModal("Reverse Geolocation Error", "Error: " + error);
         });
 
       getResortInfo();
@@ -409,4 +436,3 @@ function init() {
   }
 }
 init();
-

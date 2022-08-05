@@ -50,7 +50,7 @@
       <div class="tile is-12">
 
         <div class="tile is-parent is-vertical">
-          <article class="tile is-child notification is-info">
+          <article id="powmeter-wrapper" class="tile is-child notification is-info">
             <div class="content">
               <p class="subtitle">pow meter</p>
               <div class="content powMeterSection">
@@ -65,17 +65,15 @@
               </div>
             </div>
           </article>
-          <article class="tile is-child notification is-info">
+          <article id="staticmap-wrapper" class="tile is-child notification is-info">
             <p class="subtitle">Map</p>
             <section class="mapSection" id="mapArea">
               <img id="staticMap" />
             </section>
           </article>
         </div>
-
-
-        <div class="tile is-parent ">
-          <article class="tile is-child notification is-fullwidth is-info">
+        <div id="directions-wrapper" class="tile is-parent ">
+          <article class="tile is-child notification is-info">
             <p class="subtitle">Directions</p>
             <input id="txtStartAddress" type="text" class="input" placeholder="Address or Coordinates"></input>
             <div class="inputParent is-fullwidth">
