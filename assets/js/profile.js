@@ -80,7 +80,7 @@ function loadResortList() {
 
 function loadPassList() {
   passList.textContent = "";
-  let passListAll = ["Epic", "Icon", "Independant"];
+  let passListAll = ["Epic", "IKon", "Independent"];
 
   //SET DEFAULT OPTION
   let passElement = document.createElement("option");
