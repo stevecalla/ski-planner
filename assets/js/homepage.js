@@ -17,7 +17,7 @@ modalProfileFromHomePage.addEventListener("click", renderProfileModal);
 function initMap() {
   let lat = "39.00";
   let lon = "-106.302";
-  let view = 8;
+  let view = 7;
   map = L.map("map").setView([lat, lon], view);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
