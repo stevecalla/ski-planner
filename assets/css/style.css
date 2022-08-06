@@ -88,27 +88,6 @@ h6 {
   background-color: var(--light-background);
 }
 
-/* JQUERY AUTOCOMPLETE CSS */
-.ui-autocomplete {
-  max-width: 300px;
-  background-color: white;
-  border: 1px solid black;
-  z-index: 2147483647;
-  /* height: 400px; */
-  /* font-size: 24px; */
-  /* overflow-y: scroll; */
-}
-
-/* this class ensures the autocomplete item doesn't show at bottom right of the desktop UX */
-.ui-helper-hidden-accessible {
-  display: none !important;
-}
-
-/* .ui-autocomplete,
-.pac-container {
-  z-index: 10000 !important;
-} */
-
 #validation-modal {
   z-index: 2147483647;
 }
@@ -117,34 +96,9 @@ h6 {
 /* --------------------------------------- */
 /* --------------------------------------- */
 
-/* ---- HOVER STYLES ---- */
-/* Override the hover effect for devices that don't support hover */
-@media (hover: none) {
-  /* add style properties */
-  /* .class:hover {
-    color: red:
-  } */
-}
-
-/* LARGE SCREEN SIZE */
-/* @media screen and (min-width: 1600px) {
-} */
-
 /* LARGE SCREENS / TABLETS */
 @media screen and (max-width: 992px) {
   .header {
     flex-direction: column;
   }
 }
-
-/* MEDIUM SCREEN SIZE - LARGE SMARTPHONES*/
-/* @media screen and (max-width: 768px) {
-} */
-
-/* SMALL SCREEN SIZE */
-/* @media screen and (max-width: 650px) {
-} */
-
-/* SMALL SMARTPHONES */
-/* @media screen and (max-width: 576px) {
-} */
