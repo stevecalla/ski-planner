@@ -161,8 +161,7 @@ function saveNameEmailAddressInput(event) {
     createMemberSinceDate();
     resetNameEmailAddress(field); //clear/reset values
     enableNameEmailAddress();
-  } else {
-    if (!getLocalStorage()) {
+  } else if (!getLocalStorage()) {
       console.log('not valid ', field)
       document
         .getElementById(`alert-${field}-invalid`)
@@ -175,7 +174,7 @@ function saveNameEmailAddressInput(event) {
         "profileSaveButton"
       );
     }
-  }
+}
 
 function getInput(event) {
   let parentNodeField = event.target.parentNode.classList;
