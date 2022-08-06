@@ -1,0 +1,111 @@
+* {
+  /* border: 1px solid red; */
+  /* box-sizing: border-box; */
+}
+
+:root {
+  --dark-text: #13293d;
+  --dark-background: #13293d;
+  --light-text: #f5f5f5;
+  --light-background: white;
+  --border-radius: 5px;
+  --skiblue: #3e8ed0;
+}
+
+body {
+  font-family: bangers, Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  background-color: var(--light-background);
+}
+
+html {
+  /* width: 100%;
+  font-family: "Times New Roman", Times, serif; */
+}
+
+/* h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bolder;
+} */
+
+/* .hidden {
+  visibility: hidden;
+} */
+
+.hero {
+  background: center / cover no-repeat url("/Users/stevecalla/du_coding/projects/ski-planner/assets/images/mountainbackground1.jpg");
+}
+
+.custom-width {
+  min-width: 360px;
+}
+
+/* .hero-bkg {
+  background: url(assets/images/mountaindashboard.jpg);
+} */
+
+/* .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0px;
+  margin-top: 5px;
+} */
+
+.title {
+  /* font-family: bangers; */
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  font-size: 75px;
+  color: white;
+}
+
+/* .subtitle2 { */
+  /* font-family: bangers; */
+/* } */
+
+.custom-button {
+  margin: 5px;
+  /* font-family: bangers; */
+  color: var(--skiblue);
+}
+
+.custom-checkboxes {
+  /* font-family: bangers; */
+  color: var(--skiblue);
+  border-radius: 5px;
+  background-color: var(--light-background);
+}
+
+/* Set the size of the div element that contains the map */
+.mapSection {
+  display: flex;
+  justify-content: center;
+}
+
+.map {
+  width: 60vw;
+  min-width: 315px;
+  height: 600px;
+  border: 3px white solid;
+  border-radius: 10px;
+}
+
+.validation-modal {
+  z-index: 2147483647;
+}
+
+/* ---------- MOBILE RESPONSIVE ---------- */
+/* LARGE SCREENS / TABLETS */
+@media screen and (max-width: 1022px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+}
