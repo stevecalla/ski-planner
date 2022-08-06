@@ -1,5 +1,5 @@
 * {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   /* box-sizing: border-box; */
 }
 
@@ -105,8 +105,23 @@ h6 {
   border-radius: 10px;
 }
 
-.validation-modal {
-  /* z-index: 2147483647; */
+.validation-modal,
+footer {
+  z-index: 2147483647;
+}
+
+/* header,  */
+footer {
+  display: flex;
+  padding: 0px 0px 0px 20px;
+  color: white;
+  color: var(--skiblue);
+  font-size: 32px;
+  position: relative;
+}
+
+footer {
+  /* height: 30vh; */
 }
 
 /* ---------- MOBILE RESPONSIVE ---------- */
@@ -122,6 +137,7 @@ h6 {
 
   .title {
     margin-top: 20px;
+    font-size: 55px;
   }
 
   .profile-button {
@@ -133,5 +149,11 @@ h6 {
 
   .map {
     height: 65vh;
+  }
+
+  footer {
+    display: flex;
+    justify-content: center;
+    font-size: 28px;
   }
 }
