@@ -88,7 +88,7 @@ function loadPassList() {
   passList.textContent = "";
   let passListAll = ["Epic", "Ikon", "Independent"];
 
-  //SET DEFAULT OPTION
+  //SET DEFAULT OPTION "SELECT A..." LANGUAGE
   let passElement = document.createElement("option");
   passElement.setAttribute("value", "none");
   passElement.setAttribute("selected", "true");
@@ -97,6 +97,7 @@ function loadPassList() {
   passElement.textContent = "Select a Pass";
   passList.append(passElement);
 
+  //LOAD PASS LIST
   passListAll.forEach((pass) => {
     passElement = document.createElement("option");
     passElement.setAttribute("value", pass);
@@ -112,12 +113,15 @@ function loadProfileFromStorage() {
     //set placeholder data
     if (skiProfile.name) {
       nameInput.setAttribute("placeholder", skiProfile.name);
+      enableNameEmailAddress();
     }
     if (skiProfile.email) {
       emailInput.setAttribute("placeholder", skiProfile.email);
+      enableNameEmailAddress();
     }
     if (skiProfile.address) {
       addressInput.setAttribute("placeholder", skiProfile.address);
+      enableNameEmailAddress();
     }
     if (skiProfile.memberDate) {
       memberCreatedDateInput.textContent = `Member Since: ${skiProfile.memberDate}`;
@@ -150,14 +154,15 @@ function saveNameEmailAddressInput(event) {
   let { validInput } = validateInput(field, input); //validate input
 
   if (validInput) {
+    console.log('valid ', field)
     renderValidNameEmailAddress(field, input);
     hideAlertTimeOut(field);
     setLocalStorage(field, input);
     createMemberSinceDate();
     resetNameEmailAddress(field); //clear/reset values
     enableNameEmailAddress();
-  } else {
-    if (!getLocalStorage()) {
+  } else if (!getLocalStorage()) {
+      console.log('not valid ', field)
       document
         .getElementById(`alert-${field}-invalid`)
         .classList.remove("is-hidden"); //render invalid alert
@@ -169,7 +174,6 @@ function saveNameEmailAddressInput(event) {
         "profileSaveButton"
       );
     }
-  }
 }
 
 function getInput(event) {
@@ -378,7 +382,7 @@ function renderPassOrResorts(appendedPassOrResortList, selectedList) {
   if (appendedPassOrResortList.length === 0) {
     //if none selected render default containers
     // console.log('create');
-    console.log('yes')
+    // console.log('yes')
     createPassResortDefaultContainer('selectedUpdate', selectedList);
   }
 
