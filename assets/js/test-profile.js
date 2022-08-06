@@ -141,7 +141,6 @@ function isInputValid(event, currentInput) {
   //IF EMAIL INVALID RENDER MODAL, RETURN
   if (currentInput.email !== "" && !currentInput.email.match(emailFormatRegex)) {
     isValid = false;
-    console.log('email invalid')
     renderValidationModal(`Email Not Valid`, `Pleae enter valid email (i.e. example@email.com)`, isValid);
     return;
   }
@@ -166,9 +165,7 @@ function isInputValid(event, currentInput) {
 
 function invalidNameEmailAddress(event, field) {
   //RENDER AND SAVE NAME EMAIL ADDRESS INPUT
-  console.log(event, event.target.classList, field); 
   if (event.target.classList.contains(field)) {
-    console.log('not valid ', field)
     document.getElementById(`alert-${field}-invalid`).classList.remove("is-hidden"); //render invalid alert
     resetNameEmailAddress(field); //clear/reset values
     hideAlertTimeOut(field);
@@ -203,7 +200,6 @@ function processInput(currentInput) {
 
 function processNameEmailAddressInput(field, input) {
   if (field !== 'passes' && field !== 'resorts') {
-    console.log('valid ', field)
     renderValidNameEmailAddress(field, input);
     hideAlertTimeOut(field);
     setLocalStorage(field, input);
@@ -217,9 +213,6 @@ function processNameEmailAddressInput(field, input) {
 function processPassResortInput(field, input) {
   let skiProfile = getLocalStorage();
 
-  console.log(field === 'passes', field === 'resorts', skiProfile[field])
-  console.log((field === 'passes' || field === 'resorts'))
-
   if ((field === 'passes' || field === 'resorts') && !skiProfile[field].includes(input)) {
     skiProfile[field].push(input);
     resetPassResortContainer(field);
@@ -230,9 +223,7 @@ function processPassResortInput(field, input) {
 
 //RENDER & SAVE VALID NAME EMAIL ADDRESS INPUT
 function renderValidNameEmailAddress(field, input) {
-  console.log(field)
   if (field !== 'passes' && field !== 'resorts') {
-    console.log(field)
     document.getElementById(`alert-${field}-invalid`).classList.add("is-hidden"); //ensure invalid alert is hidden
     document.getElementById(`alert-${field}-valid`).classList.remove("is-hidden"); //render valid alert
   
@@ -245,7 +236,6 @@ function renderValidNameEmailAddress(field, input) {
     //swap disk and check icon to confirm valid
     // allIconElements.forEach((element) => {
     allButtonElements.forEach((element) => {
-      // console.log(field, element.classList)
       if (element.classList.contains(`${field}-disk`)) {
         element.classList.toggle("is-hidden");
       }
@@ -363,12 +353,8 @@ function renderPassOrResorts(appendedPassOrResortList, selectedList) {
 
   if (appendedPassOrResortList.length === 0) {
     //if none selected render default containers
-    // console.log('create');
-    // console.log('yes')
     createPassResortDefaultContainer('selectedUpdate', selectedList);
   }
-
-  console.log('505 =', selectedList)
   if (selectedList !== 'passes' && selectedList !== 'resorts') {
   document
     .getElementById(`alert-${selectedList}-invalid`)
@@ -379,7 +365,6 @@ function renderPassOrResorts(appendedPassOrResortList, selectedList) {
 //DELETE PASS OR RESORTS
 function deletePassResort(event) {
   if (event.target.matches("button")) {
-    // console.log(event.target, event.target.parentNode, event.target.parentNode.classList.contains('passes'))
     event.target.parentNode.remove(); //remove resorts/pass from DOM
 
     let skiProfile = JSON.parse(localStorage.getItem("ski-profile"));
@@ -390,7 +375,6 @@ function deletePassResort(event) {
       ? "passes"
       : "resorts";
 
-    // console.log(targetList, key)
     let index = targetList.indexOf(event.target.parentNode.textContent.trim()); //get index of pass/resorts clicked
 
     targetList.splice(index, 1); //remove pass or resorts from local storage
@@ -458,8 +442,6 @@ function confirmDeleteLocalStorage() {
 }
 
 function clearLocalStorage() {
-  // console.log("clear");
-  // console.log(confirmDelete, confirmDelete === true, confirmDelete === "true");
   validationModal.classList.remove("is-active");
 
   localStorage.removeItem("ski-profile"); //clear storage
