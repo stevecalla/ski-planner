@@ -12,8 +12,12 @@ var markers;
 
 //section:event listeners go here 👇
 modalProfileFromHomePage.addEventListener("click", renderProfileModal);
+chkEpic.addEventListener("click", passChecked);
+chkIkon.addEventListener("click", passChecked);
+chkIndependent.addEventListener("click", passChecked);
 
 //section:functions and event handlers go here 👇
+// This function initializes the map
 function initMap() {
   let lat = "39.00";
   let lon = "-106.302";
@@ -28,6 +32,7 @@ function initMap() {
   markers = L.layerGroup().addTo(map);
 }
 
+// This function places ski area markers on the map based on the ski pass sent in.  If an emply string is sent into the function, all ski areas will be displayed.
 function displayMarkers(pass) {
   let filteredSkiAreas = skiAreas;
   if (pass) {
@@ -79,7 +84,7 @@ function displayMarkers(pass) {
     }
 
     let favoriteResorts = getFavoriteResorts();
-    //let favoriteResorts = ["Loveland", "Winter Park", "Vail"];
+    //let favoriteResorts = ["Loveland", "Winter Park", "Vail"];  // For testing, comment out the previous line
 
     if (favoriteResorts.includes(filteredSkiAreas[i].name)) {
       passIcon = favoriteIcon;
@@ -89,6 +94,7 @@ function displayMarkers(pass) {
       icon: passIcon,
       riseOnHover: true,
     };
+
     var marker = L.marker(
       [filteredSkiAreas[i].latitude, filteredSkiAreas[i].longitude],
       markerOptions
@@ -109,7 +115,7 @@ function displayMarkers(pass) {
           element.longitude === event.latlng.lng
       );
 
-      // Initial popup text
+      // Initial popup text with indeterminate progress bar
       let popupText = `<h4>${skiArea.name}</h4>
                 <p><progress class="progress is-small is-info" max="100"></progress></p>
                 <a class="button custom-button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.name}">Details ➡️</a>
@@ -135,6 +141,7 @@ function displayMarkers(pass) {
   }
 }
 
+// This function gets the user's favorite resorts
 function getFavoriteResorts() {
   let favoriteResorts = [];
   if (localStorage.getItem("ski-profile")) {
@@ -146,6 +153,7 @@ function getFavoriteResorts() {
   return favoriteResorts;
 }
 
+// This function fetches and displays the SNOTEL data in the popup.
 function displaySNOTELDataInPopup(skiArea, popup) {
   // http://api.powderlin.es/closest_stations
   // https://dqmoczhn0pnkc.cloudfront.net/closest_stations
@@ -201,6 +209,7 @@ function displaySNOTELDataInPopup(skiArea, popup) {
     .always();
 }
 
+// This event handler checks to see which ski passes are checked and displays the markers accordingly
 function passChecked(event) {
   // remove all the markers
   markers.clearLayers();
@@ -215,10 +224,8 @@ function passChecked(event) {
     displayMarkers(chkIndependent.value);
   }
 }
-chkEpic.addEventListener("click", passChecked);
-chkIkon.addEventListener("click", passChecked);
-chkIndependent.addEventListener("click", passChecked);
 
+// This function selects and displays the appropriate markers based on the user's profile
 function selectAndDisplayMarkers() {
   if (localStorage.getItem("ski-profile")) {
     const skiProfile = JSON.parse(localStorage.getItem("ski-profile"));
@@ -255,6 +262,7 @@ function selectAndDisplayMarkers() {
   }
 }
 
+// This function is the initial starting point of operation
 function init() {
   try {
     // Set the return location for the Profile Page
