@@ -36,7 +36,7 @@
 <body class="hero is-fullheight ">
   <header>
     <div class="title-wrapper">
-      <button class="button is-medium custom-button is-info" id="back-button">Go Back</button>
+      <a class="button is-medium custom-button is-info" href="./index.html">Go Back</a>
 
       <h1 class="dashboardtitle">Powder Bound</h1>
 
@@ -51,17 +51,17 @@
 
         <div class="tile is-parent is-vertical ml-2 mr-2">
           <article id="powmeter-wrapper" class="tile is-child notification is-info custom-tile">
-              <p class="subtitle">pow meter</p>
-              <div class="content powMeterSection">
-                <section id="snowConditions">
-                  <h3 class="powText">Snow Conditions</h3>
-                  <label class="powText" id="lblSnowDepth"></label><br />
-                  <label class="powText" id="lblChangeInSnowDepth"></label><br />
-                  <figure class="is-image is-square">
-                    <img id="powMeterImage" src="">
-                  </figure>
-                </section>
-              </div>
+            <p class="subtitle">pow meter</p>
+            <div class="content powMeterSection">
+              <section id="snowConditions">
+                <h3 class="powText">Snow Conditions</h3>
+                <label class="powText" id="lblSnowDepth"></label><br />
+                <label class="powText" id="lblChangeInSnowDepth"></label><br />
+                <figure class="is-image is-square">
+                  <img id="powMeterImage" src="">
+                </figure>
+              </section>
+            </div>
           </article>
           <article id="staticmap-wrapper" class="tile is-child notification is-info custom-tile">
             <p class="subtitle">Map</p>
@@ -125,60 +125,60 @@
         </div>
         <div class="tile is-parent" id="weather-wrapper">
           <article class="tile is-child notification is-info custom-tile">
-              <p class="subtitle">weather</p>
-              
-                <!-- WEATHER CONTENT -->
-                <!-- TAB NAVIGATION -->
+            <p class="subtitle">weather</p>
 
-                <div class="box">
-                  <div class="tabs is-toggle is-fullwidth is-medium m-2">
-                    <ul class="m-0">
-                      <li class="is-active daily" id="daily-tab">
-                        <a class="daily all-custom-tab-color">
-                          <span class="icon is-small daily"><i class="fas fa-calendar" aria-hidden="true"></i></span>
-                          <span class="subtitle2">Daily</span>
-                        </a>
-                      </li>
-                      <li class="hourly" id="hourly-tab">
-                        <a class="hourly all-custom-tab-color">
-                          <span class="icon is-small hourly"><i class="fas fa-hourglass" aria-hidden="true"></i></span>
-                          <span class="subtitle2">Hourly</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+            <!-- WEATHER CONTENT -->
+            <!-- TAB NAVIGATION -->
 
-                  <!-- PLACEHOULDER FOR DAILY / HOURLY DATA -->
-                  <div class="columns is-desktop mt-2" id=custom-weather-container>
-                    <div class="row" id="weather-elements">
-                      <!-- daily / hourly weather data goes here -->
-                    </div>
-                  </div>
+            <div class="box">
+              <div class="tabs is-toggle is-fullwidth is-medium m-2">
+                <ul class="m-0">
+                  <li class="is-active daily" id="daily-tab">
+                    <a class="daily all-custom-tab-color">
+                      <span class="icon is-small daily"><i class="fas fa-calendar" aria-hidden="true"></i></span>
+                      <span class="subtitle2">Daily</span>
+                    </a>
+                  </li>
+                  <li class="hourly" id="hourly-tab">
+                    <a class="hourly all-custom-tab-color">
+                      <span class="icon is-small hourly"><i class="fas fa-hourglass" aria-hidden="true"></i></span>
+                      <span class="subtitle2">Hourly</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- PLACEHOULDER FOR DAILY / HOURLY DATA -->
+              <div class="columns is-desktop mt-2" id=custom-weather-container>
+                <div class="row" id="weather-elements">
+                  <!-- daily / hourly weather data goes here -->
                 </div>
+              </div>
+            </div>
 
-                <!-- WEATHER CONTENT -->
+            <!-- WEATHER CONTENT -->
           </article>
         </div>
       </div>
     </div>
 
-  <!-- VALIDATION MODAL -->
-  <div class="modal custom-font" id="validation-modal">
-    <div class="modal-background"></div>
-    <div class="modal-card"  style="width: 350px">
-      <header class="modal-card-head">
-        <p class="modal-card-title custom-letter-spacing" id="modal-title">Modal title</p>
-        <button class="delete" id="close-modal" aria-label="close"></button>
-      </header>
-      <section class="modal-card-body">
-        <p id="modal-body">Content</p>
-      </section>
-      <footer class="modal-card-foot">
-        <button class="button is-success delete-button hide" id="delete-button">Delete</button>
-        <button class="button cancel-button hide" id="cancel-button">Cancel</button>
-      </footer>
+    <!-- VALIDATION MODAL -->
+    <div class="modal custom-font" id="validation-modal">
+      <div class="modal-background"></div>
+      <div class="modal-card" style="width: 350px">
+        <header class="modal-card-head">
+          <p class="modal-card-title custom-letter-spacing" id="modal-title">Modal title</p>
+          <button class="delete" id="close-modal" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <p id="modal-body">Content</p>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success delete-button hide" id="delete-button">Delete</button>
+          <button class="button cancel-button hide" id="cancel-button">Cancel</button>
+        </footer>
+      </div>
     </div>
-  </div>
 
   </main>
 
