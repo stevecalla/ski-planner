@@ -39,22 +39,24 @@
   
 </head>
 
-<body class="hero is-fullheight custom-width">
+<body class="custom-width">
+
+  <img class="background-img" src="./assets/images/mountainbackground1.jpg" alt="" srcset="" style="z-index: 0; height: 100vh;">
 
   <header class="">
     <!-- *** CONSIDER BULMA IS INVISIBLE AND REMOVE HIDDEN CLASS FROM STYLE CSS -->
     <!-- *** NEED TO KEEP THE CONTENT "PROFILE" IN THE BOX FOR IT TO CENTER -->
 
     <div class="is-flex is-justify-content-space-between header">
-      <button class="button custom-button is-large is-responsive is-invisible is-hidden-mobile is-hidden-touch">Profile</button>
+      <button class="button profile-button is-small is-invisible is-hidden-mobile">Spacer</button>
       <!-- *** CONSIDER THESE CHANGES = ADD IS SIZE MOBILE AND MARGIN BOTTOM -->
-      <h1 class="title is-size-1-mobile mb-1">Powder Bound</h1>
+      <h1 class="title is-size-2-mobile mb-1" style="z-index: 0; color: white">Powder Bound</h1>
       <!-- *** CONSIDER CHANGING TO IS-RESPONSIVE TO SIZE LARGER FOR DESKOP VS MOBILE -->
-      <button class="button custom-button is-medium" id="modal-profile-homepage-button">Profile</button>
+      <button class="button profile-button" id="modal-profile-homepage-button">Profile</button>
     </div>
 
-    <div class="is-flex is-justify-content-center">
-      <div class="custom-checkboxes mb-2">
+    <div class="is-flex is-justify-content-center" style="z-index: 1;">
+      <div class="custom-checkboxes mb-2" style="z-index: 1;">
         <label for="chkEpic" class="checkbox m-2">
           <input id="chkEpic" type="checkbox" name="resortGroup" value="Epic" checked> Epic</label>
         <label for="chkIkon" class="checkbox m-2">
@@ -85,11 +87,15 @@
 
   <!-- *** CONSIDER ADDING MIN-WIDTH: 350 TO THE #MAP STYLE -->
   <!-- *** ADD CLASS="MAP" THEN CHANGE THE STYLE FROM #MAP TO .MAP IN THE CSS; BEST PRACTICE IS TO USE CLASSES FOR STYLES -->
-  <main>
-    <section class="mapSection" id="mapArea">
+  <main class="mapSection" id="mapArea">
+    <!-- <section class="mapSection" id="mapArea"> -->
       <div class="map" id="map"></div>
-    </section>
+    <!-- </section> -->
   </main>
+
+  <footer style="z-index: 1000; color: black">
+    Team SAD
+  </footer>
 
   <!-- VALIDATION MODAL -->
   <div class="modal custom-font validation-modal" id="validation-modal">
@@ -109,9 +115,6 @@
     </div>
   </div>
 
-  <footer>
-    Team SAD
-  </footer>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
