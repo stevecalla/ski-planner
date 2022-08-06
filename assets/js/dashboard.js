@@ -18,7 +18,6 @@ let lblChangeInSnowDepth = document.querySelector("#lblChangeInSnowDepth");
 let modalProfileFromDashBoard = document.getElementById(
   "modal-profile-dashboard-button"
 );
-let backButton = document.getElementById("back-button");
 let powMeterImage = document.querySelector("#powMeterImage");
 
 //section:global variables go here 👇
@@ -29,7 +28,6 @@ modalProfileFromDashBoard.addEventListener("click", renderProfileModal);
 txtStartAddress.addEventListener("input", () =>
   fetchMapquestCreateAutoComplete(txtStartAddress)
 ); //todo:make live
-backButton.addEventListener("click", () => renderLastPage());
 
 function getCurrentSkiArea() {
   // https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
