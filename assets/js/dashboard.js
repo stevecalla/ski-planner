@@ -18,7 +18,6 @@ let lblChangeInSnowDepth = document.querySelector("#lblChangeInSnowDepth");
 let modalProfileFromDashBoard = document.getElementById(
   "modal-profile-dashboard-button"
 );
-let backButton = document.getElementById("back-button");
 let powMeterImage = document.querySelector("#powMeterImage");
 
 //section:global variables go here 👇
@@ -29,7 +28,6 @@ modalProfileFromDashBoard.addEventListener("click", renderProfileModal);
 txtStartAddress.addEventListener("input", () =>
   fetchMapquestCreateAutoComplete(txtStartAddress)
 ); //todo:make live
-backButton.addEventListener("click", () => renderLastPage());
 
 function getCurrentSkiArea() {
   // https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
@@ -228,7 +226,7 @@ async function fetchDirections(startCoordinates, endCoordinates) {
     redirect: "follow",
   };
 
-  //http://www.mapquestapi.com/directions/v2/route?key=onM30fdvaziP9ykjaYeleR5hvIhOmLm1&from=39.633077,-105.1388028&to=39.68,-105.897
+  //http://www.mapquestapi.com/directions/v2/route?key=onM30fdvaziP9ykjaYeleR5hvIhOmLm1&from=39.74,-104.99&to=39.68,-105.897
   let apiUrl = `https://www.mapquestapi.com/directions/v2/route?key=${config.MAPQUEST_KEY}&from=${startCoordinates}&to=${endCoordinates}`;
 
   //
@@ -356,6 +354,9 @@ function init() {
   if (!document.location.search) {
     document.location.href = "./index.html";
   }
+
+  // Set the return location for the Profile Page
+  sessionStorage.setItem("returnPage", document.location.href);
 
   // Load default values for Directions Start Controls
   txtStartDate.value = moment().add(1, "day").format("yyyy-MM-DD");

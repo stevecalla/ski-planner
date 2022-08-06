@@ -20,7 +20,8 @@ function isLatLong(coords) {
 
 // BACK BUTTON FOR HOME & DASHBOARD PAGE
 function renderLastPage() {
-  document.referrer ? (window.location = document.referrer) : history.back();
+  document.location = sessionStorage.getItem("returnPage");
+  //document.referrer ? (window.location = document.referrer) : history.back();
 }
 
 // RENDER PROFILE MODAL FROM HOME PAGE OR DASHBOARD PAGE BUTTON CLICK; SEE DASHBOARD JS OR HOMEPAGE JS FOR EVENT LISTENER

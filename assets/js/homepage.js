@@ -257,6 +257,9 @@ function selectAndDisplayMarkers() {
 
 function init() {
   try {
+    // Set the return location for the Profile Page
+    sessionStorage.setItem("returnPage", document.location.href);
+
     initMap();
 
     selectAndDisplayMarkers();
