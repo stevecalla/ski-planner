@@ -2,7 +2,6 @@
 let resortList = document.getElementById("resort-list");
 let passList = document.getElementById("pass-list");
 let profileModal = document.getElementById("profile-modal");
-let allInputElements = document.querySelectorAll('input');
 let nameInput = document.getElementById("name-input");
 let emailInput = document.getElementById("email-input");
 let addressInput = document.getElementById("address-input");
@@ -12,10 +11,14 @@ let saveEmailIcon = document.getElementById("save-email-icon");
 let saveAddressIcon = document.getElementById("save-address-icon");
 let allIconElements = document.querySelectorAll("i");
 let allButtonElements = document.querySelectorAll("button");
-let passSelectedContainer = document.getElementById("passes-selected-container");
+let passSelectedContainer = document.getElementById(
+  "passes-selected-container"
+);
 let passInput = document.getElementById("passes-input");
 let savePassIcon = document.getElementById("save-passes-icon");
-let resortSelectedContainer = document.getElementById("resorts-selected-container");
+let resortSelectedContainer = document.getElementById(
+  "resorts-selected-container"
+);
 let resortInput = document.getElementById("resorts-input");
 let saveResortIcon = document.getElementById("save-resorts-icon");
 let deleteProfileButton = document.getElementById("delete-profile-button");
@@ -26,18 +29,31 @@ let saveButtonElement = document.getElementById("save-button");
 
 //section:event listeners go here 👇
 window.addEventListener("load", loadProfile);
-document.addEventListener("keydown", closeProfileModal);
-closeModalElement.addEventListener("click", () => renderLastPage()); //SEE UTILS.JS
-saveNameIcon.addEventListener("click", getAllProfileInput);
-saveEmailIcon.addEventListener("click", getAllProfileInput);
-saveAddressIcon.addEventListener("click", getAllProfileInput);
+saveNameIcon.addEventListener("click", saveNameEmailAddressInput);
+saveEmailIcon.addEventListener("click", saveNameEmailAddressInput);
+saveAddressIcon.addEventListener("click", saveNameEmailAddressInput);
 passSelectedContainer.addEventListener("click", deletePassResort);
 resortSelectedContainer.addEventListener("click", deletePassResort);
-savePassIcon.addEventListener("click", getAllProfileInput);
-saveResortIcon.addEventListener("click", getAllProfileInput);
+
+savePassIcon.addEventListener("click", () =>
+  savePassResortInput(event, "passes")
+);
+
+saveResortIcon.addEventListener("click", () =>
+  savePassResortInput(event, "resorts")
+);
+
 deleteProfileButton.addEventListener("click", confirmDeleteLocalStorage);
-addressInput.addEventListener("input", () => fetchMapquestCreateAutoComplete(addressInput)); //SEE UTILS.JS
-saveButtonElement.addEventListener("click", getAllProfileInput);
+addressInput.addEventListener("input", () =>
+  fetchMapquestCreateAutoComplete(addressInput)
+); // SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
+closeModalElement.addEventListener("click", () => renderLastPage());
+document.addEventListener("keydown", (event) => {
+  if (event.keyCode === 27 || event.target.classList.contains("modal-close")) {
+    renderLastPage();
+  }
+});
+saveButtonElement.addEventListener("click", saveAllProfileSelections);
 
 //section:functions and event handlers go here 👇
 //LOAD PROFILE FROM STORAGE
@@ -97,12 +113,15 @@ function loadProfileFromStorage() {
     //set placeholder data
     if (skiProfile.name) {
       nameInput.setAttribute("placeholder", skiProfile.name);
+      enableNameEmailAddress();
     }
     if (skiProfile.email) {
       emailInput.setAttribute("placeholder", skiProfile.email);
+      enableNameEmailAddress();
     }
     if (skiProfile.address) {
       addressInput.setAttribute("placeholder", skiProfile.address);
+      enableNameEmailAddress();
     }
     if (skiProfile.memberDate) {
       memberCreatedDateInput.textContent = `Member Since: ${skiProfile.memberDate}`;
@@ -116,138 +135,93 @@ function loadProfileFromStorage() {
       resetPassResortContainer("resorts");
       renderPassOrResorts(skiProfile.resorts, "resorts");
     }
-    enableNameEmailAddress();
-    deleteProfileButton.removeAttribute('disabled');
   }
 }
 
-//GET ALL INPUT
-function getAllProfileInput() {
-  let currentInput = {};
-
-  allInputElements.forEach(element => {
-    currentInput[element.name.trim()] = element.value.trim();
-  });
-
-  isInputValid(event, currentInput);
+//SAVE PROFILE BUTTON
+function saveAllProfileSelections() {
+  // console.log('save it');
+  saveNameIcon.click();
+  saveEmailIcon.click();
+  saveAddressIcon.click();
+  savePassIcon.click();
+  saveResortIcon.click();
 }
 
-function isInputValid(event, currentInput) {
-  //DETERMINE IF INPUT IS VALID
-  let valid = [];
-  let isValid = true;
-  let emailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
+//RENDER AND SAVE NAME EMAIL ADDRESS INPUT
+function saveNameEmailAddressInput(event) {
+  let { field, input } = getInput(event); //get input
+  let { validInput } = validateInput(field, input); //validate input
 
-  //IF EMAIL INVALID RENDER MODAL, RETURN
-  if (currentInput.email !== "" && !currentInput.email.match(emailFormatRegex)) {
-    isValid = false;
-    renderValidationModal(`Email Not Valid`, `Pleae enter valid email (i.e. example@email.com)`, isValid);
-    return;
-  }
-  
-  //VALIDATE IF INPUT IS BLANK OR IS A DROP DOWN
-  Object.keys(currentInput).forEach(element => {
-    currentInput[element] !== "" && currentInput[element] !== "none" ? valid.push(true): valid.push(false);
-    //IF CURRENT ELEMENT EMPTY RENDER WARNING
-    if (currentInput[element] === "") {
-      invalidNameEmailAddress(event, element)
-    }
-  })
-
-  //IF NO INPUT FOR ANY FIELDS RENDER MODAL & NO LOCAL STORAGE
-  valid.includes(true) || getLocalStorage() ? isValid = true : isValid = false;
-  renderValidationModal(`Input Not Valid`, `Pleae enter name, email or address.`, isValid);
-
-  //APPEND DROPDOWN SELECTION TO INPUT
-  let appendSelectDropdown = getDropDownInput(currentInput);
-  if (isValid) {processInput(appendSelectDropdown)};
-}
-
-function invalidNameEmailAddress(event, field) {
-  //RENDER AND SAVE NAME EMAIL ADDRESS INPUT
-  if (event.target.classList.contains(field)) {
-    document.getElementById(`alert-${field}-invalid`).classList.remove("is-hidden"); //render invalid alert
-    resetNameEmailAddress(field); //clear/reset values
-    hideAlertTimeOut(field);
-  }
-}
-
-function renderValidationModal(title, body, isValid) {
-  if (!isValid) {
-      launchValidationModal(title, body, "profileSaveButton");
-  }
-}
-
-function getDropDownInput(currentInput) {
-  //ADD DROP DOWN MENU SELECTION TO THE INPUT OBJECT CURRENT INPUT
-  let selectOption = document.querySelectorAll('select');
-  selectOption.forEach(element => {
-    currentInput[element.name] = element.value.trim();
-  });
-  return currentInput;
-}
-
-//PROCESS THE INPUT
-function processInput(currentInput) {
-  Object.keys(currentInput).forEach(element => {
-    //IF VALUE OF CURRENT INPUT IS NOT BLANK OR EQUAL TO DROP DOWN NONE VALUE
-    if (currentInput[element] !== "" && currentInput[element] !== 'none') {
-      processNameEmailAddressInput(element, currentInput[element]);
-      processPassResortInput(element, currentInput[element])
-    }
-  })
-}
-
-function processNameEmailAddressInput(field, input) {
-  if (field !== 'passes' && field !== 'resorts') {
+  if (validInput) {
+    console.log('valid ', field)
     renderValidNameEmailAddress(field, input);
     hideAlertTimeOut(field);
     setLocalStorage(field, input);
     createMemberSinceDate();
     resetNameEmailAddress(field); //clear/reset values
     enableNameEmailAddress();
-    deleteProfileButton.removeAttribute('disabled');
-  }
+  } else if (!getLocalStorage()) {
+      console.log('not valid ', field)
+      document
+        .getElementById(`alert-${field}-invalid`)
+        .classList.remove("is-hidden"); //render invalid alert
+      resetNameEmailAddress(field); //clear/reset values
+      hideAlertTimeOut(field);
+      launchValidationModal(
+        `Please Complete Profile`,
+        `Enter name, email and preferred address.`,
+        "profileSaveButton"
+      );
+    }
 }
 
-function processPassResortInput(field, input) {
-  let skiProfile = getLocalStorage();
+function getInput(event) {
+  let parentNodeField = event.target.parentNode.classList;
+  // console.log(nameInput.value.trim(), emailInput.value, addressInput.value);
 
-  if ((field === 'passes' || field === 'resorts') && !skiProfile[field].includes(input)) {
-    skiProfile[field].push(input);
-    resetPassResortContainer(field);
-    setLocalStorage(field, skiProfile[field]);
-    renderPassOrResorts(skiProfile[field], field);
-  }
+  parentNodeField.contains("name")
+    ? ((field = "name"), (input = nameInput.value.trim()))
+    : parentNodeField.contains("email")
+    ? ((field = "email"), (input = emailInput.value.trim()))
+    : ((field = "address"), (input = addressInput.value.trim()));
+  return { field, input };
 }
 
-//RENDER & SAVE VALID NAME EMAIL ADDRESS INPUT
+function validateInput(field, input) {
+  let validInput = false;
+  let mailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
+  field === "email"
+    ? (validInput = emailInput.value.match(mailFormatRegex))
+    : (validInput = input && input !== "");
+  return { validInput };
+}
+
 function renderValidNameEmailAddress(field, input) {
-  if (field !== 'passes' && field !== 'resorts') {
-    document.getElementById(`alert-${field}-invalid`).classList.add("is-hidden"); //ensure invalid alert is hidden
-    document.getElementById(`alert-${field}-valid`).classList.remove("is-hidden"); //render valid alert
-  
-    field === "email"
-      ? emailInput.setAttribute("placeholder", input)
-      : field === "name"
-      ? nameInput.setAttribute("placeholder", input)
-      : addressInput.setAttribute("placeholder", input); //set placeholder to input value
-  
-    //swap disk and check icon to confirm valid
-    // allIconElements.forEach((element) => {
-    allButtonElements.forEach((element) => {
-      if (element.classList.contains(`${field}-disk`)) {
-        element.classList.toggle("is-hidden");
-      }
-      if (element.classList.contains(`${field}-check`)) {
-        element.classList.toggle("is-hidden");
-      }
-    });
-  }
+  // console.log(field)
+  document.getElementById(`alert-${field}-invalid`).classList.add("is-hidden"); //ensure invalid alert is hidden
+  document.getElementById(`alert-${field}-valid`).classList.remove("is-hidden"); //render valid alert
+
+  field === "email"
+    ? emailInput.setAttribute("placeholder", input)
+    : field === "name"
+    ? nameInput.setAttribute("placeholder", input)
+    : addressInput.setAttribute("placeholder", input); //set placeholder to input value
+
+  //swap disk and check icon to confirm valid
+  // allIconElements.forEach((element) => {
+  allButtonElements.forEach((element) => {
+    // console.log(field, element.classList)
+    if (element.classList.contains(`${field}-disk`)) {
+      element.classList.toggle("is-hidden");
+    }
+    if (element.classList.contains(`${field}-check`)) {
+      element.classList.toggle("is-hidden");
+    }
+  });
 }
 
 function hideAlertTimeOut(field, validInput) {
-  if (field !== 'passes' && field !== 'resorts') {
   setTimeout(() => {
     // allIconElements.forEach((element) => {
     allButtonElements.forEach((element) => {
@@ -265,7 +239,6 @@ function hideAlertTimeOut(field, validInput) {
         .classList.add("is-hidden");
     });
   }, 1000);
-}
 }
 
 function resetNameEmailAddress(field) {
@@ -311,7 +284,62 @@ function disableNameEmailAddress() {
   });
 }
 
-//RENDER & SAVE PASSES OR RESORTS
+//RENDER AND SAVE PASSES OR RESORTS
+function savePassResortInput(event, selectedList) {
+  let skiProfile = getLocalStorage();
+
+  if (skiProfile) {
+    let { savedPassOrResortList } = createPassOrResortFromStorage(
+      skiProfile,
+      selectedList
+    ); //get selected list
+
+    let { appendedPassOrResortList } = appendCurrentSelection(
+      event,
+      selectedList,
+      savedPassOrResortList
+    ); //get dropdown selected item
+
+    resetPassResortContainer(selectedList);
+    renderPassOrResorts(appendedPassOrResortList, selectedList);
+  } else {
+    // console.log("please complete profile");
+    document
+      .getElementById(`alert-${selectedList}-invalid`)
+      .classList.remove("is-hidden");
+    setTimeout(() => {
+      document
+        .getElementById(`alert-${selectedList}-invalid`)
+        .classList.add("is-hidden");
+    }, 3000);
+  }
+}
+
+function createPassOrResortFromStorage(skiProfile, selectedList) {
+  let savedPassOrResortList = [];
+  if (skiProfile) {
+    savedPassOrResortList = skiProfile[selectedList];
+  }
+  return { savedPassOrResortList };
+}
+
+function appendCurrentSelection(event, selectedList, appendedPassOrResortList) {
+  let selectOption = document.querySelectorAll("select");
+  selectOption.forEach((element) => {
+    if (
+      event.target.classList.contains(selectedList) &&
+      element.getAttribute("name") === selectedList &&
+      !appendedPassOrResortList.includes(element.value) &&
+      element.value !== "none"
+    ) {
+      appendedPassOrResortList.push(element.value);
+
+      setLocalStorage(selectedList, appendedPassOrResortList);
+    }
+  });
+  return { appendedPassOrResortList };
+}
+
 function resetPassResortContainer(selectedList) {
   selectedList === "passes"
     ? ((passSelectedContainer.textContent = ""),
@@ -353,18 +381,20 @@ function renderPassOrResorts(appendedPassOrResortList, selectedList) {
 
   if (appendedPassOrResortList.length === 0) {
     //if none selected render default containers
+    // console.log('create');
+    // console.log('yes')
     createPassResortDefaultContainer('selectedUpdate', selectedList);
   }
-  if (selectedList !== 'passes' && selectedList !== 'resorts') {
+
   document
     .getElementById(`alert-${selectedList}-invalid`)
     .classList.add("is-hidden"); //ensures invalid alert is hidden
-  }
 }
 
 //DELETE PASS OR RESORTS
 function deletePassResort(event) {
   if (event.target.matches("button")) {
+    // console.log(event.target, event.target.parentNode, event.target.parentNode.classList.contains('passes'))
     event.target.parentNode.remove(); //remove resorts/pass from DOM
 
     let skiProfile = JSON.parse(localStorage.getItem("ski-profile"));
@@ -375,6 +405,7 @@ function deletePassResort(event) {
       ? "passes"
       : "resorts";
 
+    // console.log(targetList, key)
     let index = targetList.indexOf(event.target.parentNode.textContent.trim()); //get index of pass/resorts clicked
 
     targetList.splice(index, 1); //remove pass or resorts from local storage
@@ -442,6 +473,8 @@ function confirmDeleteLocalStorage() {
 }
 
 function clearLocalStorage() {
+  // console.log("clear");
+  // console.log(confirmDelete, confirmDelete === true, confirmDelete === "true");
   validationModal.classList.remove("is-active");
 
   localStorage.removeItem("ski-profile"); //clear storage
@@ -467,7 +500,6 @@ function clearLocalStorage() {
   nameInput.focus();
 
   disableNameEmailAddress();
-  deleteProfileButton.setAttribute('disabled', 'true');
   loadPassList();
   loadResortList();
 }
