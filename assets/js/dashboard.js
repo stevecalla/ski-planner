@@ -357,6 +357,9 @@ function init() {
     document.location.href = "./index.html";
   }
 
+  // Set the return location for the Profile Page
+  sessionStorage.setItem("returnPage", document.location.href);
+
   // Load default values for Directions Start Controls
   txtStartDate.value = moment().add(1, "day").format("yyyy-MM-DD");
 
