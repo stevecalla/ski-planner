@@ -1,5 +1,5 @@
 * {
-  /* border: 1px solid red; */
+  border: 1px solid red;
   /* box-sizing: border-box; */
 }
 
@@ -17,11 +17,6 @@ body {
   background-color: var(--light-background);
 }
 
-html {
-  /* width: 100%;
-  font-family: "Times New Roman", Times, serif; */
-}
-
 /* h1,
 h2,
 h3,
@@ -36,7 +31,20 @@ h6 {
 } */
 
 .hero {
-  background: center / cover no-repeat url("/Users/stevecalla/du_coding/projects/ski-planner/assets/images/mountainbackground1.jpg");
+  /* background: center / cover no-repeat url("/Users/stevecalla/du_coding/projects/ski-planner/assets/images/mountainbackground1.jpg"); */
+  
+  /* background: center / cover no-repeat url("mountainbackground1.jpg") */
+}
+
+.background-img {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  min-width: 360px;
+  z-index: -1;
+  z-index: 0;
+  object-fit: cover;
 }
 
 .custom-width {
@@ -67,8 +75,10 @@ h6 {
   /* font-family: bangers; */
 /* } */
 
-.custom-button {
-  margin: 5px;
+.profile-button {
+  width: 100px;
+  height: 50px;
+  margin: 20px 40px;
   /* font-family: bangers; */
   color: var(--skiblue);
 }
@@ -84,28 +94,44 @@ h6 {
 .mapSection {
   display: flex;
   justify-content: center;
+
 }
 
 .map {
-  width: 60vw;
+  width: 75vw;
   min-width: 315px;
-  height: 600px;
+  height: 75vh;
   border: 3px white solid;
   border-radius: 10px;
 }
 
 .validation-modal {
-  z-index: 2147483647;
+  /* z-index: 2147483647; */
 }
 
 /* ---------- MOBILE RESPONSIVE ---------- */
 /* LARGE SCREENS / TABLETS */
-@media screen and (max-width: 1022px) {
+@media screen and (max-width: 767px) {
   .header {
     display: flex;
-    flex-direction: column;
+    flex-direction: column!important;
     justify-content: center;
     align-items: center;
     align-content: center;
+  }
+
+  .title {
+    margin-top: 20px;
+  }
+
+  .profile-button {
+    width: 80px;
+    height: 40px;
+    margin: 5px 40px 10px 40px;
+    /* margin: 100px; */
+  }
+
+  .map {
+    height: 65vh;
   }
 }
