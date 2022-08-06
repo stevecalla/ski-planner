@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin="" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <style>
+    .hero {
+      background: url(assets/images/mountainbackground1.jpg) center / cover;
+    }
+  </style>
+
+<!-- CHANGE FONT SIZE IN MOBILE B/C IT'S TOO -->
+  <title class="">Powder Bound</title>
+</head>
+
+<body class="hero is-fullheight">
+  <header class="header">
+    <button class="button custom-button hidden"></button>
+    <h1 class="title">Powder Bound</h1>
+    <button class="button custom-button" id="modal-profile-homepage-button">Profile</button>
+
+  </header>
+
+  <aside>
+    <section class="level-item has-text-center">
+      <form>
+        <div class="custom-checkboxes mb-2">
+          <label for="chkEpic" class="checkbox m-2">
+            <input id="chkEpic" type="checkbox" name="resortGroup" value="Epic" checked> Epic</label>
+          <label for="chkIkon" class="checkbox m-2">
+            <input id="chkIkon" type="checkbox" name="resortGroup" value="Ikon" checked> Ikon</label>
+          <label for="chkIndependent" class="checkbox m-2">
+            <input id="chkIndependent" type="checkbox" name="resortGroup" value="Independent" checked>
+            Independent</label>
+        </div>
+      </form>
+    </section>
+  </aside>
+
+  <main>
+    <section class="mapSection" id="mapArea">
+      <div id="map"></div>
+    </section>
+  </main>
+
+  <!-- VALIDATION MODAL -->
+  <!-- <div id="modal-js-example" class="modal"> -->
+  <div id="validation-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content" style="width: 330px">
+      <div class="box">
+        <p id="modal-title" style="font-weight: bold">Title</p>
+        <hr>
+        <p id="modal-body">Content</p>
+        <hr>
+      </div>
+    </div>
+    <button class="modal-close is-large" id="close-modal" aria-label="close"></button>
+  </div>
+
+  <footer>
+    Team SAD
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""></script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+  <script src="./assets/js/config.js"></script>
+  <script src="./assets/js/utils.js"></script>
+  <script src="./assets/js/skiAreas.js"></script>
+
+  <script src="./assets/js/homepage.js"></script>
+</body>
+
+</html>
