@@ -176,7 +176,6 @@ function saveNameEmailAddressInput(event) {
       );
     }
   }
-}
 
 function getInput(event) {
   let parentNodeField = event.target.parentNode.classList;
