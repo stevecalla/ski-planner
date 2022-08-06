@@ -44,7 +44,7 @@
           <label class="label has-text-white m-0 is-size-3 custom-letter-spacing">Name</label>
           <div class="field has-addons name">
             <div class="control has-icons-left is-expanded">
-              <input class="input is-success is-fullwidth" id="name-input" type="text" name="name" placeholder="Enter first & last name" required>
+              <input class="input is-success is-fullwidth" id="name-input" type="text" placeholder="Enter first & last name">
               <span class="icon is-small is-left">
                 <i class="fas fa-user"></i>
               </span>
@@ -62,8 +62,7 @@
           <label class="label has-text-white m-0 is-size-3 custom-letter-spacing">Email</label>
           <div class="field has-addons email">
             <div class="control has-icons-left is-expanded">
-              <input class="input is-success is-fullwidth" id="email-input" type="email" name="email" placeholder="Enter a valid email" pattern="/[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g" required>
-
+              <input class="input is-success is-fullwidth" id="email-input" type="text" placeholder="Enter a valid email">
               <span class="icon is-small is-left">
                 <i class="fas fa-user"></i>
               </span>
@@ -79,11 +78,11 @@
           </div>
 
           <!-- ADDRESS INPUT-->
-          <label class="label has-text-white m-0 is-size-3 custom-letter-spacing" required>Home Address</label>
+          <label class="label has-text-white m-0 is-size-3 custom-letter-spacing">Home Address</label>
           <div class="field has-addons address">
             <div class="control has-icons-left is-expanded">
               <input class="input is-success is-fullwidth" id="address-input" type="text"
-                name="address" placeholder="Street, City, State, Zipcode">
+                placeholder="Street, City, State, Zipcode" value="">
               <span class="icon is-small is-left">
                 <i class="fas fa-user"></i>
               </span>
@@ -104,11 +103,13 @@
               <div class="select is-fullwidth" id="passes-input">
                 <select name="passes" id="pass-list">
                   <!-- <option value="none" selected disabled hidden>Select a Pass</option>
-                  <option value="Epic">EPIC</option>
-                  <option value="Ikon">Ikon</option>
-                  <option value="Independent">Independent</option> -->
+                <option value="Epic">EPIC</option>
+                <option value="Ikon">Ikon</option>
+                <option value="Independent">Independent</option> -->
                 </select>
               </div>
+              <p class="help is-hidden has-text-white is-size-5" id="alert-passes-invalid">⚠️ Please add your name or
+                email. ⚠️</p>
             </div>
             <div class="control">
               <button class="button fas fa-edit passes-disk passes input" id="save-passes-icon" disabled></button>
@@ -135,6 +136,8 @@
                   <option value="TBD3">TBD 3</option>
                 </select>
               </div>
+              <p class="help is-hidden has-text-white is-size-5" id="alert-resorts-invalid">⚠️ Please add your name or
+                email. ⚠️</p>
             </div>
             <div class="control">
               <button class="button fas fa-edit resorts-disk resorts input" id="save-resorts-icon" disabled></button>
@@ -158,7 +161,7 @@
           </div>
           <div class="control is-expanded">
             <button class="button is-danger is-size-5 custom-font custom-border custom-hover is-fullwidth mt-1 custom-letter-spacing"
-              id="delete-profile-button" disabled>Delete Profile</button>
+              id="delete-profile-button">Delete Profile</button>
           </div>
         </footer>
         <!-- MODAL DELETE / CLOSE OVERLAY WITH THE X IN THE UPPER RIGHT -->

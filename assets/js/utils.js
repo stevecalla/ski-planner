@@ -29,6 +29,12 @@ function renderProfileModal() {
   location.href = "./profile.html";
 }
 
+function closeProfileModal(event) {
+  if (event.keyCode === 27 || event.target.classList.contains("modal-close")) {
+    renderLastPage();
+  }
+}
+
 // API CALLS TO MAPQUEST FOR LOCATION AUTOCOMPLETE USING JQUERY
 function fetchMapquestCreateAutoComplete(addressElement) {
   // console.log('1= ', addressElement);
