@@ -36,6 +36,15 @@ body {
 }
 
 /* GENERIC */
+
+/* .input::placeholder {
+  color: blue;
+} */
+
+.placeholder-color::placeholder {
+  color: blue;
+}
+
 .custom-letter-spacing {
   letter-spacing: .1rem;
 }

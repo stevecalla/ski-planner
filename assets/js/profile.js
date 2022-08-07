@@ -28,16 +28,18 @@ let saveButtonElement = document.getElementById("save-button");
 window.addEventListener("load", loadProfile);
 document.addEventListener("keydown", closeProfileModal);
 closeModalElement.addEventListener("click", () => renderLastPage()); //SEE UTILS.JS
-saveNameIcon.addEventListener("click", getAllProfileInput);
-saveEmailIcon.addEventListener("click", getAllProfileInput);
-saveAddressIcon.addEventListener("click", getAllProfileInput);
 passSelectedContainer.addEventListener("click", deletePassResort);
 resortSelectedContainer.addEventListener("click", deletePassResort);
-savePassIcon.addEventListener("click", getAllProfileInput);
-saveResortIcon.addEventListener("click", getAllProfileInput);
 deleteProfileButton.addEventListener("click", confirmDeleteLocalStorage);
 addressInput.addEventListener("input", () => fetchMapquestCreateAutoComplete(addressInput)); //SEE UTILS.JS
+
 saveButtonElement.addEventListener("click", getAllProfileInput);
+
+saveNameIcon.addEventListener("click", getUniqueProfileInput);
+saveEmailIcon.addEventListener("click", getUniqueProfileInput);
+saveAddressIcon.addEventListener("click", getUniqueProfileInput);
+savePassIcon.addEventListener("click", getUniqueProfileInput);
+saveResortIcon.addEventListener("click", getUniqueProfileInput);
 
 //section:functions and event handlers go here 👇
 //LOAD PROFILE FROM STORAGE
@@ -97,12 +99,15 @@ function loadProfileFromStorage() {
     //set placeholder data
     if (skiProfile.name) {
       nameInput.setAttribute("placeholder", skiProfile.name);
+      nameInput.classList.add('placeholder-color');
     }
     if (skiProfile.email) {
       emailInput.setAttribute("placeholder", skiProfile.email);
+      emailInput.classList.add('placeholder-color');
     }
     if (skiProfile.address) {
       addressInput.setAttribute("placeholder", skiProfile.address);
+      addressInput.classList.add('placeholder-color');
     }
     if (skiProfile.memberDate) {
       memberCreatedDateInput.textContent = `Member Since: ${skiProfile.memberDate}`;
@@ -132,14 +137,41 @@ function getAllProfileInput() {
   isInputValid(event, currentInput);
 }
 
+function getUniqueProfileInput(event) {
+  // console.log(event.target);
+  // console.log(document.getElementsByName("name")[0].value);
+
+  let selectedElementValue = [];
+  if (event.target.classList.contains('name')) {
+    selectedElementValue = document.getElementsByName("name");
+  } else if (event.target.classList.contains('email')) {
+    selectedElementValue = document.getElementsByName("email");
+  } else if (event.target.classList.contains('address')) {
+    selectedElementValue = document.getElementsByName("address");
+  } else if (event.target.classList.contains('passes')) {
+  selectedElementValue = document.getElementsByName("passes");
+  } else if (event.target.classList.contains('resorts')) {
+    selectedElementValue = document.getElementsByName("resorts");
+  }
+
+  let currentInput = {};
+
+  selectedElementValue.forEach(element => {
+    currentInput[element.name.trim()] = element.value.trim();
+  });
+
+  isInputValid(event, currentInput);
+}
+
 function isInputValid(event, currentInput) {
+  // console.log(currentInput)
   //DETERMINE IF INPUT IS VALID
   let valid = [];
   let isValid = true;
   let emailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
 
   //IF EMAIL INVALID RENDER MODAL, RETURN
-  if (currentInput.email !== "" && !currentInput.email.match(emailFormatRegex)) {
+  if (currentInput.email && (currentInput.email !== "" && !currentInput.email.match(emailFormatRegex))) {
     isValid = false;
     renderValidationModal(`Email Not Valid`, `Pleae enter valid email (i.e. example@email.com)`, isValid);
     return;
@@ -149,17 +181,21 @@ function isInputValid(event, currentInput) {
   Object.keys(currentInput).forEach(element => {
     currentInput[element] !== "" && currentInput[element] !== "none" ? valid.push(true): valid.push(false);
     //IF CURRENT ELEMENT EMPTY RENDER WARNING
-    if (currentInput[element] === "") {
-      invalidNameEmailAddress(event, element)
-    }
+    if (currentInput[element] === "") {invalidNameEmailAddress(event, element)};
   })
 
   //IF NO INPUT FOR ANY FIELDS RENDER MODAL & NO LOCAL STORAGE
-  valid.includes(true) || getLocalStorage() ? isValid = true : isValid = false;
+  valid.includes(true) || getLocalStorage() ? isValid = true : isValid = false; //todo
+  // valid.includes(true) ? isValid = true : isValid = false; //todo
+
+  //RENDER VALIDATION MODAL IF INVALID INPUT OR NO LOCAL STORAGE
   renderValidationModal(`Input Not Valid`, `Pleae enter name, email or address.`, isValid);
 
+  // if (v)
+
   //APPEND DROPDOWN SELECTION TO INPUT
-  let appendSelectDropdown = getDropDownInput(currentInput);
+  let appendSelectDropdown = {};
+  Object.keys(currentInput).length > 1 ? appendSelectDropdown = getDropDownInput(currentInput) : appendSelectDropdown = currentInput;
   if (isValid) {processInput(appendSelectDropdown)};
 }
 
@@ -228,10 +264,13 @@ function renderValidNameEmailAddress(field, input) {
     document.getElementById(`alert-${field}-valid`).classList.remove("is-hidden"); //render valid alert
   
     field === "email"
-      ? emailInput.setAttribute("placeholder", input)
+      ? (emailInput.setAttribute("placeholder", input),
+        emailInput.classList.add('placeholder-color'))
       : field === "name"
-      ? nameInput.setAttribute("placeholder", input)
-      : addressInput.setAttribute("placeholder", input); //set placeholder to input value
+      ? (nameInput.setAttribute("placeholder", input),
+        nameInput.classList.add('placeholder-color'))
+      : (addressInput.setAttribute("placeholder", input),
+        addressInput.classList.add('placeholder-color')); //set placeholder to input value
   
     //swap disk and check icon to confirm valid
     // allIconElements.forEach((element) => {
@@ -452,10 +491,10 @@ function clearLocalStorage() {
   //reset name and email
   nameInput.setAttribute("placeholder", "Enter first & last name");
   emailInput.setAttribute("placeholder", "Enter valid email");
-  addressInput.setAttribute(
-    "placeholder",
-    "Street, City, State, Zipcode"
-  );
+  addressInput.setAttribute("placeholder","Street, City, State, Zipcode");
+  nameInput.classList.remove('placeholder-color');
+  emailInput.classList.remove('placeholder-color');
+  addressInput.classList.remove('placeholder-color');
   nameInput.value = "";
   emailInput.value = "";
   addressInput.value = "";
