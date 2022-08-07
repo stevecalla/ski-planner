@@ -53,21 +53,22 @@ function fetchMapquestCreateAutoComplete(addressElement) {
 function fetchMapQuestSearchAhead(mapquestUrlSlug, addressElement) {
   //need to run in vs live server
   // console.log('2= ', addressElement);
-  // fetch(mapquestUrlSlug)
-  //   .then((response) => {
-  //   if (response.ok) {
-  //     response.json().then((data) => {
-  //       createAutoCompleteList(data.results, addressElement);
-  //     });
-  //   } else {
-  //     // console.log('Error 1:', error);
-  //   }
-  // })
-  // .catch((error) => {
-  //   // console.log('Error 2:', error);
-  // });
+  fetch(mapquestUrlSlug) //todo: fetch code in production
+    .then((response) => {
+    if (response.ok) {
+      response.json().then((data) => {
+        createAutoCompleteList(data.results, addressElement);
+      });
+    } else {
+      // console.log('Error 1:', error);
+    }
+  })
+  .catch((error) => {
+    // console.log('Error 2:', error);
+  });
 
-  createAutoCompleteList(testAutoComplete, addressElement);
+  //TO USE TEST DATA - USE LINE BELOW, COMMENT OUT FETCH ABOVE
+  createAutoCompleteList(testAutoComplete, addressElement); //todo test data/code
 }
 
 function createAutoCompleteList(results, addressElement) {
