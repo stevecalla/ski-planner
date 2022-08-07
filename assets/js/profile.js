@@ -99,12 +99,15 @@ function loadProfileFromStorage() {
     //set placeholder data
     if (skiProfile.name) {
       nameInput.setAttribute("placeholder", skiProfile.name);
+      nameInput.classList.add('placeholder-color');
     }
     if (skiProfile.email) {
       emailInput.setAttribute("placeholder", skiProfile.email);
+      emailInput.classList.add('placeholder-color');
     }
     if (skiProfile.address) {
       addressInput.setAttribute("placeholder", skiProfile.address);
+      addressInput.classList.add('placeholder-color');
     }
     if (skiProfile.memberDate) {
       memberCreatedDateInput.textContent = `Member Since: ${skiProfile.memberDate}`;
@@ -487,7 +490,7 @@ function clearLocalStorage() {
   nameInput.setAttribute("placeholder", "Enter first & last name");
   emailInput.setAttribute("placeholder", "Enter valid email");
   addressInput.setAttribute("placeholder","Street, City, State, Zipcode");
-  nameInput.classList.remove('placeholder-color')
+  nameInput.classList.remove('placeholder-color');
   emailInput.classList.remove('placeholder-color');
   addressInput.classList.remove('placeholder-color');
   nameInput.value = "";
