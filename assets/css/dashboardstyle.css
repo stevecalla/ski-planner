@@ -12,7 +12,20 @@
   --skiblue: #3e8ed0;
 }
 
-.dashboardtitle {
+body {
+  min-width:360px; 
+}
+
+html {
+  background-color: none;
+  background-color: #3e8ed0;
+}
+
+.hero {
+  background: url(../images/mountaindashboard.jpg) center / cover;
+}
+
+.dashboard-title {
   font-family: bangers;
   font-size: 60px;
   color: white;
@@ -22,7 +35,6 @@
 .subtitle {
   font-family: bangers;
   font-size: 45px;
-
   color: #209CEE;
   padding-bottom: 0px;
   margin-bottom: 0px;
@@ -31,6 +43,14 @@
 
 .custom-button {
   font-family: bangers;
+}
+
+.header-button {
+  width: 100px;
+  height: 50px;
+  margin: 20px 40px;
+  font-family: bangers;
+  color: var(--skiblue);
 }
 
 .sub-title {
@@ -61,14 +81,12 @@
   margin-bottom: 10px;
 }
 
-
 .custom-table {
   max-height: 730px;
-
   overflow-y: scroll;
 }
 
-.custom-tile{
+.custom-tile {
   padding: 20px;
 }
 
@@ -105,22 +123,29 @@
   max-width: 450px;
 }
 
-
-/* .pad-left{
-  margin-left: 5px;
-}
-
-.pad-right{
-  margin-right: 5px;
-} */
-
-/* .powMeterSection{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
-/* .custom-tile{
-    max-height: 600px;
-    overflow: scroll;
+/* ---------- MOBILE RESPONSIVE ---------- */
+/* LARGE SCREENS / TABLETS */
+@media screen and (max-width: 1000px) {
+  /* .header {
+    display: flex;
+    flex-direction: column!important;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
   } */
+
+  .title {
+    margin-top: 20px;
+    font-size: 65px;
+  }
+
+  .dashboard-title {
+    font-size: 55px;
+  }
+
+  .header-button {
+    width: 80px;
+    height: 40px;
+    margin: 5px 40px 10px 40px;
+  }
+}

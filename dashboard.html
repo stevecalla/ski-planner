@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/jpg" href="./assets/images/favicon-16x16.png" />
+  <title>Powder Bound</title>
 
   <!-- LEAFLET -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
@@ -25,31 +27,48 @@
   <link rel="stylesheet" href="./assets/css/profile.css">
   <link rel="stylesheet" href="./assets/css/style.css">
   <link rel="stylesheet" href="./assets/css/dashboardstyle.css">
-  <style>
-    .hero {
-      background: url(assets/images/mountaindashboard.jpg) center / cover;
-    }
-  </style>
-  <title>Powder Bound Dashboard</title>
+  
 </head>
 
-<body class="hero is-fullheight ">
-  <header>
+<body class="hero is-fullheight">
+
+  <!-- <header>
     <div class="title-wrapper">
       <a class="button is-medium custom-button is-info" href="./index.html">Go Back</a>
-
       <h1 class="dashboardtitle">Powder Bound</h1>
-
       <button class="button is-medium custom-button is-info" id="modal-profile-dashboard-button">Profile</button>
     </div>
     <h1 class="sub-title dashboardtitle" id="skiAreaName"></h1>
+  </header> -->
+
+  <header>
+    <div class="is-flex is-justify-content-space-between header is-hidden-touch">
+      <a class="button header-button is-info" href="./index.html">Go Back</a>
+      <!-- <button class="button header-button" id="">Go Back</button> -->
+      <p class="title mb-1">Powder Bound</p>
+      <button class="button header-button is-info" id="modal-profile-dashboard-button">Profile</button>
+    </div>
+
+    <div class="is-flex header is-hidden-desktop">
+      <p class="title mb-1">Powder Bound</p>
+      <div class="is-flex is-justify-content-space-between">
+        <a class="button header-button is-info" href="./index.html">Go Back</a>
+        <button class="button header-button is-info" id="modal-profile-dashboard-button">Profile</button>
+      </div>
+    </div>
+
+    <div class="is-flex is-justify-content-center">
+      <h1 class="sub-title dashboard-title" id="skiAreaName">My Fav Resort</h1>
+    </div> 
   </header>
 
   <main>
     <div class="tile is-ancestor">
       <div class="tile is-12">
+      <!-- <div class="tile is-4"> -->
 
-        <div class="tile is-parent is-vertical ml-2 mr-2">
+        <!-- POW METER WRAPPER -->
+        <div class="tile is-parent is-4 is-vertical ml-2 mr-1">
           <article id="powmeter-wrapper" class="tile is-child notification is-info custom-tile">
             <p class="subtitle">pow meter</p>
             <div class="content powMeterSection">
@@ -63,6 +82,8 @@
               </section>
             </div>
           </article>
+
+          <!-- STATIC MAP WRAPPER -->
           <article id="staticmap-wrapper" class="tile is-child notification is-info custom-tile">
             <p class="subtitle">Map</p>
             <section class="mapSection" id="mapArea">
@@ -70,8 +91,10 @@
             </section>
           </article>
         </div>
-        <div id="directions-wrapper" class="tile is-parent ">
-          <article class="tile is-child notification is-info custom-tile">
+    
+        <!-- DIRECTIONS WRAPPER -->
+        <div id="directions-wrapper " class="tile is-parent ml-1 mr-2">
+          <article class="tile is-child box notification is-info custom-tile">
             <p class="subtitle">Directions</p>
             <form>
               <input id="txtStartAddress" type="text" class="input" placeholder="Address or Coordinates"
@@ -92,44 +115,31 @@
                     </th>
                   </tr>
                   <tr>
-
                     <th id="tdArrivalTime" colspan="2"></th>
-
                     <th id="tdTotalTime"></th>
                     <th id="tdTotalDistance" colspan="2"></th>
-
                   </tr>
                   <tr>
                     <th>#</th>
                     <th>Directions</th>
-
                     <th>Time</th>
                     <th>Distance</th>
                     <th>Map</th>
                   </tr>
                 </thead>
                 <tbody id="tblDirections"></tbody>
-                <!-- <tfoot>
-                  <tr>
-                    <th></th>
-                    <th><a id="gmDirections" target="blank">Google Map Directions</a>
-                    </th>
-                    <th id="tdTotalDistance"></th>
-                    <th id="tdTotalTime"></th>
-                    <th id="tdArrivalTime"></th>
-                  </tr>
-                </tfoot> -->
               </table>
             </section>
           </article>
         </div>
-        <div class="tile is-parent" id="weather-wrapper">
-          <article class="tile is-child notification is-info custom-tile">
+
+      <!-- WEATHER WRAPPER -->
+        <div class="tile is-parent ml-1 mr-2" id="weather-wrapper">
+          <article class="tile is-child box notification is-info custom-tile">
             <p class="subtitle">weather</p>
 
             <!-- WEATHER CONTENT -->
             <!-- TAB NAVIGATION -->
-
             <div class="box">
               <div class="tabs is-toggle is-fullwidth is-medium m-2">
                 <ul class="m-0">
@@ -147,40 +157,36 @@
                   </li>
                 </ul>
               </div>
-
-              <!-- PLACEHOULDER FOR DAILY / HOURLY DATA -->
               <div class="columns is-desktop mt-2" id=custom-weather-container>
                 <div class="row" id="weather-elements">
-                  <!-- daily / hourly weather data goes here -->
+                  <!-- WEATHER CONTENT -->
                 </div>
               </div>
             </div>
-
-            <!-- WEATHER CONTENT -->
           </article>
         </div>
+
       </div>
     </div>
-
-    <!-- VALIDATION MODAL -->
-    <div class="modal custom-font" id="validation-modal">
-      <div class="modal-background"></div>
-      <div class="modal-card" style="width: 350px">
-        <header class="modal-card-head">
-          <p class="modal-card-title custom-letter-spacing" id="modal-title">Modal title</p>
-          <button class="delete" id="close-modal" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body">
-          <p id="modal-body">Content</p>
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-success delete-button hide" id="delete-button">Delete</button>
-          <button class="button cancel-button hide" id="cancel-button">Cancel</button>
-        </footer>
-      </div>
-    </div>
-
   </main>
+  
+  <!-- VALIDATION MODAL -->
+  <div class="modal custom-font" id="validation-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card" style="width: 350px">
+      <header class="modal-card-head">
+        <p class="modal-card-title custom-letter-spacing" id="modal-title">Modal title</p>
+        <button class="delete" id="close-modal" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p id="modal-body">Content</p>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success delete-button hide" id="delete-button">Delete</button>
+        <button class="button cancel-button hide" id="cancel-button">Cancel</button>
+      </footer>
+    </div>
+  </div>
 
   <!-- MOMENT -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
