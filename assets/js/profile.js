@@ -366,7 +366,9 @@ function resetPassResortContainer(selectedList) {
 }
 
 function renderPassOrResorts(appendedPassOrResortList, selectedList) {
-  appendedPassOrResortList.forEach((element) => {
+  let sortedPassResortList = sortUtility(appendedPassOrResortList);
+
+  sortedPassResortList.forEach((element) => {
     let selectedElement = document.createElement("div");
 
     selectedElement.classList.add(
@@ -564,4 +566,21 @@ function createPassResortDefaultContainer(source, list) {
       : resortSelectedContainer.append(defaultContainer);
     // })
   }
+}
+
+//UTILITY FUNCTIONS
+function sortUtility(listToSort) {
+  let sortedList = listToSort.sort(function (a, b) {
+    const nameA = a.toUpperCase(); //ignore upper and lowercase
+    const nameB = b.toUpperCase(); //ignore upper and lowercase
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    //names must be equal
+    return 0;
+  });
+  return sortedList;
 }
