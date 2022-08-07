@@ -170,7 +170,7 @@ function renderWeather(weatherCleanData, resortName, timeframe) {
     let icon = document.createElement("img");
     let lineElement = document.createElement("hr");
 
-    weatherContainer.setAttribute("style", "height: 750px; overflow: scroll;");
+    weatherContainer.setAttribute("style", "height: 783px; overflow: scroll;");
     weatherElement.setAttribute(
       "style",
       "display: flex; align-items: center; justify-content: space-around;"
