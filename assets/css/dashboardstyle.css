@@ -13,12 +13,12 @@
 }
 
 body {
-  min-width:360px; 
+  min-width: 360px;
 }
 
 html {
   background-color: none;
-  background-color: #3e8ed0;
+  background-color: var(--skiblue);
 }
 
 .hero {
@@ -35,10 +35,9 @@ html {
 .subtitle {
   font-family: bangers;
   font-size: 45px;
-  color: #209CEE;
+  color: #209cee;
   padding-bottom: 0px;
   margin-bottom: 0px;
-
 }
 
 .custom-button {
@@ -111,7 +110,6 @@ html {
 }
 
 .powText {
-
   font-family: bangers;
   color: white;
 }

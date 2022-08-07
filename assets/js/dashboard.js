@@ -16,7 +16,9 @@ let snowConditions = document.querySelector("#snowConditions");
 let lblSnowDepth = document.querySelector("#lblSnowDepth");
 let lblChangeInSnowDepth = document.querySelector("#lblChangeInSnowDepth");
 let powMeterImage = document.querySelector("#powMeterImage");
-let profileModalDesktopButton = document.getElementById("profile-button-desktop");
+let profileModalDesktopButton = document.getElementById(
+  "profile-button-desktop"
+);
 let profileModalMobileButton = document.getElementById("profile-button-mobile");
 
 //section:global variables go here 👇
@@ -434,7 +436,7 @@ function init() {
   }
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
   $(this).scrollTop(0);
 });
 
