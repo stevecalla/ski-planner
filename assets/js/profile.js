@@ -155,7 +155,9 @@ function isInputValid(event, currentInput) {
   })
 
   //IF NO INPUT FOR ANY FIELDS RENDER MODAL & NO LOCAL STORAGE
-  valid.includes(true) || getLocalStorage() ? isValid = true : isValid = false;
+  valid.includes(true) || getLocalStorage() ? isValid = true : isValid = false; //todo
+  // valid.includes(true) ? isValid = true : isValid = false;
+
   renderValidationModal(`Input Not Valid`, `Pleae enter name, email or address.`, isValid);
 
   //APPEND DROPDOWN SELECTION TO INPUT
