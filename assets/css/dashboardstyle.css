@@ -14,7 +14,11 @@
 
 body {
   min-width:360px; 
-  /* background-color: #3e8ed0; */
+}
+
+html {
+  background-color: none;
+  background-color: #3e8ed0;
 }
 
 .hero {
