@@ -1,6 +1,6 @@
 //  <!-- FETCH & RENDER WEATHER DATA -->
 //section:query selector variables go here 👇
-let button = document.getElementById("button");
+// let button = document.getElementById("button");
 let dailyTab = document.getElementById("daily-tab");
 let hourlyTab = document.getElementById("hourly-tab");
 let weatherContainer = document.getElementById("custom-weather-container");
@@ -9,9 +9,7 @@ let weatherContainer = document.getElementById("custom-weather-container");
 
 //section:event listeners go here 👇
 dailyTab.addEventListener("click", () => renderDailyHourlyWeatherData("daily"));
-hourlyTab.addEventListener("click", () =>
-  renderDailyHourlyWeatherData("hourly")
-);
+hourlyTab.addEventListener("click", () => renderDailyHourlyWeatherData("hourly"));
 
 //section:functions and event handlers go here 👇
 let customTabColor = document.getElementById("custom-tab-color");
@@ -26,7 +24,7 @@ function renderDailyHourlyWeatherData(requestedData) {
   let latitude = skiArea.latitude;
   let longitude = skiArea.longitude;
   let resortName = skiArea.name;
-  let pass = skiArea.pass;
+  // let pass = skiArea.pass;
 
   // let { Latitude, Longitude, Name } = getCurrentSkiArea(); //todo:destructing
   // latitude = Latitude;
@@ -49,9 +47,15 @@ function renderDailyHourlyWeatherData(requestedData) {
 }
 
 function fetchWeatherData(latitude, longitude, resortName, requestedData) {
-  let currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,alerts&appid=f0bed1b0eff80d425a392e66c50eb063&units=imperial&units=imperial`;
+  let exclusions = "minutely,alerts";
+  // let key = "f0bed1b0eff80d425a392e66c50eb063";
+  let key = config.OPEN_WEATHER_KEY_V2;
+  let units = "imperial";
+  
+  // let currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,alerts&appid=f0bed1b0eff80d425a392e66c50eb063&units=imperial`;
+  let currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=${exclusions}&appid=${key}&units=${units}`;
 
-  // fetch(currentWeatherURL)
+  // fetch(currentWeatherURL) //todo fetch code in productoin
   //   .then((response) => {
   //     if (response.ok) {
   //       response.json().then((data) => {
@@ -73,17 +77,16 @@ function fetchWeatherData(latitude, longitude, resortName, requestedData) {
   // );
   //   });
 
-  // to test in development use the 2 lines below; to test in production comment outlines below and comment in the fetch above
-
+  //MODAL TEST CODE: WILL POP MODAL ON DASH & REMOVE THE WEATHER TILE
   // launchValidationModal(
-  //   "Error: Weather Not found",
-  //   // `Try Again at a Later Date: ${response.statusText}`
-  //   `Try again later, please`,
-  //   'weather'
-  // );
-  requestedData === "hourly"
-    ? createDailyHourlyWeatherData(weather, "hourly", "Boulder")
-    : createDailyHourlyWeatherData(weather, "daily", "Boulder");
+    //   "Error: Weather Not found",
+    //   // `Try Again at a Later Date: ${response.statusText}`
+    //   `Try again later, please`,
+    //   'weather'
+    // );
+
+  // to test in development use the 2 lines below; to test in production comment outlines below and comment in the fetch above
+  requestedData === "hourly" ? createDailyHourlyWeatherData(weather, "hourly", "Boulder") : createDailyHourlyWeatherData(weather, "daily", "Boulder"); //todo test data/code
 }
 
 function createDailyHourlyWeatherData(weather, timeframe, resortName) {
@@ -93,8 +96,7 @@ function createDailyHourlyWeatherData(weather, timeframe, resortName) {
   weather[timeframe].filter((element, index) => {
     let hourOfDay = moment.unix(element.dt).format("H"); //24 hour clock
 
-    if (hourOfDay >= 8 && hourOfDay <= 18) {
-      //hour >=8a && <=6p
+    if (hourOfDay >= 8 && hourOfDay <= 18) {//hour >=8a && <=6p
       weatherCleanData.push({
         type: timeframe,
         date: (type = "hourly"
@@ -114,7 +116,7 @@ function createDailyHourlyWeatherData(weather, timeframe, resortName) {
 
 //RENDER WEATHER DATA
 function renderWeather(weatherCleanData, resortName, timeframe) {
-  // ALTERNATE BACKGROUND & BODER COLOR FOR ACTIVE TAB (REMOVE DEFAULT COLORS)
+  // ALTERNATE BACKGROUND & BORDER COLOR FOR ACTIVE TAB (REMOVE DEFAULT COLORS)
   let allCustomTabColor = document.querySelectorAll(".all-custom-tab-color");
   allCustomTabColor.forEach((element) => {
     element.parentNode.classList.contains("is-active")
@@ -149,8 +151,8 @@ function renderWeather(weatherCleanData, resortName, timeframe) {
   timeFrameContainer.setAttribute("style", "background-color: white;");
 
   //APPEND TITLE CONTENT
-  timeFrameContainer.append(renderResortName);
-  timeFrameContainer.append(weatherTitle);
+  timeFrameContainer.append(renderResortName); //todo:commentfor production
+  timeFrameContainer.append(weatherTitle); //todo:comment out for producton
 
   renderResortName.setAttribute(
     "style",
@@ -182,10 +184,7 @@ function renderWeather(weatherCleanData, resortName, timeframe) {
     //CREATE CONTENT
     let date = element.date;
     let temp = Math.round(element.temp);
-    icon.setAttribute(
-      "src",
-      `https://openweathermap.org/img/w/${element.icon}.png`
-    );
+    icon.setAttribute("src",`https://openweathermap.org/img/w/${element.icon}.png`);
 
     renderDate.textContent = date;
     renderTemp.textContent = `${temp}℉`;
