@@ -149,16 +149,17 @@ function isInputValid(event, currentInput) {
   Object.keys(currentInput).forEach(element => {
     currentInput[element] !== "" && currentInput[element] !== "none" ? valid.push(true): valid.push(false);
     //IF CURRENT ELEMENT EMPTY RENDER WARNING
-    if (currentInput[element] === "") {
-      invalidNameEmailAddress(event, element)
-    }
+    if (currentInput[element] === "") {invalidNameEmailAddress(event, element)};
   })
 
   //IF NO INPUT FOR ANY FIELDS RENDER MODAL & NO LOCAL STORAGE
   valid.includes(true) || getLocalStorage() ? isValid = true : isValid = false; //todo
-  // valid.includes(true) ? isValid = true : isValid = false;
+  // valid.includes(true) ? isValid = true : isValid = false; //todo
 
+  //RENDER VALIDATION MODAL IF INVALID INPUT OR NO LOCAL STORAGE
   renderValidationModal(`Input Not Valid`, `Pleae enter name, email or address.`, isValid);
+
+  // if (v)
 
   //APPEND DROPDOWN SELECTION TO INPUT
   let appendSelectDropdown = getDropDownInput(currentInput);
