@@ -15,22 +15,11 @@ hourlyTab.addEventListener("click", () => renderDailyHourlyWeatherData("hourly")
 let customTabColor = document.getElementById("custom-tab-color");
 
 function renderDailyHourlyWeatherData(requestedData) {
-  //DETERMINE RESORT FOR FETCH
-  // let latitude = skiAreas[5].Latitude;
-  // let longitude = skiAreas[5].Longitude;
-  // let resortName = skiAreas[5].Name; //if necessary
-
   let skiArea = getCurrentSkiArea(); //returns skiArea object with Name, Longitude, Latitude, Pass
   let latitude = skiArea.latitude;
   let longitude = skiArea.longitude;
   let resortName = skiArea.name;
   // let pass = skiArea.pass;
-
-  // let { Latitude, Longitude, Name } = getCurrentSkiArea(); //todo:destructing
-  // latitude = Latitude;
-  // longitude = Longitude
-  // resortName = Name;
-  // console.log(latitude, longitude, resortName, requestedData)
 
   if (requestedData === "daily") {
     dailyTab.classList.add("is-active");
@@ -42,7 +31,6 @@ function renderDailyHourlyWeatherData(requestedData) {
     requestedData = "hourly";
   }
 
-  // console.log(latitude, longitude, resortName, requestedData)
   fetchWeatherData(latitude, longitude, resortName, requestedData);
 }
 
@@ -91,7 +79,6 @@ function fetchWeatherData(latitude, longitude, resortName, requestedData) {
 
 function createDailyHourlyWeatherData(weather, timeframe, resortName) {
   let weatherCleanData = [];
-  // console.log('2 = ', weather, resortName, timeframe);
 
   weather[timeframe].filter((element, index) => {
     let hourOfDay = moment.unix(element.dt).format("H"); //24 hour clock
@@ -147,7 +134,6 @@ function renderWeather(weatherCleanData, resortName, timeframe) {
     "custom-weather"
   );
   timeFrameContainer.setAttribute("id", "custom-weather");
-  // timeFrameContainer.setAttribute("style", "background-color: white; border: 1px solid black; height: 500px; overflow: scroll");
   timeFrameContainer.setAttribute("style", "background-color: white;");
 
   //APPEND TITLE CONTENT
