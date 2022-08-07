@@ -118,7 +118,7 @@ html {
   border-radius: 5px;
   border: 3px white solid;
   max-height: 400px;
-  max-width: 450px;
+  /* max-width: 450px; */
 }
 
 /* ---------- MOBILE RESPONSIVE ---------- */
