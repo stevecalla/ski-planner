@@ -230,10 +230,13 @@ function renderValidNameEmailAddress(field, input) {
     document.getElementById(`alert-${field}-valid`).classList.remove("is-hidden"); //render valid alert
   
     field === "email"
-      ? emailInput.setAttribute("placeholder", input)
+      ? (emailInput.setAttribute("placeholder", input),
+        emailInput.classList.add('placeholder-color'))
       : field === "name"
-      ? nameInput.setAttribute("placeholder", input)
-      : addressInput.setAttribute("placeholder", input); //set placeholder to input value
+      ? (nameInput.setAttribute("placeholder", input),
+        nameInput.classList.add('placeholder-color'))
+      : (addressInput.setAttribute("placeholder", input),
+        addressInput.classList.add('placeholder-color')); //set placeholder to input value
   
     //swap disk and check icon to confirm valid
     // allIconElements.forEach((element) => {
@@ -452,10 +455,10 @@ function clearLocalStorage() {
   //reset name and email
   nameInput.setAttribute("placeholder", "Enter first & last name");
   emailInput.setAttribute("placeholder", "Enter valid email");
-  addressInput.setAttribute(
-    "placeholder",
-    "Street, City, State, Zipcode"
-  );
+  addressInput.setAttribute("placeholder","Street, City, State, Zipcode");
+  nameInput.classList.remove('placeholder-color')
+  emailInput.classList.remove('placeholder-color');
+  addressInput.classList.remove('placeholder-color');
   nameInput.value = "";
   emailInput.value = "";
   addressInput.value = "";
