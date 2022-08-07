@@ -344,6 +344,8 @@ function init() {
     document.location.href = "./index.html";
   }
 
+  txtStartAddress.focus();
+
   // Set the return location for the Profile Page
   sessionStorage.setItem("returnPage", document.location.href);
 
