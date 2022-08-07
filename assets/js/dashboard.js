@@ -15,10 +15,10 @@ let weatherForecast = document.querySelector("#weatherForecast");
 let snowConditions = document.querySelector("#snowConditions");
 let lblSnowDepth = document.querySelector("#lblSnowDepth");
 let lblChangeInSnowDepth = document.querySelector("#lblChangeInSnowDepth");
+let powMeterImage = document.querySelector("#powMeterImage");
 let modalProfileFromDashBoard = document.getElementById(
   "modal-profile-dashboard-button"
 );
-let powMeterImage = document.querySelector("#powMeterImage");
 
 //section:global variables go here 👇
 
@@ -29,6 +29,18 @@ txtStartAddress.addEventListener("input", () =>
   fetchMapquestCreateAutoComplete(txtStartAddress)
 ); //todo:make live
 
+// This event handler updates the page based on the start location, date, & time fields
+btnUpdate.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  const skiArea = getCurrentSkiArea();
+
+  displayDrivingDirections(skiArea);
+
+  renderDailyHourlyWeatherData("daily"); // loads weather data upon page load -- function is is weather.js
+});
+
+// This function reads the querystring and returns the appropriate skiArea object
 function getCurrentSkiArea() {
   // https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
   const queryString = new Proxy(new URLSearchParams(window.location.search), {
@@ -51,9 +63,6 @@ function getCurrentSkiArea() {
   );
 
   return skiArea;
-  // const { Name, Longitude, Latitude, Pass } = skiArea; //todo:destructing makes it easier to use
-  // return { Name, Longitude, Latitude, Pass }; //todo:destructing makes it easier to use
-  // I disagree that it makes it easier to use.  Also, if the object structure changes, e.g. more properties are added, you have to update the interface to access those properties.  If you return the whole object, you don't have to.  Real world example: If I want to update the skiArea object to include an logo and a website address, the currently live code won't have to be updated, but the commented out code will.  In addition, when you return the entire object in OOP, you will return it's methods as well as it's properties, which allows for Abstraction and Encapulation.  The deconstruction method would return only it's properties. (And, no, our skiAreas object doesn't have any methods yet.)
 }
 
 //section:functions and event handlers go here 👇
@@ -83,9 +92,10 @@ function getResortInfo() {
     }
 
     // displayWeatherForecast(skiArea);
+
     try {
       displaySnowConditions(skiArea);
-      //throw "POW Meter Error";
+      //throw "POW Meter Error";  // testing purposes
     } catch (error) {
       launchValidationModal("POW Meter Error", error, "powmeter-wrapper");
     }
@@ -94,6 +104,7 @@ function getResortInfo() {
   }
 }
 
+// This function displays a static map of the Ski Area
 function displayStaticMap(skiArea) {
   // MapQuest
   // let zoom = 14;
@@ -110,6 +121,7 @@ function displayStaticMap(skiArea) {
   staticMap.alt = skiArea.name;
 }
 
+// This function displays the driving directions from the user's start location to the Ski Area
 async function displayDrivingDirections(skiArea) {
   let startCoordinates = txtStartAddress.value;
   let userCurrentPosition = {
@@ -154,6 +166,8 @@ async function displayDrivingDirections(skiArea) {
     td.textContent = directions[i].narrative;
     tr.appendChild(td);
 
+    // The below 3 sections that are commented out are for potential future development: syncing weather during driving
+
     // Latitude
     // td = document.createElement("td");
     // td.textContent = directions[i].latitude;
@@ -179,11 +193,7 @@ async function displayDrivingDirections(skiArea) {
     td.textContent = `${directions[i].distance.toFixed(2)} miles`;
     tr.appendChild(td);
 
-    //
-    //
-    // Put the image back in for the presentation
-    //
-    //
+    // If testing, comment out the below Map section
 
     // Map
     // if (directions[i].mapUrl) {
@@ -201,8 +211,8 @@ async function displayDrivingDirections(skiArea) {
   tdTotalDistance.textContent = `${directions[
     directions.length - 1
   ].distance.toFixed(1)} miles`;
-  tdTotalTime.textContent = directions[directions.length - 1].formattedTime; // .time is in seconds
-  tdTotalTime.dataset.time = directions[directions.length - 1].time;
+  tdTotalTime.textContent = directions[directions.length - 1].formattedTime;
+  tdTotalTime.dataset.time = directions[directions.length - 1].time; // .time is in seconds
   gmDirections.href = `https://www.google.com/maps/dir/${startCoordinates}/${endCoordinates}`;
 
   let startTime = moment(
@@ -213,31 +223,19 @@ async function displayDrivingDirections(skiArea) {
   tdArrivalTime.textContent = `Arrival Time: ${endTime.format("h:mm:ss A")}`;
 }
 
+// This function fetches directions from a start lat/long to an end lat/long
 async function fetchDirections(startCoordinates, endCoordinates) {
-  var myHeaders = new Headers();
-  myHeaders.append(
-    "Cookie",
-    "JSESSIONID=F03321F222C277ED923D3B8EF447698D; JSESSIONID=885FD8B936A29FF149EE75F9D0C469D8"
-  );
-
   var requestOptions = {
     method: "GET",
-    headers: myHeaders,
     redirect: "follow",
   };
 
-  //http://www.mapquestapi.com/directions/v2/route?key=onM30fdvaziP9ykjaYeleR5hvIhOmLm1&from=39.74,-104.99&to=39.68,-105.897
+  // http://www.mapquestapi.com/directions/v2/route?key=onM30fdvaziP9ykjaYeleR5hvIhOmLm1&from=39.74,-104.99&to=39.68,-105.897
   let apiUrl = `https://www.mapquestapi.com/directions/v2/route?key=${config.MAPQUEST_KEY}&from=${startCoordinates}&to=${endCoordinates}`;
-
-  //
-  //
-  // Put the fetch call back in for the presentation
-  //
-  //
 
   // const response = await fetch(apiUrl, requestOptions);
   // const data = await response.json();
-  const data = testDirections;
+  const data = testDirections; // For testing, comment out the previous 2 lines
 
   const maneuvers = data.route.legs[0].maneuvers;
   const directions = [];
@@ -264,13 +262,10 @@ async function fetchDirections(startCoordinates, endCoordinates) {
   return directions;
 }
 
+// This function fetches latitude & longitude coordinates from a mailing address
 async function fetchCoordinatesFromAddress(address) {
-  var myHeaders = new Headers();
-  myHeaders.append("Cookie", "JSESSIONID=F2079DB8A9017A9DEF9E1957C80C1A06");
-
   var requestOptions = {
     method: "GET",
-    headers: myHeaders,
     redirect: "follow",
   };
 
@@ -283,6 +278,7 @@ async function fetchCoordinatesFromAddress(address) {
   return `${coord.lat},${coord.lng}`;
 }
 
+// This function fetches and displays SNOTEL info
 function displaySnowConditions(skiArea) {
   // http://api.powderlin.es/closest_stations
   // https://dqmoczhn0pnkc.cloudfront.net/closest_stations
@@ -341,15 +337,6 @@ function displaySnowConditions(skiArea) {
     .always();
 }
 
-btnUpdate.addEventListener("click", function (event) {
-  event.preventDefault();
-
-  const skiArea = getCurrentSkiArea();
-
-  displayDrivingDirections(skiArea);
-  //displayWeatherForecast(skiArea);
-});
-
 function init() {
   if (!document.location.search) {
     document.location.href = "./index.html";
@@ -361,8 +348,9 @@ function init() {
   // Load default values for Directions Start Controls
   txtStartDate.value = moment().add(1, "day").format("yyyy-MM-DD");
 
-  renderDailyHourlyWeatherData("daily"); // loads weather data upon page load
+  renderDailyHourlyWeatherData("daily"); // loads weather data upon page load -- function is is weather.js
 
+  // Get user's current location or preferred start location, then start loading the resort info
   let skiProfile = JSON.parse(localStorage.getItem("ski-profile"));
 
   if (skiProfile && skiProfile.address) {
