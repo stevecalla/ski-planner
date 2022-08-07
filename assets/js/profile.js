@@ -28,16 +28,18 @@ let saveButtonElement = document.getElementById("save-button");
 window.addEventListener("load", loadProfile);
 document.addEventListener("keydown", closeProfileModal);
 closeModalElement.addEventListener("click", () => renderLastPage()); //SEE UTILS.JS
-saveNameIcon.addEventListener("click", getAllProfileInput);
-saveEmailIcon.addEventListener("click", getAllProfileInput);
-saveAddressIcon.addEventListener("click", getAllProfileInput);
 passSelectedContainer.addEventListener("click", deletePassResort);
 resortSelectedContainer.addEventListener("click", deletePassResort);
-savePassIcon.addEventListener("click", getAllProfileInput);
-saveResortIcon.addEventListener("click", getAllProfileInput);
 deleteProfileButton.addEventListener("click", confirmDeleteLocalStorage);
 addressInput.addEventListener("input", () => fetchMapquestCreateAutoComplete(addressInput)); //SEE UTILS.JS
+
 saveButtonElement.addEventListener("click", getAllProfileInput);
+
+saveNameIcon.addEventListener("click", getUniqueProfileInput);
+saveEmailIcon.addEventListener("click", getUniqueProfileInput);
+saveAddressIcon.addEventListener("click", getUniqueProfileInput);
+savePassIcon.addEventListener("click", getUniqueProfileInput);
+saveResortIcon.addEventListener("click", getUniqueProfileInput);
 
 //section:functions and event handlers go here 👇
 //LOAD PROFILE FROM STORAGE
@@ -132,14 +134,41 @@ function getAllProfileInput() {
   isInputValid(event, currentInput);
 }
 
+function getUniqueProfileInput(event) {
+  console.log(event.target);
+  console.log(document.getElementsByName("name")[0].value);
+
+  let selectedElementValue = [];
+  if (event.target.classList.contains('name')) {
+    selectedElementValue = document.getElementsByName("name");
+  } else if (event.target.classList.contains('email')) {
+    selectedElementValue = document.getElementsByName("email");
+  } else if (event.target.classList.contains('address')) {
+    selectedElementValue = document.getElementsByName("address");
+  } else if (event.target.classList.contains('passes')) {
+  selectedElementValue = document.getElementsByName("passes");
+  } else if (event.target.classList.contains('resorts')) {
+    selectedElementValue = document.getElementsByName("resorts");
+  }
+
+  let currentInput = {};
+
+  selectedElementValue.forEach(element => {
+    currentInput[element.name.trim()] = element.value.trim();
+  });
+
+  isInputValid(event, currentInput);
+}
+
 function isInputValid(event, currentInput) {
+  console.log(currentInput)
   //DETERMINE IF INPUT IS VALID
   let valid = [];
   let isValid = true;
   let emailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
 
   //IF EMAIL INVALID RENDER MODAL, RETURN
-  if (currentInput.email !== "" && !currentInput.email.match(emailFormatRegex)) {
+  if (currentInput.email && (currentInput.email !== "" && !currentInput.email.match(emailFormatRegex))) {
     isValid = false;
     renderValidationModal(`Email Not Valid`, `Pleae enter valid email (i.e. example@email.com)`, isValid);
     return;
@@ -162,7 +191,8 @@ function isInputValid(event, currentInput) {
   // if (v)
 
   //APPEND DROPDOWN SELECTION TO INPUT
-  let appendSelectDropdown = getDropDownInput(currentInput);
+  let appendSelectDropdown = {};
+  Object.keys(currentInput).length > 1 ? appendSelectDropdown = getDropDownInput(currentInput) : appendSelectDropdown = currentInput;
   if (isValid) {processInput(appendSelectDropdown)};
 }
 
