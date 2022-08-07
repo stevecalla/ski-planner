@@ -16,14 +16,14 @@ let snowConditions = document.querySelector("#snowConditions");
 let lblSnowDepth = document.querySelector("#lblSnowDepth");
 let lblChangeInSnowDepth = document.querySelector("#lblChangeInSnowDepth");
 let powMeterImage = document.querySelector("#powMeterImage");
-let modalProfileFromDashBoard = document.getElementById(
-  "modal-profile-dashboard-button"
-);
+let profileModalDesktopButton = document.getElementById("profile-button-desktop");
+let profileModalMobileButton = document.getElementById("profile-button-mobile");
 
 //section:global variables go here 👇
 
 //section:event listeners go here 👇
-modalProfileFromDashBoard.addEventListener("click", renderProfileModal);
+profileModalDesktopButton.addEventListener("click", renderProfileModal);
+profileModalMobileButton.addEventListener("click", renderProfileModal);
 // SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
 txtStartAddress.addEventListener("input", () =>
   fetchMapquestCreateAutoComplete(txtStartAddress)
@@ -433,4 +433,9 @@ function init() {
     navigator.geolocation.getCurrentPosition(success, error, options);
   }
 }
+
+$(document).ready(function(){
+  $(this).scrollTop(0);
+});
+
 init();
