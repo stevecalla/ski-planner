@@ -135,8 +135,8 @@ function getAllProfileInput() {
 }
 
 function getUniqueProfileInput(event) {
-  console.log(event.target);
-  console.log(document.getElementsByName("name")[0].value);
+  // console.log(event.target);
+  // console.log(document.getElementsByName("name")[0].value);
 
   let selectedElementValue = [];
   if (event.target.classList.contains('name')) {
@@ -161,7 +161,7 @@ function getUniqueProfileInput(event) {
 }
 
 function isInputValid(event, currentInput) {
-  console.log(currentInput)
+  // console.log(currentInput)
   //DETERMINE IF INPUT IS VALID
   let valid = [];
   let isValid = true;

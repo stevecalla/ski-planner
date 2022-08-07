@@ -103,7 +103,7 @@ let deleteButton = document.getElementById("delete-button");
 let cancelButton = document.getElementById("cancel-button");
 
 function launchValidationModal(title, body, source) {
-  console.log(source);
+  // console.log(source);
 
   validationModal.classList.add("is-active"); //displays modal
   modalTitle.textContent = title; //adds title
