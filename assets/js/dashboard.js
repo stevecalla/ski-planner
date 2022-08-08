@@ -322,7 +322,6 @@ function displaySnowConditions(skiArea) {
           lblSnowDepth.textContent = `Snow Depth (in): ${dataSNOTEL.data[0]["Snow Depth (in)"]}`;
           lblChangeInSnowDepth.textContent = `Change In Snow Depth (in): ${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}`;
 
-          // console.log(`${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}`);
         }
         if (`${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}` >= 6) {
           powMeterImage.src = "./assets/images/rad.png";
