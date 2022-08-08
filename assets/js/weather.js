@@ -1,4 +1,3 @@
-//  <!-- FETCH & RENDER WEATHER DATA -->
 //section:query selector variables go here 👇
 // let button = document.getElementById("button");
 let dailyTab = document.getElementById("daily-tab");
@@ -36,13 +35,11 @@ function renderDailyHourlyWeatherData(requestedData) {
   fetchWeatherData(latitude, longitude, resortName, requestedData);
 }
 
-function fetchWeatherData(latitude, longitude, resortName, requestedData) {
+function fetchWeatherData(latitude, longitude, requestedData) {
   let exclusions = "minutely,alerts";
-  // let key = "f0bed1b0eff80d425a392e66c50eb063";
   let key = config.OPEN_WEATHER_KEY_V2;
   let units = "imperial";
 
-  // let currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,alerts&appid=f0bed1b0eff80d425a392e66c50eb063&units=imperial`;
   let currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=${exclusions}&appid=${key}&units=${units}`;
 
   // fetch(currentWeatherURL) //todo fetch code in productoin
@@ -142,7 +139,7 @@ function renderWeather(weatherCleanData, resortName, timeframe) {
   timeFrameContainer.setAttribute("style", "background-color: white;");
 
   //APPEND TITLE CONTENT
-  timeFrameContainer.append(renderResortName); //todo:commentfor production
+  timeFrameContainer.append(renderResortName); //todo:comment out for production
   timeFrameContainer.append(weatherTitle); //todo:comment out for producton
 
   renderResortName.setAttribute(
