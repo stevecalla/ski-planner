@@ -80,32 +80,46 @@ function fetchWeatherData(latitude, longitude, resortName, requestedData) {
 }
 
 function createDailyHourlyWeatherData(weather, timeframe, resortName) {
-  let weatherCleanData = [];
+  let weatherRawData = weather[timeframe];
+  let weatherFiltered = [];
+  let weatherRenderData = [];
+  let hourOfDay = "";
+  let previousDate = "";
 
-  weather[timeframe].filter((element, index) => {
-    let hourOfDay = moment.unix(element.dt).format("H"); //24 hour clock
-
-    if (hourOfDay >= 8 && hourOfDay <= 18) {
-      //hour >=8a && <=6p
-      weatherCleanData.push({
-        type: timeframe,
-        date: (type = "hourly"
-          ? moment.unix(element.dt).format("ddd, M/D/YY ha")
-          : moment.unix(element.dt).format("M/D/YYYY")),
-        description: element.weather[0].description,
-        icon: element.weather[0].icon,
-        temp: element.temp.day || element.temp, // element.temp.day is the daily array and element.temp is the hourly array
-        windGust: element.wind_gust,
-        windSpeed: element.wind_speed,
-      });
+  //FILTER FOR ONLY WEATHER BETWEEN 8AM AND 6PM
+  for (let i = 0; i < weatherRawData.length; i++) { 
+    hourOfDay = moment.unix(weatherRawData[i].dt).format("H"); //24 hour clock
+    if (hourOfDay >= 8 && hourOfDay <=18) {
+      weatherFiltered.push(weatherRawData[i])
     }
-  });
+  }
 
-  renderWeather(weatherCleanData, resortName, timeframe);
+  //CREATE WEATHER DATA TO RENDER
+  weatherFiltered.forEach(element => {
+    let dailyDate = moment.unix(element.dt).format("ddd, M/D/YY");
+    let hourlyDate = moment.unix(element.dt).format("ddd, M/D/YY ha");
+    let onlyAMPMDate = moment.unix(element.dt).format("ha")
+    let date = timeframe === "hourly" ? hourlyDate : dailyDate;
+    let renderDate = timeframe === "daily" ? dailyDate : previousDate === dailyDate ? onlyAMPMDate : hourlyDate;
+
+    weatherRenderData.push({
+      [timeframe]: timeframe,
+      date: date,
+      renderDate: renderDate,
+      description: element.weather[0].description,
+      icon: element.weather[0].icon,
+      temp: element.temp.day || element.temp, // element.temp.day is the daily array and element.temp is the hourly array
+      windGust: element.wind_gust,
+      windSpeed: element.wind_speed,
+    });
+    previousDate = dailyDate;
+  })
+
+  renderWeather(weatherRenderData, resortName, timeframe);
 }
 
 //RENDER WEATHER DATA
-function renderWeather(weatherCleanData, resortName, timeframe) {
+function renderWeather(weatherRenderData, resortName, timeframe) {
   // ALTERNATE BACKGROUND & BORDER COLOR FOR ACTIVE TAB (REMOVE DEFAULT COLORS)
   let allCustomTabColor = document.querySelectorAll(".all-custom-tab-color");
   allCustomTabColor.forEach((element) => {
@@ -130,7 +144,6 @@ function renderWeather(weatherCleanData, resortName, timeframe) {
     ? (weatherTitle.textContent = "Hourly Forecast")
     : (weatherTitle.textContent = "Daily Forecast");
 
-  // timeFrameContainer.classList.add("column", "is-half", "custom-weather");
   timeFrameContainer.classList.add(
     "column",
     "is-justify-content-space-between",
@@ -143,17 +156,17 @@ function renderWeather(weatherCleanData, resortName, timeframe) {
   // timeFrameContainer.append(renderResortName); //todo:comment out for production
   // timeFrameContainer.append(weatherTitle); //todo:comment out for producton
 
-  renderResortName.setAttribute(
-    "style",
-    "background-color: white; position: sticky; top: 0px;"
-  );
-  weatherTitle.setAttribute(
-    "style",
-    "background-color: white; position: sticky; top: 24px;"
-  );
+  // renderResortName.setAttribute( //ONLY NECESSARY IF RESORT NAME IS DISPLAYED //todo:comment out for producton
+  //   "style",
+  //   "background-color: white; position: sticky; top: 0px;"
+  // );
+  // weatherTitle.setAttribute( //ONLY NECESSARY IF WEATHER TITLE IS DISPLAYED //todo:comment out for producton
+  //   "style",
+  //   "background-color: white; position: sticky; top: 24px;"
+  // );
 
   //CREATE & APPEND WEATHER CONTENT/DATA
-  weatherCleanData.forEach((element, index) => {
+  weatherRenderData.forEach(element => {
     //CREATE ELEMENTS
     let weatherElement = document.createElement("div");
     let renderDate = document.createElement("p");
@@ -167,20 +180,17 @@ function renderWeather(weatherCleanData, resortName, timeframe) {
       "display: flex; align-items: center; justify-content: space-around;"
     );
     lineElement.setAttribute("style", "margin: 0px");
-    renderDate.setAttribute("style", "margin: 0px");
+    renderDate.setAttribute("style", "margin: 0px; width: 120px; text-align: center;");
     renderTemp.setAttribute("style", "margin: 0px");
 
     //CREATE CONTENT
-    let date = element.date;
+    renderDate.textContent = element.renderDate;
     let temp = Math.round(element.temp);
-    icon.setAttribute(
-      "src",
-      `https://openweathermap.org/img/w/${element.icon}.png`
-    );
-
-    renderDate.textContent = date;
     renderTemp.textContent = `${temp} \xB0F`;
+    icon.setAttribute("src",`https://openweathermap.org/img/w/${element.icon}.png`);
 
+
+    //APPEND ELEMENTS (TO DASHBOARD TILE)
     weatherContainer.append(timeFrameContainer);
     timeFrameContainer.append(weatherElement);
     weatherElement.append(renderDate);
