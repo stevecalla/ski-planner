@@ -124,6 +124,7 @@ html {
 /* ---------- MOBILE RESPONSIVE ---------- */
 /* LARGE SCREENS / TABLETS */
 @media screen and (max-width: 1000px) {
+  /* USED BULMA HTML CLASS IS HIDDEN TABLET & IS HIDDEN MOBILE */
   /* .header {
     display: flex;
     flex-direction: column!important;

@@ -32,24 +32,16 @@
 
 <body class="hero is-fullheight">
 
-  <!-- <header>
-    <div class="title-wrapper">
-      <a class="button is-medium custom-button is-info" href="./index.html">Go Back</a>
-      <h1 class="dashboardtitle">Powder Bound</h1>
-      <button class="button is-medium custom-button is-info" id="modal-profile-dashboard-button">Profile</button>
-    </div>
-    <h1 class="sub-title dashboardtitle" id="skiAreaName"></h1>
-  </header> -->
-
+  <!-- DESKTOP / TABLET BULMA BREAKPOINT USING THE IS HIDDEN MOBILE CLASS -->
   <header>
-    <div class="is-flex is-justify-content-space-between header is-hidden-touch">
+    <div class="is-flex is-justify-content-space-between header is-hidden-mobile">
       <a class="button header-button is-info" href="./index.html">Go Back</a>
-      <!-- <button class="button header-button" id="">Go Back</button> -->
       <p class="title mb-1">Powder Bound</p>
       <button class="button header-button is-info" id="profile-button-desktop">Profile</button>
     </div>
 
-    <div class="is-flex header is-hidden-desktop">
+    <!-- MOBILE BULMA BREAKPOINT USING THE IS HIDDEN TABLE BREAKPOINT -->
+    <div class="is-flex header is-hidden-tablet">
       <p class="title mb-1">Powder Bound</p>
       <div class="is-flex is-justify-content-space-between">
         <a class="button header-button is-info" href="./index.html">Go Back</a>
@@ -65,7 +57,6 @@
   <main>
     <div class="tile is-ancestor">
       <div class="tile is-12">
-        <!-- <div class="tile is-4"> -->
 
         <!-- POW METER WRAPPER -->
         <div class="tile is-parent is-4 is-vertical ml-2 mr-1">
