@@ -322,7 +322,6 @@ function displaySnowConditions(skiArea) {
           lblSnowDepth.textContent = `Snow Depth (in): ${dataSNOTEL.data[0]["Snow Depth (in)"]}`;
           lblChangeInSnowDepth.textContent = `Change In Snow Depth (in): ${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}`;
 
-          // console.log(`${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}`);
         }
         if (`${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}` >= 6) {
           powMeterImage.src = "./assets/images/rad.png";
@@ -352,7 +351,7 @@ function init() {
   // Load default values for Directions Start Controls
   txtStartDate.value = moment().add(1, "day").format("yyyy-MM-DD");
 
-  renderDailyHourlyWeatherData("daily"); // loads weather data upon page load -- function is is weather.js
+  renderDailyHourlyWeatherData("daily"); // loads weather data upon page load -- function is in weather.js
 
   // Get user's current location or preferred start location, then start loading the resort info
   let skiProfile = JSON.parse(localStorage.getItem("ski-profile"));

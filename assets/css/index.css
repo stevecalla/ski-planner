@@ -1,8 +1,3 @@
-* {
-  /* border: 1px solid red; */
-  /* box-sizing: border-box; */
-}
-
 :root {
   --dark-text: #13293d;
   --dark-background: #13293d;
@@ -13,28 +8,10 @@
 }
 
 body {
-  font-family: bangers, Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: bangers, Cambria, Cochin, Georgia, Times, "Times New Roman",
+    serif;
   /* background-color: var(--light-background); */
   position: relative;
-}
-
-/* h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: bolder;
-} */
-
-/* .hidden {
-  visibility: hidden;
-} */
-
-.hero {
-  /* background: center / cover no-repeat url("/Users/stevecalla/du_coding/projects/ski-planner/assets/images/mountainbackground1.jpg"); */
-  
-  /* background: center / cover no-repeat url("mountainbackground1.jpg") */
 }
 
 header,
@@ -57,33 +34,12 @@ footer,
   min-width: 360px;
 }
 
-/* .hero-bkg {
-  background: url(assets/images/mountaindashboard.jpg);
-} */
-
-/* .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0px;
-  margin-top: 5px;
-} */
-
-
-
 .title {
-  /* font-family: bangers; */
   margin-bottom: 0px;
   padding-bottom: 0px;
   font-size: 75px;
   color: white;
-  /* z-index: 0; */
-  /* position: relative; */
 }
-
-/* .subtitle2 { */
-  /* font-family: bangers; */
-/* } */
 
 .profile-button {
   width: 100px;
@@ -94,7 +50,6 @@ footer,
 }
 
 .custom-checkboxes {
-  /* font-family: bangers; */
   color: var(--skiblue);
   border-radius: 5px;
   background-color: var(--light-background);
@@ -104,7 +59,6 @@ footer,
 .mapSection {
   display: flex;
   justify-content: center;
-
 }
 
 .map {
@@ -114,10 +68,6 @@ footer,
   border: 3px white solid;
   border-radius: 10px;
 }
-
-/* .validation-modal {
-  z-index: 2147483647;
-} */
 
 /* header,  */
 footer {
@@ -134,7 +84,7 @@ footer {
 @media screen and (max-width: 767px) {
   .header {
     display: flex;
-    flex-direction: column!important;
+    flex-direction: column !important;
     justify-content: center;
     align-items: center;
     align-content: center;
