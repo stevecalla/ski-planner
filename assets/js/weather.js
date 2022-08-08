@@ -140,8 +140,8 @@ function renderWeather(weatherCleanData, resortName, timeframe) {
   timeFrameContainer.setAttribute("style", "background-color: white;");
 
   //APPEND TITLE CONTENT
-  timeFrameContainer.append(renderResortName); //todo:comment out for production
-  timeFrameContainer.append(weatherTitle); //todo:comment out for producton
+  // timeFrameContainer.append(renderResortName); //todo:comment out for production
+  // timeFrameContainer.append(weatherTitle); //todo:comment out for producton
 
   renderResortName.setAttribute(
     "style",
