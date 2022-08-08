@@ -1,11 +1,12 @@
-
 /* UNIVERSAL */
 body {
-  font-family: 'Bangers', 'Cambria', Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: "Bangers", "Cambria", Cochin, Georgia, Times, "Times New Roman",
+    serif;
 }
 
 .custom-font {
-  font-family: 'Bangers', 'Cambria', Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: "Bangers", "Cambria", Cochin, Georgia, Times, "Times New Roman",
+    serif;
 }
 
 /* HEADER */
@@ -23,7 +24,6 @@ body {
   flex-direction: column;
   border: 1px solid white;
   border-radius: 5px;
-
 }
 
 .header-title {
@@ -38,16 +38,16 @@ body {
 }
 
 .custom-letter-spacing {
-  letter-spacing: .1rem;
+  letter-spacing: 0.1rem;
 }
 
 .custom-box-blue {
-  background-color: #3E8ED0;
+  background-color: #3e8ed0;
   color: white;
 }
 
 .custom-border {
-  border: 1px solid white!important;
+  border: 1px solid white !important;
   border-radius: 5px;
 }
 
@@ -56,7 +56,7 @@ body {
 }
 
 .checkmark-white {
-  color: white
+  color: white;
 }
 
 .hide {

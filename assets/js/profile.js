@@ -2,7 +2,7 @@
 let resortList = document.getElementById("resort-list");
 let passList = document.getElementById("pass-list");
 let profileModal = document.getElementById("profile-modal");
-let allInputElements = document.querySelectorAll('input');
+let allInputElements = document.querySelectorAll("input");
 let nameInput = document.getElementById("name-input");
 let emailInput = document.getElementById("email-input");
 let addressInput = document.getElementById("address-input");
@@ -12,10 +12,14 @@ let saveEmailIcon = document.getElementById("save-email-icon");
 let saveAddressIcon = document.getElementById("save-address-icon");
 let allIconElements = document.querySelectorAll("i");
 let allButtonElements = document.querySelectorAll("button");
-let passSelectedContainer = document.getElementById("passes-selected-container");
+let passSelectedContainer = document.getElementById(
+  "passes-selected-container"
+);
 let passInput = document.getElementById("passes-input");
 let savePassIcon = document.getElementById("save-passes-icon");
-let resortSelectedContainer = document.getElementById("resorts-selected-container");
+let resortSelectedContainer = document.getElementById(
+  "resorts-selected-container"
+);
 let resortInput = document.getElementById("resorts-input");
 let saveResortIcon = document.getElementById("save-resorts-icon");
 let deleteProfileButton = document.getElementById("delete-profile-button");
@@ -31,7 +35,9 @@ closeModalElement.addEventListener("click", () => renderLastPage()); //SEE UTILS
 passSelectedContainer.addEventListener("click", deletePassResort);
 resortSelectedContainer.addEventListener("click", deletePassResort);
 deleteProfileButton.addEventListener("click", confirmDeleteLocalStorage);
-addressInput.addEventListener("input", () => fetchMapquestCreateAutoComplete(addressInput)); //SEE UTILS.JS
+addressInput.addEventListener("input", () =>
+  fetchMapquestCreateAutoComplete(addressInput)
+); //SEE UTILS.JS
 saveButtonElement.addEventListener("click", getAllProfileInput);
 saveNameIcon.addEventListener("click", getUniqueProfileInput);
 saveEmailIcon.addEventListener("click", getUniqueProfileInput);
@@ -97,15 +103,15 @@ function loadProfileFromStorage() {
     //set placeholder data
     if (skiProfile.name) {
       nameInput.setAttribute("placeholder", skiProfile.name);
-      nameInput.classList.add('placeholder-color');
+      nameInput.classList.add("placeholder-color");
     }
     if (skiProfile.email) {
       emailInput.setAttribute("placeholder", skiProfile.email);
-      emailInput.classList.add('placeholder-color');
+      emailInput.classList.add("placeholder-color");
     }
     if (skiProfile.address) {
       addressInput.setAttribute("placeholder", skiProfile.address);
-      addressInput.classList.add('placeholder-color');
+      addressInput.classList.add("placeholder-color");
     }
     if (skiProfile.memberDate) {
       memberCreatedDateInput.textContent = `Member Since: ${skiProfile.memberDate}`;
@@ -120,7 +126,7 @@ function loadProfileFromStorage() {
       renderPassOrResorts(skiProfile.resorts, "resorts");
     }
     enableNameEmailAddress();
-    deleteProfileButton.removeAttribute('disabled');
+    deleteProfileButton.removeAttribute("disabled");
   }
 }
 
@@ -129,7 +135,7 @@ function getAllProfileInput() {
   //GET INPUT IF SAVE PROFILE BUTTON IS CLICKED
   let currentInput = {};
 
-  allInputElements.forEach(element => {
+  allInputElements.forEach((element) => {
     currentInput[element.name.trim()] = element.value.trim();
   });
 
@@ -140,21 +146,21 @@ function getUniqueProfileInput(event) {
   //GET INPUT IF EDIT BUTTONS ASIDE INPUT BARS ARE CLICKED
   //SHOULD REFACTOR TO COMBINE WITH getAllProfileInput function
   let selectedElementValue = [];
-  if (event.target.classList.contains('name')) {
+  if (event.target.classList.contains("name")) {
     selectedElementValue = document.getElementsByName("name");
-  } else if (event.target.classList.contains('email')) {
+  } else if (event.target.classList.contains("email")) {
     selectedElementValue = document.getElementsByName("email");
-  } else if (event.target.classList.contains('address')) {
+  } else if (event.target.classList.contains("address")) {
     selectedElementValue = document.getElementsByName("address");
-  } else if (event.target.classList.contains('passes')) {
-  selectedElementValue = document.getElementsByName("passes");
-  } else if (event.target.classList.contains('resorts')) {
+  } else if (event.target.classList.contains("passes")) {
+    selectedElementValue = document.getElementsByName("passes");
+  } else if (event.target.classList.contains("resorts")) {
     selectedElementValue = document.getElementsByName("resorts");
   }
 
   let currentInput = {};
 
-  selectedElementValue.forEach(element => {
+  selectedElementValue.forEach((element) => {
     currentInput[element.name.trim()] = element.value.trim();
   });
 
@@ -181,39 +187,69 @@ function isInputValid(event, currentInput) {
   //IF EMAIL INVALID RENDER MODAL, RETURN
   if (isEmailValid === null) {
     isValid = false;
-    renderValidationModal(event, `Email Not Valid`, `Pleae enter valid email (i.e. example@email.com)`, isValid, isEmailValid);
+    renderValidationModal(
+      event,
+      `Email Not Valid`,
+      `Pleae enter valid email (i.e. example@email.com)`,
+      isValid,
+      isEmailValid
+    );
     emailInput.value = ""; //reset email value
     return;
   }
-  
+
   //VALIDATE IF INPUT IS BLANK OR IS A DROP DOWN
-  Object.keys(currentInput).forEach(element => {
-    currentInput[element] !== "" && currentInput[element] !== "none" ? valid.push(true): valid.push(false);
+  Object.keys(currentInput).forEach((element) => {
+    currentInput[element] !== "" && currentInput[element] !== "none"
+      ? valid.push(true)
+      : valid.push(false);
     //IF CURRENT ELEMENT EMPTY RENDER WARNING ALERT
-    if (currentInput[element] === "") {invalidNameEmailAddressAlert(event, element)};
-  })
+    if (currentInput[element] === "") {
+      invalidNameEmailAddressAlert(event, element);
+    }
+  });
 
   //APPEND DROPDOWN SELECTION TO INPUT
   let appendSelectDropdown = {};
-  Object.keys(currentInput).length > 1 ? appendSelectDropdown = getDropDownInput(currentInput) : appendSelectDropdown = currentInput;
+  Object.keys(currentInput).length > 1
+    ? (appendSelectDropdown = getDropDownInput(currentInput))
+    : (appendSelectDropdown = currentInput);
 
   //DETERMINE VALUES TO TEST IF INPUT IS VALID
-  getLocalStorage() ? isStorage = true : isStorage = false;
-  valid.includes(true) ? isValid = true : isValid = false; //todo
-  document.getElementsByName("passes")[0].value === "none" ? isPassValid = false : isPassValid = true;
-  document.getElementsByName("resorts")[0].value === "none" ? isResortValid = false : isResortValid = true;
+  getLocalStorage() ? (isStorage = true) : (isStorage = false);
+  valid.includes(true) ? (isValid = true) : (isValid = false); //todo
+  document.getElementsByName("passes")[0].value === "none"
+    ? (isPassValid = false)
+    : (isPassValid = true);
+  document.getElementsByName("resorts")[0].value === "none"
+    ? (isResortValid = false)
+    : (isResortValid = true);
 
   //IF NO NAME EMAIL ADDRESS BUT LOCAL STORAGE EXISTS ALLOW PASS INPUT
-  if (isValid === false && isStorage === true && (isPassValid === true || isResortValid === true)) {
+  if (
+    isValid === false &&
+    isStorage === true &&
+    (isPassValid === true || isResortValid === true)
+  ) {
     isValid = true;
-  } else if (isValid === false) { //IF NO NAME EMAIL ADDRESS DON'T ALLOW INPUT
-      isValid = false;
-    }
+  } else if (isValid === false) {
+    //IF NO NAME EMAIL ADDRESS DON'T ALLOW INPUT
+    isValid = false;
+  }
 
   //IF NOT VALID, RENDER MODAL
-  if (!isValid) {renderValidationModal(event, `Input Not Valid`, `Pleae enter name, email or address.`, isValid)};
+  if (!isValid) {
+    renderValidationModal(
+      event,
+      `Input Not Valid`,
+      `Pleae enter name, email or address.`,
+      isValid
+    );
+  }
   //IF VALID PROCESS INPUT TO RENDER AND SAVE
-  if (isValid) {processInput(appendSelectDropdown)};
+  if (isValid) {
+    processInput(appendSelectDropdown);
+  }
 }
 
 function invalidNameEmailAddressAlert(event, field) {
@@ -222,22 +258,27 @@ function invalidNameEmailAddressAlert(event, field) {
 
   //RENDER AND SAVE NAME EMAIL ADDRESS INPUT
   if (event.target.classList.contains(field)) {
-    document.getElementById(`alert-${field}-invalid`).classList.remove("is-hidden"); //render invalid alert
+    document
+      .getElementById(`alert-${field}-invalid`)
+      .classList.remove("is-hidden"); //render invalid alert
     resetNameEmailAddress(field); //clear/reset values
     hideAlertTimeOut(field);
   }
 }
 
 function renderValidationModal(event, title, body, isValid, isEmailValid) {
-  if ((isEmailValid === null) || event.target.classList.contains('save-button') && !isValid) {
-      launchValidationModal(title, body, "profileSaveButton");
+  if (
+    isEmailValid === null ||
+    (event.target.classList.contains("save-button") && !isValid)
+  ) {
+    launchValidationModal(title, body, "profileSaveButton");
   }
 }
 
 function getDropDownInput(currentInput) {
   //ADD DROP DOWN MENU SELECTION TO THE INPUT OBJECT CURRENT INPUT
-  let selectOption = document.querySelectorAll('select');
-  selectOption.forEach(element => {
+  let selectOption = document.querySelectorAll("select");
+  selectOption.forEach((element) => {
     currentInput[element.name] = element.value.trim();
   });
   return currentInput;
@@ -245,30 +286,34 @@ function getDropDownInput(currentInput) {
 
 //PROCESS THE INPUT
 function processInput(currentInput) {
-  Object.keys(currentInput).forEach(element => {
+  Object.keys(currentInput).forEach((element) => {
     //IF VALUE OF CURRENT INPUT IS NOT BLANK OR EQUAL TO DROP DOWN NONE VALUE
-    if (currentInput[element] !== "" && currentInput[element] !== 'none') {
+    if (currentInput[element] !== "" && currentInput[element] !== "none") {
       processNameEmailAddressInput(element, currentInput[element]);
-      processPassResortInput(element, currentInput[element])
+      processPassResortInput(element, currentInput[element]);
     }
-  })
+  });
 }
 
 function processNameEmailAddressInput(field, input) {
-  if (field !== 'passes' && field !== 'resorts') {
+  if (field !== "passes" && field !== "resorts") {
     renderValidNameEmailAddress(field, input);
     hideAlertTimeOut(field);
     setLocalStorage(field, input);
     createMemberSinceDate();
     resetNameEmailAddress(field); //clear/reset values
     enableNameEmailAddress();
-    deleteProfileButton.removeAttribute('disabled');
+    deleteProfileButton.removeAttribute("disabled");
   }
 }
 
 function processPassResortInput(field, input) {
   let skiProfile = getLocalStorage();
-  if (skiProfile && ((field === 'passes' || field === 'resorts') && !skiProfile[field].includes(input))) {
+  if (
+    skiProfile &&
+    (field === "passes" || field === "resorts") &&
+    !skiProfile[field].includes(input)
+  ) {
     skiProfile[field].push(input);
     resetPassResortContainer(field);
     setLocalStorage(field, skiProfile[field]);
@@ -278,19 +323,23 @@ function processPassResortInput(field, input) {
 
 //RENDER & SAVE VALID NAME EMAIL ADDRESS INPUT
 function renderValidNameEmailAddress(field, input) {
-  if (field !== 'passes' && field !== 'resorts') {
-    document.getElementById(`alert-${field}-invalid`).classList.add("is-hidden"); //ensure invalid alert is hidden
-    document.getElementById(`alert-${field}-valid`).classList.remove("is-hidden"); //render valid alert
-  
+  if (field !== "passes" && field !== "resorts") {
+    document
+      .getElementById(`alert-${field}-invalid`)
+      .classList.add("is-hidden"); //ensure invalid alert is hidden
+    document
+      .getElementById(`alert-${field}-valid`)
+      .classList.remove("is-hidden"); //render valid alert
+
     field === "email"
       ? (emailInput.setAttribute("placeholder", input),
-        emailInput.classList.add('placeholder-color'))
+        emailInput.classList.add("placeholder-color"))
       : field === "name"
       ? (nameInput.setAttribute("placeholder", input),
-        nameInput.classList.add('placeholder-color'))
+        nameInput.classList.add("placeholder-color"))
       : (addressInput.setAttribute("placeholder", input),
-        addressInput.classList.add('placeholder-color')); //set placeholder to input value
-  
+        addressInput.classList.add("placeholder-color")); //set placeholder to input value
+
     //swap disk and check icon to confirm valid
     allButtonElements.forEach((element) => {
       if (element.classList.contains(`${field}-disk`)) {
@@ -304,24 +353,24 @@ function renderValidNameEmailAddress(field, input) {
 }
 
 function hideAlertTimeOut(field, validInput) {
-  if (field !== 'passes' && field !== 'resorts') {
-  setTimeout(() => {
-    allButtonElements.forEach((element) => {
-      if (element.classList.contains(`${field}-disk`)) {
-        element.classList.remove("is-hidden");
-      }
-      if (element.classList.contains(`${field}-check`)) {
-        element.classList.add("is-hidden");
-      }
-      document
-        .getElementById(`alert-${field}-valid`)
-        .classList.add("is-hidden");
-      document
-        .getElementById(`alert-${field}-invalid`)
-        .classList.add("is-hidden");
-    });
-  }, 1000);
-}
+  if (field !== "passes" && field !== "resorts") {
+    setTimeout(() => {
+      allButtonElements.forEach((element) => {
+        if (element.classList.contains(`${field}-disk`)) {
+          element.classList.remove("is-hidden");
+        }
+        if (element.classList.contains(`${field}-check`)) {
+          element.classList.add("is-hidden");
+        }
+        document
+          .getElementById(`alert-${field}-valid`)
+          .classList.add("is-hidden");
+        document
+          .getElementById(`alert-${field}-invalid`)
+          .classList.add("is-hidden");
+      });
+    }, 1000);
+  }
 }
 
 function resetNameEmailAddress(field) {
@@ -351,8 +400,8 @@ function createMemberSinceDate() {
 function enableNameEmailAddress() {
   allButtonElements.forEach((element) => {
     if (element.classList.contains(`input`)) {
-      element.removeAttribute('disabled');
-      element.classList.add('is-primary');
+      element.removeAttribute("disabled");
+      element.classList.add("is-primary");
     }
   });
 }
@@ -360,8 +409,8 @@ function enableNameEmailAddress() {
 function disableNameEmailAddress() {
   allButtonElements.forEach((element) => {
     if (element.classList.contains(`input`)) {
-      element.setAttribute('disabled', 'true');
-      element.classList.remove('is-primary');
+      element.setAttribute("disabled", "true");
+      element.classList.remove("is-primary");
     }
   });
 }
@@ -410,12 +459,12 @@ function renderPassOrResorts(appendedPassOrResortList, selectedList) {
 
   if (appendedPassOrResortList.length === 0) {
     //if none selected render default containers
-    createPassResortDefaultContainer('selectedUpdate', selectedList);
+    createPassResortDefaultContainer("selectedUpdate", selectedList);
   }
-  if (selectedList !== 'passes' && selectedList !== 'resorts') {
-  document
-    .getElementById(`alert-${selectedList}-invalid`)
-    .classList.add("is-hidden"); //ensures invalid alert is hidden
+  if (selectedList !== "passes" && selectedList !== "resorts") {
+    document
+      .getElementById(`alert-${selectedList}-invalid`)
+      .classList.add("is-hidden"); //ensures invalid alert is hidden
   }
 }
 
@@ -507,16 +556,16 @@ function clearLocalStorage() {
   //reset name and email
   nameInput.setAttribute("placeholder", "Enter first & last name");
   emailInput.setAttribute("placeholder", "Enter valid email");
-  addressInput.setAttribute("placeholder","Street, City, State, Zipcode");
-  nameInput.classList.remove('placeholder-color');
-  emailInput.classList.remove('placeholder-color');
-  addressInput.classList.remove('placeholder-color');
+  addressInput.setAttribute("placeholder", "Street, City, State, Zipcode");
+  nameInput.classList.remove("placeholder-color");
+  emailInput.classList.remove("placeholder-color");
+  addressInput.classList.remove("placeholder-color");
   nameInput.value = "";
   emailInput.value = "";
   addressInput.value = "";
 
   //reset pass resort container
-  createPassResortDefaultContainer('deleteProfile');
+  createPassResortDefaultContainer("deleteProfile");
 
   //hide member create date
   memberCreatedDateInput.classList.add("is-hidden");
@@ -524,17 +573,17 @@ function clearLocalStorage() {
   nameInput.focus();
 
   disableNameEmailAddress();
-  deleteProfileButton.setAttribute('disabled', 'true');
+  deleteProfileButton.setAttribute("disabled", "true");
   loadPassList();
   loadResortList();
 }
 
 function createPassResortDefaultContainer(source, list) {
-  let defaultList = ['passes', 'resort'];
+  let defaultList = ["passes", "resort"];
 
-  if (source === 'deleteProfile') {
-    defaultList.forEach(element => {
-      if (element === 'passes') {
+  if (source === "deleteProfile") {
+    defaultList.forEach((element) => {
+      if (element === "passes") {
         let defaultContainer = document.createElement("div");
         defaultContainer.classList.add(
           "box",
@@ -544,7 +593,7 @@ function createPassResortDefaultContainer(source, list) {
           "mb-1"
         );
         defaultContainer.textContent = `No ${element} Selected`;
-  
+
         passSelectedContainer.textContent = "";
         passSelectedContainer.append(defaultContainer);
       } else {
@@ -557,14 +606,14 @@ function createPassResortDefaultContainer(source, list) {
           "mb-1"
         );
         defaultContainer.textContent = `No ${element} Selected`;
-  
+
         resortSelectedContainer.textContent = "";
         resortSelectedContainer.append(defaultContainer);
       }
-    })
+    });
   }
 
-  if (source === 'selectedUpdate') {
+  if (source === "selectedUpdate") {
     list === "passes"
       ? (passSelectedContainer.textContent = "")
       : (resortSelectedContainer.textContent = "");
