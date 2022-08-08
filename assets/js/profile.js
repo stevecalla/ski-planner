@@ -138,9 +138,6 @@ function getAllProfileInput() {
 }
 
 function getUniqueProfileInput(event) {
-  // console.log(event.target);
-  // console.log(document.getElementsByName("name")[0].value);
-
   let selectedElementValue = [];
   if (event.target.classList.contains('name')) {
     selectedElementValue = document.getElementsByName("name");
@@ -164,24 +161,24 @@ function getUniqueProfileInput(event) {
 }
 
 function isInputValid(event, currentInput) {
-  // console.log(currentInput)
+  //** SHOULD REFACTOR THIS FUNCTION ***//
   //DETERMINE IF INPUT IS VALID
   let valid = [];
   let isValid = true;
+  let isStorage = false;
+  let isPassValid = false;
+  let isResortValid = false;
+  let isEmailValid = true;
   let emailFormatRegex = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g; //email validation
 
   //IS EMAIL INVALID
-  let isEmailValid = true;
   if (currentInput.email) {
-    isEmailValid = currentInput.email.match(emailFormatRegex);
     //IF isEmailValid = NULL IT IS NOT VALID
-    console.log(isEmailValid)
-    console.log(isEmailValid === null)
+    isEmailValid = currentInput.email.match(emailFormatRegex);
   }
 
   //IF EMAIL INVALID RENDER MODAL, RETURN
   if (isEmailValid === null) {
-    console.log('email is invalid')
     isValid = false;
     renderValidationModal(event, `Email Not Valid`, `Pleae enter valid email (i.e. example@email.com)`, isValid, isEmailValid);
     emailInput.value = ""; //reset email value
@@ -195,35 +192,26 @@ function isInputValid(event, currentInput) {
     if (currentInput[element] === "") {invalidNameEmailAddressAlert(event, element)};
   })
 
-  //IF NO INPUT FOR ANY FIELDS RENDER MODAL & NO LOCAL STORAGE
-  //IF EVENT EQUAL TO SAVE BUTTON & IS VALID IS VALID FALSE
-
-  // valid.includes(true) || getLocalStorage() ? isValid = true : isValid = false; //todo
-  valid.includes(true) ? isValid = true : isValid = false; //todo
-  //RENDER VALIDATION MODAL IF INVALID INPUT OR NO LOCAL STORAGE
-  // renderValidationModal(event, `Input Not Valid`, `Pleae enter name, email or address.`, isValid);
-
   //APPEND DROPDOWN SELECTION TO INPUT
   let appendSelectDropdown = {};
   Object.keys(currentInput).length > 1 ? appendSelectDropdown = getDropDownInput(currentInput) : appendSelectDropdown = currentInput;
 
-  console.log(
-    valid.includes(true),
-    document.getElementsByName("passes")[0].value !== "none", 
-    document.getElementsByName("resorts")[0].value !== "none"
-    );
+  //DETERMINE VALUES TO TEST IF INPUT IS VALID
+  getLocalStorage() ? isStorage = true : isStorage = false;
+  valid.includes(true) ? isValid = true : isValid = false; //todo
+  document.getElementsByName("passes")[0].value === "none" ? isPassValid = false : isPassValid = true;
+  document.getElementsByName("resorts")[0].value === "none" ? isResortValid = false : isResortValid = true;
 
-  if (valid.includes(true) ||
-    document.getElementsByName("passes")[0].value !== "none" ||
-    document.getElementsByName("resorts")[0].value !== "none") {
-      isValid = true;
-    } else {
-      isValid = false
+  //IF NO NAME EMAIL ADDRESS BUT LOCAL STORAGE EXISTS ALLOW PASS INPUT
+  if (isValid === false && isStorage === true && (isPassValid === true || isResortValid === true)) {
+    isValid = true;
+  } else if (isValid === false) { //IF NO NAME EMAIL ADDRESS DON'T ALLOW INPUT
+      isValid = false;
     }
-    // valid.includes(true) ? isValid = true : isValid = false; //todo
-  console.log(isValid)
 
-  renderValidationModal(event, `Input Not Valid`, `Pleae enter name, email or address.`, isValid);
+  //IF NOT VALID, RENDER MODAL
+  if (!isValid) {renderValidationModal(event, `Input Not Valid`, `Pleae enter name, email or address.`, isValid)};
+  //IF VALID PROCESS INPUT TO RENDER AND SAVE
   if (isValid) {processInput(appendSelectDropdown)};
 }
 
@@ -240,9 +228,7 @@ function invalidNameEmailAddressAlert(event, field) {
 }
 
 function renderValidationModal(event, title, body, isValid, isEmailValid) {
-  // console.log(event.target, event.target.classList, isValid)
-  if ((isEmailValid === null) || event.target.classList.contains('save-button') && !isValid) {
-  // if (!isValid) {
+  if ((isEmailValid === null) || event.target.classList.contains('save-button') && !isValid) {F
       launchValidationModal(title, body, "profileSaveButton");
   }
 }
@@ -281,9 +267,6 @@ function processNameEmailAddressInput(field, input) {
 
 function processPassResortInput(field, input) {
   let skiProfile = getLocalStorage();
-
-  console.log(field, input)
-
   if (skiProfile && ((field === 'passes' || field === 'resorts') && !skiProfile[field].includes(input))) {
     skiProfile[field].push(input);
     resetPassResortContainer(field);
