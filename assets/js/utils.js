@@ -55,17 +55,17 @@ function fetchMapQuestSearchAhead(mapquestUrlSlug, addressElement) {
   // console.log('2= ', addressElement);
   fetch(mapquestUrlSlug) //todo: fetch code in production
     .then((response) => {
-    if (response.ok) {
-      response.json().then((data) => {
-        createAutoCompleteList(data.results, addressElement);
-      });
-    } else {
-      // console.log('Error 1:', error);
-    }
-  })
-  .catch((error) => {
-    // console.log('Error 2:', error);
-  });
+      if (response.ok) {
+        response.json().then((data) => {
+          createAutoCompleteList(data.results, addressElement);
+        });
+      } else {
+        // console.log('Error 1:', error);
+      }
+    })
+    .catch((error) => {
+      // console.log('Error 2:', error);
+    });
 
   //TO USE TEST DATA - USE LINE BELOW, COMMENT OUT FETCH ABOVE
   createAutoCompleteList(testAutoComplete, addressElement); //todo test data/code

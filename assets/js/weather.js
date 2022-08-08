@@ -35,7 +35,7 @@ function renderDailyHourlyWeatherData(requestedData) {
   fetchWeatherData(latitude, longitude, resortName, requestedData);
 }
 
-function fetchWeatherData(latitude, longitude, requestedData) {
+function fetchWeatherData(latitude, longitude, resortName, requestedData) {
   let exclusions = "minutely,alerts";
   let key = config.OPEN_WEATHER_KEY_V2;
   let units = "imperial";
@@ -64,7 +64,7 @@ function fetchWeatherData(latitude, longitude, requestedData) {
   // );
   //   });
 
-  //MODAL TEST CODE: WILL POP MODAL ON DASH & REMOVE THE WEATHER TILE
+  // MODAL TEST CODE: WILL POP MODAL ON DASH & REMOVE THE WEATHER TILE
   // launchValidationModal(
   //   "Error: Weather Not found",
   //   // `Try Again at a Later Date: ${response.statusText}`
@@ -73,6 +73,7 @@ function fetchWeatherData(latitude, longitude, requestedData) {
   // );
 
   // to test in development use the 2 lines below; to test in production comment outlines below and comment in the fetch above
+  // console.log(weather);
   requestedData === "hourly"
     ? createDailyHourlyWeatherData(weather, "hourly", "Boulder")
     : createDailyHourlyWeatherData(weather, "daily", "Boulder"); //todo test data/code

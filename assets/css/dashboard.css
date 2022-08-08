@@ -122,11 +122,11 @@ html {
   /* USED BULMA HTML CLASS IS HIDDEN TABLET & IS HIDDEN MOBILE */
   .title {
     margin-top: 20px;
-    font-size: 65px;
+    font-size: 55px;
   }
 
   .dashboard-title {
-    font-size: 55px;
+    font-size: 40px;
   }
 
   .header-button {
