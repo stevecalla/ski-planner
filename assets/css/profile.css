@@ -1,6 +1,3 @@
-* {
-  /* border: 1px solid red; */
-}
 
 /* UNIVERSAL */
 body {
@@ -36,11 +33,6 @@ body {
 }
 
 /* GENERIC */
-
-/* .input::placeholder {
-  color: blue;
-} */
-
 .placeholder-color::placeholder {
   color: blue;
 }

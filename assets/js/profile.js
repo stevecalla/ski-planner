@@ -32,9 +32,7 @@ passSelectedContainer.addEventListener("click", deletePassResort);
 resortSelectedContainer.addEventListener("click", deletePassResort);
 deleteProfileButton.addEventListener("click", confirmDeleteLocalStorage);
 addressInput.addEventListener("input", () => fetchMapquestCreateAutoComplete(addressInput)); //SEE UTILS.JS
-
 saveButtonElement.addEventListener("click", getAllProfileInput);
-
 saveNameIcon.addEventListener("click", getUniqueProfileInput);
 saveEmailIcon.addEventListener("click", getUniqueProfileInput);
 saveAddressIcon.addEventListener("click", getUniqueProfileInput);
@@ -128,6 +126,7 @@ function loadProfileFromStorage() {
 
 //GET ALL INPUT
 function getAllProfileInput() {
+  //GET INPUT IF SAVE PROFILE BUTTON IS CLICKED
   let currentInput = {};
 
   allInputElements.forEach(element => {
@@ -138,6 +137,8 @@ function getAllProfileInput() {
 }
 
 function getUniqueProfileInput(event) {
+  //GET INPUT IF EDIT BUTTONS ASIDE INPUT BARS ARE CLICKED
+  //SHOULD REFACTOR TO COMBINE WITH getAllProfileInput function
   let selectedElementValue = [];
   if (event.target.classList.contains('name')) {
     selectedElementValue = document.getElementsByName("name");
@@ -161,8 +162,8 @@ function getUniqueProfileInput(event) {
 }
 
 function isInputValid(event, currentInput) {
-  //** SHOULD REFACTOR THIS FUNCTION ***//
   //DETERMINE IF INPUT IS VALID
+  //** SHOULD REFACTOR THIS FUNCTION ***//
   let valid = [];
   let isValid = true;
   let isStorage = false;
@@ -228,7 +229,7 @@ function invalidNameEmailAddressAlert(event, field) {
 }
 
 function renderValidationModal(event, title, body, isValid, isEmailValid) {
-  if ((isEmailValid === null) || event.target.classList.contains('save-button') && !isValid) {F
+  if ((isEmailValid === null) || event.target.classList.contains('save-button') && !isValid) {
       launchValidationModal(title, body, "profileSaveButton");
   }
 }
@@ -291,7 +292,6 @@ function renderValidNameEmailAddress(field, input) {
         addressInput.classList.add('placeholder-color')); //set placeholder to input value
   
     //swap disk and check icon to confirm valid
-    // allIconElements.forEach((element) => {
     allButtonElements.forEach((element) => {
       if (element.classList.contains(`${field}-disk`)) {
         element.classList.toggle("is-hidden");
@@ -306,7 +306,6 @@ function renderValidNameEmailAddress(field, input) {
 function hideAlertTimeOut(field, validInput) {
   if (field !== 'passes' && field !== 'resorts') {
   setTimeout(() => {
-    // allIconElements.forEach((element) => {
     allButtonElements.forEach((element) => {
       if (element.classList.contains(`${field}-disk`)) {
         element.classList.remove("is-hidden");
@@ -341,8 +340,7 @@ function resetNameEmailAddress(field) {
 function createMemberSinceDate() {
   let skiProfile = getLocalStorage();
   if (skiProfile.memberDate === "") {
-    // let createdDate = moment().format("MMMM D, YYYY h:mm:ss a"); //todo:remove day, hours, min, sec
-    let createdDate = moment().format("MMMM D, YYYY"); //todo:remove day, hours, min, sec
+    let createdDate = moment().format("MMMM D, YYYY");
     setLocalStorage("memberDate", createdDate);
     memberCreatedDateInput.textContent = `Member Since: ${createdDate}`;
     memberCreatedDateInput.classList.remove("is-hidden");
