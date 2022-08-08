@@ -1,17 +1,25 @@
+:root {
+  --light-background: white;
+  --light-text: white;
+  --border-radius: 5px;
+  --skiblue: #3e8ed0;
+  --font-family: bangers, Cambria, Cochin, Georgia, Times, "Times New Roman",
+    serif;
+  --subtitle-color: #209cee;
+}
+
 /* UNIVERSAL */
 body {
-  font-family: "Bangers", "Cambria", Cochin, Georgia, Times, "Times New Roman",
-    serif;
+  font-family: var(--font-family);
 }
 
 .custom-font {
-  font-family: "Bangers", "Cambria", Cochin, Georgia, Times, "Times New Roman",
-    serif;
+  font-family: var(--font-family);
 }
 
 /* HEADER */
 .custom-card {
-  border: 1px solid white;
+  border: 1px solid var(--light-background);
   border-radius: 5px;
   margin-top: 60px;
   margin-right: 20px;
@@ -22,8 +30,8 @@ body {
 .header-wrapper {
   display: flex;
   flex-direction: column;
-  border: 1px solid white;
-  border-radius: 5px;
+  border: 1px solid var(--light-background);
+  border-radius: var(--border-radius);
 }
 
 .header-title {
@@ -42,13 +50,13 @@ body {
 }
 
 .custom-box-blue {
-  background-color: #3e8ed0;
-  color: white;
+  background-color: var(--skiblue);
+  color: var(--light-text);
 }
 
 .custom-border {
-  border: 1px solid white !important;
-  border-radius: 5px;
+  border: 1px solid var(--light-background) !important;
+  border-radius: var(--border-radius);
 }
 
 .custom-box-gray {
@@ -56,7 +64,7 @@ body {
 }
 
 .checkmark-white {
-  color: white;
+  color: var(--light-text);
 }
 
 .hide {
@@ -71,7 +79,7 @@ body {
 /* JQUERY AUTOCOMPLETE CSS */
 .ui-autocomplete {
   max-width: 300px;
-  background-color: white;
+  background-color: var(--light-background);
   border: 1px solid black;
   z-index: 2147483647;
 }
