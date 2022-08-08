@@ -27,16 +27,15 @@ As an active skier in Colorado, I want to plan my ski adventures using critical 
 
 ## Features
 
-1. Interactive Map of Colorado Ski Areas
+1. Interactive Map of Colorado Ski Areas synced with the user's ski pass and favorite resorts.
 2. Dashboard view of critical travel information including weather, driving directions, snow conditions.
 3. User Profile Page including preferred driving start address, ski passes, etc.
 
 ## Future Enhancements
 
 1. Sync the weather with driving directions so the user knows what the weather is forecasted to be when they get to various waypoints on their route.
-2. Sync the default map view with the user's ski pass and favorite resorts.
-3. Display all SNOTEL stations in Colorado on the map to provide info for backcountry skiers.
-4. Add travel alerts to the driving directions display.
+2. Display all SNOTEL stations in Colorado on the map to provide info for backcountry skiers.
+3. Add travel alerts to the driving directions display.
 
 ## Acceptance Criteria
 
