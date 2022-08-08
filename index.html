@@ -5,73 +5,81 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- *** ADD IMAGE IN THE GOOGLE CHROME TAB -->
+  <link rel="shortcut icon" type="image/jpg" href="./assets/images/favicon-16x16.png" />
+  <title>Powder Bound</title>
 
+  <!-- ADD LEAFLET -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
     integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
     crossorigin="" />
 
+  <!-- ADD BULMA -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+  <!-- ADD GOOGLE FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./assets/css/style.css">
-  <style>
-    .hero {
-      background: url(assets/images/mountainbackground1.jpg) center / cover;
-    }
-  </style>
 
-  <title>Powder Bound</title>
+  <!-- ADD STYLE SHEET-->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
 </head>
 
-<body class="hero is-fullheight">
-  <header class="header">
-    <button class="button custom-button hidden"></button>
-    <h1 class="title">Powder Bound</h1>
-    <button class="button custom-button" id="modal-profile-homepage-button">Profile</button>
+<body class="custom-width">
+
+  <img class="background-img" src="./assets/images/mountainbackground1.jpg" alt="" srcset="" style="height: 100vh;">
+
+  <header class="">
+    <!-- *** NEED TO KEEP THE CONTENT "PROFILE" IN THE BOX FOR IT TO CENTER -->
+
+    <div class="is-flex is-justify-content-space-between header">
+      <button class="button profile-button is-small is-invisible is-hidden-mobile">Spacer</button>
+      <h1 class="title mb-1">Powder Bound</h1>
+      <button class="button profile-button" id="modal-profile-homepage-button">Profile</button>
+    </div>
+
+    <div class="is-flex is-justify-content-center checkbox">
+      <div class="custom-checkboxes mb-2">
+        <label for="chkEpic" class="checkbox m-2">
+          <input id="chkEpic" type="checkbox" name="resortGroup" value="Epic" checked> Epic</label>
+        <label for="chkIkon" class="checkbox m-2">
+          <input id="chkIkon" type="checkbox" name="resortGroup" value="Ikon" checked> Ikon</label>
+        <label for="chkIndependent" class="checkbox m-2">
+          <input id="chkIndependent" type="checkbox" name="resortGroup" value="Independent" checked>
+          Independent</label>
+      </div>
+    </div>
 
   </header>
 
-  <aside>
-    <section class="level-item has-text-center">
-      <form>
-        <div class="custom-checkboxes mb-2">
-          <label for="chkEpic" class="checkbox m-2">
-            <input id="chkEpic" type="checkbox" name="resortGroup" value="Epic" checked> Epic</label>
-          <label for="chkIkon" class="checkbox m-2">
-            <input id="chkIkon" type="checkbox" name="resortGroup" value="Ikon" checked> Ikon</label>
-          <label for="chkIndependent" class="checkbox m-2">
-            <input id="chkIndependent" type="checkbox" name="resortGroup" value="Independent" checked>
-            Independent</label>
-        </div>
-      </form>
-    </section>
-  </aside>
-
-  <main>
-    <section class="mapSection" id="mapArea">
-      <div id="map"></div>
-    </section>
+  <main class="mapSection" id="mapArea">
+    <div class="map" id="map"></div>
   </main>
 
-  <!-- VALIDATION MODAL -->
-  <!-- <div id="modal-js-example" class="modal"> -->
-  <div id="validation-modal" class="modal">
+  <footer>
+    <p>Team SAD</p>
+  </footer>
+
+  <!-- VALIDATION MODAL - DEFAULT IS HIDDEN VIA BULMA -->
+  <div class="modal custom-font validation-modal" id="validation-modal">
     <div class="modal-background"></div>
-    <div class="modal-content" style="width: 330px">
-      <div class="box">
-        <p id="modal-title" style="font-weight: bold">Title</p>
-        <hr>
+    <div class="modal-card" style="width: 350px">
+      <header class="modal-card-head">
+        <p class="modal-card-title custom-letter-spacing" id="modal-title">Modal title</p>
+        <button class="delete" id="close-modal" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
         <p id="modal-body">Content</p>
-        <hr>
-      </div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success delete-button hide" id="delete-button">Delete</button>
+        <button class="button cancel-button hide" id="cancel-button">Cancel</button>
+      </footer>
     </div>
-    <button class="modal-close is-large" id="close-modal" aria-label="close"></button>
   </div>
 
-  <footer>
-    Team SAD
-  </footer>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
