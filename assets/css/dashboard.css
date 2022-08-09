@@ -107,7 +107,8 @@ html {
 
 #powMeterImage {
   max-height: 250px;
-  max-width: 250px;
+  /* max-width: 250px; */
+  min-width: 90px;
 }
 
 .powText {
@@ -120,6 +121,12 @@ html {
   border: 3px var(--light-background) solid;
   max-height: 400px;
   /* max-width: 450px; */
+}
+
+.full-screen {
+  position: absolute;
+  top: 25px;
+  right: 25px;
 }
 
 /* ---------- MOBILE RESPONSIVE ---------- */

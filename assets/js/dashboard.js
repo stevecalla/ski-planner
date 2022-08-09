@@ -436,6 +436,12 @@ function init() {
   }
 }
 
+let fullScreenElement = document.getElementById('full-screen-icon');
+fullScreenElement.addEventListener('click', renderFullScreenMap);
+function renderFullScreenMap() {
+  staticMap.requestFullscreen();
+}
+
 $(document).ready(function () {
   $(this).scrollTop(0);
 });
