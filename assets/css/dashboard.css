@@ -131,6 +131,12 @@ html {
 
 /* ---------- MOBILE RESPONSIVE ---------- */
 /* LARGE SCREENS / TABLETS */
+@media screen and (max-width: 1023px) {
+  .full-screen {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 768px) {
   /* USED BULMA HTML CLASS IS HIDDEN TABLET & IS HIDDEN MOBILE */
   .title {
