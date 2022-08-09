@@ -1,290 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="shortcut icon"
-      type="image/jpg"
-      href="./assets/images/favicon-16x16.png"
-    />
-    <title>Powder Bound</title>
 
-    <!-- LEAFLET -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-      crossorigin=""
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="shortcut icon" type="image/jpg" href="./assets/images/favicon-16x16.png" />
+  <title>Powder Bound</title>
 
-    <!-- FONTAWESOME ICONS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
-    />
+  <!-- LEAFLET -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin="" />
 
-    <!-- BULMA -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
+  <!-- FONTAWESOME ICONS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
 
-    <!-- GOOGLE FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
-      rel="stylesheet"
-    />
+  <!-- BULMA -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
 
-    <link rel="stylesheet" href="./assets/css/profile.css" />
-    <link rel="stylesheet" href="./assets/css/index.css" />
-    <link rel="stylesheet" href="./assets/css/dashboard.css" />
-  </head>
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
 
-  <body class="hero is-fullheight">
-    <!-- DESKTOP / TABLET BULMA BREAKPOINT USING THE IS HIDDEN MOBILE CLASS -->
-    <header>
-      <div
-        class="is-flex is-justify-content-space-between header is-hidden-mobile"
-      >
+  <link rel="stylesheet" href="./assets/css/profile.css" />
+  <link rel="stylesheet" href="./assets/css/index.css" />
+  <link rel="stylesheet" href="./assets/css/dashboard.css" />
+</head>
+
+<body class="hero is-fullheight">
+  <!-- DESKTOP / TABLET BULMA BREAKPOINT USING THE IS HIDDEN MOBILE CLASS -->
+  <header>
+    <div class="is-flex is-justify-content-space-between header is-hidden-mobile">
+      <a class="button header-button is-info" href="./index.html">Go Back</a>
+      <p class="title mb-1">Powder Bound</p>
+      <button class="button header-button is-info" id="profile-button-desktop">
+        Profile
+      </button>
+    </div>
+
+    <!-- MOBILE BULMA BREAKPOINT USING THE IS HIDDEN TABLE BREAKPOINT -->
+    <div class="is-flex header is-hidden-tablet">
+      <p class="title mb-1">Powder Bound</p>
+      <div class="is-flex is-justify-content-space-between">
         <a class="button header-button is-info" href="./index.html">Go Back</a>
-        <p class="title mb-1">Powder Bound</p>
-        <button
-          class="button header-button is-info"
-          id="profile-button-desktop"
-        >
+        <button class="button header-button is-info" id="profile-button-mobile">
           Profile
         </button>
       </div>
-
-      <!-- MOBILE BULMA BREAKPOINT USING THE IS HIDDEN TABLE BREAKPOINT -->
-      <div class="is-flex header is-hidden-tablet">
-        <p class="title mb-1">Powder Bound</p>
-        <div class="is-flex is-justify-content-space-between">
-          <a class="button header-button is-info" href="./index.html"
-            >Go Back</a
-          >
-          <button
-            class="button header-button is-info"
-            id="profile-button-mobile"
-          >
-            Profile
-          </button>
-        </div>
-      </div>
-
-      <div class="is-flex is-justify-content-center">
-        <h1 class="sub-title dashboard-title" id="skiAreaName">
-          My Fav Resort
-        </h1>
-      </div>
-    </header>
-
-    <main>
-      <div class="tile is-ancestor">
-        <div class="tile is-12">
-          <!-- POW METER WRAPPER -->
-          <div class="tile is-parent is-4 is-vertical ml-2 mr-1">
-            <article
-              id="powmeter-wrapper"
-              class="tile is-child notification is-info custom-tile"
-            >
-              <p class="subtitle">pow meter</p>
-              <div class="content powMeterSection">
-                <section id="snowConditions">
-                  <h3 class="powText">Snow Conditions</h3>
-                  <label class="powText" id="lblSnowDepth"></label><br />
-                  <label class="powText" id="lblChangeInSnowDepth"></label
-                  ><br />
-                  <figure class="is-image is-square">
-                    <img id="powMeterImage" src="./assets/images/loading-v2.gif" style="width: 125px; height: 125px";/>
-                  </figure>
-                </section>
-              </div>
-            </article>
-
-            <!-- STATIC MAP WRAPPER -->
-            <article
-              id="staticmap-wrapper"
-              class="tile is-child notification is-info custom-tile"
-            >
-              <p class="subtitle">Map</p>
-              <section class="mapSection" id="mapArea">
-                <img id="staticMap" />
-              </section>
-            </article>
-          </div>
-
-          <!-- DIRECTIONS WRAPPER -->
-          <div id="directions-wrapper " class="tile is-parent ml-1 mr-2">
-            <article class="tile is-child box notification is-info custom-tile">
-              <p class="subtitle">Directions</p>
-              <form>
-                <input
-                  id="txtStartAddress"
-                  type="text"
-                  class="input"
-                  placeholder="Address or Coordinates"
-                  required
-                />
-                <div class="inputParent is-fullwidth">
-                  <input
-                    id="txtStartDate"
-                    type="date"
-                    class="input mr-1"
-                    required
-                  />
-                  <input
-                    id="txtStartTime"
-                    type="time"
-                    class="input ml-1"
-                    value="09:00"
-                    required
-                  />
-                </div>
-                <button
-                  id="btnUpdate"
-                  class="button updateButton is-fullwidth is-size"
-                >
-                  Update
-                </button>
-              </form>
-
-              <section
-                class="box table-container custom-table"
-                id="drivingDirections"
-              >
-                <table class="table is-fullwidth">
-                  <thead>
-                    <tr>
-                      <th class="has-text-centered" colspan="5">
-                        <a
-                          id="gmDirections"
-                          class="button custom-button"
-                          target="blank"
-                          >Google Map Directions</a
-                        >
-                      </th>
-                    </tr>
-                    <tr>
-                      <th id="tdArrivalTime" colspan="2"></th>
-                      <th id="tdTotalTime"></th>
-                      <th id="tdTotalDistance" colspan="2"></th>
-                    </tr>
-                    <tr>
-                      <th>#</th>
-                      <th>Directions</th>
-                      <th>Time</th>
-                      <th>Distance</th>
-                      <th>Map</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tblDirections"></tbody>
-                </table>
-              </section>
-            </article>
-          </div>
-
-          <!-- WEATHER WRAPPER -->
-          <div class="tile is-parent ml-1 mr-2" id="weather-wrapper">
-            <article class="tile is-child box notification is-info custom-tile">
-              <p class="subtitle">weather</p>
-
-              <!-- WEATHER CONTENT -->
-              <!-- TAB NAVIGATION -->
-              <div class="box">
-                <div class="tabs is-toggle is-fullwidth is-medium m-2">
-                  <ul class="m-0">
-                    <li class="is-active daily" id="daily-tab">
-                      <a class="daily all-custom-tab-color">
-                        <span class="icon is-small daily"
-                          ><i class="fas fa-calendar" aria-hidden="true"></i
-                        ></span>
-                        <span class="subtitle2">Daily</span>
-                      </a>
-                    </li>
-                    <li class="hourly" id="hourly-tab">
-                      <a class="hourly all-custom-tab-color">
-                        <span class="icon is-small hourly"
-                          ><i class="fas fa-hourglass" aria-hidden="true"></i
-                        ></span>
-                        <span class="subtitle2">Hourly</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div
-                  class="columns is-desktop mt-2"
-                  id="custom-weather-container"
-                >
-                  <div class="row" id="weather-elements">
-                    <!-- WEATHER CONTENT -->
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- VALIDATION MODAL -->
-    <div class="modal custom-font" id="validation-modal">
-      <div class="modal-background"></div>
-      <div class="modal-card" style="width: 350px">
-        <header class="modal-card-head">
-          <p class="modal-card-title custom-letter-spacing" id="modal-title">
-            Modal title
-          </p>
-          <button class="delete" id="close-modal" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body">
-          <p id="modal-body">Content</p>
-        </section>
-        <footer class="modal-card-foot">
-          <button
-            class="button is-success delete-button hide"
-            id="delete-button"
-          >
-            Delete
-          </button>
-          <button class="button cancel-button hide" id="cancel-button">
-            Cancel
-          </button>
-        </footer>
-      </div>
     </div>
 
-    <!-- MOMENT -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script
-      type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
-    ></script>
+    <div class="is-flex is-justify-content-center">
+      <h1 class="sub-title dashboard-title" id="skiAreaName">
+        My Fav Resort
+      </h1>
+    </div>
+  </header>
 
-    <!-- JQUERY Library -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <main>
+    <div class="tile is-ancestor">
+      <div class="tile is-12">
+        <!-- POW METER WRAPPER -->
+        <div class="tile is-parent is-4 is-vertical ml-2 mr-1">
+          <article id="powmeter-wrapper" class="tile is-child notification is-info custom-tile">
+            <p class="subtitle">pow meter</p>
+            <div class="content powMeterSection">
+              <section id="snowConditions">
+                <h3 class="powText">Snow Conditions</h3>
+                <label class="powText" id="lblSnowDepth"></label><br />
+                <label class="powText" id="lblChangeInSnowDepth"></label><br />
+                <figure class="is-image is-square">
+                  <img id="powMeterImage" src="./assets/images/loading-v2.gif" style="width: 125px; height: 125px" ; />
+                </figure>
+              </section>
+            </div>
+          </article>
 
-    <!-- JQUERY UI -->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+          <!-- STATIC MAP WRAPPER -->
+          <article id="staticmap-wrapper" class="tile is-child notification is-info custom-tile">
+            <p class="subtitle">Map</p>
+            <section class="mapSection" id="mapArea">
+              <img id="staticMap" />
+            </section>
+          </article>
+        </div>
 
-    <!-- LEAFLET -->
-    <script
-      src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-      crossorigin=""
-    ></script>
+        <!-- DIRECTIONS WRAPPER -->
+        <div id="directions-wrapper " class="tile is-parent ml-1 mr-2">
+          <article class="tile is-child box notification is-info custom-tile">
+            <p class="subtitle">Directions</p>
+            <form>
+              <input id="txtStartAddress" type="text" class="input" placeholder="Address or Coordinates" required />
+              <div class="inputParent is-fullwidth">
+                <input id="txtStartDate" type="date" class="input mr-1" required />
+                <input id="txtStartTime" type="time" class="input ml-1" value="09:00" required />
+              </div>
+              <button id="btnUpdate" class="button updateButton is-fullwidth is-size">
+                Update
+              </button>
+            </form>
 
-    <script src="./assets/js/testAutoComplete.js"></script>
-    <script src="./assets/js/testDirectionsData.js"></script>
-    <script src="./assets/js/testWeatherData.js"></script>
-    <script src="./assets/js/config.js"></script>
-    <script src="./assets/js/utils.js"></script>
-    <script src="./assets/js/skiAreas.js"></script>
-    <script src="./assets/js/weather.js"></script>
-    <script src="./assets/js/dashboard.js"></script>
-  </body>
+            <section class="box table-container custom-table" id="drivingDirections">
+              <table class="table is-fullwidth">
+                <thead>
+                  <!-- <tr>
+                    <th class="has-text-centered" colspan="5">
+                      <a id="gmDirections" class="button updateButton" target="blank">Google Map Directions</a>
+                    </th>
+                  </tr> -->
+                  <tr>
+                    <th id="tdArrivalTime" colspan="2"></th>
+                    <th id="tdTotalTime"></th>
+                    <th id="tdTotalDistance" colspan="2"></th>
+                  </tr>
+                  <tr>
+                    <th>#</th>
+                    <th>Directions</th>
+                    <th>Time</th>
+                    <th>Distance</th>
+                    <th>Map</th>
+                  </tr>
+                </thead>
+                <tbody id="tblDirections"></tbody>
+              </table>
+            </section>
+            <footer class="p-0">
+              <a id="gmDirections" class="button updateButton m-auto" target="blank">Google Map Directions</a>
+            </footer>
+          </article>
+        </div>
+
+        <!-- WEATHER WRAPPER -->
+        <div class="tile is-parent ml-1 mr-2" id="weather-wrapper">
+          <article class="tile is-child box notification is-info custom-tile">
+            <p class="subtitle">weather</p>
+
+            <!-- WEATHER CONTENT -->
+            <!-- TAB NAVIGATION -->
+            <div class="box">
+              <div class="tabs is-toggle is-fullwidth is-medium m-2">
+                <ul class="m-0">
+                  <li class="is-active daily" id="daily-tab">
+                    <a class="daily all-custom-tab-color">
+                      <span class="icon is-small daily"><i class="fas fa-calendar" aria-hidden="true"></i></span>
+                      <span class="subtitle2">Daily</span>
+                    </a>
+                  </li>
+                  <li class="hourly" id="hourly-tab">
+                    <a class="hourly all-custom-tab-color">
+                      <span class="icon is-small hourly"><i class="fas fa-hourglass" aria-hidden="true"></i></span>
+                      <span class="subtitle2">Hourly</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="columns is-desktop mt-2" id="custom-weather-container">
+                <div class="row" id="weather-elements">
+                  <!-- WEATHER CONTENT -->
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- VALIDATION MODAL -->
+  <div class="modal custom-font" id="validation-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card" style="width: 350px">
+      <header class="modal-card-head">
+        <p class="modal-card-title custom-letter-spacing" id="modal-title">
+          Modal title
+        </p>
+        <button class="delete" id="close-modal" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p id="modal-body">Content</p>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success delete-button hide" id="delete-button">
+          Delete
+        </button>
+        <button class="button cancel-button hide" id="cancel-button">
+          Cancel
+        </button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- MOMENT -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+  <!-- JQUERY Library -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- JQUERY UI -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!-- LEAFLET -->
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""></script>
+
+  <script src="./assets/js/testAutoComplete.js"></script>
+  <script src="./assets/js/testDirectionsData.js"></script>
+  <script src="./assets/js/testWeatherData.js"></script>
+  <script src="./assets/js/config.js"></script>
+  <script src="./assets/js/utils.js"></script>
+  <script src="./assets/js/skiAreas.js"></script>
+  <script src="./assets/js/weather.js"></script>
+  <script src="./assets/js/dashboard.js"></script>
+</body>
+
 </html>

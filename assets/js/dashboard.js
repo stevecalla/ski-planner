@@ -117,7 +117,7 @@ function displayStaticMap(skiArea) {
   let apiKey = config.GOOGLE_STATIC_MAPS_KEY;
   let lat = skiArea.latitude;
   let lon = skiArea.longitude;
-  let zoom = 13;
+  let zoom = 14;
   let size = "1000x1000";
   staticMap.src = `https://maps.googleapis.com/maps/api/staticmap?center=${lat}%2c%20${lon}&zoom=${zoom}&size=${size}&key=${apiKey}`;
   staticMap.alt = skiArea.name;
@@ -321,7 +321,6 @@ function displaySnowConditions(skiArea) {
 
           lblSnowDepth.textContent = `Snow Depth (in): ${dataSNOTEL.data[0]["Snow Depth (in)"]}`;
           lblChangeInSnowDepth.textContent = `Change In Snow Depth (in): ${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}`;
-
         }
         if (`${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}` >= 6) {
           powMeterImage.src = "./assets/images/rad.png";
