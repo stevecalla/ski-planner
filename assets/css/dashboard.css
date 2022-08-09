@@ -151,4 +151,8 @@ html {
   .custom-mobile-margin {
     margin: 0px 8px 0px 8px !important;
   }
+
+  .full-screen {
+    display: none;
+  }
 }
