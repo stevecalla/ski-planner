@@ -68,7 +68,7 @@ function fetchMapQuestSearchAhead(mapquestUrlSlug, addressElement) {
     });
 
   //TO USE TEST DATA - USE LINE BELOW, COMMENT OUT FETCH ABOVE
-  createAutoCompleteList(testAutoComplete, addressElement); //todo test data/code
+  //createAutoCompleteList(testAutoComplete, addressElement); //todo test data/code
 }
 
 function createAutoCompleteList(results, addressElement) {

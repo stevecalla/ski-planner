@@ -42,27 +42,27 @@ function fetchWeatherData(latitude, longitude, resortName, requestedData) {
 
   let currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=${exclusions}&appid=${key}&units=${units}`;
 
-  // fetch(currentWeatherURL) //todo fetch code in productoin
-  //   .then((response) => {
-  //     if (response.ok) {
-  //       response.json().then((data) => {
-  //           requestedData === "hourly" ? createDailyHourlyWeatherData(data, "hourly", resortName) : createDailyHourlyWeatherData(data, "daily", resortName);
-  //       });
-  //     } else {
-  // launchValidationModal(
-  //   "Error: Weather Not found",
-  //   // `Try Again at a Later Date: ${response.statusText}`
-  //   'weather'
-  // );
-  //     }
-  //   })
-  //   .catch((error) => {
-  // launchValidationModal(
-  //   "Error: Weather Not found",
-  //   // `Try again later, please`,: ${response.statusText}`
-  //   'weather'
-  // );
-  //   });
+  fetch(currentWeatherURL) //todo fetch code in productoin
+    .then((response) => {
+      if (response.ok) {
+        response.json().then((data) => {
+            requestedData === "hourly" ? createDailyHourlyWeatherData(data, "hourly", resortName) : createDailyHourlyWeatherData(data, "daily", resortName);
+        });
+      } else {
+  launchValidationModal(
+    "Error: Weather Not found",
+    // `Try Again at a Later Date: ${response.statusText}`
+    'weather'
+  );
+      }
+    })
+    .catch((error) => {
+  launchValidationModal(
+    "Error: Weather Not found",
+    // `Try again later, please`,: ${response.statusText}`
+    'weather'
+  );
+    });
 
   // MODAL TEST CODE: WILL POP MODAL ON DASH & REMOVE THE WEATHER TILE
   // launchValidationModal(
@@ -74,9 +74,9 @@ function fetchWeatherData(latitude, longitude, resortName, requestedData) {
 
   // to test in development use the 2 lines below; to test in production comment outlines below and comment in the fetch above
   // console.log(weather);
-  requestedData === "hourly"
-    ? createDailyHourlyWeatherData(weather, "hourly", "Boulder")
-    : createDailyHourlyWeatherData(weather, "daily", "Boulder"); //todo test data/code
+  // requestedData === "hourly"
+  //   ? createDailyHourlyWeatherData(weather, "hourly", "Boulder")
+  //   : createDailyHourlyWeatherData(weather, "daily", "Boulder"); //todo test data/code
 }
 
 function createDailyHourlyWeatherData(weather, timeframe, resortName) {
