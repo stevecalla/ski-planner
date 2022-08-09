@@ -35,6 +35,9 @@ As an active skier in Colorado, I want to plan my ski adventures using critical 
 1. Sync the weather with driving directions so the user knows what the weather is forecasted to be when they get to various waypoints on their route.
 2. Display all SNOTEL stations in Colorado on the map to provide info for backcountry skiers.
 3. Add travel alerts to the driving directions display.
+4. Use secure authentication and server side storage for user profiles
+5. Increase robustness of input validation
+6. Refactor code to single purpose functions
 
 ## Acceptance Criteria
 
