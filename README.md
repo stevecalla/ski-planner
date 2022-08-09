@@ -70,13 +70,13 @@ THEN I can set my preferred started location, my preferred mountains, preferred 
 
 ### Static Screenshots
 
-<img alt="Map" src="./assets/images/screenshot_map.jpg">
-<img alt="Dashboard" src="./assets/images/screenshot_dashboard.jpg">
-<img alt="Profile" src="./assets/images/screenshot_profile.jpg">
+<img alt="Map" src="./assets/images/screenshot_map.png">
+<img alt="Dashboard" src="./assets/images/screenshot_dashboard.png">
+<img alt="Profile" src="./assets/images/screenshot_profile.png">
 
-<!-- ### Video Preview
+### Video Preview
 
-<img src="https://media.giphy.com/media/410DOwYuE3CO7yzPnA/giphy-downsized-large.gif" width="100%" height="425"/> -->
+<img src="./assets/images/powder-bound.gif" width="" height=""/>
 
 ## Technologies
 
