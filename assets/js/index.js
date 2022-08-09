@@ -272,7 +272,7 @@ function init() {
 
     selectAndDisplayMarkers();
 
-    throw "Map Error";
+    //throw "Map Error";
   } catch (error) {
     launchValidationModal("Map Error", error, "Map");
   }
