@@ -20,26 +20,27 @@ let profileModalDesktopButton = document.getElementById(
   "profile-button-desktop"
 );
 let profileModalMobileButton = document.getElementById("profile-button-mobile");
+let fullScreenElement = document.getElementById('full-screen-icon');
 
 //section:global variables go here 👇
+const skiArea = getCurrentSkiArea();
 
 //section:event listeners go here 👇
 profileModalDesktopButton.addEventListener("click", renderProfileModal);
 profileModalMobileButton.addEventListener("click", renderProfileModal);
 // SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
 txtStartAddress.addEventListener("input", () =>
-  fetchMapquestCreateAutoComplete(txtStartAddress)
+fetchMapquestCreateAutoComplete(txtStartAddress)
 ); //todo:make live
-
+fullScreenElement.addEventListener('click', renderFullScreenMap);
 // This event handler updates the page based on the start location, date, & time fields
 btnUpdate.addEventListener("click", function (event) {
   event.preventDefault();
 
-  const skiArea = getCurrentSkiArea();
+//section:functions and event handlers go here 👇
+displayDrivingDirections(skiArea);
 
-  displayDrivingDirections(skiArea);
-
-  renderDailyHourlyWeatherData("daily"); // loads weather data upon page load -- function is is weather.js
+renderDailyHourlyWeatherData("daily"); // loads weather data upon page load -- function is is weather.js
 });
 
 // This function reads the querystring and returns the appropriate skiArea object
@@ -67,7 +68,6 @@ function getCurrentSkiArea() {
   return skiArea;
 }
 
-//section:functions and event handlers go here 👇
 // This function is called on init and will pull the resort name from the QueryString
 function getResortInfo() {
   if (document.location.search.length > 0) {
@@ -436,8 +436,6 @@ function init() {
   }
 }
 
-let fullScreenElement = document.getElementById('full-screen-icon');
-fullScreenElement.addEventListener('click', renderFullScreenMap);
 function renderFullScreenMap() {
   staticMap.requestFullscreen();
 }
