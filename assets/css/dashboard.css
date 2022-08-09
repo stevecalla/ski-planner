@@ -3,7 +3,8 @@
   --light-text: white;
   --border-radius: 5px;
   --skiblue: #3e8ed0;
-  --font-family: bangers, Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  --font-family: bangers, Cambria, Cochin, Georgia, Times, "Times New Roman",
+    serif;
   --subtitle-color: #209cee;
 }
 
@@ -72,6 +73,7 @@ html {
   font-family: var(--font-family);
   color: var(--skiblue);
   margin-bottom: 10px;
+  font-size: 20px;
 }
 
 .custom-table {
@@ -132,5 +134,9 @@ html {
     width: 80px;
     height: 40px;
     margin: 5px 40px 10px 40px;
+  }
+
+  .custom-mobile-margin {
+    margin:0px 8px 0px 8px !important;
   }
 }

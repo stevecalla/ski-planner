@@ -2,8 +2,6 @@
 
 ## Index
 
-<!-- <details><summary></summary> -->
-
 1. [Overview](#overview)
 2. [Features](#features)
 3. [Future Enhancements](#future-enhancements)
@@ -30,6 +28,7 @@ As an active skier in Colorado, I want to plan my ski adventures using critical 
 1. Interactive Map of Colorado Ski Areas synced with the user's ski pass and favorite resorts.
 2. Dashboard view of critical travel information including weather, driving directions, snow conditions.
 3. User Profile Page including preferred driving start address, ski passes, etc.
+4. Reads daily updates from the US Department of Agriculture's [Snow Telemetry (SNOTEL) Network](https://www.nrcs.usda.gov/wps/portal/wcc/home/aboutUs/monitoringPrograms/automatedSnowMonitoring/)
 
 ## Future Enhancements
 

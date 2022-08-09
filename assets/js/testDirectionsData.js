@@ -88,7 +88,7 @@ const testDirections = {
               },
             ],
             mapUrl:
-              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.74000930786133,-104.98999786376953|marker-1||39.74000930786133,-104.98738861083984|marker-2||&center=39.74000930786133,-104.98869323730469&defaultMarker=none&zoom=13&rand=-1308861825&session=62ee6bf0-009e-6750-02b4-3736-0e1ed66b84d1",
+              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.74000930786133,-104.98999786376953|marker-1||39.74000930786133,-104.98738861083984|marker-2||&center=39.74000930786133,-104.98869323730469&defaultMarker=none&zoom=13&rand=-1308861825",
             transportMode: "AUTO",
             attributes: 0,
             time: 20,
@@ -112,7 +112,7 @@ const testDirections = {
             linkIds: [],
             signs: [],
             mapUrl:
-              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.74000930786133,-104.98738861083984|marker-2||39.73686981201172,-104.98737335205078|marker-3||&center=39.73843955993652,-104.98738098144531&defaultMarker=none&zoom=11&rand=-1308861825&session=62ee6bf0-009e-6750-02b4-3736-0e1ed66b84d1",
+              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.74000930786133,-104.98738861083984|marker-2||39.73686981201172,-104.98737335205078|marker-3||&center=39.73843955993652,-104.98738098144531&defaultMarker=none&zoom=11&rand=-1308861825",
             transportMode: "AUTO",
             attributes: 0,
             time: 34,
@@ -136,7 +136,7 @@ const testDirections = {
             linkIds: [],
             signs: [],
             mapUrl:
-              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.73686981201172,-104.98737335205078|marker-3||39.736881256103516,-105.00013732910156|marker-4||&center=39.73687553405762,-104.99375534057617&defaultMarker=none&zoom=11&rand=-1308861825&session=62ee6bf0-009e-6750-02b4-3736-0e1ed66b84d1",
+              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.73686981201172,-104.98737335205078|marker-3||39.736881256103516,-105.00013732910156|marker-4||&center=39.73687553405762,-104.99375534057617&defaultMarker=none&zoom=11&rand=-1308861825",
             transportMode: "AUTO",
             attributes: 1024,
             time: 103,
@@ -160,7 +160,7 @@ const testDirections = {
             linkIds: [],
             signs: [],
             mapUrl:
-              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.736881256103516,-105.00013732910156|marker-4||39.72645950317383,-105.00019073486328|marker-5||&center=39.73167037963867,-105.00016403198242&defaultMarker=none&zoom=10&rand=-1308861825&session=62ee6bf0-009e-6750-02b4-3736-0e1ed66b84d1",
+              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.736881256103516,-105.00013732910156|marker-4||39.72645950317383,-105.00019073486328|marker-5||&center=39.73167037963867,-105.00016403198242&defaultMarker=none&zoom=10&rand=-1308861825",
             transportMode: "AUTO",
             attributes: 0,
             time: 101,
@@ -183,7 +183,7 @@ const testDirections = {
             linkIds: [],
             signs: [],
             mapUrl:
-              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.72645950317383,-105.00019073486328|marker-5||39.725582122802734,-105.01773071289062|marker-6||&center=39.72602081298828,-105.00896072387695&defaultMarker=none&zoom=10&rand=-1308861825&session=62ee6bf0-009e-6750-02b4-3736-0e1ed66b84d1",
+              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.72645950317383,-105.00019073486328|marker-5||39.725582122802734,-105.01773071289062|marker-6||&center=39.72602081298828,-105.00896072387695&defaultMarker=none&zoom=10&rand=-1308861825",
             transportMode: "AUTO",
             attributes: 1152,
             time: 79,
@@ -214,7 +214,7 @@ const testDirections = {
               },
             ],
             mapUrl:
-              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.725582122802734,-105.01773071289062|marker-6||39.72538375854492,-105.1772689819336|marker-7||&center=39.72548294067383,-105.09749984741211&defaultMarker=none&zoom=7&rand=-1308861825&session=62ee6bf0-009e-6750-02b4-3736-0e1ed66b84d1",
+              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.725582122802734,-105.01773071289062|marker-6||39.72538375854492,-105.1772689819336|marker-7||&center=39.72548294067383,-105.09749984741211&defaultMarker=none&zoom=7&rand=-1308861825",
             transportMode: "AUTO",
             attributes: 1152,
             time: 515,
@@ -246,7 +246,7 @@ const testDirections = {
               },
             ],
             mapUrl:
-              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.72538375854492,-105.1772689819336|marker-7||39.688838958740234,-105.88233947753906|marker-8||&center=39.70711135864258,-105.52980422973633&defaultMarker=none&zoom=5&rand=-1308861825&session=62ee6bf0-009e-6750-02b4-3736-0e1ed66b84d1",
+              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.72538375854492,-105.1772689819336|marker-7||39.688838958740234,-105.88233947753906|marker-8||&center=39.70711135864258,-105.52980422973633&defaultMarker=none&zoom=5&rand=-1308861825",
             transportMode: "AUTO",
             attributes: 3200,
             time: 2595,
@@ -285,7 +285,7 @@ const testDirections = {
               },
             ],
             mapUrl:
-              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.688838958740234,-105.88233947753906|marker-8||39.68096160888672,-105.89422607421875|marker-9||&center=39.68490028381348,-105.8882827758789&defaultMarker=none&zoom=10&rand=-1308861825&session=62ee6bf0-009e-6750-02b4-3736-0e1ed66b84d1",
+              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.688838958740234,-105.88233947753906|marker-8||39.68096160888672,-105.89422607421875|marker-9||&center=39.68490028381348,-105.8882827758789&defaultMarker=none&zoom=10&rand=-1308861825",
             transportMode: "AUTO",
             attributes: 0,
             time: 102,
@@ -309,7 +309,7 @@ const testDirections = {
             linkIds: [],
             signs: [],
             mapUrl:
-              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.68096160888672,-105.89422607421875|marker-9||39.680267333984375,-105.8970947265625|marker-10||&center=39.68061447143555,-105.89566040039062&defaultMarker=none&zoom=13&rand=-1308861825&session=62ee6bf0-009e-6750-02b4-3736-0e1ed66b84d1",
+              "http://www.mapquestapi.com/staticmap/v5/map?key=4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i&size=225,160&locations=39.68096160888672,-105.89422607421875|marker-9||39.680267333984375,-105.8970947265625|marker-10||&center=39.68061447143555,-105.89566040039062&defaultMarker=none&zoom=13&rand=-1308861825",
             transportMode: "AUTO",
             attributes: 2,
             time: 62,
