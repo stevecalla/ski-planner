@@ -198,14 +198,14 @@ async function displayDrivingDirections(skiArea) {
     // If testing, comment out the below Map section
 
     // Map
-    // if (directions[i].mapUrl) {
-    //   td = document.createElement("td");
-    //   let img = document.createElement("img");
-    //   img.src = directions[i].mapUrl.replace("http://", "https://");
-    //   img.alt = "Map";
-    //   td.appendChild(img);
-    //   tr.appendChild(td);
-    // }
+    if (directions[i].mapUrl) {
+      td = document.createElement("td");
+      let img = document.createElement("img");
+      img.src = directions[i].mapUrl.replace("http://", "https://");
+      img.alt = "Map";
+      td.appendChild(img);
+      tr.appendChild(td);
+    }
 
     tblDirections.appendChild(tr);
   }
@@ -235,9 +235,9 @@ async function fetchDirections(startCoordinates, endCoordinates) {
   // http://www.mapquestapi.com/directions/v2/route?key=onM30fdvaziP9ykjaYeleR5hvIhOmLm1&from=39.74,-104.99&to=39.68,-105.897
   let apiUrl = `https://www.mapquestapi.com/directions/v2/route?key=${config.MAPQUEST_KEY}&from=${startCoordinates}&to=${endCoordinates}`;
 
-  // const response = await fetch(apiUrl, requestOptions);
-  // const data = await response.json();
-  const data = testDirections; // For testing, comment out the previous 2 lines
+  const response = await fetch(apiUrl, requestOptions);
+  const data = await response.json();
+  // const data = testDirections; // For testing, comment out the previous 2 lines
 
   const maneuvers = data.route.legs[0].maneuvers;
   const directions = [];
