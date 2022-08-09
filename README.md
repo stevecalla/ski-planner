@@ -74,9 +74,9 @@ THEN I can set my preferred started location, my preferred mountains, preferred 
 <img alt="Dashboard" src="./assets/images/screenshot_dashboard.jpg">
 <img alt="Profile" src="./assets/images/screenshot_profile.jpg">
 
-### Video Preview
+<!-- ### Video Preview
 
-<img src="https://media.giphy.com/media/410DOwYuE3CO7yzPnA/giphy-downsized-large.gif" width="100%" height="425"/>
+<img src="https://media.giphy.com/media/410DOwYuE3CO7yzPnA/giphy-downsized-large.gif" width="100%" height="425"/> -->
 
 ## Technologies
 
