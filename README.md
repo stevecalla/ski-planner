@@ -20,7 +20,8 @@ When you're searching for powder, the last thing an avid skier or boarder wants 
 ### User Story
 
 ```
-As an active skier in Colorado, I want to plan my ski adventures using critical information about the travel process such as weather, driving directions, snow conditions, and more.
+As an active skier in Colorado, I want to plan my ski adventures using critical information
+about the travel process such as weather, driving directions, snow conditions, and more.
 ```
 
 ## Features
