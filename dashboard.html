@@ -62,8 +62,8 @@
     <div class="tile is-ancestor">
       <div class="tile is-12">
         <!-- POW METER WRAPPER -->
-        <div class="tile is-parent is-4 is-vertical ml-2 mr-1">
-          <article id="powmeter-wrapper" class="tile is-child notification is-info custom-tile">
+        <div class="tile is-parent is-3 is-vertical ml-2 mr-1 custom-mobile-margin">
+          <article id="powmeter-wrapper" class="tile is-child notification is-info custom-tile custom-mobile-margin">
             <p class="subtitle">pow meter</p>
             <div class="content powMeterSection">
               <section id="snowConditions">
@@ -71,14 +71,14 @@
                 <label class="powText" id="lblSnowDepth"></label><br />
                 <label class="powText" id="lblChangeInSnowDepth"></label><br />
                 <figure class="is-image is-square">
-                  <img id="powMeterImage" src="./assets/images/loading-v2.gif" style="width: 125px; height: 125px" ; />
+                  <img id="powMeterImage" src="./assets/images/loading-v2.gif" />
                 </figure>
               </section>
             </div>
           </article>
 
           <!-- STATIC MAP WRAPPER -->
-          <article id="staticmap-wrapper" class="tile is-child notification is-info custom-tile">
+          <article id="staticmap-wrapper" class="tile is-child notification is-info custom-tile custom-mobile-margin">
             <p class="subtitle">Map</p>
             <section class="mapSection" id="mapArea">
               <img id="staticMap" />
@@ -87,7 +87,7 @@
         </div>
 
         <!-- DIRECTIONS WRAPPER -->
-        <div id="directions-wrapper " class="tile is-parent ml-1 mr-2">
+        <div id="directions-wrapper " class="tile is-parent ml-1 mr-2 custom-mobile-margin">
           <article class="tile is-child box notification is-info custom-tile">
             <p class="subtitle">Directions</p>
             <form>
@@ -96,7 +96,7 @@
                 <input id="txtStartDate" type="date" class="input mr-1" required />
                 <input id="txtStartTime" type="time" class="input ml-1" value="09:00" required />
               </div>
-              <button id="btnUpdate" class="button updateButton is-fullwidth is-size">
+              <button id="btnUpdate" class="button updateButton is-fullwidth">
                 Update
               </button>
             </form>
@@ -132,7 +132,7 @@
         </div>
 
         <!-- WEATHER WRAPPER -->
-        <div class="tile is-parent ml-1 mr-2" id="weather-wrapper">
+        <div class="tile is-parent is-3 ml-1 mr-2 custom-mobile-margin" id="weather-wrapper">
           <article class="tile is-child box notification is-info custom-tile">
             <p class="subtitle">weather</p>
 

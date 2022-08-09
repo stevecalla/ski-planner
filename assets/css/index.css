@@ -78,6 +78,15 @@ footer {
   /* position: relative; */
 }
 
+.validation-modal {
+  position: absolute;
+  z-index: 2147483647;
+}
+
+.hide {
+  display: none;
+}
+
 /* ---------- MOBILE RESPONSIVE ---------- */
 /* LARGE SCREENS / TABLETS */
 @media screen and (max-width: 767px) {
