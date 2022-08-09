@@ -100,6 +100,10 @@ html {
   display: none !important;
 }
 
+.custom-opacity {
+  opacity: 0.9;
+}
+
 #powMeterImage {
   max-height: 250px;
   max-width: 250px;
@@ -137,6 +141,6 @@ html {
   }
 
   .custom-mobile-margin {
-    margin:0px 8px 0px 8px !important;
+    margin: 0px 8px 0px 8px !important;
   }
 }
