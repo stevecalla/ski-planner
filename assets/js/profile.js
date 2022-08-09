@@ -190,7 +190,7 @@ function isInputValid(event, currentInput) {
     renderValidationModal(
       event,
       `Email Not Valid`,
-      `Pleae enter valid email (i.e. example@email.com)`,
+      `Please enter valid email (i.e. example@email.com)`,
       isValid,
       isEmailValid
     );
@@ -242,7 +242,7 @@ function isInputValid(event, currentInput) {
     renderValidationModal(
       event,
       `Input Not Valid`,
-      `Pleae enter name, email or address.`,
+      `Please enter name, email or address.`,
       isValid
     );
   }

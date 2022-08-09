@@ -20,7 +20,7 @@ When you're searching for powder, the last thing an avid skier or boarder wants 
 ### User Story
 
 ```
-As an active skier in Colorado, I want to plan my ski adventures using critical information 
+As an active skier in Colorado, I want to plan my ski adventures using critical information
 about the travel process such as weather, driving directions, snow conditions, and more.
 ```
 
@@ -74,9 +74,9 @@ THEN I can set my preferred started location, my preferred mountains, preferred 
 <img alt="Dashboard" src="./assets/images/screenshot_dashboard.jpg">
 <img alt="Profile" src="./assets/images/screenshot_profile.jpg">
 
-### Video Preview
+<!-- ### Video Preview
 
-<img src="https://media.giphy.com/media/410DOwYuE3CO7yzPnA/giphy-downsized-large.gif" width="100%" height="425"/>
+<img src="https://media.giphy.com/media/410DOwYuE3CO7yzPnA/giphy-downsized-large.gif" width="100%" height="425"/> -->
 
 ## Technologies
 
