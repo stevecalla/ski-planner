@@ -70,10 +70,11 @@ html {
 }
 
 .updateButton {
-  font-family: var(--font-family);
-  color: var(--skiblue);
   margin-bottom: 10px;
+  color: var(--skiblue);
   font-size: 20px;
+  font-family: var(--font-family);
+  border: 1px solid white;
 }
 
 .custom-table {
@@ -111,7 +112,7 @@ html {
 
 .powText {
   font-family: var(--font-family);
-  color: var(--light-text);
+  color: var(--light-text) !important; 
 }
 
 #staticMap {
