@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      type="image/jpg"
+      href="./assets/images/favicon-16x16.png"
+    />
+    <title>Powder Bound</title>
+
+    <!-- ADD GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ADD FONTAWESOME -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+    />
+    <!-- ADD BULMA -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/profile.css" />
+  </head>
+
+  <body>
+    <div class="modal is-active" id="profile-modal">
+      <div class="modal-background"></div>
+      <div class="modal-card custom-card custom-box-blue">
+        <header class="header-wrapper m-3">
+          <div class="header-title">
+            <p
+              class="has-text-white is-size-2-mobile is-size-1 pl-2 custom-letter-spacing"
+            >
+              Your Profile
+            </p>
+            <div>
+              <i
+                class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2"
+                aria-hidden=""
+              ></i>
+              <i
+                class="fa fa-snowflake has-text-white is-size-3-mobile is-size-1 mr-2"
+                aria-hidden=""
+              ></i>
+            </div>
+          </div>
+          <p
+            class="label column class is-hidden column has-text-white is-size-4 p-0 pl-2 custom-letter-spacing"
+            id="member-created-date"
+          >
+            Member Since: January 2012
+          </p>
+        </header>
+
+        <section class="modal-card-body custom-box-blue m-0 pt-0">
+          <!-- NAME INPUT -->
+          <label
+            class="label has-text-white m-0 is-size-3 custom-letter-spacing"
+            >Name</label
+          >
+          <div class="field has-addons name">
+            <div class="control has-icons-left is-expanded">
+              <input
+                class="input is-success is-fullwidth"
+                id="name-input"
+                type="text"
+                name="name"
+                placeholder="Enter first & last name"
+                autocomplete="off"
+                required
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+              <p
+                class="help is-success is-hidden is-size-6"
+                id="alert-name-valid"
+              >
+                Your name was saved successfully.
+              </p>
+              <p
+                class="help is-hidden has-text-white is-size-6"
+                id="alert-name-invalid"
+              >
+                ⚠️ Your name is blank. Try again! ⚠️
+              </p>
+            </div>
+            <div class="control name" id="save-name-icon">
+              <button
+                class="button fas fa-edit name-disk name input checkmark-white"
+                id="name-disk"
+                disabled
+              ></button>
+              <button
+                class="button fas fa-check name-check is-primary is-hidden"
+                id="name-check"
+              ></button>
+            </div>
+          </div>
+
+          <!-- EMAIL INPUT-->
+          <label
+            class="label has-text-white m-0 is-size-3 custom-letter-spacing"
+            >Email</label
+          >
+          <div class="field has-addons email">
+            <div class="control has-icons-left is-expanded">
+              <input
+                class="input is-success is-fullwidth"
+                id="email-input"
+                type="email"
+                name="email"
+                placeholder="Enter a valid email"
+                pattern="/[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/g"
+                autocomplete="off"
+                required
+              />
+
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+              <p
+                class="help is-success is-hidden is-size-6"
+                id="alert-email-valid"
+              >
+                Your email was saved successfully.
+              </p>
+              <p
+                class="help is-hidden has-text-white is-size-6"
+                id="alert-email-invalid"
+              >
+                ⚠️ The email is invalid. Try again! ⚠️
+              </p>
+            </div>
+            <div class="control email" id="save-email-icon">
+              <button
+                class="button fas fa-edit email-disk email input checkmark-white"
+                id="email-disk"
+                disabled
+              ></button>
+              <button
+                class="button fas fa-check email-check is-primary is-hidden"
+                id="email-check"
+              ></button>
+            </div>
+          </div>
+
+          <!-- ADDRESS INPUT-->
+          <label
+            class="label has-text-white m-0 is-size-3 custom-letter-spacing"
+            required
+            >Home Address</label
+          >
+          <div class="field has-addons address">
+            <div class="control has-icons-left is-expanded">
+              <input
+                class="input is-success is-fullwidth"
+                id="address-input"
+                type="text"
+                name="address"
+                placeholder="Street, City, State, Zipcode"
+                autocomplete="off"
+                required
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+              <p
+                class="help is-success is-hidden is-size-6"
+                id="alert-address-valid"
+              >
+                Your address was saved successfully.
+              </p>
+              <p
+                class="help is-hidden has-text-white is-size-6"
+                id="alert-address-invalid"
+              >
+                ⚠️ The address is invalid. Try again! ⚠️
+              </p>
+            </div>
+            <div class="control address" id="save-address-icon">
+              <button
+                class="button fas fa-edit address-disk address input checkmark-white"
+                id="address-disk"
+                disabled
+              ></button>
+              <button
+                class="button fas fa-check address-check is-primary is-hidden"
+                id="address-check"
+              ></button>
+            </div>
+          </div>
+
+          <!-- PASSES SELECTION LIST -->
+          <label
+            class="label has-text-white m-0 is-size-3 custom-letter-spacing"
+            >Your Season passes</label
+          >
+          <div class="field has-addons">
+            <div class="control is-expanded">
+              <div class="select is-fullwidth" id="passes-input">
+                <select name="passes" id="pass-list">
+                  <!-- <option value="none" selected disabled hidden>Select a Pass</option>
+                  <option value="Epic">EPIC</option>
+                  <option value="Ikon">Ikon</option>
+                  <option value="Independent">Independent</option> -->
+                </select>
+              </div>
+            </div>
+            <div class="control">
+              <button
+                class="button fas fa-edit passes-disk passes input"
+                id="save-passes-icon"
+                disabled
+              ></button>
+              <button
+                class="button fas fa-check passes-check is-primary is-hidden"
+              ></button>
+            </div>
+          </div>
+
+          <!-- PASSES LIST -->
+          <div class="box mb-3" id="passes-selected-container">
+            <div class="box has-text-white is-size-4 custom-box-gray">
+              No Passes Selected
+            </div>
+          </div>
+
+          <!-- RESORTS SELECTION LIST -->
+          <label
+            class="label has-text-white m-0 is-size-3 custom-letter-spacing"
+            >Your Favorite Resorts</label
+          >
+          <div class="field has-addons">
+            <div class="control is-expanded">
+              <div class="select is-fullwidth" id="resorts-input">
+                <select name="resorts" id="resort-list">
+                  <option value="none" selected disabled hidden>
+                    Select a Resort
+                  </option>
+                  <option value="TBD1">TBD 1</option>
+                  <option value="TBD2">TBD 2</option>
+                  <option value="TBD3">TBD 3</option>
+                </select>
+              </div>
+            </div>
+            <div class="control">
+              <button
+                class="button fas fa-edit resorts-disk resorts input"
+                id="save-resorts-icon"
+                disabled
+              ></button>
+              <button
+                class="button fas fa-check resorts-check is-primary is-hidden"
+              ></button>
+            </div>
+          </div>
+
+          <!-- RESORTS LIST -->
+          <div class="box" id="resorts-selected-container">
+            <div class="box has-text-white is-size-4 custom-box-gray">
+              No Resorts Selected
+            </div>
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="field is-grouped ml-4 mr-4 custom-box-blue">
+          <div class="control is-expanded">
+            <button
+              class="button is-primary is-size-5 custom-font custom-border custom-hover is-fullwidth mt-1 custom-letter-spacing save-button"
+              id="save-button"
+            >
+              Save Profile
+            </button>
+          </div>
+          <div class="control is-expanded">
+            <button
+              class="button is-danger is-size-5 custom-font custom-border custom-hover is-fullwidth mt-1 custom-letter-spacing"
+              id="delete-profile-button"
+              disabled
+            >
+              Delete Profile
+            </button>
+          </div>
+        </footer>
+        <!-- MODAL DELETE / CLOSE OVERLAY WITH THE X IN THE UPPER RIGHT -->
+        <button
+          class="modal-close is-large custom-close-modal"
+          id="custom-close-modal"
+          aria-label="close"
+        ></button>
+      </div>
+    </div>
+
+    <!-- VALIDATION MODAL -->
+    <div class="modal custom-font" id="validation-modal">
+      <div class="modal-background"></div>
+      <div class="modal-card" style="width: 350px">
+        <header class="modal-card-head">
+          <p class="modal-card-title custom-letter-spacing" id="modal-title">
+            Modal title
+          </p>
+          <button class="delete" id="close-modal" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <p id="modal-body">Content</p>
+        </section>
+        <footer class="modal-card-foot">
+          <button
+            class="button is-success delete-button hide"
+            id="delete-button"
+          >
+            Delete
+          </button>
+          <button class="button cancel-button hide" id="cancel-button">
+            Cancel
+          </button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- MOMENT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <!-- JQUERY LIBRARY -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- JQUERY UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- <script src="./assets/js/testAutoComplete.js"></script> -->
+    <script src="./assets/js/config.js"></script>
+    <script src="./assets/js/utils.js"></script>
+    <script src="./assets/js/skiAreas.js"></script>
+    <script src="./assets/js/profile.js"></script>
+  </body>
+</html>

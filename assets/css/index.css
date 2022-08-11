@@ -1,0 +1,121 @@
+:root {
+  --light-background: white;
+  --light-text: white;
+  --border-radius: 5px;
+  --skiblue: #3e8ed0;
+  --font-family: bangers, Cambria, Cochin, Georgia, Times, "Times New Roman",
+    serif;
+  --subtitle-color: #209cee;
+}
+
+body {
+  font-family: var(--font-family);
+  position: relative;
+}
+
+header,
+main,
+footer,
+.validation-modal {
+  position: relative;
+}
+
+.background-img {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  min-width: 360px;
+  object-fit: cover;
+}
+
+.custom-width {
+  min-width: 360px;
+}
+
+.title {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  font-size: 75px;
+  color: var(--light-text);
+}
+
+.profile-button {
+  width: 100px;
+  height: 50px;
+  margin: 20px 40px;
+  font-family: var(--font-family);
+  color: var(--skiblue);
+}
+
+.custom-checkboxes {
+  color: var(--skiblue);
+  border-radius: var(--border-radius);
+  background-color: var(--light-background);
+}
+
+/* Set the size of the div element that contains the map */
+.mapSection {
+  display: flex;
+  justify-content: center;
+}
+
+.map {
+  width: 75vw;
+  min-width: 315px;
+  height: 75vh;
+  border: 3px var(--light-background) solid;
+  border-radius: 10px;
+}
+
+/* header,  */
+footer {
+  display: flex;
+  padding: 0px 0px 0px 20px;
+  color: var(--light-text);
+  color: var(--skiblue);
+  font-size: 32px;
+  /* position: relative; */
+}
+
+.validation-modal {
+  position: absolute;
+  z-index: 2147483647;
+}
+
+.hide {
+  display: none;
+}
+
+/* ---------- MOBILE RESPONSIVE ---------- */
+/* LARGE SCREENS / TABLETS */
+@media screen and (max-width: 767px) {
+  .header {
+    display: flex;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  .title {
+    margin-top: 20px;
+    font-size: 55px;
+  }
+
+  .profile-button {
+    width: 80px;
+    height: 40px;
+    margin: 5px 40px 10px 40px;
+  }
+
+  .map {
+    height: 65vh;
+  }
+
+  footer {
+    display: flex;
+    justify-content: center;
+    font-size: 28px;
+  }
+}
