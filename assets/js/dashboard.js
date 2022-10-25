@@ -20,7 +20,7 @@ let profileModalDesktopButton = document.getElementById(
   "profile-button-desktop"
 );
 let profileModalMobileButton = document.getElementById("profile-button-mobile");
-let fullScreenElement = document.getElementById('full-screen-icon');
+let fullScreenElement = document.getElementById("full-screen-icon");
 
 //section:global variables go here 👇
 const skiArea = getCurrentSkiArea();
@@ -30,17 +30,17 @@ profileModalDesktopButton.addEventListener("click", renderProfileModal);
 profileModalMobileButton.addEventListener("click", renderProfileModal);
 // SEE UTILS.JS FOR THE FUNCTIONS TO FETCH AND RENDER AUTOCOMPLETE
 txtStartAddress.addEventListener("input", () =>
-fetchMapquestCreateAutoComplete(txtStartAddress)
+  fetchMapquestCreateAutoComplete(txtStartAddress)
 ); //todo:make live
-fullScreenElement.addEventListener('click', renderFullScreenMap);
+fullScreenElement.addEventListener("click", renderFullScreenMap);
 // This event handler updates the page based on the start location, date, & time fields
 btnUpdate.addEventListener("click", function (event) {
   event.preventDefault();
 
-//section:functions and event handlers go here 👇
-displayDrivingDirections(skiArea);
+  //section:functions and event handlers go here 👇
+  displayDrivingDirections(skiArea);
 
-renderDailyHourlyWeatherData("daily"); // loads weather data upon page load -- function is is weather.js
+  renderDailyHourlyWeatherData("daily"); // loads weather data upon page load -- function is is weather.js
 });
 
 // This function reads the querystring and returns the appropriate skiArea object
@@ -109,17 +109,17 @@ function getResortInfo() {
 // This function displays a static map of the Ski Area
 function displayStaticMap(skiArea) {
   // MapQuest
-  // let zoom = 14;
-  // staticMap.src = `https://www.mapquestapi.com/staticmap/v5/map?key=${config.MAPQUEST_KEY}&center=${skiArea.latitude},${skiArea.longitude}&zoom=${zoom}`;
-  // staticMap.alt = skiArea.name;
+  let zoom = 14;
+  staticMap.src = `https://www.mapquestapi.com/staticmap/v5/map?key=${config.MAPQUEST_KEY}&center=${skiArea.latitude},${skiArea.longitude}&zoom=${zoom}`;
+  staticMap.alt = skiArea.name;
 
   // Google Maps - Looks better since it'll show ski runs for the bigger ski areas
-  let apiKey = config.GOOGLE_STATIC_MAPS_KEY;
-  let lat = skiArea.latitude;
-  let lon = skiArea.longitude;
-  let zoom = 14;
-  let size = "1000x1000";
-  staticMap.src = `https://maps.googleapis.com/maps/api/staticmap?center=${lat}%2c%20${lon}&zoom=${zoom}&size=${size}&key=${apiKey}`;
+  // let apiKey = config.GOOGLE_STATIC_MAPS_KEY;
+  // let lat = skiArea.latitude;
+  // let lon = skiArea.longitude;
+  // let zoom = 14;
+  // let size = "1000x1000";
+  // staticMap.src = `https://maps.googleapis.com/maps/api/staticmap?center=${lat}%2c%20${lon}&zoom=${zoom}&size=${size}&key=${apiKey}`;
   staticMap.alt = skiArea.name;
 }
 
