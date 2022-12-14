@@ -155,53 +155,37 @@ function getFavoriteResorts() {
 
 // This function fetches and displays the SNOTEL data in the popup.
 async function displaySNOTELDataInPopup(skiArea, popup) {
+  const snowData = await getSnowDataForClosestStation(skiArea);
 
-  const snowData = await getSnowDataForClosestStations(skiArea);
+  // Data is:
+  // {
+  //   elevation: 9240,
+  //   location: {
+  //     lat: 40.22861,
+  //     lng: -106.59528,
+  //   },
+  //   name: "BUFFALO PARK",
+  //   timezone: -7,
+  //   triplet: "913:CO:SNTL",
+  //   wind: false,
+  //   Date: "2022-12-14",
+  //   distance: 5.52,
+  //   "Snow Water Equivalent (in)": "4.2",
+  //   "Change In Snow Water Equivalent (in)": "0.1",
+  //   "Snow Depth (in)": "22",
+  //   "Change In Snow Depth (in)": "1",
+  //   "Observed Air Temperature (degrees farenheit)": "14",
+  // }
 
-  let dataSNOTEL;
-
-  let i = 0;
-  do {
-    dataSNOTEL = snowData[i++];
-    if (dataSNOTEL) {
-      // Data is:
-      // `Closest SNOTEL: ${dataSNOTEL.station_information.name}`
-      // `Elevation: ${dataSNOTEL.station_information.elevation} ft`
-      // `Distance Away: ${dataSNOTEL.distance.toFixed(2)} miles`
-      // `Date: ${dataSNOTEL["Date"]}`
-      // `Snow Water Equivalent (in): ${dataSNOTEL["Snow Water Equivalent (in)"]}`
-      // `Change In Snow Water Equivalent (in): ${dataSNOTEL["Change In Snow Water Equivalent (in)"]}`
-      // `Snow Depth (in): ${dataSNOTEL["Snow Depth (in)"]}`
-      // `Change In Snow Depth (in): ${dataSNOTEL["Change In Snow Depth (in)"]}`
-      // `Observed Air Temperature (degrees farenheit): ${dataSNOTEL["Observed Air Temperature (degrees farenheit)"]}`
-
-      // Update the popup text with SNOTEL data
-      popupText = `<h4>${skiArea.name}</h4>
-                <p>Snow Depth (in): ${dataSNOTEL["Snow Depth (in)"]}<br />
-                Change In Snow Depth (in): ${dataSNOTEL["Change In Snow Depth (in)"]}<br />
-                Air Temperature: ${dataSNOTEL["Observed Air Temperature (degrees farenheit)"]} \xB0F</p>
+  // Update the popup text with SNOTEL data
+  popupText = `<h4>${skiArea.name}</h4>
+                <p>Snow Depth: ${snowData["Snow Depth (in)"]}"<br />
+                Change In Snow Depth: ${snowData["Change In Snow Depth (in)"]}"<br />
+                Air Temperature: ${snowData["Observed Air Temperature (degrees farenheit)"]} \xB0F</p>
                 <a class="button custom-button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.name}">Details ➡️</a>
               `;
 
-      popup.setContent(popupText);
-    }
-    // If the closest SNOTEL station does not have any data, go to the next one.  Powderhorn is this way.  Pulling 3 stations just in case.
-  } while (!dataSNOTEL);
-}
-
-async function getSnowDataForClosestStations(skiArea) {
-  const closestStations = getClosestStations(
-    skiArea.longitude,
-    skiArea.latitude
-  );
-  //console.log(closestStations);
-  const closestStationsData = [];
-  for (let station of closestStations) {
-    const stationData = await getStationData(station.triplet);
-    //console.log(stationData);
-    closestStationsData.push(JSON.parse(stationData));
-  }
-  return closestStationsData;
+  popup.setContent(popupText);
 }
 
 // This event handler checks to see which ski passes are checked and displays the markers accordingly
