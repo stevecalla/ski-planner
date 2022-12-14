@@ -154,59 +154,54 @@ function getFavoriteResorts() {
 }
 
 // This function fetches and displays the SNOTEL data in the popup.
-function displaySNOTELDataInPopup(skiArea, popup) {
-  // http://api.powderlin.es/closest_stations
-  // https://dqmoczhn0pnkc.cloudfront.net/closest_stations
+async function displaySNOTELDataInPopup(skiArea, popup) {
 
-  var settings = {
-    url: "https://dqmoczhn0pnkc.cloudfront.net/closest_stations",
-    method: "GET",
-    timeout: 0,
-    jsonp: "callback",
-    dataType: "jsonp",
-    data: {
-      lat: skiArea.latitude,
-      lng: skiArea.longitude,
-      data: true,
-      days: 0,
-      count: 3,
-    },
-  };
+  const snowData = await getSnowDataForClosestStations(skiArea);
 
   let dataSNOTEL;
 
-  $.ajax(settings)
-    .done(function (response) {
-      let i = 0;
-      do {
-        dataSNOTEL = response[i++];
-        if (dataSNOTEL.data.length > 0) {
-          // Data is:
-          // `Closest SNOTEL: ${dataSNOTEL.station_information.name}`
-          // `Elevation: ${dataSNOTEL.station_information.elevation} ft`
-          // `Distance Away: ${dataSNOTEL.distance.toFixed(2)} miles`
-          // `Date: ${dataSNOTEL.data[0]["Date"]}`
-          // `Snow Water Equivalent (in): ${dataSNOTEL.data[0]["Snow Water Equivalent (in)"]}`
-          // `Change In Snow Water Equivalent (in): ${dataSNOTEL.data[0]["Change In Snow Water Equivalent (in)"]}`
-          // `Snow Depth (in): ${dataSNOTEL.data[0]["Snow Depth (in)"]}`
-          // `Change In Snow Depth (in): ${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}`
-          // `Observed Air Temperature (degrees farenheit): ${dataSNOTEL.data[0]["Observed Air Temperature (degrees farenheit)"]}`
+  let i = 0;
+  do {
+    dataSNOTEL = snowData[i++];
+    if (dataSNOTEL) {
+      // Data is:
+      // `Closest SNOTEL: ${dataSNOTEL.station_information.name}`
+      // `Elevation: ${dataSNOTEL.station_information.elevation} ft`
+      // `Distance Away: ${dataSNOTEL.distance.toFixed(2)} miles`
+      // `Date: ${dataSNOTEL["Date"]}`
+      // `Snow Water Equivalent (in): ${dataSNOTEL["Snow Water Equivalent (in)"]}`
+      // `Change In Snow Water Equivalent (in): ${dataSNOTEL["Change In Snow Water Equivalent (in)"]}`
+      // `Snow Depth (in): ${dataSNOTEL["Snow Depth (in)"]}`
+      // `Change In Snow Depth (in): ${dataSNOTEL["Change In Snow Depth (in)"]}`
+      // `Observed Air Temperature (degrees farenheit): ${dataSNOTEL["Observed Air Temperature (degrees farenheit)"]}`
 
-          // Update the popup text with SNOTEL data
-          popupText = `<h4>${skiArea.name}</h4>
-                <p>Snow Depth (in): ${dataSNOTEL.data[0]["Snow Depth (in)"]}<br />
-                Change In Snow Depth (in): ${dataSNOTEL.data[0]["Change In Snow Depth (in)"]}<br />
-                Air Temperature: ${dataSNOTEL.data[0]["Observed Air Temperature (degrees farenheit)"]} \xB0F</p>
+      // Update the popup text with SNOTEL data
+      popupText = `<h4>${skiArea.name}</h4>
+                <p>Snow Depth (in): ${dataSNOTEL["Snow Depth (in)"]}<br />
+                Change In Snow Depth (in): ${dataSNOTEL["Change In Snow Depth (in)"]}<br />
+                Air Temperature: ${dataSNOTEL["Observed Air Temperature (degrees farenheit)"]} \xB0F</p>
                 <a class="button custom-button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.name}">Details ➡️</a>
               `;
 
-          popup.setContent(popupText);
-        }
-        // If the closest SNOTEL station does not have any data, go to the next one.  Powderhorn is this way.  Pulling 3 stations just in case.
-      } while (dataSNOTEL.data.length === 0);
-    })
-    .fail()
-    .always();
+      popup.setContent(popupText);
+    }
+    // If the closest SNOTEL station does not have any data, go to the next one.  Powderhorn is this way.  Pulling 3 stations just in case.
+  } while (!dataSNOTEL);
+}
+
+async function getSnowDataForClosestStations(skiArea) {
+  const closestStations = getClosestStations(
+    skiArea.longitude,
+    skiArea.latitude
+  );
+  //console.log(closestStations);
+  const closestStationsData = [];
+  for (let station of closestStations) {
+    const stationData = await getStationData(station.triplet);
+    //console.log(stationData);
+    closestStationsData.push(JSON.parse(stationData));
+  }
+  return closestStationsData;
 }
 
 // This event handler checks to see which ski passes are checked and displays the markers accordingly
@@ -263,7 +258,7 @@ function selectAndDisplayMarkers() {
 }
 
 // This function is the initial starting point of operation
-function init() {
+async function init() {
   try {
     // Set the return location for the Profile Page
     sessionStorage.setItem("returnPage", document.location.href);
