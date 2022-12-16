@@ -6,4 +6,6 @@ const config = {
   MAPQUEST_KEY: "onM30fdvaziP9ykjaYeleR5hvIhOmLm1", //Dan's Key
   // MAPQUEST_KEY: "4ZMjXMriBP2RCLfjPje8VGED1Ekhbm2i", //Steve's Key
   // MAPQUEST_KEY: "nLkmFPah7dnASAYobZrMpvRhkAhkg9qB", //Alex's Key
+  MAPBOX_API_KEY:
+    "pk.eyJ1IjoiZHBrNWU3IiwiYSI6ImNsOHFpb3MxYjAzMngzcHBjcW5iNDcxcWUifQ.qPtcZc2yjm-Nk604HW36AA", // Dan's Key
 };

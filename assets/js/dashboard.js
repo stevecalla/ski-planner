@@ -19,6 +19,7 @@ let lblElevation = document.querySelector("#lblElevation");
 let lblDistance = document.querySelector("#lblDistance");
 let lblSnowDepth = document.querySelector("#lblSnowDepth");
 let lblChangeInSnowDepth = document.querySelector("#lblChangeInSnowDepth");
+let lblAirTemperature = document.querySelector("#lblAirTemperature");
 let powMeterImage = document.querySelector("#powMeterImage");
 let profileModalDesktopButton = document.getElementById(
   "profile-button-desktop"
@@ -113,9 +114,9 @@ function getResortInfo() {
 // This function displays a static map of the Ski Area
 function displayStaticMap(skiArea) {
   // MapQuest
-  let zoom = 14;
-  staticMap.src = `https://www.mapquestapi.com/staticmap/v5/map?key=${config.MAPQUEST_KEY}&center=${skiArea.latitude},${skiArea.longitude}&zoom=${zoom}`;
-  staticMap.alt = skiArea.name;
+  // let zoom = 14;
+  // staticMap.src = `https://www.mapquestapi.com/staticmap/v5/map?key=${config.MAPQUEST_KEY}&center=${skiArea.latitude},${skiArea.longitude}&zoom=${zoom}`;
+  // staticMap.alt = skiArea.name;
 
   // Google Maps - Looks better since it'll show ski runs for the bigger ski areas
   // let apiKey = config.GOOGLE_STATIC_MAPS_KEY;
@@ -124,6 +125,15 @@ function displayStaticMap(skiArea) {
   // let zoom = 14;
   // let size = "1000x1000";
   // staticMap.src = `https://maps.googleapis.com/maps/api/staticmap?center=${lat}%2c%20${lon}&zoom=${zoom}&size=${size}&key=${apiKey}`;
+
+  // MapBox
+  let apiKey = config.MAPBOX_API_KEY;
+  let lat = skiArea.latitude;
+  let lon = skiArea.longitude;
+  let zoom = 13;
+  let size = "1000x1000";
+  staticMap.src = `https://api.mapbox.com/styles/v1/mapbox/outdoors-v12/static/${lon},${lat},${zoom},0/${size}?access_token=${apiKey}`;
+
   staticMap.alt = skiArea.name;
 }
 
@@ -314,6 +324,7 @@ async function displaySnowConditions(skiArea) {
   lblDistance.textContent = `Distance to ski area: ${snowData.distance} mi`;
   lblSnowDepth.textContent = `Snow Depth: ${snowData["Snow Depth (in)"]}"`;
   lblChangeInSnowDepth.textContent = `Change In Snow Depth: ${snowData["Change In Snow Depth (in)"]}"`;
+  lblAirTemperature.textContent = `Air Temperature: ${snowData["Observed Air Temperature (degrees farenheit)"]}  \xB0F`;
 
   if (snowData["Change In Snow Depth (in)"] >= 6) {
     powMeterImage.src = "./assets/images/rad.png";
