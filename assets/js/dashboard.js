@@ -13,8 +13,13 @@ let tdTotalTime = document.querySelector("#tdTotalTime");
 let tdArrivalTime = document.querySelector("#tdArrivalTime");
 let weatherForecast = document.querySelector("#weatherForecast");
 let snowConditions = document.querySelector("#snowConditions");
+let lblDate = document.querySelector("#lblDate");
+let lblSNOTELName = document.querySelector("#lblSNOTELName");
+let lblElevation = document.querySelector("#lblElevation");
+let lblDistance = document.querySelector("#lblDistance");
 let lblSnowDepth = document.querySelector("#lblSnowDepth");
 let lblChangeInSnowDepth = document.querySelector("#lblChangeInSnowDepth");
+let lblAirTemperature = document.querySelector("#lblAirTemperature");
 let powMeterImage = document.querySelector("#powMeterImage");
 let profileModalDesktopButton = document.getElementById(
   "profile-button-desktop"
@@ -109,9 +114,9 @@ function getResortInfo() {
 // This function displays a static map of the Ski Area
 function displayStaticMap(skiArea) {
   // MapQuest
-  let zoom = 14;
-  staticMap.src = `https://www.mapquestapi.com/staticmap/v5/map?key=${config.MAPQUEST_KEY}&center=${skiArea.latitude},${skiArea.longitude}&zoom=${zoom}`;
-  staticMap.alt = skiArea.name;
+  // let zoom = 14;
+  // staticMap.src = `https://www.mapquestapi.com/staticmap/v5/map?key=${config.MAPQUEST_KEY}&center=${skiArea.latitude},${skiArea.longitude}&zoom=${zoom}`;
+  // staticMap.alt = skiArea.name;
 
   // Google Maps - Looks better since it'll show ski runs for the bigger ski areas
   // let apiKey = config.GOOGLE_STATIC_MAPS_KEY;
@@ -120,6 +125,15 @@ function displayStaticMap(skiArea) {
   // let zoom = 14;
   // let size = "1000x1000";
   // staticMap.src = `https://maps.googleapis.com/maps/api/staticmap?center=${lat}%2c%20${lon}&zoom=${zoom}&size=${size}&key=${apiKey}`;
+
+  // MapBox
+  let apiKey = config.MAPBOX_API_KEY;
+  let lat = skiArea.latitude;
+  let lon = skiArea.longitude;
+  let zoom = 13;
+  let size = "1000x1000";
+  staticMap.src = `https://api.mapbox.com/styles/v1/mapbox/outdoors-v12/static/${lon},${lat},${zoom},0/${size}?access_token=${apiKey}`;
+
   staticMap.alt = skiArea.name;
 }
 
@@ -282,52 +296,46 @@ async function fetchCoordinatesFromAddress(address) {
 
 // This function fetches and displays SNOTEL info
 async function displaySnowConditions(skiArea) {
-  const snowData = await getSnowDataForClosestStations(skiArea);
+  const snowData = await getSnowDataForClosestStation(skiArea);
 
-  let dataSNOTEL;
+  // Data is:
+  // {
+  //   elevation: 9240,
+  //   location: {
+  //     lat: 40.22861,
+  //     lng: -106.59528,
+  //   },
+  //   name: "BUFFALO PARK",
+  //   timezone: -7,
+  //   triplet: "913:CO:SNTL",
+  //   wind: false,
+  //   Date: "2022-12-14",
+  //   distance: 5.52,
+  //   "Snow Water Equivalent (in)": "4.2",
+  //   "Change In Snow Water Equivalent (in)": "0.1",
+  //   "Snow Depth (in)": "22",
+  //   "Change In Snow Depth (in)": "1",
+  //   "Observed Air Temperature (degrees farenheit)": "14",
+  // }
 
-  let i = 0;
-  do {
-    dataSNOTEL = snowData[i++];
-    if (dataSNOTEL) {
-      // Data is:
-      // `Closest SNOTEL: ${dataSNOTEL.station_information.name}`
-      // `Elevation: ${dataSNOTEL.station_information.elevation} ft`
-      // `Distance Away: ${dataSNOTEL.distance.toFixed(2)} miles`
-      // `Date: ${dataSNOTEL["Date"]}`
-      // `Snow Water Equivalent (in): ${dataSNOTEL["Snow Water Equivalent (in)"]}`
-      // `Change In Snow Water Equivalent (in): ${dataSNOTEL["Change In Snow Water Equivalent (in)"]}`
-      // `Snow Depth (in): ${dataSNOTEL["Snow Depth (in)"]}`
-      // `Change In Snow Depth (in): ${dataSNOTEL["Change In Snow Depth (in)"]}`
-      // `Observed Air Temperature (degrees farenheit): ${dataSNOTEL["Observed Air Temperature (degrees farenheit)"]}`
-      lblSnowDepth.textContent = `Snow Depth (in): ${dataSNOTEL["Snow Depth (in)"]}`;
-      lblChangeInSnowDepth.textContent = `Change In Snow Depth (in): ${dataSNOTEL["Change In Snow Depth (in)"]}`;
-    }
-    if (dataSNOTEL["Change In Snow Depth (in)"] >= 6) {
-      powMeterImage.src = "./assets/images/rad.png";
-    } else if (
-      dataSNOTEL["Change In Snow Depth (in)"] >= 1 &&
-      dataSNOTEL["Change In Snow Depth (in)"] < 6
-    ) {
-      powMeterImage.src = "./assets/images/good.png";
-    } else powMeterImage.src = "./assets/images/bad.png";
-    // If the closest SNOTEL station does not have any data, go to the next one.  Powderhorn is this way.  Pulling 3 stations just in case.
-  } while (!dataSNOTEL);
-}
+  lblDate.textContent = `Date: ${snowData.Date}`;
+  lblSNOTELName.textContent = `SNOTEL Name: ${snowData.name}`;
+  lblElevation.textContent = `Elevation: ${snowData.elevation} ft`;
+  lblDistance.textContent = `Distance to ski area: ${snowData.distance} mi`;
+  lblSnowDepth.textContent = `Snow Depth: ${snowData["Snow Depth (in)"]}"`;
+  lblChangeInSnowDepth.textContent = `Change In Snow Depth: ${snowData["Change In Snow Depth (in)"]}"`;
+  lblAirTemperature.textContent = `Air Temperature: ${snowData["Observed Air Temperature (degrees farenheit)"]}  \xB0F`;
 
-async function getSnowDataForClosestStations(skiArea) {
-  const closestStations = getClosestStations(
-    skiArea.longitude,
-    skiArea.latitude
-  );
-  //console.log(closestStations);
-  const closestStationsData = [];
-  for (let station of closestStations) {
-    const stationData = await getStationData(station.triplet);
-    //console.log(stationData);
-    closestStationsData.push(JSON.parse(stationData));
+  if (snowData["Change In Snow Depth (in)"] >= 6) {
+    powMeterImage.src = "./assets/images/rad.png";
+  } else if (
+    snowData["Change In Snow Depth (in)"] >= 1 &&
+    snowData["Change In Snow Depth (in)"] < 6
+  ) {
+    powMeterImage.src = "./assets/images/good.png";
+  } else {
+    powMeterImage.src = "./assets/images/bad.png";
   }
-  return closestStationsData;
 }
 
 function init() {
