@@ -300,38 +300,42 @@ async function displaySnowConditions(skiArea) {
 
   // Data is:
   // {
-  //   elevation: 9240,
-  //   location: {
-  //     lat: 40.22861,
-  //     lng: -106.59528,
+  //   station_information: {
+  //     name: "Loveland Basin",
+  //     triplet: "602:CO:SNTL",
+  //     elevation: 11427,
+  //     location: {
+  //       lat: 39.67428,
+  //       lng: -105.90264,
+  //     },
+  //     distance: "0.50",
   //   },
-  //   name: "BUFFALO PARK",
-  //   timezone: -7,
-  //   triplet: "913:CO:SNTL",
-  //   wind: false,
-  //   Date: "2022-12-14",
-  //   distance: 5.52,
-  //   "Snow Water Equivalent (in)": "4.2",
-  //   "Change In Snow Water Equivalent (in)": "0.1",
-  //   "Snow Depth (in)": "22",
-  //   "Change In Snow Depth (in)": "1",
-  //   "Observed Air Temperature (degrees farenheit)": "14",
+  //   data: [
+  //     {
+  //       Date: "2023-01-26",
+  //       "Snow Water Equivalent (in)": "10.6",
+  //       "Change In Snow Water Equivalent (in)": "0.1",
+  //       "Snow Depth (in)": "46",
+  //       "Change In Snow Depth (in)": "1",
+  //       "Observed Air Temperature (degrees farenheit)": "0.1",
+  //     },
+  //   ],
   // }
 
-  lblDate.textContent = `Date: ${snowData.Date}`;
-  lblSNOTELName.textContent = `SNOTEL Name: ${snowData.name}`;
-  lblElevation.textContent = `Elevation: ${snowData.elevation} ft`;
-  lblDistance.textContent = `Distance to ski area: ${snowData.distance} mi`;
-  lblSnowDepth.textContent = `Snow Depth: ${snowData["Snow Depth (in)"]}"`;
-  lblChangeInSnowDepth.textContent = `Change In Snow Depth: ${snowData["Change In Snow Depth (in)"]}"`;
-  lblAirTemperature.textContent = `Air Temperature: ${snowData["Observed Air Temperature (degrees farenheit)"]}  \xB0F`;
+  lblDate.textContent = `Date: ${snowData.data[0].Date}`;
+  lblSNOTELName.textContent = `SNOTEL Name: ${snowData.station_information.name}`;
+  lblElevation.textContent = `Elevation: ${snowData.station_information.elevation} ft`;
+  lblDistance.textContent = `Distance to ski area: ${snowData.station_information.distance} mi`;
+  lblSnowDepth.textContent = `Snow Depth: ${snowData.data[0]["Snow Depth (in)"]}"`;
+  lblChangeInSnowDepth.textContent = `Change In Snow Depth: ${snowData.data[0]["Change In Snow Depth (in)"]}"`;
+  lblAirTemperature.textContent = `Air Temperature: ${snowData.data[0]["Observed Air Temperature (degrees farenheit)"]}  \xB0F`;
 
-  if (snowData["Change In Snow Depth (in)"] >= 6) {
+  let intChangeInSnowDepth = parseInt(
+    snowData.data[0]["Change In Snow Depth (in)"]
+  );
+  if (intChangeInSnowDepth >= 6) {
     powMeterImage.src = "./assets/images/rad.png";
-  } else if (
-    snowData["Change In Snow Depth (in)"] >= 1 &&
-    snowData["Change In Snow Depth (in)"] < 6
-  ) {
+  } else if (intChangeInSnowDepth >= 1 && intChangeInSnowDepth < 6) {
     powMeterImage.src = "./assets/images/good.png";
   } else {
     powMeterImage.src = "./assets/images/bad.png";

@@ -2,6 +2,7 @@
 let chkEpic = document.querySelector("#chkEpic");
 let chkIkon = document.querySelector("#chkIkon");
 let chkIndependent = document.querySelector("#chkIndependent");
+let chkSNOTEL = document.querySelector("#chkSNOTEL");
 let modalProfileFromHomePage = document.getElementById(
   "modal-profile-homepage-button"
 );
@@ -15,6 +16,7 @@ modalProfileFromHomePage.addEventListener("click", renderProfileModal);
 chkEpic.addEventListener("click", passChecked);
 chkIkon.addEventListener("click", passChecked);
 chkIndependent.addEventListener("click", passChecked);
+chkSNOTEL.addEventListener("click", passChecked);
 
 //section:functions and event handlers go here 👇
 // This function initializes the map
@@ -141,6 +143,76 @@ function displayMarkers(pass) {
   }
 }
 
+// This function displays the SNOTEL markers in Colorado
+async function displaySNOTELMarkers() {
+  const SNOTELIcon = L.Icon.extend({
+    options: {
+      iconUrl: "./assets/images/snowflake.png",
+      shadowUrl: "./assets/images/snowflake.shadow.png",
+      iconSize: [32, 32],
+      shadowSize: [59, 32],
+      iconAnchor: [16, 32],
+      shadowAnchor: [16, 32],
+      tooltipAnchor: [10, -24],
+    },
+  });
+
+  let stationIcon = new SNOTELIcon();
+
+  var markerOptions = {
+    icon: stationIcon,
+    riseOnHover: true,
+  };
+
+  var toolTipOptions = {
+    offset: [0, 0],
+    direction: "right",
+    opacity: 0.8,
+  };
+
+  let snotelStationsInCO = await getSNOTELStations("CO");
+
+  for (station of snotelStationsInCO) {
+    var marker = L.marker(
+      [station.location.lat, station.location.lng],
+      markerOptions
+    ).addTo(markers);
+
+    marker.bindTooltip(`<h4>${station.name}</h4>`, toolTipOptions);
+
+    function markerClick(event) {
+      const clickedStation = snotelStations.find(
+        (element) =>
+          element.location.lat === event.latlng.lat &&
+          element.location.lng === event.latlng.lng
+      );
+
+      // Initial popup text with indeterminate progress bar
+      let popupText = `<p><h4>SNOTEL: ${clickedStation.name}</h4>
+                ID: ${clickedStation.triplet}<br />
+                Elevation: ${clickedStation.elevation} ft</p>
+                <p><progress class="progress is-small is-info" max="100"></progress></p>`;
+
+      let popupOptions = {
+        autoPan: true,
+        keepInView: true,
+        offset: [0, -24],
+      };
+
+      let popup = L.popup(popupOptions)
+        .setLatLng({
+          lat: clickedStation.location.lat,
+          lng: clickedStation.location.lng,
+        })
+        .setContent(popupText)
+        .openOn(map);
+
+      displayClickedSNOTELDataInPopup(clickedStation.triplet, popup);
+    }
+    marker.addEventListener("click", markerClick);
+  }
+}
+
 // This function gets the user's favorite resorts
 function getFavoriteResorts() {
   let favoriteResorts = [];
@@ -154,34 +226,78 @@ function getFavoriteResorts() {
 }
 
 // This function fetches and displays the SNOTEL data in the popup.
+async function displayClickedSNOTELDataInPopup(triplet, popup) {
+  const snowData = await getStationData(triplet);
+
+  // Data is:
+  // {
+  //   station_information: {
+  //     name: "Loveland Basin",
+  //     triplet: "602:CO:SNTL",
+  //     elevation: 11427,
+  //     location: {
+  //       lat: 39.67428,
+  //       lng: -105.90264,
+  //     },
+  //     distance: "0.50",
+  //   },
+  //   data: [
+  //     {
+  //       Date: "2023-01-26",
+  //       "Snow Water Equivalent (in)": "10.6",
+  //       "Change In Snow Water Equivalent (in)": "0.1",
+  //       "Snow Depth (in)": "46",
+  //       "Change In Snow Depth (in)": "1",
+  //       "Observed Air Temperature (degrees farenheit)": "0.1",
+  //     },
+  //   ],
+  // }
+
+  // Update the popup text with SNOTEL data
+  popupText = `<p><h4>SNOTEL: ${snowData.station_information.name}</h4>
+                ID: ${snowData.station_information.triplet}<br />
+                Elevation: ${snowData.station_information.elevation} ft</p>
+                <p>Snow Depth: ${snowData.data[0]["Snow Depth (in)"]}"<br />
+                Change In Snow Depth: ${snowData.data[0]["Change In Snow Depth (in)"]}"<br />
+                Air Temperature: ${snowData.data[0]["Observed Air Temperature (degrees farenheit)"]} \xB0F</p>
+              `;
+
+  popup.setContent(popupText);
+}
+
+// This function fetches and displays the SNOTEL data in the popup.
 async function displaySNOTELDataInPopup(skiArea, popup) {
   const snowData = await getSnowDataForClosestStation(skiArea);
 
   // Data is:
   // {
-  //   elevation: 9240,
-  //   location: {
-  //     lat: 40.22861,
-  //     lng: -106.59528,
+  //   station_information: {
+  //     name: "Loveland Basin",
+  //     triplet: "602:CO:SNTL",
+  //     elevation: 11427,
+  //     location: {
+  //       lat: 39.67428,
+  //       lng: -105.90264,
+  //     },
+  //     distance: "0.50",
   //   },
-  //   name: "BUFFALO PARK",
-  //   timezone: -7,
-  //   triplet: "913:CO:SNTL",
-  //   wind: false,
-  //   Date: "2022-12-14",
-  //   distance: 5.52,
-  //   "Snow Water Equivalent (in)": "4.2",
-  //   "Change In Snow Water Equivalent (in)": "0.1",
-  //   "Snow Depth (in)": "22",
-  //   "Change In Snow Depth (in)": "1",
-  //   "Observed Air Temperature (degrees farenheit)": "14",
+  //   data: [
+  //     {
+  //       Date: "2023-01-26",
+  //       "Snow Water Equivalent (in)": "10.6",
+  //       "Change In Snow Water Equivalent (in)": "0.1",
+  //       "Snow Depth (in)": "46",
+  //       "Change In Snow Depth (in)": "1",
+  //       "Observed Air Temperature (degrees farenheit)": "0.1",
+  //     },
+  //   ],
   // }
 
   // Update the popup text with SNOTEL data
   popupText = `<h4>${skiArea.name}</h4>
-                <p>Snow Depth: ${snowData["Snow Depth (in)"]}"<br />
-                Change In Snow Depth: ${snowData["Change In Snow Depth (in)"]}"<br />
-                Air Temperature: ${snowData["Observed Air Temperature (degrees farenheit)"]} \xB0F</p>
+                <p>Snow Depth: ${snowData.data[0]["Snow Depth (in)"]}"<br />
+                Change In Snow Depth: ${snowData.data[0]["Change In Snow Depth (in)"]}"<br />
+                Air Temperature: ${snowData.data[0]["Observed Air Temperature (degrees farenheit)"]} \xB0F</p>
                 <a class="button custom-button is-small is-info is-light" href="./dashboard.html?resort=${skiArea.name}">Details ➡️</a>
               `;
 
@@ -201,6 +317,9 @@ function passChecked(event) {
   }
   if (chkIndependent.checked) {
     displayMarkers(chkIndependent.value);
+  }
+  if (chkSNOTEL.checked) {
+    displaySNOTELMarkers();
   }
 }
 
