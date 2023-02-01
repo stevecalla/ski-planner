@@ -1,20 +1,49 @@
-function getClosestStations(skiArea, number) {
-  const stations = snotelStations;
+async function getSNOTELStations(state) {
+  let requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
 
-  stations.sort((a, b) => {
-    const aDistance = getDistanceAsCrowFlies(
-      [a.location.lng, a.location.lat],
-      [skiArea.longitude, skiArea.latitude]
-    );
-    const bDistance = getDistanceAsCrowFlies(
-      [b.location.lng, b.location.lat],
-      [skiArea.longitude, skiArea.latitude]
-    );
+  var params = {
+    state: state,
+  };
 
-    return aDistance - bDistance;
-  });
+  let apiUrl = "https://powderlines.kellysoftware.org/api/stations?";
 
-  return stations.slice(0, number);
+  for (let p in params) {
+    apiUrl += `${p}=${params[p]}&`;
+  }
+  apiUrl = encodeURI(apiUrl.slice(0, -1));
+
+  const response = await fetch(apiUrl, requestOptions);
+
+  const data = await response.json();
+  return data;
+}
+
+async function getClosestStations(skiArea, number) {
+  let requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+
+  var params = {
+    lat: skiArea.latitude,
+    lng: skiArea.longitude,
+    count: number,
+  };
+
+  let apiUrl = "https://powderlines.kellysoftware.org/api/closest_stations?";
+
+  for (let p in params) {
+    apiUrl += `${p}=${params[p]}&`;
+  }
+  apiUrl = encodeURI(apiUrl.slice(0, -1));
+
+  const response = await fetch(apiUrl, requestOptions);
+
+  const data = await response.json();
+  return data;
 }
 
 // Modified from https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
@@ -45,94 +74,69 @@ async function getStationData(triplet) {
     const lcData = JSON.parse(localStorage.getItem(triplet));
     // check the date
 
-    // Create date from input value
-    let lcDate = new Date(`${lcData.Date}T12:00`);
+    if (lcData.data) {
+      // Create date from input value
+      let lcDate = new Date(`${lcData.data[0].Date}T12:00`);
 
-    // Get today's date
-    let today = new Date();
+      // Get today's date
+      let today = new Date();
 
-    // call setHours to take the time out of the comparison
-    if (lcDate.setHours(0, 0, 0, 0) == today.setHours(0, 0, 0, 0)) {
-      // Date equals today's date
-      // return the object in localStorage
-      return JSON.stringify(lcData);
+      // call setHours to take the time out of the comparison
+      if (lcDate.setHours(0, 0, 0, 0) == today.setHours(0, 0, 0, 0)) {
+        // Date equals today's date
+        // return the object in localStorage
+        return lcData;
+      }
     }
   }
 
-  var requestOptions = {
+  let requestOptions = {
     method: "GET",
-    mode: "cors", // no-cors, *cors, same-origin
-    cache: "default", // *default, no-cache, reload, force-cache, only-if-cached
-    //credentials: "same-origin", // include, *same-origin, omit
-    headers: {
-      "Content-Type": "application/json",
-      //"Content-Type": "application/x-www-form-urlencoded",
-    },
-    redirect: "follow", // manual, *follow, error
-    //referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    redirect: "follow",
   };
 
-  let apiUrl = `https://wcc.sc.egov.usda.gov/reportGenerator/view_csv/customSingleStationReport/daily/${triplet}%7Cid%3D%22%22%7Cname/-0%2C0/WTEQ%3A%3Avalue%2CWTEQ%3A%3Adelta%2CSNWD%3A%3Avalue%2CSNWD%3A%3Adelta%2CTOBS%3A%3Avalue`;
+  var params = {
+    days: 0,
+  };
+
+  let apiUrl = `https://powderlines.kellysoftware.org/api/station/${triplet}?`;
+
+  for (let p in params) {
+    apiUrl += `${p}=${params[p]}&`;
+  }
+  apiUrl = encodeURI(apiUrl.slice(0, -1));
 
   const response = await fetch(apiUrl, requestOptions);
-  const data = await response.text();
 
-  const lines = data.split("\n");
-  let filteredLines = lines.filter((line) => line.indexOf("#") != 0);
-  filteredLines = filteredLines.filter((line) => line.trim() != "");
+  const data = await response.json();
 
-  filteredLines[0] = filteredLines[0].replace(
-    "Snow Water Equivalent (in) Start of Day Values",
-    "Snow Water Equivalent (in)"
-  );
+  localStorage.setItem(triplet, JSON.stringify(data));
 
-  filteredLines[0] = filteredLines[0].replace(
-    "Snow Depth (in) Start of Day Values",
-    "Snow Depth (in)"
-  );
-
-  filteredLines[0] = filteredLines[0].replace(
-    "Air Temperature Observed (degF) Start of Day Values",
-    "Observed Air Temperature (degrees farenheit)"
-  );
-
-  let obj = {};
-
-  const keys = filteredLines[0].split(",");
-
-  if (filteredLines[1]) {
-    const values = filteredLines[1].split(",");
-    for (let j = 0; j < keys.length; j++) {
-      obj[keys[j]] = values[j];
-    }
-  } else {
-    return null;
-  }
-
-  const jsonObj = JSON.stringify(obj);
-
-  localStorage.setItem(triplet, jsonObj);
-
-  return jsonObj;
+  return data;
 }
 
 async function getSnowDataForClosestStation(skiArea) {
-  const closestStations = getClosestStations(skiArea, 3);
+  const closestStations = await getClosestStations(skiArea, 3);
 
   for (let station of closestStations) {
-    const returnData = await getStationData(station.triplet);
-    if (returnData) {
-      const stationData = JSON.parse(returnData);
+    const returnData = await getStationData(
+      station.station_information.triplet
+    );
+    if (returnData.data) {
+      const stationData = returnData;
 
       const stationDistance = getDistanceAsCrowFlies(
-        [station.location.lng, station.location.lat],
+        [
+          station.station_information.location.lng,
+          station.station_information.location.lat,
+        ],
         [skiArea.longitude, skiArea.latitude]
       );
 
-      stationData.distance = stationDistance.toFixed(2);
-
-      const mergedStation = { ...station, ...stationData };
-      return mergedStation;
+      if (!("distance" in stationData.station_information)) {
+        stationData.station_information.distance = stationDistance.toFixed(2);
+      }
+      return stationData;
     }
   }
   return null; // No data in the closest 3 stations
